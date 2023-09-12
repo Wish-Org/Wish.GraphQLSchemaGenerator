@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34024.191
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wish.GraphQLSchemaGenerator", "Wish.GraphQLSchemaGenerator\Wish.GraphQLSchemaGenerator.csproj", "{E35B5906-A35D-4D28-AAA2-0000DCA00FDF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BEB0A1FF-E00D-48A7-A74B-CAE0F46A64DE}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E35B5906-A35D-4D28-AAA2-0000DCA00FDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E35B5906-A35D-4D28-AAA2-0000DCA00FDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E35B5906-A35D-4D28-AAA2-0000DCA00FDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E35B5906-A35D-4D28-AAA2-0000DCA00FDF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {97C71B00-F7B9-4E0C-B55D-6A0003371842}
+	EndGlobalSection
+EndGlobal
