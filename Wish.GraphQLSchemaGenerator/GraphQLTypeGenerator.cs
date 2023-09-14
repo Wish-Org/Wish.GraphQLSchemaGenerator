@@ -88,9 +88,9 @@ namespace Wish.GraphQLSchemaGenerator
         private static readonly Dictionary<string, string> _builtInScalarNameToTypeName = new()
             {
                 { "String", "string" },
-                { "Int", "int?" },
-                { "Float", "float?" },
-                { "Boolean", "bool?" },
+                { "Int", "int" },
+                { "Float", "float" },
+                { "Boolean", "bool" },
                 { "ID", "string" },
             };
 
