@@ -1,7 +1,8 @@
+#nullable enable
 using System;
 using System.Text.Json.Serialization;
 
-namespace Test
+namespace shopify
 {
     ///<summary>
     ///A checkout that was abandoned by the customer.
@@ -306,7 +307,7 @@ namespace Test
     ///<summary>
     ///Represents an operation publishing all products to a publication.
     ///</summary>
-    public class AddAllProductsOperation : INode, IResourceOperation
+    public class AddAllProductsOperation : INode, IResourceOperation, IPublicationOperation
     {
         ///<summary>
         ///A globally-unique ID.
@@ -442,7 +443,7 @@ namespace Test
     ///<summary>
     ///Targets all items the cart for a specified discount.
     ///</summary>
-    public class AllDiscountItems
+    public class AllDiscountItems : IDiscountItems
     {
         ///<summary>
         ///Whether all items are eligible for the discount. This value always returns `true`.
@@ -831,7 +832,7 @@ namespace Test
     ///<summary>
     ///Represents an installed application on a shop.
     ///</summary>
-    public class AppInstallation : IHasMetafields, INode
+    public class AppInstallation : IHasMetafields, INode, IMetafieldReferencer
     {
         ///<summary>
         ///The access scopes granted to the application by a merchant during installation.
@@ -1206,7 +1207,7 @@ namespace Test
     ///The object contains an interval (the frequency at which the shop is billed for an app subscription) and
     ///a price (the amount to be charged to the subscribing shop at each interval).
     ///</summary>
-    public class AppRecurringPricing
+    public class AppRecurringPricing : IAppPricingDetails
     {
         ///<summary>
         ///The discount applied to the subscription for a given number of billing intervals.
@@ -1553,7 +1554,7 @@ namespace Test
     ///<summary>
     ///The fixed amount value of a discount.
     ///</summary>
-    public class AppSubscriptionDiscountAmount
+    public class AppSubscriptionDiscountAmount : IAppSubscriptionDiscountValue
     {
         ///<summary>
         ///The fixed amount value of a discount.
@@ -1564,7 +1565,7 @@ namespace Test
     ///<summary>
     ///The percentage value of a discount.
     ///</summary>
-    public class AppSubscriptionDiscountPercentage
+    public class AppSubscriptionDiscountPercentage : IAppSubscriptionDiscountValue
     {
         ///<summary>
         ///The percentage value of a discount.
@@ -1792,7 +1793,7 @@ namespace Test
     ///Defines a usage pricing model for the app subscription.
     ///These charges are variable based on how much the merchant uses the app.
     ///</summary>
-    public class AppUsagePricing
+    public class AppUsagePricing : IAppPricingDetails
     {
         ///<summary>
         ///The total usage records for interval.
@@ -3191,7 +3192,7 @@ namespace Test
     ///<summary>
     ///Card payment details related to a transaction.
     ///</summary>
-    public class CardPaymentDetails
+    public class CardPaymentDetails : IPaymentDetails
     {
         ///<summary>
         ///The response code from the address verification system (AVS). The code is always a single letter.
@@ -3486,7 +3487,7 @@ namespace Test
     ///<summary>
     ///A catalog csv operation represents a CSV file import.
     ///</summary>
-    public class CatalogCsvOperation : INode, IResourceOperation
+    public class CatalogCsvOperation : INode, IResourceOperation, IPublicationOperation
     {
         ///<summary>
         ///A globally-unique ID.
@@ -4068,7 +4069,7 @@ namespace Test
     ///
     ///Collections can also be created for a custom group of products. These are called custom or manual collections.
     ///</summary>
-    public class Collection : IHasMetafieldDefinitions, IHasMetafields, IHasPublishedTranslations, INode, IPublishable
+    public class Collection : IHasMetafieldDefinitions, IHasMetafields, IHasPublishedTranslations, INode, IPublishable, IMetafieldReference, IMetafieldReferencer
     {
         ///<summary>
         ///The number of publications a resource is published to without feedback errors.
@@ -4598,7 +4599,7 @@ namespace Test
     ///<summary>
     ///Identifies a metafield definition used as a rule for the smart collection.
     ///</summary>
-    public class CollectionRuleMetafieldCondition
+    public class CollectionRuleMetafieldCondition : ICollectionRuleConditionObject, ICollectionRuleConditionsRuleObject
     {
         ///<summary>
         ///The metafield definition associated with the condition.
@@ -4609,7 +4610,7 @@ namespace Test
     ///<summary>
     ///Specifies the condition for a Product Category field.
     ///</summary>
-    public class CollectionRuleProductCategoryCondition
+    public class CollectionRuleProductCategoryCondition : ICollectionRuleConditionObject
     {
         ///<summary>
         ///The value of the condition.
@@ -4684,7 +4685,7 @@ namespace Test
     ///<summary>
     ///Specifies the condition for a text field.
     ///</summary>
-    public class CollectionRuleTextCondition
+    public class CollectionRuleTextCondition : ICollectionRuleConditionObject
     {
         ///<summary>
         ///The value of the condition.
@@ -8037,7 +8038,7 @@ namespace Test
     ///
     ///**Caution:** Only use this data if it's required for your app's functionality. Shopify will restrict [access to scopes](https://shopify.dev/api/usage/access-scopes) for apps that don't have a legitimate use for the associated data.
     ///</summary>
-    public class Customer : ICommentEventSubject, IHasEvents, IHasMetafieldDefinitions, IHasMetafields, ILegacyInteroperability, INode
+    public class Customer : ICommentEventSubject, IHasEvents, IHasMetafieldDefinitions, IHasMetafields, ILegacyInteroperability, INode, ICommentEventEmbed, IMetafieldReferencer, IPurchasingEntity
     {
         ///<summary>
         ///Whether the customer has agreed to receive marketing material.
@@ -8320,7 +8321,7 @@ namespace Test
     ///<summary>
     ///Represents a card instrument for customer payment method.
     ///</summary>
-    public class CustomerCreditCard
+    public class CustomerCreditCard : ICustomerPaymentInstrument
     {
         ///<summary>
         ///The billing address of the card.
@@ -9697,7 +9698,7 @@ namespace Test
     ///<summary>
     ///Represents a PayPal instrument for customer payment method.
     ///</summary>
-    public class CustomerPaypalBillingAgreement
+    public class CustomerPaypalBillingAgreement : ICustomerPaymentInstrument
     {
         ///<summary>
         ///The billing address of this payment method.
@@ -10012,7 +10013,7 @@ namespace Test
     ///<summary>
     ///Represents a Shop Pay card instrument for customer payment method.
     ///</summary>
-    public class CustomerShopPayAgreement
+    public class CustomerShopPayAgreement : ICustomerPaymentInstrument
     {
         ///<summary>
         ///The billing address of the card.
@@ -10874,7 +10875,7 @@ namespace Test
     ///<summary>
     ///A delivery customization.
     ///</summary>
-    public class DeliveryCustomization : IHasMetafieldDefinitions, IHasMetafields, INode
+    public class DeliveryCustomization : IHasMetafieldDefinitions, IHasMetafields, INode, IMetafieldReferencer
     {
         ///<summary>
         ///The enabled status of the delivery customization.
@@ -11427,7 +11428,7 @@ namespace Test
     ///A participant defines carrier-calculated rates for shipping services
     ///with a possible merchant-defined fixed fee or a percentage-of-rate fee.
     ///</summary>
-    public class DeliveryParticipant : INode
+    public class DeliveryParticipant : INode, IDeliveryRateProvider
     {
         ///<summary>
         ///Whether to display new shipping services automatically to the customer when the service becomes available.
@@ -11684,7 +11685,7 @@ namespace Test
     ///<summary>
     ///The merchant-defined rate of the [DeliveryMethodDefinition](https://shopify.dev/api/admin-graphql/latest/objects/DeliveryMethodDefinition).
     ///</summary>
-    public class DeliveryRateDefinition : INode
+    public class DeliveryRateDefinition : INode, IDeliveryRateProvider
     {
         ///<summary>
         ///A globally-unique ID.
@@ -11830,10 +11831,6 @@ namespace Test
         ///</summary>
         public DateTime? createdAt { get; set; }
         ///<summary>
-        ///The class of the discount for combining purposes.
-        ///</summary>
-        public DiscountClass? discountClass { get; set; }
-        ///<summary>
         ///The date and time when the discount ends. For open-ended discounts, use `null`.
         ///</summary>
         public DateTime? endsAt { get; set; }
@@ -11877,7 +11874,7 @@ namespace Test
     ///<summary>
     ///The fixed amount value of a discount, and whether the amount is applied to each entitled item or spread evenly across the entitled items.
     ///</summary>
-    public class DiscountAmount
+    public class DiscountAmount : IDiscountCustomerGetsValue
     {
         ///<summary>
         ///The value of the discount.
@@ -12052,10 +12049,6 @@ namespace Test
         ///</summary>
         public DateTime? createdAt { get; set; }
         ///<summary>
-        ///The class of the discount for combining purposes.
-        ///</summary>
-        public DiscountClass? discountClass { get; set; }
-        ///<summary>
         ///The date and time when the discount ends. For open-ended discounts, use `null`.
         ///</summary>
         public DateTime? endsAt { get; set; }
@@ -12095,7 +12088,7 @@ namespace Test
     ///<summary>
     ///An automatic app discount.
     ///</summary>
-    public class DiscountAutomaticApp
+    public class DiscountAutomaticApp : IDiscount, IDiscountAutomatic
     {
         ///<summary>
         ///The app discount type providing the discount type.
@@ -12180,7 +12173,7 @@ namespace Test
     ///<summary>
     ///An automatic discount that offers customers a percentage discount, or fixed amount discount, on specific products, collections, or the entire order.
     ///</summary>
-    public class DiscountAutomaticBasic
+    public class DiscountAutomaticBasic : IDiscount, IDiscountAutomatic
     {
         ///<summary>
         ///The number of times the discount has been used. This value is updated asynchronously and can be different than the actual usage count.
@@ -12288,7 +12281,7 @@ namespace Test
     ///<summary>
     ///An automatic discount that offers customers a Buy X, Get Y (BXGY) discount.
     ///</summary>
-    public class DiscountAutomaticBxgy : IHasEvents, INode
+    public class DiscountAutomaticBxgy : IHasEvents, INode, IDiscount, IDiscountAutomatic
     {
         ///<summary>
         ///The number of times the discount has been used. This value is updated asynchronously and can be different than the actual usage count.
@@ -12453,7 +12446,7 @@ namespace Test
     ///<summary>
     ///A node containing an automatic discount and its related events.
     ///</summary>
-    public class DiscountAutomaticNode : IHasEvents, IHasMetafieldDefinitions, IHasMetafields, INode
+    public class DiscountAutomaticNode : IHasEvents, IHasMetafieldDefinitions, IHasMetafields, INode, IMetafieldReferencer
     {
         ///<summary>
         ///The automatic discount object.
@@ -12585,10 +12578,6 @@ namespace Test
         ///</summary>
         public IDiscountCustomerSelection? customerSelection { get; set; }
         ///<summary>
-        ///The class of the discount for combining purposes.
-        ///</summary>
-        public DiscountClass? discountClass { get; set; }
-        ///<summary>
         ///The date and time when the discount ends. For open-ended discounts, use `null`.
         ///</summary>
         public DateTime? endsAt { get; set; }
@@ -12644,7 +12633,7 @@ namespace Test
     ///<summary>
     ///A code app discount.
     ///</summary>
-    public class DiscountCodeApp
+    public class DiscountCodeApp : IDiscount, IDiscountCode
     {
         ///<summary>
         ///The app discount type providing the discount type.
@@ -12800,7 +12789,7 @@ namespace Test
     ///<summary>
     ///A code discount that offers customers a percentage or fixed amount discount on specific products, collections, or the entire order.
     ///</summary>
-    public class DiscountCodeBasic
+    public class DiscountCodeBasic : IDiscount, IDiscountCode
     {
         ///<summary>
         ///Whether the discount can be applied only once per customer.
@@ -12970,7 +12959,7 @@ namespace Test
     ///<summary>
     ///A code discount that offers customers a Buy X, Get Y (BXGY) discount.
     ///</summary>
-    public class DiscountCodeBxgy
+    public class DiscountCodeBxgy : IDiscount, IDiscountCode
     {
         ///<summary>
         ///Whether the discount can be applied only once per customer.
@@ -13121,7 +13110,7 @@ namespace Test
     ///<summary>
     ///A code discount that offers customers free shipping on their order.
     ///</summary>
-    public class DiscountCodeFreeShipping
+    public class DiscountCodeFreeShipping : IDiscount, IDiscountCode
     {
         ///<summary>
         ///Whether the discount applies on regular one-time-purchase shipping lines.
@@ -13258,7 +13247,7 @@ namespace Test
     ///<summary>
     ///A node containing a code discount and its related events.
     ///</summary>
-    public class DiscountCodeNode : IHasEvents, IHasMetafieldDefinitions, IHasMetafields, INode
+    public class DiscountCodeNode : IHasEvents, IHasMetafieldDefinitions, IHasMetafields, INode, IMetafieldReferencer
     {
         ///<summary>
         ///The underlying code discount object.
@@ -13370,7 +13359,7 @@ namespace Test
     ///<summary>
     ///A list of collections that the discount can have as a prerequisite or a list of collections to which the discount can be applied.
     ///</summary>
-    public class DiscountCollections
+    public class DiscountCollections : IDiscountItems
     {
         ///<summary>
         ///The list of collections that the discount can have as a prerequisite or the list of collections to which the discount can be applied.
@@ -13400,7 +13389,7 @@ namespace Test
     ///<summary>
     ///The shipping destinations where the discount can be applied.
     ///</summary>
-    public class DiscountCountries
+    public class DiscountCountries : IDiscountShippingDestinationSelection
     {
         ///<summary>
         ///The codes for the countries where the discount can be applied.
@@ -13415,7 +13404,7 @@ namespace Test
     ///<summary>
     ///The `DiscountCountryAll` object lets you target all countries as shipping destination for discount eligibility.
     ///</summary>
-    public class DiscountCountryAll
+    public class DiscountCountryAll : IDiscountShippingDestinationSelection
     {
         ///<summary>
         ///Whether the discount can be applied to all countries as shipping destination. This value is always `true`.
@@ -13426,7 +13415,7 @@ namespace Test
     ///<summary>
     ///The `DiscountCustomerAll` object lets you target all customers for discount eligibility.
     ///</summary>
-    public class DiscountCustomerAll
+    public class DiscountCustomerAll : IDiscountCustomerSelection
     {
         ///<summary>
         ///Whether the discount can be applied by all customers. This value is always `true`.
@@ -13501,7 +13490,7 @@ namespace Test
     ///<summary>
     ///A list of customer segments that contain the customers that the discount applies to.
     ///</summary>
-    public class DiscountCustomerSegments
+    public class DiscountCustomerSegments : IDiscountCustomerSelection
     {
         ///<summary>
         ///A list of customer segments that contain the customers who can use the discount.
@@ -13526,7 +13515,7 @@ namespace Test
     ///<summary>
     ///A list of customers eligible for the discount.
     ///</summary>
-    public class DiscountCustomers
+    public class DiscountCustomers : IDiscountCustomerSelection
     {
         ///<summary>
         ///The list of customers eligible for the discount.
@@ -13672,7 +13661,7 @@ namespace Test
     ///<summary>
     ///The minimum quantity of items required for the discount to apply.
     ///</summary>
-    public class DiscountMinimumQuantity
+    public class DiscountMinimumQuantity : IDiscountMinimumRequirement
     {
         ///<summary>
         ///The minimum quantity of items that's required for the discount to be applied.
@@ -13695,7 +13684,7 @@ namespace Test
     ///<summary>
     ///The minimum subtotal required for the discount to apply.
     ///</summary>
-    public class DiscountMinimumSubtotal
+    public class DiscountMinimumSubtotal : IDiscountMinimumRequirement
     {
         ///<summary>
         ///The minimum subtotal that's required for the discount to be applied.
@@ -13706,7 +13695,7 @@ namespace Test
     ///<summary>
     ///A discount wrapper node.
     ///</summary>
-    public class DiscountNode : IHasEvents, IHasMetafieldDefinitions, IHasMetafields, INode
+    public class DiscountNode : IHasEvents, IHasMetafieldDefinitions, IHasMetafields, INode, IMetafieldReferencer
     {
         ///<summary>
         ///A discount.
@@ -13779,7 +13768,7 @@ namespace Test
     ///<summary>
     ///The quantity of items discounted, the discount value, and how the discount will be applied.
     ///</summary>
-    public class DiscountOnQuantity
+    public class DiscountOnQuantity : IDiscountCustomerGetsValue
     {
         ///<summary>
         ///The discount's effect on qualifying items.
@@ -13794,7 +13783,7 @@ namespace Test
     ///<summary>
     ///A discount effect that gives customers a percentage off of specified items on their order.
     ///</summary>
-    public class DiscountPercentage
+    public class DiscountPercentage : IDiscountCustomerGetsValue, IDiscountEffect
     {
         ///<summary>
         ///The percentage value of the discount.
@@ -13805,7 +13794,7 @@ namespace Test
     ///<summary>
     ///A list of products and product variants that the discount can have as a prerequisite or a list of products and product variants to which the discount can be applied.
     ///</summary>
-    public class DiscountProducts
+    public class DiscountProducts : IDiscountItems
     {
         ///<summary>
         ///The list of product variants that the discount can have as a prerequisite or the list of product variants to which the discount can be applied.
@@ -13820,7 +13809,7 @@ namespace Test
     ///<summary>
     ///A purchase amount in the context of a discount. This object can be used to define the minimum purchase amount required for a discount to be applicable.
     ///</summary>
-    public class DiscountPurchaseAmount
+    public class DiscountPurchaseAmount : IDiscountCustomerBuysValue
     {
         ///<summary>
         ///The purchase amount in decimal format.
@@ -13831,7 +13820,7 @@ namespace Test
     ///<summary>
     ///A quantity of items in the context of a discount. This object can be used to define the minimum quantity of items required to apply a discount. Alternatively, it can be used to define the quantity of items that can be discounted.
     ///</summary>
-    public class DiscountQuantity
+    public class DiscountQuantity : IDiscountCustomerBuysValue
     {
         ///<summary>
         ///The quantity of items.
@@ -14340,7 +14329,7 @@ namespace Test
     ///
     ///**Caution:** Only use this data if it's required for your app's functionality. Shopify will restrict [access to scopes](https://shopify.dev/api/usage/access-scopes) for apps that don't have a legitimate use for the associated data.
     ///</summary>
-    public class DraftOrder : ICommentEventSubject, IHasEvents, IHasLocalizationExtensions, IHasMetafields, ILegacyInteroperability, INavigable, INode
+    public class DraftOrder : ICommentEventSubject, IHasEvents, IHasLocalizationExtensions, IHasMetafields, ILegacyInteroperability, INavigable, INode, ICommentEventEmbed, IMetafieldReferencer
     {
         ///<summary>
         ///The order-level discount applied to the draft order.
@@ -16927,7 +16916,7 @@ namespace Test
     ///
     ///[Learn about fulfillment workflows](https://shopify.dev/apps/fulfillment).
     ///</summary>
-    public class FulfillmentOrder : INode
+    public class FulfillmentOrder : INode, IMetafieldReferencer
     {
         ///<summary>
         ///The fulfillment order's assigned location. This is the location where the fulfillment is expected to happen.
@@ -18768,7 +18757,7 @@ namespace Test
     ///<summary>
     ///Represents any file other than HTML.
     ///</summary>
-    public class GenericFile : IFile, INode
+    public class GenericFile : IFile, INode, IMetafieldReference
     {
         ///<summary>
         ///A word or phrase to describe the contents or the function of a file.
@@ -21417,7 +21406,7 @@ namespace Test
     ///<summary>
     ///Represents the location where the physical good resides.
     ///</summary>
-    public class Location : IHasMetafieldDefinitions, IHasMetafields, ILegacyInteroperability, INode
+    public class Location : IHasMetafieldDefinitions, IHasMetafields, ILegacyInteroperability, INode, IMetafieldReferencer
     {
         ///<summary>
         ///Whether this location can be reactivated.
@@ -22317,7 +22306,7 @@ namespace Test
     ///[configure international pricing](https://shopify.dev/apps/internationalization/product-price-lists),
     ///or [add market-specific domains or subfolders](https://shopify.dev/api/admin-graphql/current/objects/MarketWebPresence).
     ///</summary>
-    public class Market : IHasMetafieldDefinitions, IHasMetafields, INode
+    public class Market : IHasMetafieldDefinitions, IHasMetafields, INode, IMetafieldReferencer
     {
         ///<summary>
         ///The catalogs that belong to the market.
@@ -24141,7 +24130,7 @@ namespace Test
     ///<summary>
     ///An image hosted on Shopify.
     ///</summary>
-    public class MediaImage : IFile, IHasMetafields, IMedia, INode
+    public class MediaImage : IFile, IHasMetafields, IMedia, INode, IMetafieldReference
     {
         ///<summary>
         ///A word or phrase to share the nature or contents of a media.
@@ -25717,7 +25706,7 @@ namespace Test
     ///<summary>
     ///Provides an object instance represented by a MetaobjectDefinition.
     ///</summary>
-    public class Metaobject : INode
+    public class Metaobject : INode, IMetafieldReference, IMetafieldReferencer
     {
         ///<summary>
         ///Metaobject capabilities for this Metaobject.
@@ -26459,7 +26448,7 @@ namespace Test
     ///<summary>
     ///A monetary value with currency.
     ///</summary>
-    public class MoneyV2
+    public class MoneyV2 : IDeliveryConditionCriteria, IPricingValue, ISellingPlanCheckoutChargeValue, ISellingPlanPricingPolicyAdjustmentValue
     {
         ///<summary>
         ///Decimal money amount.
@@ -28347,7 +28336,7 @@ namespace Test
     ///only useful to pass an article `id` to the `tagsAdd` mutation. For more information, refer to
     ///the [tagsAdd](https://shopify.dev/api/admin-graphql/latest/mutations/tagsadd) mutation.
     ///</summary>
-    public class OnlineStoreArticle : IHasPublishedTranslations, INavigable, INode
+    public class OnlineStoreArticle : IHasPublishedTranslations, INavigable, INode, IMetafieldReferencer
     {
         ///<summary>
         ///A default cursor that returns the single next record, sorted ascending by ID.
@@ -28367,7 +28356,7 @@ namespace Test
     ///Shopify stores come with a built-in blogging engine, allowing a shop to have one or more blogs.  Blogs are meant
     ///to be used as a type of magazine or newsletter for the shop, with content that changes over time.
     ///</summary>
-    public class OnlineStoreBlog : IHasPublishedTranslations, INode
+    public class OnlineStoreBlog : IHasPublishedTranslations, INode, IMetafieldReferencer
     {
         ///<summary>
         ///A globally-unique ID.
@@ -28382,7 +28371,7 @@ namespace Test
     ///<summary>
     ///A custom page on the Online Store.
     ///</summary>
-    public class OnlineStorePage : IHasPublishedTranslations, INavigable, INode
+    public class OnlineStorePage : IHasPublishedTranslations, INavigable, INode, IMetafieldReference, IMetafieldReferencer
     {
         ///<summary>
         ///A default cursor that returns the single next record, sorted ascending by ID.
@@ -28421,7 +28410,7 @@ namespace Test
     ///
     ///**Caution:** Only use this data if it's required for your app's functionality. Shopify will restrict [access to scopes](https://shopify.dev/api/usage/access-scopes) for apps that don't have a legitimate use for the associated data.
     ///</summary>
-    public class Order : ICommentEventSubject, IHasEvents, IHasLocalizationExtensions, IHasMetafieldDefinitions, IHasMetafields, ILegacyInteroperability, INode
+    public class Order : ICommentEventSubject, IHasEvents, IHasLocalizationExtensions, IHasMetafieldDefinitions, IHasMetafields, ILegacyInteroperability, INode, ICommentEventEmbed, IMetafieldReferencer
     {
         ///<summary>
         ///A list of addtional fees applied to the order.
@@ -29833,7 +29822,7 @@ namespace Test
     ///custom line item. For example, you might want to add gift wrapping service
     ///as a custom line item.
     ///</summary>
-    public class OrderStagedChangeAddCustomItem
+    public class OrderStagedChangeAddCustomItem : IOrderStagedChange
     {
         ///<summary>
         ///The price of an individual item without any discounts applied. This value can't be negative.
@@ -29852,7 +29841,7 @@ namespace Test
     ///<summary>
     ///The discount applied to an item that was added during the current order edit.
     ///</summary>
-    public class OrderStagedChangeAddLineItemDiscount
+    public class OrderStagedChangeAddLineItemDiscount : IOrderStagedChange
     {
         ///<summary>
         ///The description of the discount.
@@ -29872,7 +29861,7 @@ namespace Test
     ///A new [shipping line](https://shopify.dev/api/admin-graphql/latest/objects/shippingline)
     ///added as part of an order edit.
     ///</summary>
-    public class OrderStagedChangeAddShippingLine
+    public class OrderStagedChangeAddShippingLine : IOrderStagedChange
     {
         ///<summary>
         ///The phone number at the shipping address.
@@ -29895,7 +29884,7 @@ namespace Test
     ///<summary>
     ///A change to the order representing the addition of an existing product variant.
     ///</summary>
-    public class OrderStagedChangeAddVariant
+    public class OrderStagedChangeAddVariant : IOrderStagedChange
     {
         ///<summary>
         ///The quantity of the product variant that was added.
@@ -29929,7 +29918,7 @@ namespace Test
     ///<summary>
     ///An removal of items from an existing line item on the order.
     ///</summary>
-    public class OrderStagedChangeDecrementItem
+    public class OrderStagedChangeDecrementItem : IOrderStagedChange
     {
         ///<summary>
         ///The number of items removed.
@@ -29963,7 +29952,7 @@ namespace Test
     ///<summary>
     ///An addition of items to an existing line item on the order.
     ///</summary>
-    public class OrderStagedChangeIncrementItem
+    public class OrderStagedChangeIncrementItem : IOrderStagedChange
     {
         ///<summary>
         ///The number of items added.
@@ -30619,7 +30608,7 @@ namespace Test
     ///<summary>
     ///A payment customization.
     ///</summary>
-    public class PaymentCustomization : IHasMetafieldDefinitions, IHasMetafields, INode
+    public class PaymentCustomization : IHasMetafieldDefinitions, IHasMetafields, INode, IMetafieldReferencer
     {
         ///<summary>
         ///The enabled status of the payment customization.
@@ -32782,7 +32771,7 @@ namespace Test
     ///<summary>
     ///The value of a fixed amount price rule.
     ///</summary>
-    public class PriceRuleFixedAmountValue
+    public class PriceRuleFixedAmountValue : IPriceRuleValue
     {
         ///<summary>
         ///The monetary value of the price rule.
@@ -32858,7 +32847,7 @@ namespace Test
     ///<summary>
     ///The value of a percent price rule.
     ///</summary>
-    public class PriceRulePercentValue
+    public class PriceRulePercentValue : IPriceRuleValue
     {
         ///<summary>
         ///The percent value of the price rule.
@@ -33135,7 +33124,7 @@ namespace Test
     ///One type of value given to a customer when a discount is applied to an order.
     ///The application of a discount with this value gives the customer the specified percentage off a specified item.
     ///</summary>
-    public class PricingPercentageValue
+    public class PricingPercentageValue : IPricingValue
     {
         ///<summary>
         ///The percentage value of the object. This is a number between -100 (free) and 0 (no discount).
@@ -33279,7 +33268,7 @@ namespace Test
     ///<summary>
     ///The Product resource lets you manage products in a merchant’s store. You can use [ProductVariants](https://shopify.dev/api/admin-graphql/latest/objects/productvariant) to create or update different versions of the same product. You can also add or update product [Media](https://shopify.dev/api/admin-graphql/latest/interfaces/media). Products can be organized by grouping them into a [Collection](https://shopify.dev/api/admin-graphql/latest/objects/collection).
     ///</summary>
-    public class Product : IHasMetafieldDefinitions, IHasMetafields, IHasPublishedTranslations, ILegacyInteroperability, INavigable, INode, IOnlineStorePreviewable, IPublishable
+    public class Product : IHasMetafieldDefinitions, IHasMetafields, IHasPublishedTranslations, ILegacyInteroperability, INavigable, INode, IOnlineStorePreviewable, IPublishable, ICommentEventEmbed, IMetafieldReference, IMetafieldReferencer
     {
         ///<summary>
         ///The number of publications a resource is published to without feedback errors.
@@ -34717,7 +34706,7 @@ namespace Test
     ///<summary>
     ///Represents a product variant.
     ///</summary>
-    public class ProductVariant : IHasMetafieldDefinitions, IHasMetafields, IHasPublishedTranslations, ILegacyInteroperability, INavigable, INode
+    public class ProductVariant : IHasMetafieldDefinitions, IHasMetafields, IHasPublishedTranslations, ILegacyInteroperability, INavigable, INode, ICommentEventEmbed, IMetafieldReference, IMetafieldReferencer
     {
         ///<summary>
         ///Whether the product variant is available for sale.
@@ -36020,7 +36009,7 @@ namespace Test
     ///<summary>
     ///A bulk update operation on a publication.
     ///</summary>
-    public class PublicationResourceOperation : INode, IResourceOperation
+    public class PublicationResourceOperation : INode, IResourceOperation, IPublicationOperation
     {
         ///<summary>
         ///A globally-unique ID.
@@ -36280,7 +36269,7 @@ namespace Test
     ///<summary>
     ///Represents information about the purchasing company for the order or draft order.
     ///</summary>
-    public class PurchasingCompany
+    public class PurchasingCompany : IPurchasingEntity
     {
         ///<summary>
         ///The company associated to the order or draft order.
@@ -38696,7 +38685,7 @@ namespace Test
     ///<summary>
     ///A reverse shipping deliverable that may include a label and tracking information.
     ///</summary>
-    public class ReverseDeliveryShippingDeliverable
+    public class ReverseDeliveryShippingDeliverable : IReverseDeliveryDeliverable
     {
         ///<summary>
         ///The return label attached to the reverse delivery.
@@ -40398,7 +40387,7 @@ namespace Test
     ///<summary>
     ///The percentage value of the price used for checkout charge.
     ///</summary>
-    public class SellingPlanCheckoutChargePercentageValue
+    public class SellingPlanCheckoutChargePercentageValue : ISellingPlanCheckoutChargeValue
     {
         ///<summary>
         ///The percentage value of the price used for checkout charge.
@@ -40473,17 +40462,6 @@ namespace Test
         ///A buffer period for orders to be included in next fulfillment anchor.
         ///</summary>
         public int? cutoff { get; set; }
-        ///<summary>
-        ///Whether the delivery policy is merchant or buyer-centric.
-        ///Buyer-centric delivery policies state the time when the buyer will receive the goods.
-        ///Merchant-centric delivery policies state the time when the fulfillment should be started.
-        ///Currently, only merchant-centric delivery policies are supported.
-        ///</summary>
-        public SellingPlanFixedDeliveryPolicyIntent? intent { get; set; }
-        ///<summary>
-        ///The fulfillment or delivery behavior of the first fulfillment when the order is placed before the anchor. The default value for this field is `ASAP`.
-        ///</summary>
-        public SellingPlanFixedDeliveryPolicyPreAnchorBehavior? preAnchorBehavior { get; set; }
     }
 
     ///<summary>
@@ -40504,7 +40482,7 @@ namespace Test
     ///<summary>
     ///The fixed selling plan billing policy.
     ///</summary>
-    public class SellingPlanFixedBillingPolicy
+    public class SellingPlanFixedBillingPolicy : ISellingPlanBillingPolicy
     {
         ///<summary>
         ///The checkout charge when the full amount isn't charged at checkout.
@@ -40527,7 +40505,7 @@ namespace Test
     ///<summary>
     ///Represents a fixed selling plan delivery policy.
     ///</summary>
-    public class SellingPlanFixedDeliveryPolicy
+    public class SellingPlanFixedDeliveryPolicy : ISellingPlanDeliveryPolicy
     {
         ///<summary>
         ///The specific anchor dates upon which the delivery interval calculations should be made.
@@ -40593,7 +40571,7 @@ namespace Test
     ///For example, a subscription with a $10 discount and two deliveries will have a $5
     ///discount applied to each delivery.
     ///</summary>
-    public class SellingPlanFixedPricingPolicy : ISellingPlanPricingPolicyBase
+    public class SellingPlanFixedPricingPolicy : ISellingPlanPricingPolicyBase, ISellingPlanPricingPolicy
     {
         ///<summary>
         ///The price adjustment type.
@@ -41261,7 +41239,7 @@ namespace Test
     ///<summary>
     ///The percentage value of a selling plan pricing policy percentage type.
     ///</summary>
-    public class SellingPlanPricingPolicyPercentageValue
+    public class SellingPlanPricingPolicyPercentageValue : ISellingPlanPricingPolicyAdjustmentValue
     {
         ///<summary>
         ///The percentage value.
@@ -41272,7 +41250,7 @@ namespace Test
     ///<summary>
     ///Represents a recurring selling plan billing policy.
     ///</summary>
-    public class SellingPlanRecurringBillingPolicy
+    public class SellingPlanRecurringBillingPolicy : ISellingPlanBillingPolicy
     {
         ///<summary>
         ///Specific anchor dates upon which the billing interval calculations should be made.
@@ -41303,7 +41281,7 @@ namespace Test
     ///<summary>
     ///Represents a recurring selling plan delivery policy.
     ///</summary>
-    public class SellingPlanRecurringDeliveryPolicy
+    public class SellingPlanRecurringDeliveryPolicy : ISellingPlanDeliveryPolicy
     {
         ///<summary>
         ///The specific anchor dates upon which the delivery interval calculations should be made.
@@ -41369,7 +41347,7 @@ namespace Test
     ///<summary>
     ///Represents a recurring selling plan pricing policy.
     ///</summary>
-    public class SellingPlanRecurringPricingPolicy : ISellingPlanPricingPolicyBase
+    public class SellingPlanRecurringPricingPolicy : ISellingPlanPricingPolicyBase, ISellingPlanPricingPolicy
     {
         ///<summary>
         ///The price adjustment type.
@@ -41789,7 +41767,7 @@ namespace Test
     ///<summary>
     ///Represents a collection of general settings and information about the shop.
     ///</summary>
-    public class Shop : IHasMetafields, IHasPublishedTranslations, INode
+    public class Shop : IHasMetafields, IHasPublishedTranslations, INode, IMetafieldReferencer
     {
         ///<summary>
         ///A list of the shop's active alert messages that appear in the Shopify admin.
@@ -44562,7 +44540,7 @@ namespace Test
     ///<summary>
     ///Represents an applied code discount.
     ///</summary>
-    public class SubscriptionAppliedCodeDiscount
+    public class SubscriptionAppliedCodeDiscount : ISubscriptionDiscount
     {
         ///<summary>
         ///The unique ID.
@@ -45585,7 +45563,7 @@ namespace Test
     ///<summary>
     ///A local delivery method, which includes a mailing address and a local delivery option.
     ///</summary>
-    public class SubscriptionDeliveryMethodLocalDelivery
+    public class SubscriptionDeliveryMethodLocalDelivery : ISubscriptionDeliveryMethod
     {
         ///<summary>
         ///The address to deliver to.
@@ -45632,7 +45610,7 @@ namespace Test
     ///<summary>
     ///A delivery method with a pickup option.
     ///</summary>
-    public class SubscriptionDeliveryMethodPickup
+    public class SubscriptionDeliveryMethodPickup : ISubscriptionDeliveryMethod
     {
         ///<summary>
         ///The details of the pickup delivery method to use.
@@ -45670,7 +45648,7 @@ namespace Test
     ///<summary>
     ///Represents a shipping delivery method: a mailing address and a shipping option.
     ///</summary>
-    public class SubscriptionDeliveryMethodShipping
+    public class SubscriptionDeliveryMethodShipping : ISubscriptionDeliveryMethod
     {
         ///<summary>
         ///The address to ship to.
@@ -45731,6 +45709,10 @@ namespace Test
         ///</summary>
         public string? description { get; set; }
         ///<summary>
+        ///Whether a phone number is required for the local delivery option.
+        ///</summary>
+        public bool? phoneRequired { get; set; }
+        ///<summary>
         ///The presentment title of the local delivery option.
         ///</summary>
         public string? presentmentTitle { get; set; }
@@ -45759,7 +45741,7 @@ namespace Test
     ///<summary>
     ///A failure to find the available delivery options for a subscription contract.
     ///</summary>
-    public class SubscriptionDeliveryOptionResultFailure
+    public class SubscriptionDeliveryOptionResultFailure : ISubscriptionDeliveryOptionResult
     {
         ///<summary>
         ///The reason for the failure.
@@ -45770,7 +45752,7 @@ namespace Test
     ///<summary>
     ///The delivery option for a subscription contract.
     ///</summary>
-    public class SubscriptionDeliveryOptionResultSuccess
+    public class SubscriptionDeliveryOptionResultSuccess : ISubscriptionDeliveryOptionResult
     {
         ///<summary>
         ///The available delivery options.
@@ -45884,7 +45866,7 @@ namespace Test
     ///<summary>
     ///The value of the discount and how it will be applied.
     ///</summary>
-    public class SubscriptionDiscountFixedAmountValue
+    public class SubscriptionDiscountFixedAmountValue : ISubscriptionDiscountValue
     {
         ///<summary>
         ///The fixed amount value of the discount.
@@ -45899,7 +45881,7 @@ namespace Test
     ///<summary>
     ///The percentage value of the discount.
     ///</summary>
-    public class SubscriptionDiscountPercentageValue
+    public class SubscriptionDiscountPercentageValue : ISubscriptionDiscountValue
     {
         ///<summary>
         ///The percentage value of the discount.
@@ -46590,7 +46572,7 @@ namespace Test
     ///<summary>
     ///A local delivery option for a subscription contract.
     ///</summary>
-    public class SubscriptionLocalDeliveryOption
+    public class SubscriptionLocalDeliveryOption : ISubscriptionDeliveryOption
     {
         ///<summary>
         ///The code of the local delivery option.
@@ -46684,7 +46666,7 @@ namespace Test
     ///<summary>
     ///Custom subscription discount.
     ///</summary>
-    public class SubscriptionManualDiscount
+    public class SubscriptionManualDiscount : ISubscriptionDiscount
     {
         ///<summary>
         ///Entitled line items used to apply the subscription discount on.
@@ -46761,7 +46743,7 @@ namespace Test
     ///<summary>
     ///A pickup option to deliver a subscription contract.
     ///</summary>
-    public class SubscriptionPickupOption
+    public class SubscriptionPickupOption : ISubscriptionDeliveryOption
     {
         ///<summary>
         ///The code of the pickup option.
@@ -46815,7 +46797,7 @@ namespace Test
     ///<summary>
     ///A shipping option to deliver a subscription contract.
     ///</summary>
-    public class SubscriptionShippingOption
+    public class SubscriptionShippingOption : ISubscriptionDeliveryOption
     {
         ///<summary>
         ///The carrier service that's providing this shipping option.
@@ -46863,7 +46845,7 @@ namespace Test
     ///<summary>
     ///Failure determining available shipping options for delivery of a subscription contract.
     ///</summary>
-    public class SubscriptionShippingOptionResultFailure
+    public class SubscriptionShippingOptionResultFailure : ISubscriptionShippingOptionResult
     {
         ///<summary>
         ///Failure reason.
@@ -46874,7 +46856,7 @@ namespace Test
     ///<summary>
     ///A shipping option for delivery of a subscription contract.
     ///</summary>
-    public class SubscriptionShippingOptionResultSuccess
+    public class SubscriptionShippingOptionResultSuccess : ISubscriptionShippingOptionResult
     {
         ///<summary>
         ///Available shipping options.
@@ -47610,7 +47592,7 @@ namespace Test
     ///<summary>
     ///Information about the credit card used for this transaction.
     ///</summary>
-    public class TenderTransactionCreditCardDetails
+    public class TenderTransactionCreditCardDetails : ITenderTransactionDetails
     {
         ///<summary>
         ///The name of the company that issued the customer's credit card. Example: `Visa`.
@@ -48636,7 +48618,7 @@ namespace Test
     ///<summary>
     ///Represents a credit card payment instrument.
     ///</summary>
-    public class VaultCreditCard
+    public class VaultCreditCard : IPaymentInstrument
     {
         ///<summary>
         ///The billing address of the card.
@@ -48671,7 +48653,7 @@ namespace Test
     ///<summary>
     ///Represents a paypal billing agreement payment instrument.
     ///</summary>
-    public class VaultPaypalBillingAgreement
+    public class VaultPaypalBillingAgreement : IPaymentInstrument
     {
         ///<summary>
         ///Whether the paypal billing agreement is inactive.
@@ -48711,7 +48693,7 @@ namespace Test
     ///<summary>
     ///Represents a Shopify hosted video.
     ///</summary>
-    public class Video : IFile, IMedia, INode
+    public class Video : IFile, IMedia, INode, IMetafieldReference
     {
         ///<summary>
         ///A word or phrase to share the nature or contents of a media.
@@ -48893,7 +48875,7 @@ namespace Test
     ///<summary>
     ///An Amazon EventBridge partner event source to which webhook subscriptions publish events.
     ///</summary>
-    public class WebhookEventBridgeEndpoint
+    public class WebhookEventBridgeEndpoint : IWebhookSubscriptionEndpoint
     {
         ///<summary>
         ///The ARN of this EventBridge partner event source.
@@ -48904,7 +48886,7 @@ namespace Test
     ///<summary>
     ///An HTTPS endpoint to which webhook subscriptions send POST requests.
     ///</summary>
-    public class WebhookHttpEndpoint
+    public class WebhookHttpEndpoint : IWebhookSubscriptionEndpoint
     {
         ///<summary>
         ///The URL to which the webhooks events are sent.
@@ -48915,7 +48897,7 @@ namespace Test
     ///<summary>
     ///A Google Cloud Pub/Sub topic to which webhook subscriptions publish events.
     ///</summary>
-    public class WebhookPubSubEndpoint
+    public class WebhookPubSubEndpoint : IWebhookSubscriptionEndpoint
     {
         ///<summary>
         ///The Google Cloud Pub/Sub project ID.
@@ -49787,7 +49769,7 @@ namespace Test
     ///<summary>
     ///A weight, which includes a numeric value and a unit of measurement.
     ///</summary>
-    public class Weight
+    public class Weight : IDeliveryConditionCriteria
     {
         ///<summary>
         ///The unit of measurement for `value`.

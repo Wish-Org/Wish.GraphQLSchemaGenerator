@@ -110,12 +110,15 @@ namespace Wish.GraphQLSchemaGenerator
                                  .Deserialize<GraphQLType[]>();
 
             var str = new StringBuilder()
-                            .AppendLine("#nullable enable")
                             .AppendLine("using System;")
                             .AppendLine("using System.Text.Json.Serialization;")
                             .AppendLine($"namespace {@namespace} {{");
 
-            types.Select(t => GenerateType(t, scalarNameToTypeName))
+            var objectTypeNameToUnionTypes = types.Where(t => t.kind == GraphQLTypeKind.UNION)
+                                              .SelectMany(tUnion => tUnion.possibleTypes.Select(tObject => new { UnionType = tUnion, ObjectType = tObject }))
+                                              .ToLookup(i => i.ObjectType.name, i => i.UnionType);
+
+            types.Select(t => GenerateType(t, scalarNameToTypeName, objectTypeNameToUnionTypes))
                  .ForEach(strType => str.Append(strType)
                                         .AppendLine());
 
@@ -125,16 +128,16 @@ namespace Wish.GraphQLSchemaGenerator
             var tree = CSharpSyntaxTree.ParseText(code);
             var root = (CSharpSyntaxNode)tree.GetRoot();
             string formattedCode = root.NormalizeWhitespace().ToString();
-            return formattedCode;
+            return "#nullable enable\r\n" + formattedCode;
         }
 
-        private StringBuilder GenerateType(GraphQLType type, Dictionary<string, string> scalarNameToTypeName)
+        private StringBuilder GenerateType(GraphQLType type, Dictionary<string, string> scalarNameToTypeName, ILookup<string, GraphQLType> objectTypeNameToUnionTypes)
         {
             return type.kind switch
             {
                 GraphQLTypeKind.SCALAR or GraphQLTypeKind.INPUT_OBJECT => new StringBuilder(),
                 GraphQLTypeKind.ENUM => GenerateEnum(type),
-                GraphQLTypeKind.INTERFACE or GraphQLTypeKind.OBJECT => GenerateClassOrInterface(type, scalarNameToTypeName),
+                GraphQLTypeKind.INTERFACE or GraphQLTypeKind.OBJECT => GenerateClassOrInterface(type, scalarNameToTypeName, objectTypeNameToUnionTypes),
                 GraphQLTypeKind.UNION => GenerateUnion(type, scalarNameToTypeName),
                 _ => throw new Exception($"Unexpected type kind {type.kind}")
             };
@@ -164,7 +167,8 @@ namespace Wish.GraphQLSchemaGenerator
             var commonFields = type.possibleTypes.First().fields.AsEnumerable();
             foreach (var t in type.possibleTypes.Skip(1))
             {
-                commonFields = commonFields.IntersectBy(t.fields.Select(f => (f.type.name, f.name)), f => (f.type.name, f.name));
+                commonFields = commonFields.IntersectBy(t.fields.Select(f => (GenerateTypeName(f.type, scalarNameToTypeName), f.name)),
+                                                        f => (GenerateTypeName(f.type, scalarNameToTypeName), f.name));
             }
 
             commonFields
@@ -175,14 +179,15 @@ namespace Wish.GraphQLSchemaGenerator
             return str;
         }
 
-        private StringBuilder GenerateClassOrInterface(GraphQLType type, Dictionary<string, string> scalarNameToTypeName)
+        private StringBuilder GenerateClassOrInterface(GraphQLType type, Dictionary<string, string> scalarNameToTypeName, ILookup<string, GraphQLType> objectTypeNameToUnionTypes)
         {
             var str = new StringBuilder()
                             .AppendLine(GenerateDescriptionComment(type.description))
                             .Append($"public {(type.kind is GraphQLTypeKind.INTERFACE or GraphQLTypeKind.UNION ? "interface" : "class")} {GenerateTypeName(type, scalarNameToTypeName)}");
 
-            if (type.interfaces.Any())
-                str.Append($" : {string.Join(',', type.interfaces.Select(i => this.GenerateTypeName(i, scalarNameToTypeName)))}");
+            var interfaces = type.interfaces.Concat(objectTypeNameToUnionTypes[type.name]);
+            if (interfaces.Any())
+                str.Append($" : {string.Join(',', interfaces.Select(i => this.GenerateTypeName(i, scalarNameToTypeName)))}");
             str.AppendLine();
             str.AppendLine("{");
 

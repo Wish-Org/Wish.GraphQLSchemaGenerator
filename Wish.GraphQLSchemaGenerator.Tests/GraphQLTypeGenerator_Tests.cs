@@ -1,4 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using System.IO;
 using System.Text.Json;
 
 namespace Wish.GraphQLSchemaGenerator.Tests
@@ -27,7 +29,7 @@ namespace Wish.GraphQLSchemaGenerator.Tests
 
             var generator = new GraphQLTypeGenerator();
             var shopifyDoc = JsonDocument.Parse(File.OpenRead(@"./shopify.json"));
-            var code = generator.GenerateTypes("Test", scalarNameToTypeName, shopifyDoc);
+            var code = generator.GenerateTypes("shopify", scalarNameToTypeName, shopifyDoc);
             File.WriteAllText("../../../shopify.cs", code);
         }
     }
