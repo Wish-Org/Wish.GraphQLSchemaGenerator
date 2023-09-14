@@ -85,6 +85,15 @@ namespace Wish.GraphQLSchemaGenerator
             }
             """;
 
+        private static readonly Dictionary<string, string> _builtInScalarNameToTypeName = new()
+            {
+                { "String", "string" },
+                { "Int", "int?" },
+                { "Float", "float?" },
+                { "Boolean", "bool?" },
+                { "ID", "string" },
+            };
+
         public async Task<string> GenerateTypesAsync(string @namespace, Dictionary<string, string> scalarNameToTypeName, SendGraphQLQueryAsync sendQuery)
         {
             var response = await sendQuery(INTROSPECTION_QUERY);
@@ -195,7 +204,18 @@ namespace Wish.GraphQLSchemaGenerator
                 return GenerateTypeName(type.ofType, scalarNameToTypeName) + "[]";
 
             return (type.kind is GraphQLTypeKind.INTERFACE or GraphQLTypeKind.UNION ? "I" : string.Empty) +
-                                                                (type.kind == GraphQLTypeKind.SCALAR ? scalarNameToTypeName[type.name] : type.name);
+                                                                (type.kind == GraphQLTypeKind.SCALAR ? this.GetScalarTypeName(type.name) : type.name);
+        }
+
+        private string GetScalarTypeName(string typeName, Dictionary<string, string> scalarNameToTypeName)
+        {
+            if (scalarNameToTypeName.ContainsKey(typeName))
+                return scalarNameToTypeName[typeName];
+
+            if (_builtInScalarNameToTypeName.ContainsKey(typeName))
+                return _builtInScalarNameToTypeName[typeName];
+
+            throw new Exception($"Unknown scalar type '{typeName}'. Please provide a target type for this type.");
         }
 
         private StringBuilder GenerateEnum(GraphQLType type)
