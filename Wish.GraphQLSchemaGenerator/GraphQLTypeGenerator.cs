@@ -1,4 +1,5 @@
-﻿using Microsoft.CodeAnalysis.CSharp;
+﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -109,7 +110,10 @@ namespace Wish.GraphQLSchemaGenerator
             str.AppendLine("}");
 
             string code = str.ToString();
-            return code;
+            var tree = CSharpSyntaxTree.ParseText(code);
+            var root = (CSharpSyntaxNode)tree.GetRoot();
+            string formattedCode = root.NormalizeWhitespace().ToString();
+            return formattedCode;
         }
 
         private StringBuilder GenerateType(GraphQLType type, Dictionary<string, string> scalarNameToTypeName)
