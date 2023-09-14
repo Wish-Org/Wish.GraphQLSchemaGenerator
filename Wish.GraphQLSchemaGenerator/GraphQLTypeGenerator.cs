@@ -108,6 +108,7 @@ namespace Wish.GraphQLSchemaGenerator
                                               .Deserialize<GraphQLType[]>();
 
             var str = new StringBuilder()
+                            .AppendLine("#nullable enable")
                             .AppendLine("using System;")
                             .AppendLine("using System.Text.Json.Serialization;")
                             .AppendLine($"namespace {@namespace} {{");
@@ -190,7 +191,7 @@ namespace Wish.GraphQLSchemaGenerator
         {
             var str = new StringBuilder()
                             .AppendLine(GenerateDescriptionComment(f.description))
-                            .AppendLine($"public {this.GenerateTypeName(f.type, scalarNameToTypeName)}{(f.type.kind == GraphQLTypeKind.ENUM ? "?" : string.Empty)} {EscapeCSharpKeyword(f.name)} {{ {(containingType.kind == GraphQLTypeKind.INTERFACE ? "get;" : "get;set;")} }}")
+                            .AppendLine($"public {this.GenerateTypeName(f.type, scalarNameToTypeName)}? {EscapeCSharpKeyword(f.name)} {{ {(containingType.kind == GraphQLTypeKind.INTERFACE ? "get;" : "get;set;")} }}")
                             .AppendLine();
             return str;
         }
