@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wish.GraphQLSchemaGenerator.Tests", "Wish.GraphQLSchemaGenerator.Tests\Wish.GraphQLSchemaGenerator.Tests.csproj", "{41156CB3-D355-4368-8F75-7A5B67BE9F97}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{E35B5906-A35D-4D28-AAA2-0000DCA00FDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E35B5906-A35D-4D28-AAA2-0000DCA00FDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E35B5906-A35D-4D28-AAA2-0000DCA00FDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41156CB3-D355-4368-8F75-7A5B67BE9F97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41156CB3-D355-4368-8F75-7A5B67BE9F97}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41156CB3-D355-4368-8F75-7A5B67BE9F97}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41156CB3-D355-4368-8F75-7A5B67BE9F97}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

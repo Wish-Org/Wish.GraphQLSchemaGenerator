@@ -102,10 +102,12 @@ namespace Wish.GraphQLSchemaGenerator
 
         public string GenerateTypes(string @namespace, Dictionary<string, string> scalarNameToTypeName, JsonDocument introspectionQueryResponse)
         {
-            var types = introspectionQueryResponse.RootElement
-                                              .GetProperty("__schema")
-                                              .GetProperty("types")
-                                              .Deserialize<GraphQLType[]>();
+            //get the "data.__schema" element or "__schema" element if the "data" property doesn't exist
+            var schemaElt = introspectionQueryResponse.RootElement.TryGetProperty("data", out var dataElt) ?
+                                                                                dataElt.GetProperty("__schema") :
+                                                                                introspectionQueryResponse.RootElement.GetProperty("__schema");
+            var types = schemaElt.GetProperty("types")
+                                 .Deserialize<GraphQLType[]>();
 
             var str = new StringBuilder()
                             .AppendLine("#nullable enable")
