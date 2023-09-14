@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.CodeAnalysis.CSharp;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -139,7 +140,7 @@ namespace Wish.GraphQLSchemaGenerator
             str.AppendLine("{");
 
             var commonFields = type.possibleTypes.First().fields.AsEnumerable();
-            foreach (var t in type.possibleTypes.Skip(1)) 
+            foreach (var t in type.possibleTypes.Skip(1))
             {
                 commonFields = commonFields.IntersectBy(t.fields.Select(f => (f.type.name, f.name)), f => (f.type.name, f.name));
             }
@@ -176,7 +177,7 @@ namespace Wish.GraphQLSchemaGenerator
         {
             var str = new StringBuilder()
                             .AppendLine(GenerateDescriptionComment(f.description))
-                            .AppendLine($"public {this.GenerateTypeName(f.type, scalarNameToTypeName)} {EscapeKeyword(f.name)} {{ {(containingType.kind == GraphQLTypeKind.INTERFACE ? "get;" : "get;set;" )} }}")
+                            .AppendLine($"public {this.GenerateTypeName(f.type, scalarNameToTypeName)}{(f.type.kind == GraphQLTypeKind.ENUM ? "?" : string.Empty)} {EscapeCSharpKeyword(f.name)} {{ {(containingType.kind == GraphQLTypeKind.INTERFACE ? "get;" : "get;set;")} }}")
                             .AppendLine();
             return str;
         }
@@ -219,9 +220,9 @@ namespace Wish.GraphQLSchemaGenerator
                     """;
         }
 
-        private string EscapeKeyword(string fieldName)
+        private string EscapeCSharpKeyword(string fieldName)
         {
-            if (fieldName is "namespace" or "default" or "return" or "operator")
+            if (SyntaxFactory.ParseTokens(fieldName).First().IsKeyword())
                 return "@" + fieldName;
             return fieldName;
         }
