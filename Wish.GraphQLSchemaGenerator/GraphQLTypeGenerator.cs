@@ -204,7 +204,7 @@ namespace Wish.GraphQLSchemaGenerator
                 return GenerateTypeName(type.ofType, scalarNameToTypeName) + "[]";
 
             return (type.kind is GraphQLTypeKind.INTERFACE or GraphQLTypeKind.UNION ? "I" : string.Empty) +
-                                                                (type.kind == GraphQLTypeKind.SCALAR ? this.GetScalarTypeName(type.name) : type.name);
+                                                                (type.kind == GraphQLTypeKind.SCALAR ? this.GetScalarTypeName(type.name, scalarNameToTypeName) : type.name);
         }
 
         private string GetScalarTypeName(string typeName, Dictionary<string, string> scalarNameToTypeName)
