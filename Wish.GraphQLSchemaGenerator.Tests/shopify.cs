@@ -1006,6 +1006,8 @@ namespace Test
     [JsonDerivedType(typeof(AppUsagePricing), typeDiscriminator: "AppUsagePricing")]
     public interface IAppPricingDetails
     {
+        public AppRecurringPricing? AsAppRecurringPricing() => this as AppRecurringPricing;
+        public AppUsagePricing? AsAppUsagePricing() => this as AppUsagePricing;
         ///<summary>
         ///The frequency at which the subscribing shop is billed for an app subscription.
         ///</summary>
@@ -1578,6 +1580,8 @@ namespace Test
     [JsonDerivedType(typeof(AppSubscriptionDiscountPercentage), typeDiscriminator: "AppSubscriptionDiscountPercentage")]
     public interface IAppSubscriptionDiscountValue
     {
+        public AppSubscriptionDiscountAmount? AsAppSubscriptionDiscountAmount() => this as AppSubscriptionDiscountAmount;
+        public AppSubscriptionDiscountPercentage? AsAppSubscriptionDiscountPercentage() => this as AppSubscriptionDiscountPercentage;
     }
 
     ///<summary>
@@ -4549,6 +4553,9 @@ namespace Test
     [JsonDerivedType(typeof(CollectionRuleTextCondition), typeDiscriminator: "CollectionRuleTextCondition")]
     public interface ICollectionRuleConditionObject
     {
+        public CollectionRuleMetafieldCondition? AsCollectionRuleMetafieldCondition() => this as CollectionRuleMetafieldCondition;
+        public CollectionRuleProductCategoryCondition? AsCollectionRuleProductCategoryCondition() => this as CollectionRuleProductCategoryCondition;
+        public CollectionRuleTextCondition? AsCollectionRuleTextCondition() => this as CollectionRuleTextCondition;
     }
 
     ///<summary>
@@ -4581,6 +4588,7 @@ namespace Test
     [JsonDerivedType(typeof(CollectionRuleMetafieldCondition), typeDiscriminator: "CollectionRuleMetafieldCondition")]
     public interface ICollectionRuleConditionsRuleObject
     {
+        public CollectionRuleMetafieldCondition? AsCollectionRuleMetafieldCondition() => this as CollectionRuleMetafieldCondition;
         ///<summary>
         ///The metafield definition associated with the condition.
         ///</summary>
@@ -4895,6 +4903,11 @@ namespace Test
     [JsonDerivedType(typeof(ProductVariant), typeDiscriminator: "ProductVariant")]
     public interface ICommentEventEmbed
     {
+        public Customer? AsCustomer() => this as Customer;
+        public DraftOrder? AsDraftOrder() => this as DraftOrder;
+        public Order? AsOrder() => this as Order;
+        public Product? AsProduct() => this as Product;
+        public ProductVariant? AsProductVariant() => this as ProductVariant;
         ///<summary>
         ///The date and time when the customer was added to the store.
         ///</summary>
@@ -9120,6 +9133,9 @@ namespace Test
     [JsonDerivedType(typeof(CustomerShopPayAgreement), typeDiscriminator: "CustomerShopPayAgreement")]
     public interface ICustomerPaymentInstrument
     {
+        public CustomerCreditCard? AsCustomerCreditCard() => this as CustomerCreditCard;
+        public CustomerPaypalBillingAgreement? AsCustomerPaypalBillingAgreement() => this as CustomerPaypalBillingAgreement;
+        public CustomerShopPayAgreement? AsCustomerShopPayAgreement() => this as CustomerShopPayAgreement;
         ///<summary>
         ///The payment method can be revoked if there are no active subscription contracts.
         ///</summary>
@@ -10746,6 +10762,8 @@ namespace Test
     [JsonDerivedType(typeof(Weight), typeDiscriminator: "Weight")]
     public interface IDeliveryConditionCriteria
     {
+        public MoneyV2? AsMoneyV2() => this as MoneyV2;
+        public Weight? AsWeight() => this as Weight;
     }
 
     ///<summary>
@@ -11686,6 +11704,8 @@ namespace Test
     [JsonDerivedType(typeof(DeliveryRateDefinition), typeDiscriminator: "DeliveryRateDefinition")]
     public interface IDeliveryRateProvider
     {
+        public DeliveryParticipant? AsDeliveryParticipant() => this as DeliveryParticipant;
+        public DeliveryRateDefinition? AsDeliveryRateDefinition() => this as DeliveryRateDefinition;
         ///<summary>
         ///A globally-unique ID.
         ///</summary>
@@ -11790,6 +11810,13 @@ namespace Test
     [JsonDerivedType(typeof(DiscountCodeFreeShipping), typeDiscriminator: "DiscountCodeFreeShipping")]
     public interface IDiscount
     {
+        public DiscountAutomaticApp? AsDiscountAutomaticApp() => this as DiscountAutomaticApp;
+        public DiscountAutomaticBasic? AsDiscountAutomaticBasic() => this as DiscountAutomaticBasic;
+        public DiscountAutomaticBxgy? AsDiscountAutomaticBxgy() => this as DiscountAutomaticBxgy;
+        public DiscountCodeApp? AsDiscountCodeApp() => this as DiscountCodeApp;
+        public DiscountCodeBasic? AsDiscountCodeBasic() => this as DiscountCodeBasic;
+        public DiscountCodeBxgy? AsDiscountCodeBxgy() => this as DiscountCodeBxgy;
+        public DiscountCodeFreeShipping? AsDiscountCodeFreeShipping() => this as DiscountCodeFreeShipping;
         ///<summary>
         ///The number of times the discount has been used. This value is updated asynchronously and can be different than the actual usage count.
         ///</summary>
@@ -12009,6 +12036,9 @@ namespace Test
     [JsonDerivedType(typeof(DiscountAutomaticBxgy), typeDiscriminator: "DiscountAutomaticBxgy")]
     public interface IDiscountAutomatic
     {
+        public DiscountAutomaticApp? AsDiscountAutomaticApp() => this as DiscountAutomaticApp;
+        public DiscountAutomaticBasic? AsDiscountAutomaticBasic() => this as DiscountAutomaticBasic;
+        public DiscountAutomaticBxgy? AsDiscountAutomaticBxgy() => this as DiscountAutomaticBxgy;
         ///<summary>
         ///The number of times the discount has been used. This value is updated asynchronously and can be different than the actual usage count.
         ///</summary>
@@ -12522,6 +12552,10 @@ namespace Test
     [JsonDerivedType(typeof(DiscountCodeFreeShipping), typeDiscriminator: "DiscountCodeFreeShipping")]
     public interface IDiscountCode
     {
+        public DiscountCodeApp? AsDiscountCodeApp() => this as DiscountCodeApp;
+        public DiscountCodeBasic? AsDiscountCodeBasic() => this as DiscountCodeBasic;
+        public DiscountCodeBxgy? AsDiscountCodeBxgy() => this as DiscountCodeBxgy;
+        public DiscountCodeFreeShipping? AsDiscountCodeFreeShipping() => this as DiscountCodeFreeShipping;
         ///<summary>
         ///Whether the discount can be applied only once per customer.
         ///</summary>
@@ -13423,6 +13457,8 @@ namespace Test
     [JsonDerivedType(typeof(DiscountQuantity), typeDiscriminator: "DiscountQuantity")]
     public interface IDiscountCustomerBuysValue
     {
+        public DiscountPurchaseAmount? AsDiscountPurchaseAmount() => this as DiscountPurchaseAmount;
+        public DiscountQuantity? AsDiscountQuantity() => this as DiscountQuantity;
     }
 
     ///<summary>
@@ -13457,6 +13493,9 @@ namespace Test
     [JsonDerivedType(typeof(DiscountPercentage), typeDiscriminator: "DiscountPercentage")]
     public interface IDiscountCustomerGetsValue
     {
+        public DiscountAmount? AsDiscountAmount() => this as DiscountAmount;
+        public DiscountOnQuantity? AsDiscountOnQuantity() => this as DiscountOnQuantity;
+        public DiscountPercentage? AsDiscountPercentage() => this as DiscountPercentage;
     }
 
     ///<summary>
@@ -13479,6 +13518,9 @@ namespace Test
     [JsonDerivedType(typeof(DiscountCustomers), typeDiscriminator: "DiscountCustomers")]
     public interface IDiscountCustomerSelection
     {
+        public DiscountCustomerAll? AsDiscountCustomerAll() => this as DiscountCustomerAll;
+        public DiscountCustomerSegments? AsDiscountCustomerSegments() => this as DiscountCustomerSegments;
+        public DiscountCustomers? AsDiscountCustomers() => this as DiscountCustomers;
     }
 
     ///<summary>
@@ -13499,6 +13541,7 @@ namespace Test
     [JsonDerivedType(typeof(DiscountPercentage), typeDiscriminator: "DiscountPercentage")]
     public interface IDiscountEffect
     {
+        public DiscountPercentage? AsDiscountPercentage() => this as DiscountPercentage;
         ///<summary>
         ///The percentage value of the discount.
         ///</summary>
@@ -13621,6 +13664,9 @@ namespace Test
     [JsonDerivedType(typeof(DiscountProducts), typeDiscriminator: "DiscountProducts")]
     public interface IDiscountItems
     {
+        public AllDiscountItems? AsAllDiscountItems() => this as AllDiscountItems;
+        public DiscountCollections? AsDiscountCollections() => this as DiscountCollections;
+        public DiscountProducts? AsDiscountProducts() => this as DiscountProducts;
     }
 
     ///<summary>
@@ -13642,6 +13688,8 @@ namespace Test
     [JsonDerivedType(typeof(DiscountMinimumSubtotal), typeDiscriminator: "DiscountMinimumSubtotal")]
     public interface IDiscountMinimumRequirement
     {
+        public DiscountMinimumQuantity? AsDiscountMinimumQuantity() => this as DiscountMinimumQuantity;
+        public DiscountMinimumSubtotal? AsDiscountMinimumSubtotal() => this as DiscountMinimumSubtotal;
     }
 
     ///<summary>
@@ -14007,6 +14055,8 @@ namespace Test
     [JsonDerivedType(typeof(DiscountCountryAll), typeDiscriminator: "DiscountCountryAll")]
     public interface IDiscountShippingDestinationSelection
     {
+        public DiscountCountries? AsDiscountCountries() => this as DiscountCountries;
+        public DiscountCountryAll? AsDiscountCountryAll() => this as DiscountCountryAll;
     }
 
     ///<summary>
@@ -25272,6 +25322,14 @@ namespace Test
     [JsonDerivedType(typeof(Video), typeDiscriminator: "Video")]
     public interface IMetafieldReference
     {
+        public Collection? AsCollection() => this as Collection;
+        public GenericFile? AsGenericFile() => this as GenericFile;
+        public MediaImage? AsMediaImage() => this as MediaImage;
+        public Metaobject? AsMetaobject() => this as Metaobject;
+        public OnlineStorePage? AsOnlineStorePage() => this as OnlineStorePage;
+        public Product? AsProduct() => this as Product;
+        public ProductVariant? AsProductVariant() => this as ProductVariant;
+        public Video? AsVideo() => this as Video;
         ///<summary>
         ///A globally-unique ID.
         ///</summary>
@@ -25338,6 +25396,26 @@ namespace Test
     [JsonDerivedType(typeof(Shop), typeDiscriminator: "Shop")]
     public interface IMetafieldReferencer
     {
+        public AppInstallation? AsAppInstallation() => this as AppInstallation;
+        public Collection? AsCollection() => this as Collection;
+        public Customer? AsCustomer() => this as Customer;
+        public DeliveryCustomization? AsDeliveryCustomization() => this as DeliveryCustomization;
+        public DiscountAutomaticNode? AsDiscountAutomaticNode() => this as DiscountAutomaticNode;
+        public DiscountCodeNode? AsDiscountCodeNode() => this as DiscountCodeNode;
+        public DiscountNode? AsDiscountNode() => this as DiscountNode;
+        public DraftOrder? AsDraftOrder() => this as DraftOrder;
+        public FulfillmentOrder? AsFulfillmentOrder() => this as FulfillmentOrder;
+        public Location? AsLocation() => this as Location;
+        public Market? AsMarket() => this as Market;
+        public Metaobject? AsMetaobject() => this as Metaobject;
+        public OnlineStoreArticle? AsOnlineStoreArticle() => this as OnlineStoreArticle;
+        public OnlineStoreBlog? AsOnlineStoreBlog() => this as OnlineStoreBlog;
+        public OnlineStorePage? AsOnlineStorePage() => this as OnlineStorePage;
+        public Order? AsOrder() => this as Order;
+        public PaymentCustomization? AsPaymentCustomization() => this as PaymentCustomization;
+        public Product? AsProduct() => this as Product;
+        public ProductVariant? AsProductVariant() => this as ProductVariant;
+        public Shop? AsShop() => this as Shop;
         ///<summary>
         ///A globally-unique ID.
         ///</summary>
@@ -29742,6 +29820,12 @@ namespace Test
     [JsonDerivedType(typeof(OrderStagedChangeIncrementItem), typeDiscriminator: "OrderStagedChangeIncrementItem")]
     public interface IOrderStagedChange
     {
+        public OrderStagedChangeAddCustomItem? AsOrderStagedChangeAddCustomItem() => this as OrderStagedChangeAddCustomItem;
+        public OrderStagedChangeAddLineItemDiscount? AsOrderStagedChangeAddLineItemDiscount() => this as OrderStagedChangeAddLineItemDiscount;
+        public OrderStagedChangeAddShippingLine? AsOrderStagedChangeAddShippingLine() => this as OrderStagedChangeAddShippingLine;
+        public OrderStagedChangeAddVariant? AsOrderStagedChangeAddVariant() => this as OrderStagedChangeAddVariant;
+        public OrderStagedChangeDecrementItem? AsOrderStagedChangeDecrementItem() => this as OrderStagedChangeDecrementItem;
+        public OrderStagedChangeIncrementItem? AsOrderStagedChangeIncrementItem() => this as OrderStagedChangeIncrementItem;
     }
 
     ///<summary>
@@ -30754,6 +30838,7 @@ namespace Test
     [JsonDerivedType(typeof(CardPaymentDetails), typeDiscriminator: "CardPaymentDetails")]
     public interface IPaymentDetails
     {
+        public CardPaymentDetails? AsCardPaymentDetails() => this as CardPaymentDetails;
         ///<summary>
         ///The response code from the address verification system (AVS). The code is always a single letter.
         ///</summary>
@@ -30800,6 +30885,8 @@ namespace Test
     [JsonDerivedType(typeof(VaultPaypalBillingAgreement), typeDiscriminator: "VaultPaypalBillingAgreement")]
     public interface IPaymentInstrument
     {
+        public VaultCreditCard? AsVaultCreditCard() => this as VaultCreditCard;
+        public VaultPaypalBillingAgreement? AsVaultPaypalBillingAgreement() => this as VaultPaypalBillingAgreement;
         ///<summary>
         ///The name of the card holder.
         ///</summary>
@@ -33040,6 +33127,8 @@ namespace Test
     [JsonDerivedType(typeof(PriceRulePercentValue), typeDiscriminator: "PriceRulePercentValue")]
     public interface IPriceRuleValue
     {
+        public PriceRuleFixedAmountValue? AsPriceRuleFixedAmountValue() => this as PriceRuleFixedAmountValue;
+        public PriceRulePercentValue? AsPriceRulePercentValue() => this as PriceRulePercentValue;
     }
 
     ///<summary>
@@ -33062,6 +33151,8 @@ namespace Test
     [JsonDerivedType(typeof(PricingPercentageValue), typeDiscriminator: "PricingPercentageValue")]
     public interface IPricingValue
     {
+        public MoneyV2? AsMoneyV2() => this as MoneyV2;
+        public PricingPercentageValue? AsPricingPercentageValue() => this as PricingPercentageValue;
     }
 
     ///<summary>
@@ -35905,6 +35996,9 @@ namespace Test
     [JsonDerivedType(typeof(PublicationResourceOperation), typeDiscriminator: "PublicationResourceOperation")]
     public interface IPublicationOperation
     {
+        public AddAllProductsOperation? AsAddAllProductsOperation() => this as AddAllProductsOperation;
+        public CatalogCsvOperation? AsCatalogCsvOperation() => this as CatalogCsvOperation;
+        public PublicationResourceOperation? AsPublicationResourceOperation() => this as PublicationResourceOperation;
         ///<summary>
         ///A globally-unique ID.
         ///</summary>
@@ -36210,6 +36304,8 @@ namespace Test
     [JsonDerivedType(typeof(PurchasingCompany), typeDiscriminator: "PurchasingCompany")]
     public interface IPurchasingEntity
     {
+        public Customer? AsCustomer() => this as Customer;
+        public PurchasingCompany? AsPurchasingCompany() => this as PurchasingCompany;
     }
 
     ///<summary>
@@ -38480,6 +38576,7 @@ namespace Test
     [JsonDerivedType(typeof(ReverseDeliveryShippingDeliverable), typeDiscriminator: "ReverseDeliveryShippingDeliverable")]
     public interface IReverseDeliveryDeliverable
     {
+        public ReverseDeliveryShippingDeliverable? AsReverseDeliveryShippingDeliverable() => this as ReverseDeliveryShippingDeliverable;
         ///<summary>
         ///The return label attached to the reverse delivery.
         ///</summary>
@@ -40254,6 +40351,8 @@ namespace Test
     [JsonDerivedType(typeof(SellingPlanRecurringBillingPolicy), typeDiscriminator: "SellingPlanRecurringBillingPolicy")]
     public interface ISellingPlanBillingPolicy
     {
+        public SellingPlanFixedBillingPolicy? AsSellingPlanFixedBillingPolicy() => this as SellingPlanFixedBillingPolicy;
+        public SellingPlanRecurringBillingPolicy? AsSellingPlanRecurringBillingPolicy() => this as SellingPlanRecurringBillingPolicy;
     }
 
     ///<summary>
@@ -40330,6 +40429,8 @@ namespace Test
     [JsonDerivedType(typeof(SellingPlanCheckoutChargePercentageValue), typeDiscriminator: "SellingPlanCheckoutChargePercentageValue")]
     public interface ISellingPlanCheckoutChargeValue
     {
+        public MoneyV2? AsMoneyV2() => this as MoneyV2;
+        public SellingPlanCheckoutChargePercentageValue? AsSellingPlanCheckoutChargePercentageValue() => this as SellingPlanCheckoutChargePercentageValue;
     }
 
     ///<summary>
@@ -40362,6 +40463,8 @@ namespace Test
     [JsonDerivedType(typeof(SellingPlanRecurringDeliveryPolicy), typeDiscriminator: "SellingPlanRecurringDeliveryPolicy")]
     public interface ISellingPlanDeliveryPolicy
     {
+        public SellingPlanFixedDeliveryPolicy? AsSellingPlanFixedDeliveryPolicy() => this as SellingPlanFixedDeliveryPolicy;
+        public SellingPlanRecurringDeliveryPolicy? AsSellingPlanRecurringDeliveryPolicy() => this as SellingPlanRecurringDeliveryPolicy;
         ///<summary>
         ///The specific anchor dates upon which the delivery interval calculations should be made.
         ///</summary>
@@ -41093,6 +41196,8 @@ namespace Test
     [JsonDerivedType(typeof(SellingPlanRecurringPricingPolicy), typeDiscriminator: "SellingPlanRecurringPricingPolicy")]
     public interface ISellingPlanPricingPolicy
     {
+        public SellingPlanFixedPricingPolicy? AsSellingPlanFixedPricingPolicy() => this as SellingPlanFixedPricingPolicy;
+        public SellingPlanRecurringPricingPolicy? AsSellingPlanRecurringPricingPolicy() => this as SellingPlanRecurringPricingPolicy;
         ///<summary>
         ///The price adjustment type.
         ///</summary>
@@ -41134,6 +41239,8 @@ namespace Test
     [JsonDerivedType(typeof(SellingPlanPricingPolicyPercentageValue), typeDiscriminator: "SellingPlanPricingPolicyPercentageValue")]
     public interface ISellingPlanPricingPolicyAdjustmentValue
     {
+        public MoneyV2? AsMoneyV2() => this as MoneyV2;
+        public SellingPlanPricingPolicyPercentageValue? AsSellingPlanPricingPolicyPercentageValue() => this as SellingPlanPricingPolicyPercentageValue;
     }
 
     ///<summary>
@@ -45470,6 +45577,9 @@ namespace Test
     [JsonDerivedType(typeof(SubscriptionDeliveryMethodShipping), typeDiscriminator: "SubscriptionDeliveryMethodShipping")]
     public interface ISubscriptionDeliveryMethod
     {
+        public SubscriptionDeliveryMethodLocalDelivery? AsSubscriptionDeliveryMethodLocalDelivery() => this as SubscriptionDeliveryMethodLocalDelivery;
+        public SubscriptionDeliveryMethodPickup? AsSubscriptionDeliveryMethodPickup() => this as SubscriptionDeliveryMethodPickup;
+        public SubscriptionDeliveryMethodShipping? AsSubscriptionDeliveryMethodShipping() => this as SubscriptionDeliveryMethodShipping;
     }
 
     ///<summary>
@@ -45609,6 +45719,9 @@ namespace Test
     [JsonDerivedType(typeof(SubscriptionShippingOption), typeDiscriminator: "SubscriptionShippingOption")]
     public interface ISubscriptionDeliveryOption
     {
+        public SubscriptionLocalDeliveryOption? AsSubscriptionLocalDeliveryOption() => this as SubscriptionLocalDeliveryOption;
+        public SubscriptionPickupOption? AsSubscriptionPickupOption() => this as SubscriptionPickupOption;
+        public SubscriptionShippingOption? AsSubscriptionShippingOption() => this as SubscriptionShippingOption;
         ///<summary>
         ///The code of the local delivery option.
         ///</summary>
@@ -45639,6 +45752,8 @@ namespace Test
     [JsonDerivedType(typeof(SubscriptionDeliveryOptionResultSuccess), typeDiscriminator: "SubscriptionDeliveryOptionResultSuccess")]
     public interface ISubscriptionDeliveryOptionResult
     {
+        public SubscriptionDeliveryOptionResultFailure? AsSubscriptionDeliveryOptionResultFailure() => this as SubscriptionDeliveryOptionResultFailure;
+        public SubscriptionDeliveryOptionResultSuccess? AsSubscriptionDeliveryOptionResultSuccess() => this as SubscriptionDeliveryOptionResultSuccess;
     }
 
     ///<summary>
@@ -45690,6 +45805,8 @@ namespace Test
     [JsonDerivedType(typeof(SubscriptionManualDiscount), typeDiscriminator: "SubscriptionManualDiscount")]
     public interface ISubscriptionDiscount
     {
+        public SubscriptionAppliedCodeDiscount? AsSubscriptionAppliedCodeDiscount() => this as SubscriptionAppliedCodeDiscount;
+        public SubscriptionManualDiscount? AsSubscriptionManualDiscount() => this as SubscriptionManualDiscount;
         ///<summary>
         ///The unique ID.
         ///</summary>
@@ -45849,6 +45966,8 @@ namespace Test
     [JsonDerivedType(typeof(SubscriptionDiscountPercentageValue), typeDiscriminator: "SubscriptionDiscountPercentageValue")]
     public interface ISubscriptionDiscountValue
     {
+        public SubscriptionDiscountFixedAmountValue? AsSubscriptionDiscountFixedAmountValue() => this as SubscriptionDiscountFixedAmountValue;
+        public SubscriptionDiscountPercentageValue? AsSubscriptionDiscountPercentageValue() => this as SubscriptionDiscountPercentageValue;
     }
 
     ///<summary>
@@ -46737,6 +46856,8 @@ namespace Test
     [JsonDerivedType(typeof(SubscriptionShippingOptionResultSuccess), typeDiscriminator: "SubscriptionShippingOptionResultSuccess")]
     public interface ISubscriptionShippingOptionResult
     {
+        public SubscriptionShippingOptionResultFailure? AsSubscriptionShippingOptionResultFailure() => this as SubscriptionShippingOptionResultFailure;
+        public SubscriptionShippingOptionResultSuccess? AsSubscriptionShippingOptionResultSuccess() => this as SubscriptionShippingOptionResultSuccess;
     }
 
     ///<summary>
@@ -47508,6 +47629,7 @@ namespace Test
     [JsonDerivedType(typeof(TenderTransactionCreditCardDetails), typeDiscriminator: "TenderTransactionCreditCardDetails")]
     public interface ITenderTransactionDetails
     {
+        public TenderTransactionCreditCardDetails? AsTenderTransactionCreditCardDetails() => this as TenderTransactionCreditCardDetails;
         ///<summary>
         ///The name of the company that issued the customer's credit card. Example: `Visa`.
         ///</summary>
@@ -48936,6 +49058,9 @@ namespace Test
     [JsonDerivedType(typeof(WebhookPubSubEndpoint), typeDiscriminator: "WebhookPubSubEndpoint")]
     public interface IWebhookSubscriptionEndpoint
     {
+        public WebhookEventBridgeEndpoint? AsWebhookEventBridgeEndpoint() => this as WebhookEventBridgeEndpoint;
+        public WebhookHttpEndpoint? AsWebhookHttpEndpoint() => this as WebhookHttpEndpoint;
+        public WebhookPubSubEndpoint? AsWebhookPubSubEndpoint() => this as WebhookPubSubEndpoint;
     }
 
     ///<summary>

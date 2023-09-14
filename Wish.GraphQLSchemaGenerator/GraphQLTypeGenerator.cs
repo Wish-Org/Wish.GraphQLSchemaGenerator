@@ -155,6 +155,12 @@ namespace Wish.GraphQLSchemaGenerator
 
             str.AppendLine("{");
 
+            foreach (var t in type.possibleTypes)
+            {
+                var typeName = GenerateTypeName(t, scalarNameToTypeName);
+                str.AppendLine($"public {typeName}? As{typeName}() => this as {typeName};");
+            }
+
             var commonFields = type.possibleTypes.First().fields.AsEnumerable();
             foreach (var t in type.possibleTypes.Skip(1))
             {
