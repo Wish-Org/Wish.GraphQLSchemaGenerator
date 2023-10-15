@@ -10,10 +10,6 @@ namespace shopify
     public class AbandonedCheckout : INavigable, INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The URL for the buyer to recover their checkout.
         ///</summary>
         public string? abandonedCheckoutUrl { get; set; }
@@ -40,10 +36,6 @@ namespace shopify
     ///</summary>
     public class Abandonment : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The abandonment payload for the abandoned checkout.
         ///</summary>
@@ -205,10 +197,6 @@ namespace shopify
     public class AbandonmentEmailStateUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated abandonment.
         ///</summary>
         public Abandonment? abandonment { get; set; }
@@ -223,10 +211,6 @@ namespace shopify
     ///</summary>
     public class AbandonmentEmailStateUpdateUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -258,10 +242,6 @@ namespace shopify
     public class AbandonmentUpdateActivitiesDeliveryStatusesPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated abandonment.
         ///</summary>
         public Abandonment? abandonment { get; set; }
@@ -276,10 +256,6 @@ namespace shopify
     ///</summary>
     public class AbandonmentUpdateActivitiesDeliveryStatusesUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -319,10 +295,6 @@ namespace shopify
     public class AccessScope
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A description of the actions that the access scope allows an app to perform.
         ///</summary>
         public string? description { get; set; }
@@ -337,10 +309,6 @@ namespace shopify
     ///</summary>
     public class AddAllProductsOperation : INode, IResourceOperation, IPublicationOperation
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A globally-unique ID.
         ///</summary>
@@ -365,10 +333,6 @@ namespace shopify
     public class AdditionalFee : INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A globally-unique ID.
         ///</summary>
         public string? id { get; set; }
@@ -391,10 +355,6 @@ namespace shopify
     ///</summary>
     public class AdditionalFeeSale : ISale
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The type of order action that the sale represents.
         ///</summary>
@@ -443,10 +403,6 @@ namespace shopify
     public class AdjustmentSale : ISale
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The type of order action that the sale represents.
         ///</summary>
         public SaleActionType? actionType { get; set; }
@@ -490,10 +446,6 @@ namespace shopify
     public class AllDiscountItems : IDiscountItems
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Whether all items are eligible for the discount. This value always returns `true`.
         ///</summary>
         public bool? allItems { get; set; }
@@ -505,10 +457,6 @@ namespace shopify
     ///</summary>
     public class ApiVersion
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The human-readable name of the version.
         ///</summary>
@@ -528,10 +476,6 @@ namespace shopify
     ///</summary>
     public class App : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A unique application API identifier.
         ///</summary>
@@ -678,10 +622,6 @@ namespace shopify
     public class AppCatalog : ICatalog, INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The apps associated with the catalog.
         ///</summary>
         public AppConnection? apps { get; set; }
@@ -717,10 +657,6 @@ namespace shopify
     public class AppConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public AppEdge[]? edges { get; set; }
@@ -739,10 +675,6 @@ namespace shopify
     ///</summary>
     public class AppCredit : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The amount that can be used towards future app purchases in Shopify.
         ///</summary>
@@ -771,10 +703,6 @@ namespace shopify
     public class AppCreditConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public AppCreditEdge[]? edges { get; set; }
@@ -793,10 +721,6 @@ namespace shopify
     ///</summary>
     public class AppCreditEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -835,10 +759,6 @@ namespace shopify
     ///</summary>
     public class AppDiscountType
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The app providing the app discount type.
         ///</summary>
@@ -879,10 +799,6 @@ namespace shopify
     public class AppEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -899,10 +815,6 @@ namespace shopify
     ///</summary>
     public class AppFeedback
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The application associated to the feedback.
         ///</summary>
@@ -922,10 +834,6 @@ namespace shopify
     ///</summary>
     public class AppInstallation : IHasMetafields, INode, IMetafieldReferencer
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The access scopes granted to the application by a merchant during installation.
         ///</summary>
@@ -1018,10 +926,6 @@ namespace shopify
     public class AppInstallationConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public AppInstallationEdge[]? edges { get; set; }
@@ -1040,10 +944,6 @@ namespace shopify
     ///</summary>
     public class AppInstallationEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -1093,10 +993,6 @@ namespace shopify
     public class AppPlanV2
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The plan billed to a shop on a recurring basis.
         ///</summary>
         public IAppPricingDetails? pricingDetails { get; set; }
@@ -1113,10 +1009,6 @@ namespace shopify
     {
         public AppRecurringPricing? AsAppRecurringPricing() => this as AppRecurringPricing;
         public AppUsagePricing? AsAppUsagePricing() => this as AppUsagePricing;
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The frequency at which the subscribing shop is billed for an app subscription.
         ///</summary>
@@ -1167,10 +1059,6 @@ namespace shopify
     public interface IAppPurchase
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; }
-        ///<summary>
         ///The date and time when the app purchase occurred.
         ///</summary>
         public DateTime? createdAt { get; }
@@ -1197,10 +1085,6 @@ namespace shopify
     ///</summary>
     public class AppPurchaseOneTime : IAppPurchase, INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The date and time when the app purchase occurred.
         ///</summary>
@@ -1233,10 +1117,6 @@ namespace shopify
     public class AppPurchaseOneTimeConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public AppPurchaseOneTimeEdge[]? edges { get; set; }
@@ -1255,10 +1135,6 @@ namespace shopify
     ///</summary>
     public class AppPurchaseOneTimeCreatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The newly created app one-time purchase.
         ///</summary>
@@ -1283,10 +1159,6 @@ namespace shopify
     ///</summary>
     public class AppPurchaseOneTimeEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -1338,10 +1210,6 @@ namespace shopify
     public class AppRecurringPricing : IAppPricingDetails
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The discount applied to the subscription for a given number of billing intervals.
         ///</summary>
         public AppSubscriptionDiscount? discount { get; set; }
@@ -1360,10 +1228,6 @@ namespace shopify
     ///</summary>
     public class AppRevenueAttributionRecord : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The financial amount captured in this attribution.
         ///</summary>
@@ -1402,10 +1266,6 @@ namespace shopify
     public class AppRevenueAttributionRecordConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public AppRevenueAttributionRecordEdge[]? edges { get; set; }
@@ -1425,10 +1285,6 @@ namespace shopify
     public class AppRevenueAttributionRecordCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The created app revenue attribution record.
         ///</summary>
         public AppRevenueAttributionRecord? appRevenueAttributionRecord { get; set; }
@@ -1443,10 +1299,6 @@ namespace shopify
     ///</summary>
     public class AppRevenueAttributionRecordCreateUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -1482,10 +1334,6 @@ namespace shopify
     public class AppRevenueAttributionRecordDeletePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The ID of the revenue attribution that was deleted, if one was.
         ///</summary>
         public string? deletedId { get; set; }
@@ -1500,10 +1348,6 @@ namespace shopify
     ///</summary>
     public class AppRevenueAttributionRecordDeleteUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -1534,10 +1378,6 @@ namespace shopify
     ///</summary>
     public class AppRevenueAttributionRecordEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -1597,10 +1437,6 @@ namespace shopify
     public class AppSubscription : INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The date and time when the app subscription was created.
         ///</summary>
         public DateTime? createdAt { get; set; }
@@ -1644,10 +1480,6 @@ namespace shopify
     public class AppSubscriptionCancelPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The cancelled app subscription.
         ///</summary>
         public AppSubscription? appSubscription { get; set; }
@@ -1662,10 +1494,6 @@ namespace shopify
     ///</summary>
     public class AppSubscriptionConnection
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A list of edges.
         ///</summary>
@@ -1686,10 +1514,6 @@ namespace shopify
     public class AppSubscriptionCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The newly-created app subscription.
         ///</summary>
         public AppSubscription? appSubscription { get; set; }
@@ -1708,10 +1532,6 @@ namespace shopify
     ///</summary>
     public class AppSubscriptionDiscount
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The total number of billing intervals to which the discount will be applied.
         ///The discount will be applied to an indefinite number of billing intervals if this value is blank.
@@ -1737,10 +1557,6 @@ namespace shopify
     public class AppSubscriptionDiscountAmount : IAppSubscriptionDiscountValue
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The fixed amount value of a discount.
         ///</summary>
         public MoneyV2? amount { get; set; }
@@ -1751,10 +1567,6 @@ namespace shopify
     ///</summary>
     public class AppSubscriptionDiscountPercentage : IAppSubscriptionDiscountValue
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The percentage value of a discount.
         ///</summary>
@@ -1771,10 +1583,6 @@ namespace shopify
     {
         public AppSubscriptionDiscountAmount? AsAppSubscriptionDiscountAmount() => this as AppSubscriptionDiscountAmount;
         public AppSubscriptionDiscountPercentage? AsAppSubscriptionDiscountPercentage() => this as AppSubscriptionDiscountPercentage;
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
     }
 
     ///<summary>
@@ -1782,10 +1590,6 @@ namespace shopify
     ///</summary>
     public class AppSubscriptionEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -1801,10 +1605,6 @@ namespace shopify
     ///</summary>
     public class AppSubscriptionLineItem
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A globally-unique ID.
         ///</summary>
@@ -1824,10 +1624,6 @@ namespace shopify
     ///</summary>
     public class AppSubscriptionLineItemUpdatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The updated app subscription.
         ///</summary>
@@ -1926,10 +1722,6 @@ namespace shopify
     public class AppSubscriptionTrialExtendPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The app subscription that had its trial extended.
         ///</summary>
         public AppSubscription? appSubscription { get; set; }
@@ -1944,10 +1736,6 @@ namespace shopify
     ///</summary>
     public class AppSubscriptionTrialExtendUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -2008,10 +1796,6 @@ namespace shopify
     public class AppUsagePricing : IAppPricingDetails
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The total usage records for interval.
         ///</summary>
         public MoneyV2? balanceUsed { get; set; }
@@ -2038,10 +1822,6 @@ namespace shopify
     ///</summary>
     public class AppUsageRecord : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The date and time when the usage record was created.
         ///</summary>
@@ -2074,10 +1854,6 @@ namespace shopify
     public class AppUsageRecordConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public AppUsageRecordEdge[]? edges { get; set; }
@@ -2097,10 +1873,6 @@ namespace shopify
     public class AppUsageRecordCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The newly created app usage record.
         ///</summary>
         public AppUsageRecord? appUsageRecord { get; set; }
@@ -2115,10 +1887,6 @@ namespace shopify
     ///</summary>
     public class AppUsageRecordEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -2155,10 +1923,6 @@ namespace shopify
     public class Attribute
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Key or name of the attribute.
         ///</summary>
         public string? key { get; set; }
@@ -2173,10 +1937,6 @@ namespace shopify
     ///</summary>
     public class AutomaticDiscountApplication : IDiscountApplication
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The method by which the discount's value is applied to its entitled items.
         ///</summary>
@@ -2230,10 +1990,6 @@ namespace shopify
     public class AvailableChannelDefinitionsByChannel
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The channel definitions for channels installed on a shop.
         ///</summary>
         public ChannelDefinition[]? channelDefinitions { get; set; }
@@ -2277,10 +2033,6 @@ namespace shopify
     public class BasicEvent : IEvent, INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The name of the app that created the event.
         ///</summary>
         public string? appTitle { get; set; }
@@ -2315,10 +2067,6 @@ namespace shopify
     ///</summary>
     public class BillingAttemptUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -2405,10 +2153,6 @@ namespace shopify
     public class BulkMutationUserError : IDisplayableError
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The error code.
         ///</summary>
         public BulkMutationErrorCode? code { get; set; }
@@ -2433,10 +2177,6 @@ namespace shopify
     ///</summary>
     public class BulkOperation : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///When the bulk operation was successfully completed.
         ///</summary>
@@ -2499,10 +2239,6 @@ namespace shopify
     public class BulkOperationCancelPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The bulk operation to be canceled.
         ///</summary>
         public BulkOperation? bulkOperation { get; set; }
@@ -2541,10 +2277,6 @@ namespace shopify
     public class BulkOperationRunMutationPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The newly created bulk operation.
         ///</summary>
         public BulkOperation? bulkOperation { get; set; }
@@ -2559,10 +2291,6 @@ namespace shopify
     ///</summary>
     public class BulkOperationRunQueryPayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The newly created bulk operation.
         ///</summary>
@@ -2631,10 +2359,6 @@ namespace shopify
     public class BulkProductResourceFeedbackCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The feedback that's created.
         ///</summary>
         public ProductResourceFeedback[]? feedback { get; set; }
@@ -2649,10 +2373,6 @@ namespace shopify
     ///</summary>
     public class BulkProductResourceFeedbackCreateUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -2707,10 +2427,6 @@ namespace shopify
     ///</summary>
     public class BundlesFeature
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Whether a shop is configured properly to sell bundles.
         ///</summary>
@@ -2786,10 +2502,6 @@ namespace shopify
     public class BusinessCustomerUserError : IDisplayableError
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The error code.
         ///</summary>
         public BusinessCustomerErrorCode? code { get; set; }
@@ -2808,10 +2520,6 @@ namespace shopify
     ///</summary>
     public class BuyerExperienceConfiguration
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Whether to checkout to draft order for merchant review.
         ///</summary>
@@ -2836,10 +2544,6 @@ namespace shopify
     ///</summary>
     public class CalculatedAutomaticDiscountApplication : ICalculatedDiscountApplication
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The method by which the discount's value is allocated to its entitled items.
         ///</summary>
@@ -2876,10 +2580,6 @@ namespace shopify
     public class CalculatedDiscountAllocation
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The money amount that's allocated by the discount application in shop and presentment currencies.
         ///</summary>
         public MoneyBag? allocatedAmountSet { get; set; }
@@ -2894,10 +2594,6 @@ namespace shopify
     ///</summary>
     public interface ICalculatedDiscountApplication
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; }
         ///<summary>
         ///The method by which the discount's value is allocated to its entitled items.
         ///</summary>
@@ -2934,10 +2630,6 @@ namespace shopify
     public class CalculatedDiscountApplicationConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public CalculatedDiscountApplicationEdge[]? edges { get; set; }
@@ -2957,10 +2649,6 @@ namespace shopify
     public class CalculatedDiscountApplicationEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -2975,10 +2663,6 @@ namespace shopify
     ///</summary>
     public class CalculatedDiscountCodeApplication : ICalculatedDiscountApplication
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The method by which the discount's value is allocated to its entitled items.
         ///</summary>
@@ -3018,10 +2702,6 @@ namespace shopify
     ///</summary>
     public class CalculatedDraftOrder
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Order-level discount applied to the draft order.
         ///</summary>
@@ -3125,10 +2805,6 @@ namespace shopify
     ///</summary>
     public class CalculatedDraftOrderLineItem
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The discount applied to the line item.
         ///</summary>
@@ -3254,10 +2930,6 @@ namespace shopify
     public class CalculatedLineItem
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The discounts that have been allocated onto the line item by discount applications.
         ///</summary>
         public CalculatedDiscountAllocation[]? calculatedDiscountAllocations { get; set; }
@@ -3346,10 +3018,6 @@ namespace shopify
     public class CalculatedLineItemConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public CalculatedLineItemEdge[]? edges { get; set; }
@@ -3369,10 +3037,6 @@ namespace shopify
     public class CalculatedLineItemEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -3387,10 +3051,6 @@ namespace shopify
     ///</summary>
     public class CalculatedManualDiscountApplication : ICalculatedDiscountApplication
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The method by which the discount's value is allocated to its entitled items.
         ///</summary>
@@ -3426,10 +3086,6 @@ namespace shopify
     ///</summary>
     public class CalculatedOrder : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Returns only the new discount applications being added to the order in the current edit.
         ///</summary>
@@ -3504,10 +3160,6 @@ namespace shopify
     public class CalculatedScriptDiscountApplication : ICalculatedDiscountApplication
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The method by which the discount's value is allocated to its entitled items.
         ///</summary>
         public DiscountApplicationAllocationMethod? allocationMethod { get; set; }
@@ -3542,10 +3194,6 @@ namespace shopify
     ///</summary>
     public class CardPaymentDetails : IPaymentDetails
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The response code from the address verification system (AVS). The code is always a single letter.
         ///</summary>
@@ -3590,10 +3238,6 @@ namespace shopify
     public class CartTransform : IHasMetafields, INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The ID for the Cart Transform function.
         ///</summary>
         public string? functionId { get; set; }
@@ -3625,10 +3269,6 @@ namespace shopify
     public class CartTransformConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public CartTransformEdge[]? edges { get; set; }
@@ -3648,10 +3288,6 @@ namespace shopify
     public class CartTransformCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The newly created cart transform function.
         ///</summary>
         public CartTransform? cartTransform { get; set; }
@@ -3666,10 +3302,6 @@ namespace shopify
     ///</summary>
     public class CartTransformCreateUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -3713,10 +3345,6 @@ namespace shopify
     public class CartTransformDeletePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The globally-unique ID for the deleted cart transform.
         ///</summary>
         public string? deletedId { get; set; }
@@ -3731,10 +3359,6 @@ namespace shopify
     ///</summary>
     public class CartTransformDeleteUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -3769,10 +3393,6 @@ namespace shopify
     ///</summary>
     public class CartTransformEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -3817,10 +3437,6 @@ namespace shopify
     public class CatalogConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public CatalogEdge[]? edges { get; set; }
@@ -3844,10 +3460,6 @@ namespace shopify
     public class CatalogContextUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated catalog.
         ///</summary>
         public ICatalog? catalog { get; set; }
@@ -3863,10 +3475,6 @@ namespace shopify
     public class CatalogCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The newly created catalog.
         ///</summary>
         public ICatalog? catalog { get; set; }
@@ -3881,10 +3489,6 @@ namespace shopify
     ///</summary>
     public class CatalogCsvOperation : INode, IResourceOperation, IPublicationOperation
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A globally-unique ID.
         ///</summary>
@@ -3909,10 +3513,6 @@ namespace shopify
     public class CatalogDeletePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The ID of the deleted catalog.
         ///</summary>
         public string? deletedId { get; set; }
@@ -3927,10 +3527,6 @@ namespace shopify
     ///</summary>
     public class CatalogEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -4009,10 +3605,6 @@ namespace shopify
     public class CatalogUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated catalog.
         ///</summary>
         public ICatalog? catalog { get; set; }
@@ -4027,10 +3619,6 @@ namespace shopify
     ///</summary>
     public class CatalogUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -4199,10 +3787,6 @@ namespace shopify
     public class Channel : INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The underlying app used by the channel.
         ///</summary>
         public App? app { get; set; }
@@ -4262,10 +3846,6 @@ namespace shopify
     public class ChannelConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public ChannelEdge[]? edges { get; set; }
@@ -4285,10 +3865,6 @@ namespace shopify
     ///</summary>
     public class ChannelDefinition : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Name of the channel that this sub channel belongs to.
         ///</summary>
@@ -4321,10 +3897,6 @@ namespace shopify
     public class ChannelEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -4339,10 +3911,6 @@ namespace shopify
     ///</summary>
     public class ChannelInformation : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The app associated with the channel.
         ///</summary>
@@ -4366,10 +3934,6 @@ namespace shopify
     ///</summary>
     public class CheckoutProfile : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The date and time when the checkout profile was created.
         ///</summary>
@@ -4402,10 +3966,6 @@ namespace shopify
     public class CheckoutProfileConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public CheckoutProfileEdge[]? edges { get; set; }
@@ -4424,10 +3984,6 @@ namespace shopify
     ///</summary>
     public class CheckoutProfileEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -4515,10 +4071,6 @@ namespace shopify
     ///</summary>
     public class Collection : IHasMetafieldDefinitions, IHasMetafields, IHasPublishedTranslations, INode, IPublishable, IMetafieldReference, IMetafieldReferencer
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The number of publications a resource is published to without feedback errors.
         ///</summary>
@@ -4669,10 +4221,6 @@ namespace shopify
     public class CollectionAddProductsPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated collection. Returns `null` if an error is raised.
         ///</summary>
         public Collection? collection { get; set; }
@@ -4688,10 +4236,6 @@ namespace shopify
     public class CollectionAddProductsV2Payload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The asynchronous job adding the products.
         ///</summary>
         public Job? job { get; set; }
@@ -4706,10 +4250,6 @@ namespace shopify
     ///</summary>
     public class CollectionAddProductsV2UserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -4745,10 +4285,6 @@ namespace shopify
     public class CollectionConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public CollectionEdge[]? edges { get; set; }
@@ -4768,10 +4304,6 @@ namespace shopify
     public class CollectionCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The collection that has been created.
         ///</summary>
         public Collection? collection { get; set; }
@@ -4786,10 +4318,6 @@ namespace shopify
     ///</summary>
     public class CollectionDeletePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The ID of the collection that was deleted. Returns `null` if the collection doesn't exist.
         ///</summary>
@@ -4810,10 +4338,6 @@ namespace shopify
     public class CollectionEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -4828,10 +4352,6 @@ namespace shopify
     ///</summary>
     public class CollectionPublication
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The channel where the collection will be published.
         ///</summary>
@@ -4860,10 +4380,6 @@ namespace shopify
     public class CollectionPublicationConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public CollectionPublicationEdge[]? edges { get; set; }
@@ -4883,10 +4399,6 @@ namespace shopify
     public class CollectionPublicationEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -4901,10 +4413,6 @@ namespace shopify
     ///</summary>
     public class CollectionPublishPayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The published collection.
         ///</summary>
@@ -4929,10 +4437,6 @@ namespace shopify
     public class CollectionRemoveProductsPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The asynchronous job removing the products.
         ///</summary>
         public Job? job { get; set; }
@@ -4948,10 +4452,6 @@ namespace shopify
     public class CollectionReorderProductsPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The asynchronous job reordering the products.
         ///</summary>
         public Job? job { get; set; }
@@ -4966,10 +4466,6 @@ namespace shopify
     ///</summary>
     public class CollectionRule
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The attribute that the rule focuses on. For example, `title` or `product_type`.
         ///</summary>
@@ -5061,10 +4557,6 @@ namespace shopify
         public CollectionRuleMetafieldCondition? AsCollectionRuleMetafieldCondition() => this as CollectionRuleMetafieldCondition;
         public CollectionRuleProductCategoryCondition? AsCollectionRuleProductCategoryCondition() => this as CollectionRuleProductCategoryCondition;
         public CollectionRuleTextCondition? AsCollectionRuleTextCondition() => this as CollectionRuleTextCondition;
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
     }
 
     ///<summary>
@@ -5072,10 +4564,6 @@ namespace shopify
     ///</summary>
     public class CollectionRuleConditions
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Allowed relations of the rule.
         ///</summary>
@@ -5103,10 +4591,6 @@ namespace shopify
     {
         public CollectionRuleMetafieldCondition? AsCollectionRuleMetafieldCondition() => this as CollectionRuleMetafieldCondition;
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The metafield definition associated with the condition.
         ///</summary>
         public MetafieldDefinition? metafieldDefinition { get; set; }
@@ -5118,10 +4602,6 @@ namespace shopify
     public class CollectionRuleMetafieldCondition : ICollectionRuleConditionObject, ICollectionRuleConditionsRuleObject
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The metafield definition associated with the condition.
         ///</summary>
         public MetafieldDefinition? metafieldDefinition { get; set; }
@@ -5132,10 +4612,6 @@ namespace shopify
     ///</summary>
     public class CollectionRuleProductCategoryCondition : ICollectionRuleConditionObject
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The value of the condition.
         ///</summary>
@@ -5195,10 +4671,6 @@ namespace shopify
     public class CollectionRuleSet
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Whether products must match any or all of the rules to be included in the collection.
         ///If true, then products must match at least one of the rules to be included in the collection.
         ///If false, then products must match all of the rules to be included in the collection.
@@ -5215,10 +4687,6 @@ namespace shopify
     ///</summary>
     public class CollectionRuleTextCondition : ICollectionRuleConditionObject
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The value of the condition.
         ///</summary>
@@ -5294,10 +4762,6 @@ namespace shopify
     public class CollectionUnpublishPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The collection that has been unpublished.
         ///</summary>
         public Collection? collection { get; set; }
@@ -5316,10 +4780,6 @@ namespace shopify
     ///</summary>
     public class CollectionUpdatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The updated collection.
         ///</summary>
@@ -5340,10 +4800,6 @@ namespace shopify
     ///</summary>
     public class CommentEvent : IEvent, INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The name of the app that created the event.
         ///</summary>
@@ -5412,10 +4868,6 @@ namespace shopify
     public class CommentEventAttachment
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The file extension of the comment event attachment, indicating the file format.
         ///</summary>
         public string? fileExtension { get; set; }
@@ -5458,10 +4910,6 @@ namespace shopify
         public Product? AsProduct() => this as Product;
         public ProductVariant? AsProductVariant() => this as ProductVariant;
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The date and time when the customer was added to the store.
         ///</summary>
         public DateTime? createdAt { get; set; }
@@ -5501,10 +4949,6 @@ namespace shopify
     public interface ICommentEventSubject
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; }
-        ///<summary>
         ///Whether the timeline subject has a timeline comment. If true, then a timeline comment exists.
         ///</summary>
         public bool? hasTimelineComment { get; }
@@ -5520,10 +4964,6 @@ namespace shopify
     public class CompaniesDeletePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of IDs of the deleted companies.
         ///</summary>
         public string[]? deletedCompanyIds { get; set; }
@@ -5538,10 +4978,6 @@ namespace shopify
     ///</summary>
     public class Company : ICommentEventSubject, IHasEvents, IHasMetafieldDefinitions, IHasMetafields, INavigable, INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The number of contacts that belong to the company.
         ///</summary>
@@ -5658,10 +5094,6 @@ namespace shopify
     public class CompanyAddress : INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The first line of the address. Typically the street address or PO Box number.
         ///</summary>
         public string? address1 { get; set; }
@@ -5736,10 +5168,6 @@ namespace shopify
     public class CompanyAddressDeletePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The ID of the deleted address.
         ///</summary>
         public string? deletedAddressId { get; set; }
@@ -5770,10 +5198,6 @@ namespace shopify
     public class CompanyAssignCustomerAsContactPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The created company contact.
         ///</summary>
         public CompanyContact? companyContact { get; set; }
@@ -5789,10 +5213,6 @@ namespace shopify
     public class CompanyAssignMainContactPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The company for which the main contact is assigned.
         ///</summary>
         public Company? company { get; set; }
@@ -5807,10 +5227,6 @@ namespace shopify
     ///</summary>
     public class CompanyConnection
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A list of edges.
         ///</summary>
@@ -5830,10 +5246,6 @@ namespace shopify
     ///</summary>
     public class CompanyContact : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The company to which the contact belongs.
         ///</summary>
@@ -5890,10 +5302,6 @@ namespace shopify
     public class CompanyContactAssignRolePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The company contact role assignment.
         ///</summary>
         public CompanyContactRoleAssignment? companyContactRoleAssignment { get; set; }
@@ -5909,10 +5317,6 @@ namespace shopify
     public class CompanyContactAssignRolesPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of newly created assignments of company contacts to a company location.
         ///</summary>
         public CompanyContactRoleAssignment[]? roleAssignments { get; set; }
@@ -5927,10 +5331,6 @@ namespace shopify
     ///</summary>
     public class CompanyContactConnection
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A list of edges.
         ///</summary>
@@ -5951,10 +5351,6 @@ namespace shopify
     public class CompanyContactCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The created company contact.
         ///</summary>
         public CompanyContact? companyContact { get; set; }
@@ -5969,10 +5365,6 @@ namespace shopify
     ///</summary>
     public class CompanyContactDeletePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The ID of the deleted company contact.
         ///</summary>
@@ -5989,10 +5381,6 @@ namespace shopify
     public class CompanyContactEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -6007,10 +5395,6 @@ namespace shopify
     ///</summary>
     public class CompanyContactRemoveFromCompanyPayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The ID of the removed company contact.
         ///</summary>
@@ -6027,10 +5411,6 @@ namespace shopify
     public class CompanyContactRevokeRolePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The role assignment that was revoked.
         ///</summary>
         public string? revokedCompanyContactRoleAssignmentId { get; set; }
@@ -6046,10 +5426,6 @@ namespace shopify
     public class CompanyContactRevokeRolesPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of role assignment IDs that were removed from the company contact.
         ///</summary>
         public string[]? revokedRoleAssignmentIds { get; set; }
@@ -6064,10 +5440,6 @@ namespace shopify
     ///</summary>
     public class CompanyContactRole : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A globally-unique ID.
         ///</summary>
@@ -6088,10 +5460,6 @@ namespace shopify
     ///</summary>
     public class CompanyContactRoleAssignment : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The company this role assignment belongs to.
         ///</summary>
@@ -6128,10 +5496,6 @@ namespace shopify
     public class CompanyContactRoleAssignmentConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public CompanyContactRoleAssignmentEdge[]? edges { get; set; }
@@ -6150,10 +5514,6 @@ namespace shopify
     ///</summary>
     public class CompanyContactRoleAssignmentEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -6198,10 +5558,6 @@ namespace shopify
     public class CompanyContactRoleConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public CompanyContactRoleEdge[]? edges { get; set; }
@@ -6220,10 +5576,6 @@ namespace shopify
     ///</summary>
     public class CompanyContactRoleEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -6263,10 +5615,6 @@ namespace shopify
     ///</summary>
     public class CompanyContactSendWelcomeEmailPayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The company contact to whom a welcome email was sent.
         ///</summary>
@@ -6327,10 +5675,6 @@ namespace shopify
     public class CompanyContactUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated company contact.
         ///</summary>
         public CompanyContact? companyContact { get; set; }
@@ -6345,10 +5689,6 @@ namespace shopify
     ///</summary>
     public class CompanyContactsDeletePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The list of IDs of the deleted company contacts.
         ///</summary>
@@ -6365,10 +5705,6 @@ namespace shopify
     public class CompanyCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The created company.
         ///</summary>
         public Company? company { get; set; }
@@ -6383,10 +5719,6 @@ namespace shopify
     ///</summary>
     public class CompanyDeletePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The ID of the deleted company.
         ///</summary>
@@ -6403,10 +5735,6 @@ namespace shopify
     public class CompanyEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -6421,10 +5749,6 @@ namespace shopify
     ///</summary>
     public class CompanyLocation : ICommentEventSubject, IHasEvents, IHasMetafieldDefinitions, IHasMetafields, INavigable, INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The address used as billing address for the location.
         ///</summary>
@@ -6557,10 +5881,6 @@ namespace shopify
     public class CompanyLocationAssignAddressPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The list of updated addresses on the company location.
         ///</summary>
         public CompanyAddress[]? addresses { get; set; }
@@ -6575,10 +5895,6 @@ namespace shopify
     ///</summary>
     public class CompanyLocationAssignRolesPayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A list of newly created assignments of company contacts to a company location.
         ///</summary>
@@ -6595,10 +5911,6 @@ namespace shopify
     public class CompanyLocationAssignTaxExemptionsPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated company location.
         ///</summary>
         public CompanyLocation? companyLocation { get; set; }
@@ -6613,10 +5925,6 @@ namespace shopify
     ///</summary>
     public class CompanyLocationCatalog : ICatalog, INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The company locations associated with the catalog.
         ///</summary>
@@ -6657,10 +5965,6 @@ namespace shopify
     public class CompanyLocationConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public CompanyLocationEdge[]? edges { get; set; }
@@ -6680,10 +5984,6 @@ namespace shopify
     public class CompanyLocationCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The created company location.
         ///</summary>
         public CompanyLocation? companyLocation { get; set; }
@@ -6698,10 +5998,6 @@ namespace shopify
     ///</summary>
     public class CompanyLocationCreateTaxRegistrationPayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The company location with the created tax registration.
         ///</summary>
@@ -6718,10 +6014,6 @@ namespace shopify
     public class CompanyLocationDeletePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The ID of the deleted company location.
         ///</summary>
         public string? deletedCompanyLocationId { get; set; }
@@ -6736,10 +6028,6 @@ namespace shopify
     ///</summary>
     public class CompanyLocationEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -6756,10 +6044,6 @@ namespace shopify
     public class CompanyLocationRevokeRolesPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of role assignment IDs that were removed from the company location.
         ///</summary>
         public string[]? revokedRoleAssignmentIds { get; set; }
@@ -6775,10 +6059,6 @@ namespace shopify
     public class CompanyLocationRevokeTaxExemptionsPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated company location.
         ///</summary>
         public CompanyLocation? companyLocation { get; set; }
@@ -6793,10 +6073,6 @@ namespace shopify
     ///</summary>
     public class CompanyLocationRevokeTaxRegistrationPayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The updated company location.
         ///</summary>
@@ -6849,10 +6125,6 @@ namespace shopify
     public class CompanyLocationUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated company location.
         ///</summary>
         public CompanyLocation? companyLocation { get; set; }
@@ -6868,10 +6140,6 @@ namespace shopify
     public class CompanyLocationsDeletePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of IDs of the deleted company locations.
         ///</summary>
         public string[]? deletedCompanyLocationIds { get; set; }
@@ -6886,10 +6154,6 @@ namespace shopify
     ///</summary>
     public class CompanyRevokeMainContactPayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The company from which the main contact is revoked.
         ///</summary>
@@ -6946,10 +6210,6 @@ namespace shopify
     public class CompanyUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated company.
         ///</summary>
         public Company? company { get; set; }
@@ -6964,10 +6224,6 @@ namespace shopify
     ///</summary>
     public class CountriesInShippingZones
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The list of all the countries from all the combined shipping zones.
         ///</summary>
@@ -7974,10 +7230,6 @@ namespace shopify
     public class CountryHarmonizedSystemCode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The ISO 3166-1 alpha-2 country code for the country that issued the specified harmonized system code.
         ///</summary>
         public CountryCode? countryCode { get; set; }
@@ -7992,10 +7244,6 @@ namespace shopify
     ///</summary>
     public class CountryHarmonizedSystemCodeConnection
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A list of edges.
         ///</summary>
@@ -8015,10 +7263,6 @@ namespace shopify
     ///</summary>
     public class CountryHarmonizedSystemCodeEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -8714,10 +7958,6 @@ namespace shopify
     public class CurrencyFormats
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Money without currency in HTML.
         ///</summary>
         public string? moneyFormat { get; set; }
@@ -8740,10 +7980,6 @@ namespace shopify
     ///</summary>
     public class CurrencySetting
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The currency's ISO code.
         ///</summary>
@@ -8768,10 +8004,6 @@ namespace shopify
     public class CurrencySettingConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public CurrencySettingEdge[]? edges { get; set; }
@@ -8791,10 +8023,6 @@ namespace shopify
     public class CurrencySettingEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -8812,10 +8040,6 @@ namespace shopify
     ///</summary>
     public class Customer : ICommentEventSubject, IHasEvents, IHasMetafieldDefinitions, IHasMetafields, ILegacyInteroperability, INode, ICommentEventEmbed, IMetafieldReferencer, IPurchasingEntity
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Whether the customer has agreed to receive marketing material.
         ///</summary>
@@ -9036,10 +8260,6 @@ namespace shopify
     public class CustomerAddTaxExemptionsPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated customer.
         ///</summary>
         public Customer? customer { get; set; }
@@ -9054,10 +8274,6 @@ namespace shopify
     ///</summary>
     public class CustomerConnection
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A list of edges.
         ///</summary>
@@ -9093,10 +8309,6 @@ namespace shopify
     public class CustomerCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The created customer.
         ///</summary>
         public Customer? customer { get; set; }
@@ -9111,10 +8323,6 @@ namespace shopify
     ///</summary>
     public class CustomerCreditCard : ICustomerPaymentInstrument
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The billing address of the card.
         ///</summary>
@@ -9171,10 +8379,6 @@ namespace shopify
     public class CustomerCreditCardBillingAddress
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The first line of the address. Typically the street address or PO Box number.
         ///</summary>
         public string? address1 { get; set; }
@@ -9220,10 +8424,6 @@ namespace shopify
     public class CustomerDeletePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The ID of the deleted customer.
         ///</summary>
         public string? deletedCustomerId { get; set; }
@@ -9243,10 +8443,6 @@ namespace shopify
     public class CustomerEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -9261,10 +8457,6 @@ namespace shopify
     ///</summary>
     public class CustomerEmailAddress
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The customer's default email address.
         ///</summary>
@@ -9339,10 +8531,6 @@ namespace shopify
     public class CustomerEmailMarketingConsentState
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The date and time at which the customer consented to receive marketing material by email.
         ///The customer's consent state reflects the consent record with the most recent `consent_updated_at` date.
         ///If no date is provided, then the date and time at which the consent information was sent is used.
@@ -9365,10 +8553,6 @@ namespace shopify
     public class CustomerEmailMarketingConsentUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated customer.
         ///</summary>
         public Customer? customer { get; set; }
@@ -9383,10 +8567,6 @@ namespace shopify
     ///</summary>
     public class CustomerEmailMarketingConsentUpdateUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -9461,10 +8641,6 @@ namespace shopify
     public class CustomerGenerateAccountActivationUrlPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The generated account activation URL.
         ///</summary>
         public string? accountActivationUrl { get; set; }
@@ -9479,10 +8655,6 @@ namespace shopify
     ///</summary>
     public class CustomerJourney
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The position of the current order within the customer's order history.
         ///</summary>
@@ -9510,10 +8682,6 @@ namespace shopify
     ///</summary>
     public class CustomerJourneySummary
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The position of the current order within the customer's order history. Test orders aren't included.
         ///</summary>
@@ -9573,10 +8741,6 @@ namespace shopify
     ///</summary>
     public class CustomerMergeError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The list of fields preventing the customer from being merged.
         ///</summary>
@@ -9667,10 +8831,6 @@ namespace shopify
     public class CustomerMergePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The asynchronous job for merging the customers.
         ///</summary>
         public Job? job { get; set; }
@@ -9689,10 +8849,6 @@ namespace shopify
     ///</summary>
     public class CustomerMergePreview
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The fields that can be used to override the default fields.
         ///</summary>
@@ -9721,10 +8877,6 @@ namespace shopify
     public class CustomerMergePreviewAlternateFields
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The default address of a customer.
         ///</summary>
         public MailingAddress? defaultAddress { get; set; }
@@ -9752,10 +8904,6 @@ namespace shopify
     public class CustomerMergePreviewBlockingFields
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The merged note resulting from a customer merge. The merged note is over the 5000 character limit and will block customer merge.
         ///</summary>
         public string? note { get; set; }
@@ -9770,10 +8918,6 @@ namespace shopify
     ///</summary>
     public class CustomerMergePreviewDefaultFields
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The merged addresses resulting from a customer merge.
         ///</summary>
@@ -9854,10 +8998,6 @@ namespace shopify
     public class CustomerMergeRequest
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The merge errors that occurred during the customer merge request.
         ///</summary>
         public CustomerMergeError[]? customerMergeErrors { get; set; }
@@ -9904,10 +9044,6 @@ namespace shopify
     public class CustomerMergeUserError : IDisplayableError
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The error code.
         ///</summary>
         public CustomerMergeErrorCode? code { get; set; }
@@ -9926,10 +9062,6 @@ namespace shopify
     ///</summary>
     public class CustomerMergeable
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The list of fields preventing the customer from being merged.
         ///</summary>
@@ -9954,10 +9086,6 @@ namespace shopify
     public interface ICustomerMoment
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; }
-        ///<summary>
         ///The date and time when the customer's session occurred.
         ///</summary>
         public DateTime? occurredAt { get; }
@@ -9968,10 +9096,6 @@ namespace shopify
     ///</summary>
     public class CustomerMomentConnection
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A list of edges.
         ///</summary>
@@ -9991,10 +9115,6 @@ namespace shopify
     ///</summary>
     public class CustomerMomentEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -10018,10 +9138,6 @@ namespace shopify
         public CustomerPaypalBillingAgreement? AsCustomerPaypalBillingAgreement() => this as CustomerPaypalBillingAgreement;
         public CustomerShopPayAgreement? AsCustomerShopPayAgreement() => this as CustomerShopPayAgreement;
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The payment method can be revoked if there are no active subscription contracts.
         ///</summary>
         public bool? isRevocable { get; set; }
@@ -10032,10 +9148,6 @@ namespace shopify
     ///</summary>
     public class CustomerPaymentInstrumentBillingAddress
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The first line of the address. Typically the street address or PO Box number.
         ///</summary>
@@ -10078,10 +9190,6 @@ namespace shopify
     public class CustomerPaymentMethod : INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The customer to whom the payment method belongs.
         ///</summary>
         public Customer? customer { get; set; }
@@ -10113,10 +9221,6 @@ namespace shopify
     public class CustomerPaymentMethodConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public CustomerPaymentMethodEdge[]? edges { get; set; }
@@ -10136,10 +9240,6 @@ namespace shopify
     public class CustomerPaymentMethodCreateFromDuplicationDataPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The customer payment method.
         ///</summary>
         public CustomerPaymentMethod? customerPaymentMethod { get; set; }
@@ -10154,10 +9254,6 @@ namespace shopify
     ///</summary>
     public class CustomerPaymentMethodCreateFromDuplicationDataUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -10197,10 +9293,6 @@ namespace shopify
     public class CustomerPaymentMethodCreditCardCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The customer payment method.
         ///</summary>
         public CustomerPaymentMethod? customerPaymentMethod { get; set; }
@@ -10215,10 +9307,6 @@ namespace shopify
     ///</summary>
     public class CustomerPaymentMethodCreditCardUpdatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The customer payment method.
         ///</summary>
@@ -10235,10 +9323,6 @@ namespace shopify
     public class CustomerPaymentMethodEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -10254,10 +9338,6 @@ namespace shopify
     public class CustomerPaymentMethodGetDuplicationDataPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The encrypted data from the payment method to be duplicated.
         ///</summary>
         public string? encryptedDuplicationData { get; set; }
@@ -10272,10 +9352,6 @@ namespace shopify
     ///</summary>
     public class CustomerPaymentMethodGetDuplicationDataUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -10327,10 +9403,6 @@ namespace shopify
     public class CustomerPaymentMethodGetUpdateUrlPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The URL to redirect the customer to update the payment method.
         ///</summary>
         public string? updatePaymentMethodUrl { get; set; }
@@ -10345,10 +9417,6 @@ namespace shopify
     ///</summary>
     public class CustomerPaymentMethodGetUpdateUrlUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -10392,10 +9460,6 @@ namespace shopify
     public class CustomerPaymentMethodPaypalBillingAgreementCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The customer payment method.
         ///</summary>
         public CustomerPaymentMethod? customerPaymentMethod { get; set; }
@@ -10410,10 +9474,6 @@ namespace shopify
     ///</summary>
     public class CustomerPaymentMethodPaypalBillingAgreementUpdatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The customer payment method.
         ///</summary>
@@ -10430,10 +9490,6 @@ namespace shopify
     public class CustomerPaymentMethodRemoteCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The customer payment method.
         ///</summary>
         public CustomerPaymentMethod? customerPaymentMethod { get; set; }
@@ -10449,10 +9505,6 @@ namespace shopify
     public class CustomerPaymentMethodRemoteCreditCardCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The customer payment method.
         ///</summary>
         public CustomerPaymentMethod? customerPaymentMethod { get; set; }
@@ -10467,10 +9519,6 @@ namespace shopify
     ///</summary>
     public class CustomerPaymentMethodRemoteUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -10585,10 +9633,6 @@ namespace shopify
     public class CustomerPaymentMethodRevokePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The ID of the revoked customer payment method.
         ///</summary>
         public string? revokedCustomerPaymentMethodId { get; set; }
@@ -10604,10 +9648,6 @@ namespace shopify
     public class CustomerPaymentMethodSendUpdateEmailPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The customer to whom an update payment method email was sent.
         ///</summary>
         public Customer? customer { get; set; }
@@ -10622,10 +9662,6 @@ namespace shopify
     ///</summary>
     public class CustomerPaymentMethodUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -10665,10 +9701,6 @@ namespace shopify
     public class CustomerPaypalBillingAgreement : ICustomerPaymentInstrument
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The billing address of this payment method.
         ///</summary>
         public CustomerPaymentInstrumentBillingAddress? billingAddress { get; set; }
@@ -10691,10 +9723,6 @@ namespace shopify
     ///</summary>
     public class CustomerPhoneNumber
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Whether the customer has subscribed to SMS marketing material.
         ///</summary>
@@ -10765,10 +9793,6 @@ namespace shopify
     public class CustomerRemoveTaxExemptionsPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated customer.
         ///</summary>
         public Customer? customer { get; set; }
@@ -10783,10 +9807,6 @@ namespace shopify
     ///</summary>
     public class CustomerReplaceTaxExemptionsPayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The updated customer.
         ///</summary>
@@ -10822,10 +9842,6 @@ namespace shopify
     ///</summary>
     public class CustomerSegmentMember : IHasMetafields
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The total amount of money that the member has spent on orders.
         ///</summary>
@@ -10898,10 +9914,6 @@ namespace shopify
     public class CustomerSegmentMemberConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public CustomerSegmentMemberEdge[]? edges { get; set; }
@@ -10925,10 +9937,6 @@ namespace shopify
     public class CustomerSegmentMemberEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -10943,10 +9951,6 @@ namespace shopify
     ///</summary>
     public class CustomerSegmentMembersQuery : IJobResult, INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The current total number of members in a given segment.
         ///</summary>
@@ -10967,10 +9971,6 @@ namespace shopify
     public class CustomerSegmentMembersQueryCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The newly created customer segment members query.
         ///</summary>
         public CustomerSegmentMembersQuery? customerSegmentMembersQuery { get; set; }
@@ -10985,10 +9985,6 @@ namespace shopify
     ///</summary>
     public class CustomerSegmentMembersQueryUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -11019,10 +10015,6 @@ namespace shopify
     ///</summary>
     public class CustomerShopPayAgreement : ICustomerPaymentInstrument
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The billing address of the card.
         ///</summary>
@@ -11066,10 +10058,6 @@ namespace shopify
     ///</summary>
     public class CustomerSmsMarketingConsentError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -11115,10 +10103,6 @@ namespace shopify
     public class CustomerSmsMarketingConsentState
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The source from which the SMS marketing information for the customer was collected.
         ///</summary>
         public CustomerConsentCollectedFrom? consentCollectedFrom { get; set; }
@@ -11142,10 +10126,6 @@ namespace shopify
     ///</summary>
     public class CustomerSmsMarketingConsentUpdatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The updated customer.
         ///</summary>
@@ -11256,10 +10236,6 @@ namespace shopify
     public class CustomerStatistics
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The predicted spend tier of a customer with a shop.
         ///</summary>
         public CustomerPredictedSpendTier? predictedSpendTier { get; set; }
@@ -11270,10 +10246,6 @@ namespace shopify
     ///</summary>
     public class CustomerUpdateDefaultAddressPayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The customer whose address was updated.
         ///</summary>
@@ -11290,10 +10262,6 @@ namespace shopify
     public class CustomerUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated customer.
         ///</summary>
         public Customer? customer { get; set; }
@@ -11308,10 +10276,6 @@ namespace shopify
     ///</summary>
     public class CustomerVisit : ICustomerMoment, INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A globally-unique ID.
         ///</summary>
@@ -11373,10 +10337,6 @@ namespace shopify
     public class CustomerVisitProductInfo
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The product information. If `null`, then the product was deleted from the store.
         ///</summary>
         public Product? product { get; set; }
@@ -11396,10 +10356,6 @@ namespace shopify
     public class CustomerVisitProductInfoConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public CustomerVisitProductInfoEdge[]? edges { get; set; }
@@ -11418,10 +10374,6 @@ namespace shopify
     ///</summary>
     public class CustomerVisitProductInfoEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -11477,10 +10429,6 @@ namespace shopify
     public class DelegateAccessToken
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The list of permissions associated with the token.
         ///</summary>
         public string[]? accessScopes { get; set; }
@@ -11500,10 +10448,6 @@ namespace shopify
     public class DelegateAccessTokenCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The delegate access token.
         ///</summary>
         public DelegateAccessToken? delegateAccessToken { get; set; }
@@ -11522,10 +10466,6 @@ namespace shopify
     ///</summary>
     public class DelegateAccessTokenCreateUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -11581,10 +10521,6 @@ namespace shopify
     public class DelegateAccessTokenDestroyPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The user's shop.
         ///</summary>
         public Shop? shop { get; set; }
@@ -11603,10 +10539,6 @@ namespace shopify
     ///</summary>
     public class DelegateAccessTokenDestroyUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -11652,10 +10584,6 @@ namespace shopify
     public class DeletionEvent
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The date and time when the deletion event for the related resource was generated.
         ///</summary>
         public DateTime? occurredAt { get; set; }
@@ -11675,10 +10603,6 @@ namespace shopify
     public class DeletionEventConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public DeletionEventEdge[]? edges { get; set; }
@@ -11697,10 +10621,6 @@ namespace shopify
     ///</summary>
     public class DeletionEventEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -11746,10 +10666,6 @@ namespace shopify
     public class DeliveryAvailableService
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The countries the service provider ships to.
         ///</summary>
         public DeliveryCountryCodesOrRestOfWorld? countries { get; set; }
@@ -11765,10 +10681,6 @@ namespace shopify
     public class DeliveryBrandedPromise
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The handle of the branded promise.  For example: `shop_promise`.
         ///</summary>
         public string? handle { get; set; }
@@ -11783,10 +10695,6 @@ namespace shopify
     ///</summary>
     public class DeliveryCarrierService : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The list of services offered for given destinations.
         ///</summary>
@@ -11815,10 +10723,6 @@ namespace shopify
     public class DeliveryCarrierServiceAndLocations
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The carrier service.
         ///</summary>
         public DeliveryCarrierService? carrierService { get; set; }
@@ -11833,10 +10737,6 @@ namespace shopify
     ///</summary>
     public class DeliveryCondition : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The value (weight or price) that the condition field is compared to.
         ///</summary>
@@ -11865,10 +10765,6 @@ namespace shopify
     {
         public MoneyV2? AsMoneyV2() => this as MoneyV2;
         public Weight? AsWeight() => this as Weight;
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
     }
 
     ///<summary>
@@ -11907,10 +10803,6 @@ namespace shopify
     public class DeliveryCountry : INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A two-letter country code in ISO 3166-1 alpha-2 standard.
         ///It also includes a flag indicating whether the country should be
         ///a part of the 'Rest Of World' shipping zone.
@@ -11940,10 +10832,6 @@ namespace shopify
     public class DeliveryCountryAndZone
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The country details.
         ///</summary>
         public DeliveryCountry? country { get; set; }
@@ -11958,10 +10846,6 @@ namespace shopify
     ///</summary>
     public class DeliveryCountryCodeOrRestOfWorld
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The country code in the ISO 3166-1 alpha-2 format.
         ///</summary>
@@ -11979,10 +10863,6 @@ namespace shopify
     public class DeliveryCountryCodesOrRestOfWorld
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///List of applicable country codes in the ISO 3166-1 alpha-2 format.
         ///</summary>
         public CountryCode[]? countryCodes { get; set; }
@@ -11997,10 +10877,6 @@ namespace shopify
     ///</summary>
     public class DeliveryCustomization : IHasMetafieldDefinitions, IHasMetafields, INode, IMetafieldReferencer
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The enabled status of the delivery customization.
         ///</summary>
@@ -12053,10 +10929,6 @@ namespace shopify
     public class DeliveryCustomizationActivationPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The IDs of the updated delivery customizations.
         ///</summary>
         public string[]? ids { get; set; }
@@ -12071,10 +10943,6 @@ namespace shopify
     ///</summary>
     public class DeliveryCustomizationConnection
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A list of edges.
         ///</summary>
@@ -12095,10 +10963,6 @@ namespace shopify
     public class DeliveryCustomizationCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Returns the created delivery customization.
         ///</summary>
         public DeliveryCustomization? deliveryCustomization { get; set; }
@@ -12113,10 +10977,6 @@ namespace shopify
     ///</summary>
     public class DeliveryCustomizationDeletePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Returns the deleted delivery customization ID.
         ///</summary>
@@ -12133,10 +10993,6 @@ namespace shopify
     public class DeliveryCustomizationEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -12151,10 +11007,6 @@ namespace shopify
     ///</summary>
     public class DeliveryCustomizationError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -12230,10 +11082,6 @@ namespace shopify
     public class DeliveryCustomizationUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Returns the updated delivery customization.
         ///</summary>
         public DeliveryCustomization? deliveryCustomization { get; set; }
@@ -12248,10 +11096,6 @@ namespace shopify
     ///</summary>
     public class DeliveryLegacyModeBlocked
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Whether the shop can convert to full multi-location delivery profiles mode.
         ///</summary>
@@ -12282,10 +11126,6 @@ namespace shopify
     ///</summary>
     public class DeliveryLocalPickupSettings
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Additional instructions or information related to the local pickup.
         ///</summary>
@@ -12334,10 +11174,6 @@ namespace shopify
     public class DeliveryLocationGroup : INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A globally-unique ID.
         ///</summary>
         public string? id { get; set; }
@@ -12356,10 +11192,6 @@ namespace shopify
     ///</summary>
     public class DeliveryLocationGroupZone
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The number of method definitions for the zone.
         ///</summary>
@@ -12380,10 +11212,6 @@ namespace shopify
     public class DeliveryLocationGroupZoneConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public DeliveryLocationGroupZoneEdge[]? edges { get; set; }
@@ -12403,10 +11231,6 @@ namespace shopify
     public class DeliveryLocationGroupZoneEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -12421,10 +11245,6 @@ namespace shopify
     ///</summary>
     public class DeliveryLocationLocalPickupSettingsError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -12460,10 +11280,6 @@ namespace shopify
     public class DeliveryMethod : INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The branded promise that was presented to the buyer during checkout.  For example: Shop Promise.
         ///</summary>
         public DeliveryBrandedPromise? brandedPromise { get; set; }
@@ -12491,10 +11307,6 @@ namespace shopify
     ///</summary>
     public class DeliveryMethodDefinition : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Whether this method definition is active.
         ///</summary>
@@ -12527,10 +11339,6 @@ namespace shopify
     public class DeliveryMethodDefinitionConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public DeliveryMethodDefinitionEdge[]? edges { get; set; }
@@ -12550,10 +11358,6 @@ namespace shopify
     public class DeliveryMethodDefinitionCounts
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The number of participant method definitions for the specified zone.
         ///</summary>
         public int? participantDefinitionsCount { get; set; }
@@ -12568,10 +11372,6 @@ namespace shopify
     ///</summary>
     public class DeliveryMethodDefinitionEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -12631,10 +11431,6 @@ namespace shopify
     public class DeliveryParticipant : INode, IDeliveryRateProvider
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Whether to display new shipping services automatically to the customer when the service becomes available.
         ///</summary>
         public bool? adaptToNewServicesFlag { get; set; }
@@ -12666,10 +11462,6 @@ namespace shopify
     public class DeliveryParticipantService
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Whether the service is active.
         ///</summary>
         public bool? active { get; set; }
@@ -12685,10 +11477,6 @@ namespace shopify
     public class DeliveryProductVariantsCount
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Whether the count has reached the cap of 500.
         ///</summary>
         public bool? capped { get; set; }
@@ -12703,10 +11491,6 @@ namespace shopify
     ///</summary>
     public class DeliveryProfile : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The number of active shipping rates for the profile.
         ///</summary>
@@ -12775,10 +11559,6 @@ namespace shopify
     public class DeliveryProfileConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public DeliveryProfileEdge[]? edges { get; set; }
@@ -12798,10 +11578,6 @@ namespace shopify
     public class DeliveryProfileEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -12816,10 +11592,6 @@ namespace shopify
     ///</summary>
     public class DeliveryProfileItem : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A globally-unique ID.
         ///</summary>
@@ -12840,10 +11612,6 @@ namespace shopify
     public class DeliveryProfileItemConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public DeliveryProfileItemEdge[]? edges { get; set; }
@@ -12863,10 +11631,6 @@ namespace shopify
     public class DeliveryProfileItemEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -12881,10 +11645,6 @@ namespace shopify
     ///</summary>
     public class DeliveryProfileLocationGroup
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The countries already selected in any zone for the specified location group.
         ///</summary>
@@ -12904,10 +11664,6 @@ namespace shopify
     ///</summary>
     public class DeliveryProvince : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The code of the region.
         ///</summary>
@@ -12932,10 +11688,6 @@ namespace shopify
     public class DeliveryRateDefinition : INode, IDeliveryRateProvider
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A globally-unique ID.
         ///</summary>
         public string? id { get; set; }
@@ -12956,10 +11708,6 @@ namespace shopify
         public DeliveryParticipant? AsDeliveryParticipant() => this as DeliveryParticipant;
         public DeliveryRateDefinition? AsDeliveryRateDefinition() => this as DeliveryRateDefinition;
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A globally-unique ID.
         ///</summary>
         public string? id { get; set; }
@@ -12972,10 +11720,6 @@ namespace shopify
     ///</summary>
     public class DeliverySetting
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Whether the shop is blocked from converting to full multi-location delivery profiles mode. If the shop is blocked, then the blocking reasons are also returned.
         ///</summary>
@@ -12992,10 +11736,6 @@ namespace shopify
     public class DeliverySettingUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated delivery shop level settings.
         ///</summary>
         public DeliverySetting? setting { get; set; }
@@ -13011,10 +11751,6 @@ namespace shopify
     public class DeliveryShippingOriginAssignPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The list of errors that occurred from executing the mutation.
         ///</summary>
         public UserError[]? userErrors { get; set; }
@@ -13025,10 +11761,6 @@ namespace shopify
     ///</summary>
     public class DeliveryZone : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The list of countries within the zone.
         ///</summary>
@@ -13087,10 +11819,6 @@ namespace shopify
         public DiscountCodeBxgy? AsDiscountCodeBxgy() => this as DiscountCodeBxgy;
         public DiscountCodeFreeShipping? AsDiscountCodeFreeShipping() => this as DiscountCodeFreeShipping;
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The number of times the discount has been used. This value is updated asynchronously and can be different than the actual usage count.
         ///</summary>
         public int? asyncUsageCount { get; set; }
@@ -13130,10 +11858,6 @@ namespace shopify
     public class DiscountAllocation
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The money amount that's allocated to a line based on the associated discount application.
         ///</summary>
         public MoneyV2? allocatedAmount { get; set; }
@@ -13153,10 +11877,6 @@ namespace shopify
     public class DiscountAmount : IDiscountCustomerGetsValue
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The value of the discount.
         ///</summary>
         public MoneyV2? amount { get; set; }
@@ -13174,10 +11894,6 @@ namespace shopify
     ///</summary>
     public interface IDiscountApplication
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; }
         ///<summary>
         ///The method by which the discount's value is applied to its entitled items.
         ///</summary>
@@ -13226,10 +11942,6 @@ namespace shopify
     public class DiscountApplicationConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public DiscountApplicationEdge[]? edges { get; set; }
@@ -13248,10 +11960,6 @@ namespace shopify
     ///</summary>
     public class DiscountApplicationEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -13329,10 +12037,6 @@ namespace shopify
         public DiscountAutomaticBasic? AsDiscountAutomaticBasic() => this as DiscountAutomaticBasic;
         public DiscountAutomaticBxgy? AsDiscountAutomaticBxgy() => this as DiscountAutomaticBxgy;
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The number of times the discount has been used. This value is updated asynchronously and can be different than the actual usage count.
         ///</summary>
         public int? asyncUsageCount { get; set; }
@@ -13372,10 +12076,6 @@ namespace shopify
     public class DiscountAutomaticActivatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The activated automatic discount.
         ///</summary>
         public DiscountAutomaticNode? automaticDiscountNode { get; set; }
@@ -13390,10 +12090,6 @@ namespace shopify
     ///</summary>
     public class DiscountAutomaticApp : IDiscount, IDiscountAutomatic
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The app discount type providing the discount type.
         ///</summary>
@@ -13450,10 +12146,6 @@ namespace shopify
     public class DiscountAutomaticAppCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The created app discount.
         ///</summary>
         public DiscountAutomaticApp? automaticAppDiscount { get; set; }
@@ -13469,10 +12161,6 @@ namespace shopify
     public class DiscountAutomaticAppUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated automatic app discount.
         ///</summary>
         public DiscountAutomaticApp? automaticAppDiscount { get; set; }
@@ -13487,10 +12175,6 @@ namespace shopify
     ///</summary>
     public class DiscountAutomaticBasic : IDiscount, IDiscountAutomatic
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The number of times the discount has been used. This value is updated asynchronously and can be different than the actual usage count.
         ///</summary>
@@ -13555,10 +12239,6 @@ namespace shopify
     public class DiscountAutomaticBasicCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The created automatic discount.
         ///</summary>
         public DiscountAutomaticNode? automaticDiscountNode { get; set; }
@@ -13573,10 +12253,6 @@ namespace shopify
     ///</summary>
     public class DiscountAutomaticBasicUpdatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The updated automatic discount.
         ///</summary>
@@ -13593,10 +12269,6 @@ namespace shopify
     public class DiscountAutomaticBulkDeletePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The asynchronous job removing the automatic discounts.
         ///</summary>
         public Job? job { get; set; }
@@ -13611,10 +12283,6 @@ namespace shopify
     ///</summary>
     public class DiscountAutomaticBxgy : IHasEvents, INode, IDiscount, IDiscountAutomatic
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The number of times the discount has been used. This value is updated asynchronously and can be different than the actual usage count.
         ///</summary>
@@ -13687,10 +12355,6 @@ namespace shopify
     public class DiscountAutomaticBxgyCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The created automatic discount.
         ///</summary>
         public DiscountAutomaticNode? automaticDiscountNode { get; set; }
@@ -13706,10 +12370,6 @@ namespace shopify
     public class DiscountAutomaticBxgyUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated automatic discount.
         ///</summary>
         public DiscountAutomaticNode? automaticDiscountNode { get; set; }
@@ -13724,10 +12384,6 @@ namespace shopify
     ///</summary>
     public class DiscountAutomaticConnection
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A list of edges.
         ///</summary>
@@ -13748,10 +12404,6 @@ namespace shopify
     public class DiscountAutomaticDeactivatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The deactivated automatic discount.
         ///</summary>
         public DiscountAutomaticNode? automaticDiscountNode { get; set; }
@@ -13766,10 +12418,6 @@ namespace shopify
     ///</summary>
     public class DiscountAutomaticDeletePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The deleted automatic discount ID.
         ///</summary>
@@ -13786,10 +12434,6 @@ namespace shopify
     public class DiscountAutomaticEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -13804,10 +12448,6 @@ namespace shopify
     ///</summary>
     public class DiscountAutomaticNode : IHasEvents, IHasMetafieldDefinitions, IHasMetafields, INode, IMetafieldReferencer
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The automatic discount object.
         ///</summary>
@@ -13848,10 +12488,6 @@ namespace shopify
     public class DiscountAutomaticNodeConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public DiscountAutomaticNodeEdge[]? edges { get; set; }
@@ -13870,10 +12506,6 @@ namespace shopify
     ///</summary>
     public class DiscountAutomaticNodeEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -13917,10 +12549,6 @@ namespace shopify
         public DiscountCodeBasic? AsDiscountCodeBasic() => this as DiscountCodeBasic;
         public DiscountCodeBxgy? AsDiscountCodeBxgy() => this as DiscountCodeBxgy;
         public DiscountCodeFreeShipping? AsDiscountCodeFreeShipping() => this as DiscountCodeFreeShipping;
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Whether the discount can be applied only once per customer.
         ///</summary>
@@ -13993,10 +12621,6 @@ namespace shopify
     public class DiscountCodeActivatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The activated code discount.
         ///</summary>
         public DiscountCodeNode? codeDiscountNode { get; set; }
@@ -14011,10 +12635,6 @@ namespace shopify
     ///</summary>
     public class DiscountCodeApp : IDiscount, IDiscountCode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The app discount type providing the discount type.
         ///</summary>
@@ -14107,10 +12727,6 @@ namespace shopify
     public class DiscountCodeAppCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The created code app discount.
         ///</summary>
         public DiscountCodeApp? codeAppDiscount { get; set; }
@@ -14125,10 +12741,6 @@ namespace shopify
     ///</summary>
     public class DiscountCodeAppUpdatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The updated code app discount.
         ///</summary>
@@ -14147,10 +12759,6 @@ namespace shopify
     ///</summary>
     public class DiscountCodeApplication : IDiscountApplication
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The method by which the discount's value is applied to its entitled items.
         ///</summary>
@@ -14183,10 +12791,6 @@ namespace shopify
     ///</summary>
     public class DiscountCodeBasic : IDiscount, IDiscountCode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Whether the discount can be applied only once per customer.
         ///</summary>
@@ -14283,10 +12887,6 @@ namespace shopify
     public class DiscountCodeBasicCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The created code discount.
         ///</summary>
         public DiscountCodeNode? codeDiscountNode { get; set; }
@@ -14301,10 +12901,6 @@ namespace shopify
     ///</summary>
     public class DiscountCodeBasicUpdatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The updated code discount.
         ///</summary>
@@ -14321,10 +12917,6 @@ namespace shopify
     public class DiscountCodeBulkActivatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The asynchronous job that activates the code discounts.
         ///</summary>
         public Job? job { get; set; }
@@ -14339,10 +12931,6 @@ namespace shopify
     ///</summary>
     public class DiscountCodeBulkDeactivatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The asynchronous job that deactivates the code discounts.
         ///</summary>
@@ -14359,10 +12947,6 @@ namespace shopify
     public class DiscountCodeBulkDeletePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The asynchronous job that deletes the code discounts.
         ///</summary>
         public Job? job { get; set; }
@@ -14377,10 +12961,6 @@ namespace shopify
     ///</summary>
     public class DiscountCodeBxgy : IDiscount, IDiscountCode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Whether the discount can be applied only once per customer.
         ///</summary>
@@ -14473,10 +13053,6 @@ namespace shopify
     public class DiscountCodeBxgyCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The created code discount.
         ///</summary>
         public DiscountCodeNode? codeDiscountNode { get; set; }
@@ -14491,10 +13067,6 @@ namespace shopify
     ///</summary>
     public class DiscountCodeBxgyUpdatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The updated code discount.
         ///</summary>
@@ -14511,10 +13083,6 @@ namespace shopify
     public class DiscountCodeDeactivatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The deactivated code discount.
         ///</summary>
         public DiscountCodeNode? codeDiscountNode { get; set; }
@@ -14530,10 +13098,6 @@ namespace shopify
     public class DiscountCodeDeletePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The deleted code discount ID.
         ///</summary>
         public string? deletedCodeDiscountId { get; set; }
@@ -14548,10 +13112,6 @@ namespace shopify
     ///</summary>
     public class DiscountCodeFreeShipping : IDiscount, IDiscountCode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Whether the discount applies on regular one-time-purchase shipping lines.
         ///</summary>
@@ -14660,10 +13220,6 @@ namespace shopify
     public class DiscountCodeFreeShippingCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The created code discount.
         ///</summary>
         public DiscountCodeNode? codeDiscountNode { get; set; }
@@ -14679,10 +13235,6 @@ namespace shopify
     public class DiscountCodeFreeShippingUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated code discount.
         ///</summary>
         public DiscountCodeNode? codeDiscountNode { get; set; }
@@ -14697,10 +13249,6 @@ namespace shopify
     ///</summary>
     public class DiscountCodeNode : IHasEvents, IHasMetafieldDefinitions, IHasMetafields, INode, IMetafieldReferencer
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The underlying code discount object.
         ///</summary>
@@ -14741,10 +13289,6 @@ namespace shopify
     public class DiscountCodeNodeConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public DiscountCodeNodeEdge[]? edges { get; set; }
@@ -14764,10 +13308,6 @@ namespace shopify
     public class DiscountCodeNodeEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -14782,10 +13322,6 @@ namespace shopify
     ///</summary>
     public class DiscountCodeRedeemCodeBulkDeletePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The asynchronous job that deletes the discount redeem codes.
         ///</summary>
@@ -14826,10 +13362,6 @@ namespace shopify
     public class DiscountCollections : IDiscountItems
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The list of collections that the discount can have as a prerequisite or the list of collections to which the discount can be applied.
         ///</summary>
         public CollectionConnection? collections { get; set; }
@@ -14840,10 +13372,6 @@ namespace shopify
     ///</summary>
     public class DiscountCombinesWith
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Combines with order discounts.
         ///</summary>
@@ -14864,10 +13392,6 @@ namespace shopify
     public class DiscountCountries : IDiscountShippingDestinationSelection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The codes for the countries where the discount can be applied.
         ///</summary>
         public CountryCode[]? countries { get; set; }
@@ -14883,10 +13407,6 @@ namespace shopify
     public class DiscountCountryAll : IDiscountShippingDestinationSelection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Whether the discount can be applied to all countries as shipping destination. This value is always `true`.
         ///</summary>
         public bool? allCountries { get; set; }
@@ -14898,10 +13418,6 @@ namespace shopify
     public class DiscountCustomerAll : IDiscountCustomerSelection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Whether the discount can be applied by all customers. This value is always `true`.
         ///</summary>
         public bool? allCustomers { get; set; }
@@ -14912,10 +13428,6 @@ namespace shopify
     ///</summary>
     public class DiscountCustomerBuys
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The items required for the discount to be applicable.
         ///</summary>
@@ -14936,10 +13448,6 @@ namespace shopify
     {
         public DiscountPurchaseAmount? AsDiscountPurchaseAmount() => this as DiscountPurchaseAmount;
         public DiscountQuantity? AsDiscountQuantity() => this as DiscountQuantity;
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
     }
 
     ///<summary>
@@ -14947,10 +13455,6 @@ namespace shopify
     ///</summary>
     public class DiscountCustomerGets
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Whether the discount applies on regular one-time-purchase items.
         ///</summary>
@@ -14981,10 +13485,6 @@ namespace shopify
         public DiscountAmount? AsDiscountAmount() => this as DiscountAmount;
         public DiscountOnQuantity? AsDiscountOnQuantity() => this as DiscountOnQuantity;
         public DiscountPercentage? AsDiscountPercentage() => this as DiscountPercentage;
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
     }
 
     ///<summary>
@@ -14992,10 +13492,6 @@ namespace shopify
     ///</summary>
     public class DiscountCustomerSegments : IDiscountCustomerSelection
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A list of customer segments that contain the customers who can use the discount.
         ///</summary>
@@ -15014,10 +13510,6 @@ namespace shopify
         public DiscountCustomerAll? AsDiscountCustomerAll() => this as DiscountCustomerAll;
         public DiscountCustomerSegments? AsDiscountCustomerSegments() => this as DiscountCustomerSegments;
         public DiscountCustomers? AsDiscountCustomers() => this as DiscountCustomers;
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
     }
 
     ///<summary>
@@ -15025,10 +13517,6 @@ namespace shopify
     ///</summary>
     public class DiscountCustomers : IDiscountCustomerSelection
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The list of customers eligible for the discount.
         ///</summary>
@@ -15043,10 +13531,6 @@ namespace shopify
     public interface IDiscountEffect
     {
         public DiscountPercentage? AsDiscountPercentage() => this as DiscountPercentage;
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The percentage value of the discount.
         ///</summary>
@@ -15172,10 +13656,6 @@ namespace shopify
         public AllDiscountItems? AsAllDiscountItems() => this as AllDiscountItems;
         public DiscountCollections? AsDiscountCollections() => this as DiscountCollections;
         public DiscountProducts? AsDiscountProducts() => this as DiscountProducts;
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
     }
 
     ///<summary>
@@ -15183,10 +13663,6 @@ namespace shopify
     ///</summary>
     public class DiscountMinimumQuantity : IDiscountMinimumRequirement
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The minimum quantity of items that's required for the discount to be applied.
         ///</summary>
@@ -15203,10 +13679,6 @@ namespace shopify
     {
         public DiscountMinimumQuantity? AsDiscountMinimumQuantity() => this as DiscountMinimumQuantity;
         public DiscountMinimumSubtotal? AsDiscountMinimumSubtotal() => this as DiscountMinimumSubtotal;
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
     }
 
     ///<summary>
@@ -15214,10 +13686,6 @@ namespace shopify
     ///</summary>
     public class DiscountMinimumSubtotal : IDiscountMinimumRequirement
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The minimum subtotal that's required for the discount to be applied.
         ///</summary>
@@ -15229,10 +13697,6 @@ namespace shopify
     ///</summary>
     public class DiscountNode : IHasEvents, IHasMetafieldDefinitions, IHasMetafields, INode, IMetafieldReferencer
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A discount.
         ///</summary>
@@ -15273,10 +13737,6 @@ namespace shopify
     public class DiscountNodeConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public DiscountNodeEdge[]? edges { get; set; }
@@ -15296,10 +13756,6 @@ namespace shopify
     public class DiscountNodeEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -15314,10 +13770,6 @@ namespace shopify
     ///</summary>
     public class DiscountOnQuantity : IDiscountCustomerGetsValue
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The discount's effect on qualifying items.
         ///</summary>
@@ -15334,10 +13786,6 @@ namespace shopify
     public class DiscountPercentage : IDiscountCustomerGetsValue, IDiscountEffect
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The percentage value of the discount.
         ///</summary>
         public float? percentage { get; set; }
@@ -15348,10 +13796,6 @@ namespace shopify
     ///</summary>
     public class DiscountProducts : IDiscountItems
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The list of product variants that the discount can have as a prerequisite or the list of product variants to which the discount can be applied.
         ///</summary>
@@ -15368,10 +13812,6 @@ namespace shopify
     public class DiscountPurchaseAmount : IDiscountCustomerBuysValue
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The purchase amount in decimal format.
         ///</summary>
         public decimal? amount { get; set; }
@@ -15383,10 +13823,6 @@ namespace shopify
     public class DiscountQuantity : IDiscountCustomerBuysValue
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The quantity of items.
         ///</summary>
         public ulong? quantity { get; set; }
@@ -15397,10 +13833,6 @@ namespace shopify
     ///</summary>
     public class DiscountRedeemCode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The number of times that the discount redeem code has been used. This value is updated asynchronously and can be different than the actual usage count.
         ///</summary>
@@ -15425,10 +13857,6 @@ namespace shopify
     public class DiscountRedeemCodeBulkAddPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The ID of the discount redeem code bulk creation operation. The properties and status of the operation can be tracked using the [`DiscountRedeemCodeBulkCreation` query](https://shopify.dev/api/admin-graphql/2022-04/queries/discountRedeemCodeBulkCreation).
         ///</summary>
         public DiscountRedeemCodeBulkCreation? bulkCreation { get; set; }
@@ -15443,10 +13871,6 @@ namespace shopify
     ///</summary>
     public class DiscountRedeemCodeBulkCreation : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The result of each code creation operation associated with the bulk creation operation including any errors that might have occurred during the operation.
         ///</summary>
@@ -15487,10 +13911,6 @@ namespace shopify
     public class DiscountRedeemCodeBulkCreationCode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The code to use in the discount redeem code creation operation.
         ///</summary>
         public string? code { get; set; }
@@ -15512,10 +13932,6 @@ namespace shopify
     public class DiscountRedeemCodeBulkCreationCodeConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public DiscountRedeemCodeBulkCreationCodeEdge[]? edges { get; set; }
@@ -15535,10 +13951,6 @@ namespace shopify
     public class DiscountRedeemCodeBulkCreationCodeEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -15553,10 +13965,6 @@ namespace shopify
     ///</summary>
     public class DiscountRedeemCodeConnection
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A list of edges.
         ///</summary>
@@ -15577,10 +13985,6 @@ namespace shopify
     public class DiscountRedeemCodeEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -15595,10 +13999,6 @@ namespace shopify
     ///</summary>
     public class DiscountShareableUrl
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The image URL of the item (product or collection) to which the discount applies.
         ///</summary>
@@ -15646,10 +14046,6 @@ namespace shopify
     {
         public DiscountCountries? AsDiscountCountries() => this as DiscountCountries;
         public DiscountCountryAll? AsDiscountCountryAll() => this as DiscountCountryAll;
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
     }
 
     ///<summary>
@@ -15743,10 +14139,6 @@ namespace shopify
     public class DiscountUserError : IDisplayableError
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The error code.
         ///</summary>
         public DiscountErrorCode? code { get; set; }
@@ -15770,10 +14162,6 @@ namespace shopify
     public interface IDisplayableError
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; }
-        ///<summary>
         ///The path to the input field that caused the error.
         ///</summary>
         public string[]? field { get; }
@@ -15789,10 +14177,6 @@ namespace shopify
     public class DisputeEvidenceUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated dispute evidence.
         ///</summary>
         public ShopifyPaymentsDisputeEvidence? disputeEvidence { get; set; }
@@ -15807,10 +14191,6 @@ namespace shopify
     ///</summary>
     public class DisputeEvidenceUpdateUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -15890,10 +14270,6 @@ namespace shopify
     public class Domain : INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The host name of the domain. For example, `example.com`.
         ///</summary>
         public string? host { get; set; }
@@ -15925,10 +14301,6 @@ namespace shopify
     public class DomainLocalization
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The ISO codes for the domain’s alternate locales. For example, `["en"]`.
         ///</summary>
         public string[]? alternateLocales { get; set; }
@@ -15959,10 +14331,6 @@ namespace shopify
     ///</summary>
     public class DraftOrder : ICommentEventSubject, IHasEvents, IHasLocalizationExtensions, IHasMetafields, ILegacyInteroperability, INavigable, INode, ICommentEventEmbed, IMetafieldReferencer
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The order-level discount applied to the draft order.
         ///</summary>
@@ -16201,10 +14569,6 @@ namespace shopify
     public class DraftOrderAppliedDiscount
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Amount of the order-level discount that's applied to the draft order.
         ///</summary>
         public decimal? amount { get; set; }
@@ -16256,10 +14620,6 @@ namespace shopify
     public class DraftOrderBulkAddTagsPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The asynchronous job for adding tags to the draft orders.
         ///</summary>
         public Job? job { get; set; }
@@ -16274,10 +14634,6 @@ namespace shopify
     ///</summary>
     public class DraftOrderBulkDeletePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The asynchronous job for deleting the draft orders.
         ///</summary>
@@ -16294,10 +14650,6 @@ namespace shopify
     public class DraftOrderBulkRemoveTagsPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The asynchronous job for removing tags from the draft orders.
         ///</summary>
         public Job? job { get; set; }
@@ -16312,10 +14664,6 @@ namespace shopify
     ///</summary>
     public class DraftOrderCalculatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The calculated properties for a draft order.
         ///</summary>
@@ -16332,10 +14680,6 @@ namespace shopify
     public class DraftOrderCompletePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The completed draft order.
         ///</summary>
         public DraftOrder? draftOrder { get; set; }
@@ -16350,10 +14694,6 @@ namespace shopify
     ///</summary>
     public class DraftOrderConnection
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A list of edges.
         ///</summary>
@@ -16374,10 +14714,6 @@ namespace shopify
     public class DraftOrderCreateFromOrderPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The created Draft Order.
         ///</summary>
         public DraftOrder? draftOrder { get; set; }
@@ -16393,10 +14729,6 @@ namespace shopify
     public class DraftOrderCreateMerchantCheckoutPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The list of errors that occurred from executing the mutation.
         ///</summary>
         public UserError[]? userErrors { get; set; }
@@ -16407,10 +14739,6 @@ namespace shopify
     ///</summary>
     public class DraftOrderCreatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The created draft order.
         ///</summary>
@@ -16427,10 +14755,6 @@ namespace shopify
     public class DraftOrderDeletePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The ID of the deleted draft order.
         ///</summary>
         public string? deletedId { get; set; }
@@ -16445,10 +14769,6 @@ namespace shopify
     ///</summary>
     public class DraftOrderDuplicatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The newly duplicated draft order.
         ///</summary>
@@ -16465,10 +14785,6 @@ namespace shopify
     public class DraftOrderEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -16483,10 +14799,6 @@ namespace shopify
     ///</summary>
     public class DraftOrderInvoicePreviewPayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The draft order invoice email rendered as HTML to allow previewing.
         ///</summary>
@@ -16507,10 +14819,6 @@ namespace shopify
     public class DraftOrderInvoiceSendPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The draft order an invoice email is sent for.
         ///</summary>
         public DraftOrder? draftOrder { get; set; }
@@ -16525,10 +14833,6 @@ namespace shopify
     ///</summary>
     public class DraftOrderLineItem : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The discount that will be applied to the line item or the overall order.
         ///</summary>
@@ -16667,10 +14971,6 @@ namespace shopify
     public class DraftOrderLineItemConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public DraftOrderLineItemEdge[]? edges { get; set; }
@@ -16689,10 +14989,6 @@ namespace shopify
     ///</summary>
     public class DraftOrderLineItemEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -16764,10 +15060,6 @@ namespace shopify
     public class DraftOrderTag : INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Handle of draft order tag.
         ///</summary>
         public string? handle { get; set; }
@@ -16787,10 +15079,6 @@ namespace shopify
     public class DraftOrderUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated draft order.
         ///</summary>
         public DraftOrder? draftOrder { get; set; }
@@ -16805,10 +15093,6 @@ namespace shopify
     ///</summary>
     public class Duty : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The ISO 3166-1 alpha-2 country code of the country of origin used in calculating the duty.
         ///</summary>
@@ -16836,10 +15120,6 @@ namespace shopify
     ///</summary>
     public class DutySale : ISale
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The type of order action that the sale represents.
         ///</summary>
@@ -16888,10 +15168,6 @@ namespace shopify
     public class EditableProperty
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Whether the attribute is locked for editing.
         ///</summary>
         public bool? locked { get; set; }
@@ -16907,10 +15183,6 @@ namespace shopify
     public class ErrorPosition
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The character position of the error in the line.
         ///</summary>
         public int? character { get; set; }
@@ -16925,10 +15197,6 @@ namespace shopify
     ///</summary>
     public class ErrorsServerPixelUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -16971,10 +15239,6 @@ namespace shopify
     ///</summary>
     public class ErrorsWebPixelUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -17023,10 +15287,6 @@ namespace shopify
     public interface IEvent
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; }
-        ///<summary>
         ///The name of the app that created the event.
         ///</summary>
         public string? appTitle { get; }
@@ -17062,10 +15322,6 @@ namespace shopify
     public class EventBridgeServerPixelUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The server pixel as configured by the mutation.
         ///</summary>
         public ServerPixel? serverPixel { get; set; }
@@ -17080,10 +15336,6 @@ namespace shopify
     ///</summary>
     public class EventBridgeWebhookSubscriptionCreatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The list of errors that occurred from executing the mutation.
         ///</summary>
@@ -17100,10 +15352,6 @@ namespace shopify
     public class EventBridgeWebhookSubscriptionUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The list of errors that occurred from executing the mutation.
         ///</summary>
         public UserError[]? userErrors { get; set; }
@@ -17118,10 +15366,6 @@ namespace shopify
     ///</summary>
     public class EventConnection
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A list of edges.
         ///</summary>
@@ -17141,10 +15385,6 @@ namespace shopify
     ///</summary>
     public class EventEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -17180,10 +15420,6 @@ namespace shopify
     ///</summary>
     public class ExchangeV2 : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The details of the new items in the exchange.
         ///</summary>
@@ -17240,10 +15476,6 @@ namespace shopify
     public class ExchangeV2Additions
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The list of new items for the exchange.
         ///</summary>
         public ExchangeV2LineItem[]? lineItems { get; set; }
@@ -17267,10 +15499,6 @@ namespace shopify
     public class ExchangeV2Connection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public ExchangeV2Edge[]? edges { get; set; }
@@ -17290,10 +15518,6 @@ namespace shopify
     public class ExchangeV2Edge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -17308,10 +15532,6 @@ namespace shopify
     ///</summary>
     public class ExchangeV2LineItem
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A list of attributes that represent custom features or special requests.
         ///</summary>
@@ -17403,10 +15623,6 @@ namespace shopify
     public class ExchangeV2Returns
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The list of return items for the exchange.
         ///</summary>
         public ExchangeV2LineItem[]? lineItems { get; set; }
@@ -17441,10 +15657,6 @@ namespace shopify
     ///</summary>
     public class ExternalVideo : IMedia, INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A word or phrase to share the nature or contents of a media.
         ///</summary>
@@ -17497,10 +15709,6 @@ namespace shopify
     public class FailedRequirement
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Action to be taken to resolve a failed requirement, including URL link.
         ///</summary>
         public NavigationItem? action { get; set; }
@@ -17516,10 +15724,6 @@ namespace shopify
     ///</summary>
     public interface IFile
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; }
         ///<summary>
         ///A word or phrase to describe the contents or the function of a file.
         ///</summary>
@@ -17556,10 +15760,6 @@ namespace shopify
     public class FileAcknowledgeUpdateFailedPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated file(s).
         ///</summary>
         public IFile[]? files { get; set; }
@@ -17574,10 +15774,6 @@ namespace shopify
     ///</summary>
     public class FileConnection
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A list of edges.
         ///</summary>
@@ -17636,10 +15832,6 @@ namespace shopify
     public class FileCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The newly created files.
         ///</summary>
         public IFile[]? files { get; set; }
@@ -17654,10 +15846,6 @@ namespace shopify
     ///</summary>
     public class FileDeletePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The IDs of the deleted files.
         ///</summary>
@@ -17674,10 +15862,6 @@ namespace shopify
     public class FileEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -17693,10 +15877,6 @@ namespace shopify
     ///</summary>
     public class FileError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Code representing the type of error.
         ///</summary>
@@ -17911,10 +16091,6 @@ namespace shopify
     public class FileUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The list of updated files.
         ///</summary>
         public IFile[]? files { get; set; }
@@ -18021,10 +16197,6 @@ namespace shopify
     public class FilesUserError : IDisplayableError
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The error code.
         ///</summary>
         public FilesErrorCode? code { get; set; }
@@ -18044,10 +16216,6 @@ namespace shopify
     public class FilterOption
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The filter option's label for display purposes.
         ///</summary>
         public string? label { get; set; }
@@ -18063,10 +16231,6 @@ namespace shopify
     public class FlowTriggerReceivePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The list of errors that occurred from executing the mutation.
         ///</summary>
         public UserError[]? userErrors { get; set; }
@@ -18081,10 +16245,6 @@ namespace shopify
     ///</summary>
     public class Fulfillment : ILegacyInteroperability, INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The date and time when the fulfillment was created.
         ///</summary>
@@ -18174,10 +16334,6 @@ namespace shopify
     public class FulfillmentCancelPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The canceled fulfillment.
         ///</summary>
         public Fulfillment? fulfillment { get; set; }
@@ -18192,10 +16348,6 @@ namespace shopify
     ///</summary>
     public class FulfillmentConnection
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A list of edges.
         ///</summary>
@@ -18215,10 +16367,6 @@ namespace shopify
     ///</summary>
     public class FulfillmentCreateV2Payload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The created fulfillment.
         ///</summary>
@@ -18306,10 +16454,6 @@ namespace shopify
     public class FulfillmentEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -18324,10 +16468,6 @@ namespace shopify
     ///</summary>
     public class FulfillmentEvent : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The street address where this fulfillment event occurred.
         ///</summary>
@@ -18384,10 +16524,6 @@ namespace shopify
     public class FulfillmentEventConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public FulfillmentEventEdge[]? edges { get; set; }
@@ -18407,10 +16543,6 @@ namespace shopify
     public class FulfillmentEventCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The created fulfillment event.
         ///</summary>
         public FulfillmentEvent? fulfillmentEvent { get; set; }
@@ -18425,10 +16557,6 @@ namespace shopify
     ///</summary>
     public class FulfillmentEventEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -18508,10 +16636,6 @@ namespace shopify
     public class FulfillmentHold
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The name of the app or service that applied the fulfillment hold.
         ///</summary>
         public string? heldBy { get; set; }
@@ -18566,10 +16690,6 @@ namespace shopify
     public class FulfillmentLineItem : INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The total price after discounts are applied.
         ///</summary>
         public decimal? discountedTotal { get; set; }
@@ -18605,10 +16725,6 @@ namespace shopify
     public class FulfillmentLineItemConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public FulfillmentLineItemEdge[]? edges { get; set; }
@@ -18627,10 +16743,6 @@ namespace shopify
     ///</summary>
     public class FulfillmentLineItemEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -18807,10 +16919,6 @@ namespace shopify
     public class FulfillmentOrder : INode, IMetafieldReferencer
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The fulfillment order's assigned location. This is the location where the fulfillment is expected to happen.
         ///
         ///The fulfillment order's assigned location might change in the following cases:
@@ -18903,10 +17011,6 @@ namespace shopify
     public class FulfillmentOrderAcceptCancellationRequestPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The fulfillment order whose cancellation request was accepted.
         ///</summary>
         public FulfillmentOrder? fulfillmentOrder { get; set; }
@@ -18921,10 +17025,6 @@ namespace shopify
     ///</summary>
     public class FulfillmentOrderAcceptFulfillmentRequestPayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The fulfillment order whose fulfillment request was accepted.
         ///</summary>
@@ -19025,10 +17125,6 @@ namespace shopify
     public class FulfillmentOrderAssignedLocation
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The first line of the address for the location.
         ///</summary>
         public string? address1 { get; set; }
@@ -19096,10 +17192,6 @@ namespace shopify
     public class FulfillmentOrderCancelPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The fulfillment order that was marked as canceled.
         ///</summary>
         public FulfillmentOrder? fulfillmentOrder { get; set; }
@@ -19119,10 +17211,6 @@ namespace shopify
     public class FulfillmentOrderClosePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The fulfillment order that was marked as incomplete.
         ///</summary>
         public FulfillmentOrder? fulfillmentOrder { get; set; }
@@ -19137,10 +17225,6 @@ namespace shopify
     ///</summary>
     public class FulfillmentOrderConnection
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A list of edges.
         ///</summary>
@@ -19160,10 +17244,6 @@ namespace shopify
     ///</summary>
     public class FulfillmentOrderDestination : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The first line of the address of the destination.
         ///</summary>
@@ -19220,10 +17300,6 @@ namespace shopify
     public class FulfillmentOrderEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -19238,10 +17314,6 @@ namespace shopify
     ///</summary>
     public class FulfillmentOrderHoldPayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The fulfillment order on which a fulfillment hold was applied.
         ///</summary>
@@ -19262,10 +17334,6 @@ namespace shopify
     ///</summary>
     public class FulfillmentOrderHoldUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -19309,10 +17377,6 @@ namespace shopify
     public class FulfillmentOrderInternationalDuties
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The method of duties payment. Example values: `DDP`, `DAP`.
         ///</summary>
         public string? incoterm { get; set; }
@@ -19323,10 +17387,6 @@ namespace shopify
     ///</summary>
     public class FulfillmentOrderLineItem : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A globally-unique ID.
         ///</summary>
@@ -19391,10 +17451,6 @@ namespace shopify
     public class FulfillmentOrderLineItemConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public FulfillmentOrderLineItemEdge[]? edges { get; set; }
@@ -19414,10 +17470,6 @@ namespace shopify
     public class FulfillmentOrderLineItemEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -19432,10 +17484,6 @@ namespace shopify
     ///</summary>
     public class FulfillmentOrderLineItemWarning
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The description of warning.
         ///</summary>
@@ -19452,10 +17500,6 @@ namespace shopify
     public class FulfillmentOrderLineItemsPreparedForPickupPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The list of errors that occurred from executing the mutation.
         ///</summary>
         public FulfillmentOrderLineItemsPreparedForPickupUserError[]? userErrors { get; set; }
@@ -19466,10 +17510,6 @@ namespace shopify
     ///</summary>
     public class FulfillmentOrderLineItemsPreparedForPickupUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -19509,10 +17549,6 @@ namespace shopify
     public class FulfillmentOrderLocationForMove
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The location being considered as the fulfillment order's new assigned location.
         ///</summary>
         public Location? location { get; set; }
@@ -19533,10 +17569,6 @@ namespace shopify
     public class FulfillmentOrderLocationForMoveConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public FulfillmentOrderLocationForMoveEdge[]? edges { get; set; }
@@ -19556,10 +17588,6 @@ namespace shopify
     public class FulfillmentOrderLocationForMoveEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -19575,10 +17603,6 @@ namespace shopify
     ///</summary>
     public class FulfillmentOrderMerchantRequest : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The fulfillment order associated with the merchant request.
         ///</summary>
@@ -19618,10 +17642,6 @@ namespace shopify
     public class FulfillmentOrderMerchantRequestConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public FulfillmentOrderMerchantRequestEdge[]? edges { get; set; }
@@ -19640,10 +17660,6 @@ namespace shopify
     ///</summary>
     public class FulfillmentOrderMerchantRequestEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -19675,10 +17691,6 @@ namespace shopify
     public class FulfillmentOrderMergePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The result of the fulfillment order merges.
         ///</summary>
         public FulfillmentOrderMergeResult[]? fulfillmentOrderMerges { get; set; }
@@ -19694,10 +17706,6 @@ namespace shopify
     public class FulfillmentOrderMergeResult
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The new fulfillment order as a result of the merge.
         ///</summary>
         public FulfillmentOrder? fulfillmentOrder { get; set; }
@@ -19708,10 +17716,6 @@ namespace shopify
     ///</summary>
     public class FulfillmentOrderMergeUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -19751,10 +17755,6 @@ namespace shopify
     public class FulfillmentOrderMovePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The fulfillment order which now contains the moved line items and is assigned to the destination location.
         ///
         ///**First scenario:** All line items belonging to the original fulfillment order are re-assigned.
@@ -19791,10 +17791,6 @@ namespace shopify
     public class FulfillmentOrderOpenPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The fulfillment order that was transitioned to open and is fulfillable.
         ///</summary>
         public FulfillmentOrder? fulfillmentOrder { get; set; }
@@ -19810,10 +17806,6 @@ namespace shopify
     public class FulfillmentOrderRejectCancellationRequestPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The fulfillment order whose cancellation request was rejected.
         ///</summary>
         public FulfillmentOrder? fulfillmentOrder { get; set; }
@@ -19828,10 +17820,6 @@ namespace shopify
     ///</summary>
     public class FulfillmentOrderRejectFulfillmentRequestPayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The fulfillment order whose fulfillment request was rejected.
         ///</summary>
@@ -19875,10 +17863,6 @@ namespace shopify
     public class FulfillmentOrderReleaseHoldPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The fulfillment order on which the hold was released.
         ///</summary>
         public FulfillmentOrder? fulfillmentOrder { get; set; }
@@ -19893,10 +17877,6 @@ namespace shopify
     ///</summary>
     public class FulfillmentOrderReleaseHoldUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -19976,10 +17956,6 @@ namespace shopify
     public class FulfillmentOrderReschedulePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The fulfillment order that was rescheduled.
         ///</summary>
         public FulfillmentOrder? fulfillmentOrder { get; set; }
@@ -19994,10 +17970,6 @@ namespace shopify
     ///</summary>
     public class FulfillmentOrderRescheduleUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -20045,10 +18017,6 @@ namespace shopify
     public class FulfillmentOrderSplitPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The result of the fulfillment order splits.
         ///</summary>
         public FulfillmentOrderSplitResult[]? fulfillmentOrderSplits { get; set; }
@@ -20063,10 +18031,6 @@ namespace shopify
     ///</summary>
     public class FulfillmentOrderSplitResult
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The original fulfillment order as a result of the split.
         ///</summary>
@@ -20086,10 +18050,6 @@ namespace shopify
     ///</summary>
     public class FulfillmentOrderSplitUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -20164,10 +18124,6 @@ namespace shopify
     public class FulfillmentOrderSubmitCancellationRequestPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The fulfillment order specified in the cancelation request.
         ///</summary>
         public FulfillmentOrder? fulfillmentOrder { get; set; }
@@ -20182,10 +18138,6 @@ namespace shopify
     ///</summary>
     public class FulfillmentOrderSubmitFulfillmentRequestPayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The original fulfillment order intended to request fulfillment for.
         ///</summary>
@@ -20213,10 +18165,6 @@ namespace shopify
     public class FulfillmentOrderSupportedAction
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The action value.
         ///</summary>
         public FulfillmentOrderAction? action { get; set; }
@@ -20233,10 +18181,6 @@ namespace shopify
     public class FulfillmentOrdersReleaseHoldsPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The asynchronous job that will release the fulfillment holds.
         ///</summary>
         public Job? job { get; set; }
@@ -20251,10 +18195,6 @@ namespace shopify
     ///</summary>
     public class FulfillmentOrdersReleaseHoldsUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -20286,10 +18226,6 @@ namespace shopify
     public class FulfillmentOrdersSetFulfillmentDeadlinePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Whether the fulfillment deadline was successfully set.
         ///</summary>
         public bool? success { get; set; }
@@ -20304,10 +18240,6 @@ namespace shopify
     ///</summary>
     public class FulfillmentOrdersSetFulfillmentDeadlineUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -20338,10 +18270,6 @@ namespace shopify
     ///</summary>
     public class FulfillmentOriginAddress
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The street address of the fulfillment location.
         ///</summary>
@@ -20441,10 +18369,6 @@ namespace shopify
     public class FulfillmentService
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The callback URL that the fulfillment service has registered for requests. The following considerations apply:
         ///
         ///- Shopify queries the `<callbackUrl>/fetch_tracking_numbers` endpoint to retrieve tracking numbers
@@ -20505,10 +18429,6 @@ namespace shopify
     public class FulfillmentServiceCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The created fulfillment service.
         ///</summary>
         public FulfillmentService? fulfillmentService { get; set; }
@@ -20523,10 +18443,6 @@ namespace shopify
     ///</summary>
     public class FulfillmentServiceDeletePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The ID of the deleted fulfillment service.
         ///</summary>
@@ -20561,10 +18477,6 @@ namespace shopify
     ///</summary>
     public class FulfillmentServiceUpdatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The updated fulfillment service.
         ///</summary>
@@ -20611,10 +18523,6 @@ namespace shopify
     ///</summary>
     public class FulfillmentTrackingInfo
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The name of the tracking company.
         ///
@@ -20799,10 +18707,6 @@ namespace shopify
     public class FulfillmentTrackingInfoUpdateV2Payload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated fulfillment with tracking information.
         ///</summary>
         public Fulfillment? fulfillment { get; set; }
@@ -20818,10 +18722,6 @@ namespace shopify
     public class FunctionsAppBridge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The relative path for creating a customization.
         ///</summary>
         public string? createPath { get; set; }
@@ -20836,10 +18736,6 @@ namespace shopify
     ///</summary>
     public class FunctionsErrorHistory
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The date and time that the first error occurred.
         ///</summary>
@@ -20863,10 +18759,6 @@ namespace shopify
     ///</summary>
     public class GenericFile : IFile, INode, IMetafieldReference
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A word or phrase to describe the contents or the function of a file.
         ///</summary>
@@ -20914,10 +18806,6 @@ namespace shopify
     ///</summary>
     public class GiftCard : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The gift card's remaining balance.
         ///</summary>
@@ -20974,10 +18862,6 @@ namespace shopify
     public class GiftCardConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public GiftCardEdge[]? edges { get; set; }
@@ -20996,10 +18880,6 @@ namespace shopify
     ///</summary>
     public class GiftCardCreatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The created gift card.
         ///</summary>
@@ -21020,10 +18900,6 @@ namespace shopify
     public class GiftCardDisablePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The disabled gift card.
         ///</summary>
         public GiftCard? giftCard { get; set; }
@@ -21038,10 +18914,6 @@ namespace shopify
     ///</summary>
     public class GiftCardEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -21092,10 +18964,6 @@ namespace shopify
     ///</summary>
     public class GiftCardSale : ISale
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The type of order action that the sale represents.
         ///</summary>
@@ -21196,10 +19064,6 @@ namespace shopify
     public class GiftCardUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated gift card.
         ///</summary>
         public GiftCard? giftCard { get; set; }
@@ -21214,10 +19078,6 @@ namespace shopify
     ///</summary>
     public class GiftCardUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -21238,10 +19098,6 @@ namespace shopify
     public interface IHasEvents
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; }
-        ///<summary>
         ///The paginated list of events associated with the host subject.
         ///</summary>
         public EventConnection? events { get; }
@@ -21252,10 +19108,6 @@ namespace shopify
     ///</summary>
     public interface IHasLocalizationExtensions
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; }
         ///<summary>
         ///List of localization extensions for the resource.
         ///</summary>
@@ -21268,10 +19120,6 @@ namespace shopify
     public interface IHasMetafieldDefinitions
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; }
-        ///<summary>
         ///List of metafield definitions.
         ///</summary>
         public MetafieldDefinitionConnection? metafieldDefinitions { get; }
@@ -21282,10 +19130,6 @@ namespace shopify
     ///</summary>
     public interface IHasMetafields
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; }
         ///<summary>
         ///Returns a metafield by namespace and key that belongs to the resource.
         ///</summary>
@@ -21310,10 +19154,6 @@ namespace shopify
     public interface IHasPublishedTranslations
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; }
-        ///<summary>
         ///The translations associated with the resource.
         ///</summary>
         public Translation[]? translations { get; }
@@ -21324,10 +19164,6 @@ namespace shopify
     ///</summary>
     public class Image : IHasMetafields
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A word or phrase to share the nature or contents of an image.
         ///</summary>
@@ -21395,10 +19231,6 @@ namespace shopify
     public class ImageConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public ImageEdge[]? edges { get; set; }
@@ -21437,10 +19269,6 @@ namespace shopify
     public class ImageEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -21463,10 +19291,6 @@ namespace shopify
     public class ImageUploadParameter
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The parameter name.
         ///</summary>
         public string? name { get; set; }
@@ -21481,10 +19305,6 @@ namespace shopify
     ///</summary>
     public class InventoryActivatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The inventory level that was activated.
         ///</summary>
@@ -21501,10 +19321,6 @@ namespace shopify
     public class InventoryAdjustQuantitiesPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The group of changes made by the operation.
         ///</summary>
         public InventoryAdjustmentGroup? inventoryAdjustmentGroup { get; set; }
@@ -21519,10 +19335,6 @@ namespace shopify
     ///</summary>
     public class InventoryAdjustQuantitiesUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -21610,10 +19422,6 @@ namespace shopify
     public class InventoryAdjustQuantityPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Represents the updated inventory quantity of an inventory item at a specific location.
         ///</summary>
         public InventoryLevel? inventoryLevel { get; set; }
@@ -21628,10 +19436,6 @@ namespace shopify
     ///</summary>
     public class InventoryAdjustmentGroup : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The app that triggered the inventory event, if one exists.
         ///</summary>
@@ -21668,10 +19472,6 @@ namespace shopify
     public class InventoryBulkAdjustQuantityAtLocationPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Represents the updated inventory quantities of an inventory item at the location.
         ///</summary>
         public InventoryLevel[]? inventoryLevels { get; set; }
@@ -21686,10 +19486,6 @@ namespace shopify
     ///</summary>
     public class InventoryBulkToggleActivationPayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The inventory item that was updated.
         ///</summary>
@@ -21709,10 +19505,6 @@ namespace shopify
     ///</summary>
     public class InventoryBulkToggleActivationUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -21792,10 +19584,6 @@ namespace shopify
     public class InventoryChange
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The amount by which the inventory quantity was changed.
         ///</summary>
         public int? delta { get; set; }
@@ -21827,10 +19615,6 @@ namespace shopify
     public class InventoryDeactivatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The list of errors that occurred from executing the mutation.
         ///</summary>
         public UserError[]? userErrors { get; set; }
@@ -21842,10 +19626,6 @@ namespace shopify
     ///</summary>
     public class InventoryItem : ILegacyInteroperability, INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The ISO 3166-1 alpha-2 country code of where the item originated from.
         ///</summary>
@@ -21930,10 +19710,6 @@ namespace shopify
     public class InventoryItemConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public InventoryItemEdge[]? edges { get; set; }
@@ -21953,10 +19729,6 @@ namespace shopify
     public class InventoryItemEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -21972,10 +19744,6 @@ namespace shopify
     public class InventoryItemUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The inventory item that was updated.
         ///</summary>
         public InventoryItem? inventoryItem { get; set; }
@@ -21990,10 +19758,6 @@ namespace shopify
     ///</summary>
     public class InventoryLevel : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The quantity of inventory items that are available at the inventory level's associated location.
         ///</summary>
@@ -22046,10 +19810,6 @@ namespace shopify
     public class InventoryLevelConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public InventoryLevelEdge[]? edges { get; set; }
@@ -22069,10 +19829,6 @@ namespace shopify
     public class InventoryLevelEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -22088,10 +19844,6 @@ namespace shopify
     public class InventoryMoveQuantitiesPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The group of changes made by the operation.
         ///</summary>
         public InventoryAdjustmentGroup? inventoryAdjustmentGroup { get; set; }
@@ -22106,10 +19858,6 @@ namespace shopify
     ///</summary>
     public class InventoryMoveQuantitiesUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -22205,10 +19953,6 @@ namespace shopify
     public class InventoryProperties
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///All the quantity names.
         ///</summary>
         public InventoryQuantityName[]? quantityNames { get; set; }
@@ -22219,10 +19963,6 @@ namespace shopify
     ///</summary>
     public class InventoryQuantity
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The name that identifies the inventory quantity.
         ///</summary>
@@ -22242,10 +19982,6 @@ namespace shopify
     ///</summary>
     public class InventoryQuantityName
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///List of quantity names that this quantity name belongs to.
         ///</summary>
@@ -22274,10 +20010,6 @@ namespace shopify
     public class InventorySetOnHandQuantitiesPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The group of changes made by the operation.
         ///</summary>
         public InventoryAdjustmentGroup? inventoryAdjustmentGroup { get; set; }
@@ -22292,10 +20024,6 @@ namespace shopify
     ///</summary>
     public class InventorySetOnHandQuantitiesUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -22359,10 +20087,6 @@ namespace shopify
     public class Job
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///This indicates if the job is still queued or has been run.
         ///</summary>
         public bool? done { get; set; }
@@ -22381,10 +20105,6 @@ namespace shopify
     ///</summary>
     public interface IJobResult
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; }
         ///<summary>
         ///This indicates if the job is still queued or has been run.
         ///</summary>
@@ -22957,10 +20677,6 @@ namespace shopify
     public interface ILegacyInteroperability
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; }
-        ///<summary>
         ///The ID of the corresponding resource in the REST Admin API.
         ///</summary>
         public ulong? legacyResourceId { get; }
@@ -23004,10 +20720,6 @@ namespace shopify
     public class LimitedPendingOrderCount
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///This is set when the number of pending orders has reached the maximum.
         ///</summary>
         public bool? atMax { get; set; }
@@ -23023,10 +20735,6 @@ namespace shopify
     ///</summary>
     public class LineItem : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Whether the line item can be restocked.
         ///</summary>
@@ -23225,10 +20933,6 @@ namespace shopify
     public class LineItemConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public LineItemEdge[]? edges { get; set; }
@@ -23248,10 +20952,6 @@ namespace shopify
     public class LineItemEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -23266,10 +20966,6 @@ namespace shopify
     ///</summary>
     public class LineItemGroup
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A globally-unique ID.
         ///</summary>
@@ -23289,10 +20985,6 @@ namespace shopify
     ///</summary>
     public class LineItemMutable : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Whether the line item can be restocked.
         ///</summary>
@@ -23460,10 +21152,6 @@ namespace shopify
     public class LineItemMutableConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public LineItemMutableEdge[]? edges { get; set; }
@@ -23483,10 +21171,6 @@ namespace shopify
     public class LineItemMutableEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -23502,10 +21186,6 @@ namespace shopify
     public class LineItemSellingPlan
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The name of the selling plan for display purposes.
         ///</summary>
         public string? name { get; set; }
@@ -23520,10 +21200,6 @@ namespace shopify
     ///</summary>
     public class Link : IHasPublishedTranslations
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A context-sensitive label for the link.
         ///</summary>
@@ -23543,10 +21219,6 @@ namespace shopify
     ///</summary>
     public class Locale
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Locale ISO code.
         ///</summary>
@@ -23630,10 +21302,6 @@ namespace shopify
     public class LocalizationExtension
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Country ISO 3166-1 alpha-2 code.
         ///</summary>
         public CountryCode? countryCode { get; set; }
@@ -23661,10 +21329,6 @@ namespace shopify
     public class LocalizationExtensionConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public LocalizationExtensionEdge[]? edges { get; set; }
@@ -23683,10 +21347,6 @@ namespace shopify
     ///</summary>
     public class LocalizationExtensionEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -23748,10 +21408,6 @@ namespace shopify
     ///</summary>
     public class Location : IHasMetafieldDefinitions, IHasMetafields, ILegacyInteroperability, INode, IMetafieldReferencer
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Whether this location can be reactivated.
         ///</summary>
@@ -23860,10 +21516,6 @@ namespace shopify
     public class LocationActivatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The location that was activated.
         ///</summary>
         public Location? location { get; set; }
@@ -23878,10 +21530,6 @@ namespace shopify
     ///</summary>
     public class LocationActivateUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -23929,10 +21577,6 @@ namespace shopify
     public class LocationAddPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The location that was added.
         ///</summary>
         public Location? location { get; set; }
@@ -23947,10 +21591,6 @@ namespace shopify
     ///</summary>
     public class LocationAddUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -24034,10 +21674,6 @@ namespace shopify
     public class LocationAddress
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The first line of the address for the location.
         ///</summary>
         public string? address1 { get; set; }
@@ -24093,10 +21729,6 @@ namespace shopify
     public class LocationConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public LocationEdge[]? edges { get; set; }
@@ -24116,10 +21748,6 @@ namespace shopify
     public class LocationDeactivatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The location that was deactivated.
         ///</summary>
         public Location? location { get; set; }
@@ -24134,10 +21762,6 @@ namespace shopify
     ///</summary>
     public class LocationDeactivateUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -24229,10 +21853,6 @@ namespace shopify
     public class LocationDeletePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The ID of the location that was deleted.
         ///</summary>
         public string? deletedLocationId { get; set; }
@@ -24247,10 +21867,6 @@ namespace shopify
     ///</summary>
     public class LocationDeleteUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -24302,10 +21918,6 @@ namespace shopify
     public class LocationEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -24321,10 +21933,6 @@ namespace shopify
     public class LocationEditPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The location that was edited.
         ///</summary>
         public Location? location { get; set; }
@@ -24339,10 +21947,6 @@ namespace shopify
     ///</summary>
     public class LocationEditUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -24434,10 +22038,6 @@ namespace shopify
     public class LocationLocalPickupDisablePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The ID of the location for which local pickup was disabled.
         ///</summary>
         public string? locationId { get; set; }
@@ -24452,10 +22052,6 @@ namespace shopify
     ///</summary>
     public class LocationLocalPickupEnablePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The local pickup settings that were enabled.
         ///</summary>
@@ -24491,10 +22087,6 @@ namespace shopify
     ///</summary>
     public class LocationSuggestedAddress
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The first line of the suggested address.
         ///</summary>
@@ -24540,10 +22132,6 @@ namespace shopify
     ///</summary>
     public class MailingAddress : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The first line of the address. Typically the street address or PO Box number.
         ///</summary>
@@ -24644,10 +22232,6 @@ namespace shopify
     public class MailingAddressConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public MailingAddressEdge[]? edges { get; set; }
@@ -24667,10 +22251,6 @@ namespace shopify
     public class MailingAddressEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -24687,10 +22267,6 @@ namespace shopify
     ///</summary>
     public class ManualDiscountApplication : IDiscountApplication
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The method by which the discount's value is applied to its entitled items.
         ///</summary>
@@ -24732,10 +22308,6 @@ namespace shopify
     ///</summary>
     public class Market : IHasMetafieldDefinitions, IHasMetafields, INode, IMetafieldReferencer
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The catalogs that belong to the market.
         ///</summary>
@@ -24810,10 +22382,6 @@ namespace shopify
     public class MarketCatalog : ICatalog, INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A globally-unique ID.
         ///</summary>
         public string? id { get; set; }
@@ -24849,10 +22417,6 @@ namespace shopify
     public class MarketCatalogConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public MarketCatalogEdge[]? edges { get; set; }
@@ -24872,10 +22436,6 @@ namespace shopify
     public class MarketCatalogEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -24890,10 +22450,6 @@ namespace shopify
     ///</summary>
     public class MarketConnection
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A list of edges.
         ///</summary>
@@ -24914,10 +22470,6 @@ namespace shopify
     public class MarketCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The market object.
         ///</summary>
         public Market? market { get; set; }
@@ -24932,10 +22484,6 @@ namespace shopify
     ///</summary>
     public class MarketCurrencySettings
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The currency which this market's prices are defined in, and the
         ///currency which its customers must use if local currencies are disabled.
@@ -24956,10 +22504,6 @@ namespace shopify
     public class MarketCurrencySettingsUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The market object.
         ///</summary>
         public Market? market { get; set; }
@@ -24974,10 +22518,6 @@ namespace shopify
     ///</summary>
     public class MarketCurrencySettingsUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -25029,10 +22569,6 @@ namespace shopify
     public class MarketDeletePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The ID of the deleted market.
         ///</summary>
         public string? deletedId { get; set; }
@@ -25048,10 +22584,6 @@ namespace shopify
     public class MarketEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -25066,10 +22598,6 @@ namespace shopify
     ///</summary>
     public class MarketLocalizableContent
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The hash digest representation of the content value.
         ///</summary>
@@ -25090,10 +22618,6 @@ namespace shopify
     public class MarketLocalizableResource
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The market localizable content.
         ///</summary>
         public MarketLocalizableContent[]? marketLocalizableContent { get; set; }
@@ -25113,10 +22637,6 @@ namespace shopify
     public class MarketLocalizableResourceConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public MarketLocalizableResourceEdge[]? edges { get; set; }
@@ -25135,10 +22655,6 @@ namespace shopify
     ///</summary>
     public class MarketLocalizableResourceEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -25165,10 +22681,6 @@ namespace shopify
     ///</summary>
     public class MarketLocalization
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A reference to the value being localized on the resource that this market localization belongs to.
         ///</summary>
@@ -25197,10 +22709,6 @@ namespace shopify
     public class MarketLocalizationsRegisterPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The market localizations that were created or updated.
         ///</summary>
         public MarketLocalization[]? marketLocalizations { get; set; }
@@ -25215,10 +22723,6 @@ namespace shopify
     ///</summary>
     public class MarketLocalizationsRemovePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The market localizations that were deleted.
         ///</summary>
@@ -25235,10 +22739,6 @@ namespace shopify
     public interface IMarketRegion
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; }
-        ///<summary>
         ///A globally-unique ID.
         ///</summary>
         public string? id { get; }
@@ -25253,10 +22753,6 @@ namespace shopify
     ///</summary>
     public class MarketRegionConnection
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A list of edges.
         ///</summary>
@@ -25276,10 +22772,6 @@ namespace shopify
     ///</summary>
     public class MarketRegionCountry : IMarketRegion, INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The ISO code identifying the country.
         ///</summary>
@@ -25304,10 +22796,6 @@ namespace shopify
     public class MarketRegionDeletePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The ID of the deleted market region.
         ///</summary>
         public string? deletedId { get; set; }
@@ -25327,10 +22815,6 @@ namespace shopify
     public class MarketRegionEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -25345,10 +22829,6 @@ namespace shopify
     ///</summary>
     public class MarketRegionsCreatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The market object.
         ///</summary>
@@ -25365,10 +22845,6 @@ namespace shopify
     public class MarketUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The market object.
         ///</summary>
         public Market? market { get; set; }
@@ -25383,10 +22859,6 @@ namespace shopify
     ///</summary>
     public class MarketUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -25545,10 +23017,6 @@ namespace shopify
     public class MarketWebPresence : INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The ISO codes for the alternate locales. When a domain is used, these locales will be
         ///available as language-specific subfolders. For example, if English is an
         ///alternate locale, and `example.ca` is the market’s domain, then
@@ -25590,10 +23058,6 @@ namespace shopify
     public class MarketWebPresenceCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The market object.
         ///</summary>
         public Market? market { get; set; }
@@ -25608,10 +23072,6 @@ namespace shopify
     ///</summary>
     public class MarketWebPresenceDeletePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The ID of the deleted web presence.
         ///</summary>
@@ -25633,10 +23093,6 @@ namespace shopify
     public class MarketWebPresenceRootUrl
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The locale that the storefront loads in.
         ///</summary>
         public string? locale { get; set; }
@@ -25651,10 +23107,6 @@ namespace shopify
     ///</summary>
     public class MarketWebPresenceUpdatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The market object.
         ///</summary>
@@ -25671,10 +23123,6 @@ namespace shopify
     ///</summary>
     public class MarketingActivity : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The URL of the marketing activity listing page in the marketing section.
         ///</summary>
@@ -25776,10 +23224,6 @@ namespace shopify
     public class MarketingActivityConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public MarketingActivityEdge[]? edges { get; set; }
@@ -25799,10 +23243,6 @@ namespace shopify
     public class MarketingActivityCreateExternalPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The external marketing activity that was created.
         ///</summary>
         public MarketingActivity? marketingActivity { get; set; }
@@ -25817,10 +23257,6 @@ namespace shopify
     ///</summary>
     public class MarketingActivityCreatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The created marketing activity.
         ///</summary>
@@ -25840,10 +23276,6 @@ namespace shopify
     ///</summary>
     public class MarketingActivityEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -25886,10 +23318,6 @@ namespace shopify
     ///</summary>
     public class MarketingActivityExtensionAppErrors
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The app error type.
         ///</summary>
@@ -26008,10 +23436,6 @@ namespace shopify
     public class MarketingActivityUpdateExternalPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated marketing activity.
         ///</summary>
         public MarketingActivity? marketingActivity { get; set; }
@@ -26026,10 +23450,6 @@ namespace shopify
     ///</summary>
     public class MarketingActivityUpdatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The updated marketing activity.
         ///</summary>
@@ -26049,10 +23469,6 @@ namespace shopify
     ///</summary>
     public class MarketingActivityUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -26087,10 +23503,6 @@ namespace shopify
     ///</summary>
     public class MarketingBudget
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The budget type for a marketing activity.
         ///</summary>
@@ -26148,10 +23560,6 @@ namespace shopify
     ///</summary>
     public class MarketingEngagement
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The total ad spend for the day, if the marketing event is a paid ad with a daily spend.
         ///</summary>
@@ -26232,10 +23640,6 @@ namespace shopify
     public class MarketingEngagementCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The marketing engagement that was created.
         ///</summary>
         public MarketingEngagement? marketingEngagement { get; set; }
@@ -26250,10 +23654,6 @@ namespace shopify
     ///</summary>
     public class MarketingEvent : ILegacyInteroperability, INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The app that the marketing event is attributed to.
         ///</summary>
@@ -26334,10 +23734,6 @@ namespace shopify
     public class MarketingEventConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public MarketingEventEdge[]? edges { get; set; }
@@ -26356,10 +23752,6 @@ namespace shopify
     ///</summary>
     public class MarketingEventEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -26475,10 +23867,6 @@ namespace shopify
     public interface IMedia
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; }
-        ///<summary>
         ///A word or phrase to share the nature or contents of a media.
         ///</summary>
         public string? alt { get; }
@@ -26513,10 +23901,6 @@ namespace shopify
     ///</summary>
     public class MediaConnection
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A list of edges.
         ///</summary>
@@ -26560,10 +23944,6 @@ namespace shopify
     public class MediaEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -26579,10 +23959,6 @@ namespace shopify
     ///</summary>
     public class MediaError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Code representing the type of error.
         ///</summary>
@@ -26757,10 +24133,6 @@ namespace shopify
     public class MediaImage : IFile, IHasMetafields, IMedia, INode, IMetafieldReference
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A word or phrase to share the nature or contents of a media.
         ///</summary>
         public string? alt { get; set; }
@@ -26840,10 +24212,6 @@ namespace shopify
     public class MediaImageOriginalSource
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The size of the original file in bytes.
         ///</summary>
         public int? fileSize { get; set; }
@@ -26854,10 +24222,6 @@ namespace shopify
     ///</summary>
     public class MediaPreviewImage
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The preview image for the media. Returns `null` until `status` is `READY`.
         ///</summary>
@@ -26919,10 +24283,6 @@ namespace shopify
     ///</summary>
     public class MediaUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -27031,10 +24391,6 @@ namespace shopify
     public class MediaWarning
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The code representing the type of warning.
         ///</summary>
         public MediaWarningCode? code { get; set; }
@@ -27080,10 +24436,6 @@ namespace shopify
     public class MerchantApprovalSignals
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Whether the shop's Shopify Payments account identity is verified. Returns `false` if the identity is unverified or if the shop doesn't have a Shopify Payments account.
         ///</summary>
         public bool? identityVerified { get; set; }
@@ -27105,10 +24457,6 @@ namespace shopify
     ///</summary>
     public class Metafield : ILegacyInteroperability, INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The date and time when the metafield was created.
         ///</summary>
@@ -27174,10 +24522,6 @@ namespace shopify
     public class MetafieldAccess
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The default admin access setting used for the metafields under this definition.
         ///</summary>
         public MetafieldAdminAccess? admin { get; set; }
@@ -27212,10 +24556,6 @@ namespace shopify
     public class MetafieldConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public MetafieldEdge[]? edges { get; set; }
@@ -27235,10 +24575,6 @@ namespace shopify
     ///</summary>
     public class MetafieldDefinition : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The access settings associated with the metafield definition.
         ///</summary>
@@ -27315,10 +24651,6 @@ namespace shopify
     public class MetafieldDefinitionConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public MetafieldDefinitionEdge[]? edges { get; set; }
@@ -27338,10 +24670,6 @@ namespace shopify
     public class MetafieldDefinitionCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The metafield definition that was created.
         ///</summary>
         public MetafieldDefinition? createdDefinition { get; set; }
@@ -27356,10 +24684,6 @@ namespace shopify
     ///</summary>
     public class MetafieldDefinitionCreateUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -27451,10 +24775,6 @@ namespace shopify
     public class MetafieldDefinitionDeletePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The ID of the deleted metafield definition.
         ///</summary>
         public string? deletedDefinitionId { get; set; }
@@ -27469,10 +24789,6 @@ namespace shopify
     ///</summary>
     public class MetafieldDefinitionDeleteUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -27524,10 +24840,6 @@ namespace shopify
     public class MetafieldDefinitionEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -27543,10 +24855,6 @@ namespace shopify
     public class MetafieldDefinitionPinPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The metafield definition that was pinned.
         ///</summary>
         public MetafieldDefinition? pinnedDefinition { get; set; }
@@ -27561,10 +24869,6 @@ namespace shopify
     ///</summary>
     public class MetafieldDefinitionPinUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -27658,10 +24962,6 @@ namespace shopify
     public class MetafieldDefinitionSupportedValidation
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The name of the metafield definition validation.
         ///</summary>
         public string? name { get; set; }
@@ -27676,10 +24976,6 @@ namespace shopify
     ///</summary>
     public class MetafieldDefinitionType
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The category associated with the metafield definition type.
         ///</summary>
@@ -27709,10 +25005,6 @@ namespace shopify
     public class MetafieldDefinitionUnpinPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The metafield definition that was unpinned.
         ///</summary>
         public MetafieldDefinition? unpinnedDefinition { get; set; }
@@ -27727,10 +25019,6 @@ namespace shopify
     ///</summary>
     public class MetafieldDefinitionUnpinUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -27774,10 +25062,6 @@ namespace shopify
     public class MetafieldDefinitionUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The metafield definition that was updated.
         ///</summary>
         public MetafieldDefinition? updatedDefinition { get; set; }
@@ -27796,10 +25080,6 @@ namespace shopify
     ///</summary>
     public class MetafieldDefinitionUpdateUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -27868,10 +25148,6 @@ namespace shopify
     public class MetafieldDefinitionValidation
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The validation name.
         ///</summary>
         public string? name { get; set; }
@@ -27910,10 +25186,6 @@ namespace shopify
     public class MetafieldDeletePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The ID of the deleted metafield.
         ///</summary>
         public string? deletedId { get; set; }
@@ -27928,10 +25200,6 @@ namespace shopify
     ///</summary>
     public class MetafieldEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -28052,10 +25320,6 @@ namespace shopify
         public ProductVariant? AsProductVariant() => this as ProductVariant;
         public Video? AsVideo() => this as Video;
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A globally-unique ID.
         ///</summary>
         public string? id { get; set; }
@@ -28066,10 +25330,6 @@ namespace shopify
     ///</summary>
     public class MetafieldReferenceConnection
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A list of edges.
         ///</summary>
@@ -28089,10 +25349,6 @@ namespace shopify
     ///</summary>
     public class MetafieldReferenceEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -28150,10 +25406,6 @@ namespace shopify
         public ProductVariant? AsProductVariant() => this as ProductVariant;
         public Shop? AsShop() => this as Shop;
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A globally-unique ID.
         ///</summary>
         public string? id { get; set; }
@@ -28166,10 +25418,6 @@ namespace shopify
     ///</summary>
     public class MetafieldRelation
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The key of the field making the reference.
         ///</summary>
@@ -28198,10 +25446,6 @@ namespace shopify
     public class MetafieldRelationConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public MetafieldRelationEdge[]? edges { get; set; }
@@ -28220,10 +25464,6 @@ namespace shopify
     ///</summary>
     public class MetafieldRelationEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -28245,10 +25485,6 @@ namespace shopify
     ///</summary>
     public class MetafieldStorefrontVisibility : ILegacyInteroperability, INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The date and time when the metafield was set to visible in the Storefront API.
         ///</summary>
@@ -28285,10 +25521,6 @@ namespace shopify
     public class MetafieldStorefrontVisibilityConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public MetafieldStorefrontVisibilityEdge[]? edges { get; set; }
@@ -28308,10 +25540,6 @@ namespace shopify
     public class MetafieldStorefrontVisibilityCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The `MetafieldStorefrontVisibility` that was created.
         ///</summary>
         public MetafieldStorefrontVisibility? metafieldStorefrontVisibility { get; set; }
@@ -28327,10 +25555,6 @@ namespace shopify
     public class MetafieldStorefrontVisibilityDeletePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The ID of the deleted `MetafieldStorefrontVisibility` record.
         ///</summary>
         public string? deletedMetafieldStorefrontVisibilityId { get; set; }
@@ -28345,10 +25569,6 @@ namespace shopify
     ///</summary>
     public class MetafieldStorefrontVisibilityEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -28408,10 +25628,6 @@ namespace shopify
     public class MetafieldsSetPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The list of metafields that were set.
         ///</summary>
         public Metafield[]? metafields { get; set; }
@@ -28426,10 +25642,6 @@ namespace shopify
     ///</summary>
     public class MetafieldsSetUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -28497,10 +25709,6 @@ namespace shopify
     public class Metaobject : INode, IMetafieldReference, IMetafieldReferencer
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Metaobject capabilities for this Metaobject.
         ///</summary>
         public MetaobjectCapabilityData? capabilities { get; set; }
@@ -28556,10 +25764,6 @@ namespace shopify
     public class MetaobjectAccess
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Access configuration for Admin API surface areas, including the GraphQL Admin API.
         ///</summary>
         public MetaobjectAdminAccess? admin { get; set; }
@@ -28605,10 +25809,6 @@ namespace shopify
     public class MetaobjectBulkDeletePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The asynchronous job that deletes the metaobjects.
         ///</summary>
         public Job? job { get; set; }
@@ -28623,10 +25823,6 @@ namespace shopify
     ///</summary>
     public class MetaobjectCapabilities
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Indicate whether a metaobject definition is publishable.
         ///</summary>
@@ -28643,10 +25839,6 @@ namespace shopify
     public class MetaobjectCapabilitiesPublishable
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Indicates if the capability is enabled.
         ///</summary>
         public bool? enabled { get; set; }
@@ -28657,10 +25849,6 @@ namespace shopify
     ///</summary>
     public class MetaobjectCapabilitiesTranslatable
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Indicates if the capability is enabled.
         ///</summary>
@@ -28673,10 +25861,6 @@ namespace shopify
     public class MetaobjectCapabilityData
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The publishable capability for this metaobject.
         ///</summary>
         public MetaobjectCapabilityDataPublishable? publishable { get; set; }
@@ -28688,10 +25872,6 @@ namespace shopify
     public class MetaobjectCapabilityDataPublishable
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The visibility status of this metaobject across all channels.
         ///</summary>
         public MetaobjectStatus? status { get; set; }
@@ -28702,10 +25882,6 @@ namespace shopify
     ///</summary>
     public class MetaobjectConnection
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A list of edges.
         ///</summary>
@@ -28726,10 +25902,6 @@ namespace shopify
     public class MetaobjectCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The created metaobject.
         ///</summary>
         public Metaobject? metaobject { get; set; }
@@ -28744,10 +25916,6 @@ namespace shopify
     ///</summary>
     public class MetaobjectDefinition : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Access configuration for the metaobject definition.
         ///</summary>
@@ -28796,10 +25964,6 @@ namespace shopify
     public class MetaobjectDefinitionConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public MetaobjectDefinitionEdge[]? edges { get; set; }
@@ -28819,10 +25983,6 @@ namespace shopify
     public class MetaobjectDefinitionCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The created metaobject definition.
         ///</summary>
         public MetaobjectDefinition? metaobjectDefinition { get; set; }
@@ -28837,10 +25997,6 @@ namespace shopify
     ///</summary>
     public class MetaobjectDefinitionDeletePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The ID of the deleted metaobjects definition.
         ///</summary>
@@ -28857,10 +26013,6 @@ namespace shopify
     public class MetaobjectDefinitionEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -28875,10 +26027,6 @@ namespace shopify
     ///</summary>
     public class MetaobjectDefinitionUpdatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The updated metaobject definition.
         ///</summary>
@@ -28895,10 +26043,6 @@ namespace shopify
     public class MetaobjectDeletePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The ID of the deleted metaobject.
         ///</summary>
         public string? deletedId { get; set; }
@@ -28914,10 +26058,6 @@ namespace shopify
     public class MetaobjectEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -28932,10 +26072,6 @@ namespace shopify
     ///</summary>
     public class MetaobjectField
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The field definition for this object key.
         ///</summary>
@@ -28968,10 +26104,6 @@ namespace shopify
     ///</summary>
     public class MetaobjectFieldDefinition
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The administrative description.
         ///</summary>
@@ -29036,10 +26168,6 @@ namespace shopify
     public class MetaobjectUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated metaobject.
         ///</summary>
         public Metaobject? metaobject { get; set; }
@@ -29055,10 +26183,6 @@ namespace shopify
     public class MetaobjectUpsertPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The created or updated metaobject.
         ///</summary>
         public Metaobject? metaobject { get; set; }
@@ -29073,10 +26197,6 @@ namespace shopify
     ///</summary>
     public class MetaobjectUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -29224,10 +26344,6 @@ namespace shopify
     public class Model3d : IMedia, INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A word or phrase to share the nature or contents of a media.
         ///</summary>
         public string? alt { get; set; }
@@ -29279,10 +26395,6 @@ namespace shopify
     public class Model3dBoundingBox
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Size in meters of the smallest volume which contains the 3d model.
         ///</summary>
         public Vector3? size { get; set; }
@@ -29299,10 +26411,6 @@ namespace shopify
     ///</summary>
     public class Model3dSource
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The 3d model source's filesize.
         ///</summary>
@@ -29328,10 +26436,6 @@ namespace shopify
     public class MoneyBag
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Amount in presentment currency.
         ///</summary>
         public MoneyV2? presentmentMoney { get; set; }
@@ -29347,10 +26451,6 @@ namespace shopify
     public class MoneyV2 : IDeliveryConditionCriteria, IPricingValue, ISellingPlanCheckoutChargeValue, ISellingPlanPricingPolicyAdjustmentValue
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Decimal money amount.
         ///</summary>
         public decimal? amount { get; set; }
@@ -29365,10 +26465,6 @@ namespace shopify
     ///</summary>
     public class Mutation
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Updates the email state value for an abandonment.
         ///</summary>
@@ -31175,10 +28271,6 @@ namespace shopify
     public class MutationsStagedUploadTargetGenerateUploadParameter
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The upload parameter name.
         ///</summary>
         public string? name { get; set; }
@@ -31199,10 +28291,6 @@ namespace shopify
     public interface INavigable
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; }
-        ///<summary>
         ///A default cursor that returns the single next record, sorted ascending by ID.
         ///</summary>
         public string? defaultCursor { get; }
@@ -31213,10 +28301,6 @@ namespace shopify
     ///</summary>
     public class NavigationItem
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The unique identifier of the navigation item.
         ///</summary>
@@ -31240,10 +28324,6 @@ namespace shopify
     public interface INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; }
-        ///<summary>
         ///A globally-unique ID.
         ///</summary>
         public string? id { get; }
@@ -31258,10 +28338,6 @@ namespace shopify
     ///</summary>
     public class OnlineStoreArticle : IHasPublishedTranslations, INavigable, INode, IMetafieldReferencer
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A default cursor that returns the single next record, sorted ascending by ID.
         ///</summary>
@@ -31283,10 +28359,6 @@ namespace shopify
     public class OnlineStoreBlog : IHasPublishedTranslations, INode, IMetafieldReferencer
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A globally-unique ID.
         ///</summary>
         public string? id { get; set; }
@@ -31301,10 +28373,6 @@ namespace shopify
     ///</summary>
     public class OnlineStorePage : IHasPublishedTranslations, INavigable, INode, IMetafieldReference, IMetafieldReferencer
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A default cursor that returns the single next record, sorted ascending by ID.
         ///</summary>
@@ -31325,10 +28393,6 @@ namespace shopify
     public interface IOnlineStorePreviewable
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; }
-        ///<summary>
         ///The online store preview URL.
         ///</summary>
         public string? onlineStorePreviewUrl { get; }
@@ -31348,10 +28412,6 @@ namespace shopify
     ///</summary>
     public class Order : ICommentEventSubject, IHasEvents, IHasLocalizationExtensions, IHasMetafieldDefinitions, IHasMetafields, ILegacyInteroperability, INode, ICommentEventEmbed, IMetafieldReferencer
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A list of addtional fees applied to the order.
         ///</summary>
@@ -31989,10 +29049,6 @@ namespace shopify
     public class OrderAgreement : ISalesAgreement
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The application that created the agreement.
         ///</summary>
         public App? app { get; set; }
@@ -32027,10 +29083,6 @@ namespace shopify
     ///</summary>
     public class OrderApp
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The application icon.
         ///</summary>
@@ -32078,10 +29130,6 @@ namespace shopify
     public class OrderCapturePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The created capture transaction.
         ///</summary>
         public OrderTransaction? transaction { get; set; }
@@ -32097,10 +29145,6 @@ namespace shopify
     public class OrderClosePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The closed order.
         ///</summary>
         public Order? order { get; set; }
@@ -32115,10 +29159,6 @@ namespace shopify
     ///</summary>
     public class OrderConnection
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A list of edges.
         ///</summary>
@@ -32139,10 +29179,6 @@ namespace shopify
     public class OrderCreateMandatePaymentPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The async job used for charging the payment.
         ///</summary>
         public Job? job { get; set; }
@@ -32161,10 +29197,6 @@ namespace shopify
     ///</summary>
     public class OrderCreateMandatePaymentUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -32278,10 +29310,6 @@ namespace shopify
     public class OrderDisputeSummary : INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A globally-unique ID.
         ///</summary>
         public string? id { get; set; }
@@ -32301,10 +29329,6 @@ namespace shopify
     public class OrderEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -32319,10 +29343,6 @@ namespace shopify
     ///</summary>
     public class OrderEditAddCustomItemPayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The custom line item that will be added to the order based on the current edits.
         ///</summary>
@@ -32342,10 +29362,6 @@ namespace shopify
     ///</summary>
     public class OrderEditAddLineItemDiscountPayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The discount applied to a line item during this order edit.
         ///</summary>
@@ -32370,10 +29386,6 @@ namespace shopify
     public class OrderEditAddVariantPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The [calculated line item](https://shopify.dev/api/admin-graphql/latest/objects/calculatedlineitem)
         ///that's added during this order edit.
         ///</summary>
@@ -32394,10 +29406,6 @@ namespace shopify
     ///</summary>
     public class OrderEditAgreement : ISalesAgreement
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The application that created the agreement.
         ///</summary>
@@ -32430,10 +29438,6 @@ namespace shopify
     public class OrderEditBeginPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The order that will be edited.
         ///</summary>
         public CalculatedOrder? calculatedOrder { get; set; }
@@ -32449,10 +29453,6 @@ namespace shopify
     public class OrderEditCommitPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The order with changes applied.
         ///</summary>
         public Order? order { get; set; }
@@ -32467,10 +29467,6 @@ namespace shopify
     ///</summary>
     public class OrderEditRemoveLineItemDiscountPayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The calculated line item after removal of the discount.
         ///</summary>
@@ -32491,10 +29487,6 @@ namespace shopify
     public class OrderEditSetQuantityPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The calculated line item with the edits applied but not saved.
         ///</summary>
         public CalculatedLineItem? calculatedLineItem { get; set; }
@@ -32514,10 +29506,6 @@ namespace shopify
     public class OrderInvoiceSendPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The order associated with the invoice email.
         ///</summary>
         public Order? order { get; set; }
@@ -32532,10 +29520,6 @@ namespace shopify
     ///</summary>
     public class OrderInvoiceSendUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -32567,10 +29551,6 @@ namespace shopify
     public class OrderMarkAsPaidPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The order marked as paid.
         ///</summary>
         public Order? order { get; set; }
@@ -32585,10 +29565,6 @@ namespace shopify
     ///</summary>
     public class OrderOpenPayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The opened order.
         ///</summary>
@@ -32605,10 +29581,6 @@ namespace shopify
     public class OrderPaymentCollectionDetails
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The URL to use for collecting an additional payment on the order.
         ///</summary>
         public string? additionalPaymentCollectionUrl { get; set; }
@@ -32623,10 +29595,6 @@ namespace shopify
     ///</summary>
     public class OrderPaymentStatus
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A message describing an error during the asynchronous processing of a payment.
         ///</summary>
@@ -32734,10 +29702,6 @@ namespace shopify
     ///</summary>
     public class OrderRisk
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Whether the risk level is shown in the Shopify admin. If false, then this order risk is ignored when Shopify determines the overall risk level for the order.
         ///</summary>
@@ -32851,10 +29815,6 @@ namespace shopify
         public OrderStagedChangeAddVariant? AsOrderStagedChangeAddVariant() => this as OrderStagedChangeAddVariant;
         public OrderStagedChangeDecrementItem? AsOrderStagedChangeDecrementItem() => this as OrderStagedChangeDecrementItem;
         public OrderStagedChangeIncrementItem? AsOrderStagedChangeIncrementItem() => this as OrderStagedChangeIncrementItem;
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
     }
 
     ///<summary>
@@ -32864,10 +29824,6 @@ namespace shopify
     ///</summary>
     public class OrderStagedChangeAddCustomItem : IOrderStagedChange
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The price of an individual item without any discounts applied. This value can't be negative.
         ///</summary>
@@ -32888,10 +29844,6 @@ namespace shopify
     public class OrderStagedChangeAddLineItemDiscount : IOrderStagedChange
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The description of the discount.
         ///</summary>
         public string? description { get; set; }
@@ -32911,10 +29863,6 @@ namespace shopify
     ///</summary>
     public class OrderStagedChangeAddShippingLine : IOrderStagedChange
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The phone number at the shipping address.
         ///</summary>
@@ -32939,10 +29887,6 @@ namespace shopify
     public class OrderStagedChangeAddVariant : IOrderStagedChange
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The quantity of the product variant that was added.
         ///</summary>
         public int? quantity { get; set; }
@@ -32957,10 +29901,6 @@ namespace shopify
     ///</summary>
     public class OrderStagedChangeConnection
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A list of edges.
         ///</summary>
@@ -32981,10 +29921,6 @@ namespace shopify
     public class OrderStagedChangeDecrementItem : IOrderStagedChange
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The number of items removed.
         ///</summary>
         public int? delta { get; set; }
@@ -33004,10 +29940,6 @@ namespace shopify
     public class OrderStagedChangeEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -33023,10 +29955,6 @@ namespace shopify
     public class OrderStagedChangeIncrementItem : IOrderStagedChange
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The number of items added.
         ///</summary>
         public int? delta { get; set; }
@@ -33041,10 +29969,6 @@ namespace shopify
     ///</summary>
     public class OrderTransaction : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The masked account number associated with the payment method.
         ///</summary>
@@ -33196,10 +30120,6 @@ namespace shopify
     public class OrderTransactionConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public OrderTransactionEdge[]? edges { get; set; }
@@ -33218,10 +30138,6 @@ namespace shopify
     ///</summary>
     public class OrderTransactionEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -33425,10 +30341,6 @@ namespace shopify
     public class OrderUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated order.
         ///</summary>
         public Order? order { get; set; }
@@ -33445,10 +30357,6 @@ namespace shopify
     ///</summary>
     public class PageInfo
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The cursor corresponding to the last node in edges.
         ///</summary>
@@ -33472,10 +30380,6 @@ namespace shopify
     ///</summary>
     public class ParseError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///An error code for the error.
         ///</summary>
@@ -33692,10 +30596,6 @@ namespace shopify
     public class ParseErrorRange
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The ending position of the error.
         ///</summary>
         public ErrorPosition? end { get; set; }
@@ -33710,10 +30610,6 @@ namespace shopify
     ///</summary>
     public class PaymentCustomization : IHasMetafieldDefinitions, IHasMetafields, INode, IMetafieldReferencer
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The enabled status of the payment customization.
         ///</summary>
@@ -33766,10 +30662,6 @@ namespace shopify
     public class PaymentCustomizationActivationPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The IDs of the updated payment customizations.
         ///</summary>
         public string[]? ids { get; set; }
@@ -33784,10 +30676,6 @@ namespace shopify
     ///</summary>
     public class PaymentCustomizationConnection
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A list of edges.
         ///</summary>
@@ -33808,10 +30696,6 @@ namespace shopify
     public class PaymentCustomizationCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Returns the created payment customization.
         ///</summary>
         public PaymentCustomization? paymentCustomization { get; set; }
@@ -33826,10 +30710,6 @@ namespace shopify
     ///</summary>
     public class PaymentCustomizationDeletePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Returns the deleted payment customization ID.
         ///</summary>
@@ -33846,10 +30726,6 @@ namespace shopify
     public class PaymentCustomizationEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -33864,10 +30740,6 @@ namespace shopify
     ///</summary>
     public class PaymentCustomizationError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -33939,10 +30811,6 @@ namespace shopify
     public class PaymentCustomizationUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Returns the updated payment customization.
         ///</summary>
         public PaymentCustomization? paymentCustomization { get; set; }
@@ -33960,10 +30828,6 @@ namespace shopify
     public interface IPaymentDetails
     {
         public CardPaymentDetails? AsCardPaymentDetails() => this as CardPaymentDetails;
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The response code from the address verification system (AVS). The code is always a single letter.
         ///</summary>
@@ -34013,10 +30877,6 @@ namespace shopify
         public VaultCreditCard? AsVaultCreditCard() => this as VaultCreditCard;
         public VaultPaypalBillingAgreement? AsVaultPaypalBillingAgreement() => this as VaultPaypalBillingAgreement;
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The name of the card holder.
         ///</summary>
         public string? name { get; set; }
@@ -34028,10 +30888,6 @@ namespace shopify
     ///</summary>
     public class PaymentMandate : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The unique ID of a payment mandate.
         ///</summary>
@@ -34085,10 +30941,6 @@ namespace shopify
     public class PaymentReminderSendPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Whether the payment reminder email was successfully sent.
         ///</summary>
         public bool? success { get; set; }
@@ -34103,10 +30955,6 @@ namespace shopify
     ///</summary>
     public class PaymentReminderSendUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -34137,10 +30985,6 @@ namespace shopify
     ///</summary>
     public class PaymentSchedule : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Amount owed for this payment schedule.
         ///</summary>
@@ -34173,10 +31017,6 @@ namespace shopify
     public class PaymentScheduleConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public PaymentScheduleEdge[]? edges { get; set; }
@@ -34196,10 +31036,6 @@ namespace shopify
     public class PaymentScheduleEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -34215,10 +31051,6 @@ namespace shopify
     public class PaymentSettings
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///List of the digital wallets which the shop supports.
         ///</summary>
         public DigitalWallet[]? supportedDigitalWallets { get; set; }
@@ -34229,10 +31061,6 @@ namespace shopify
     ///</summary>
     public class PaymentTerms : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The draft order associated with the payment terms.
         ///</summary>
@@ -34277,10 +31105,6 @@ namespace shopify
     public class PaymentTermsCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The created payment terms.
         ///</summary>
         public PaymentTerms? paymentTerms { get; set; }
@@ -34295,10 +31119,6 @@ namespace shopify
     ///</summary>
     public class PaymentTermsCreateUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -34330,10 +31150,6 @@ namespace shopify
     public class PaymentTermsDeletePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The deleted payment terms ID.
         ///</summary>
         public string? deletedId { get; set; }
@@ -34348,10 +31164,6 @@ namespace shopify
     ///</summary>
     public class PaymentTermsDeleteUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -34382,10 +31194,6 @@ namespace shopify
     ///</summary>
     public class PaymentTermsTemplate : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The description of the payment terms template.
         ///</summary>
@@ -34445,10 +31253,6 @@ namespace shopify
     public class PaymentTermsUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated payment terms.
         ///</summary>
         public PaymentTerms? paymentTerms { get; set; }
@@ -34463,10 +31267,6 @@ namespace shopify
     ///</summary>
     public class PaymentTermsUpdateUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -34517,10 +31317,6 @@ namespace shopify
     public class PolarisVizDataPoint
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The data key. Typically a category, dimension, or other qualitative data.
         ///</summary>
         public string? key { get; set; }
@@ -34535,10 +31331,6 @@ namespace shopify
     ///</summary>
     public class PolarisVizDataSeries
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///An array of data points.
         ///</summary>
@@ -34558,10 +31350,6 @@ namespace shopify
     ///</summary>
     public class PolarisVizResponse : IShopifyqlResponse
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The PolarisViz visualization of data.
         ///</summary>
@@ -34612,10 +31400,6 @@ namespace shopify
     public class PriceList : INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The catalog that the price list is associated with.
         ///</summary>
         public ICatalog? catalog { get; set; }
@@ -34658,10 +31442,6 @@ namespace shopify
     public class PriceListAdjustment
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The type of price adjustment, such as percentage increase or decrease.
         ///</summary>
         public PriceListAdjustmentType? type { get; set; }
@@ -34677,10 +31457,6 @@ namespace shopify
     ///</summary>
     public class PriceListAdjustmentSettings
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The type of price list adjustment setting for compare at price.
         ///</summary>
@@ -34723,10 +31499,6 @@ namespace shopify
     public class PriceListConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public PriceListEdge[]? edges { get; set; }
@@ -34746,10 +31518,6 @@ namespace shopify
     public class PriceListCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The newly created price list.
         ///</summary>
         public PriceList? priceList { get; set; }
@@ -34764,10 +31532,6 @@ namespace shopify
     ///</summary>
     public class PriceListDeletePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The ID of the deleted price list.
         ///</summary>
@@ -34784,10 +31548,6 @@ namespace shopify
     public class PriceListEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -34803,10 +31563,6 @@ namespace shopify
     public class PriceListFixedPricesAddPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The list of fixed prices that were added to or updated in the price list.
         ///</summary>
         public PriceListPrice[]? prices { get; set; }
@@ -34821,10 +31577,6 @@ namespace shopify
     ///</summary>
     public class PriceListFixedPricesByProductBulkUpdateUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -34880,10 +31632,6 @@ namespace shopify
     public class PriceListFixedPricesByProductUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The price list for which the fixed prices were modified.
         ///</summary>
         public PriceList? priceList { get; set; }
@@ -34907,10 +31655,6 @@ namespace shopify
     public class PriceListFixedPricesDeletePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of product variant IDs whose fixed prices were removed from the price list.
         ///</summary>
         public string[]? deletedFixedPriceVariantIds { get; set; }
@@ -34925,10 +31669,6 @@ namespace shopify
     ///</summary>
     public class PriceListFixedPricesUpdatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A list of deleted variant IDs for prices.
         ///</summary>
@@ -34958,10 +31698,6 @@ namespace shopify
     public class PriceListParent
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A price list adjustment.
         ///</summary>
         public PriceListAdjustment? adjustment { get; set; }
@@ -34977,10 +31713,6 @@ namespace shopify
     ///</summary>
     public class PriceListPrice
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The compare-at price of the product variant on this price list.
         ///</summary>
@@ -35005,10 +31737,6 @@ namespace shopify
     public class PriceListPriceConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public PriceListPriceEdge[]? edges { get; set; }
@@ -35027,10 +31755,6 @@ namespace shopify
     ///</summary>
     public class PriceListPriceEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -35061,10 +31785,6 @@ namespace shopify
     ///</summary>
     public class PriceListPriceUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -35132,10 +31852,6 @@ namespace shopify
     public class PriceListUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated price list.
         ///</summary>
         public PriceList? priceList { get; set; }
@@ -35150,10 +31866,6 @@ namespace shopify
     ///</summary>
     public class PriceListUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -35302,10 +32014,6 @@ namespace shopify
     ///</summary>
     public class PriceRule : ICommentEventSubject, IHasEvents, ILegacyInteroperability, INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The maximum number of times that the price rule can be allocated onto an order.
         ///</summary>
@@ -35462,10 +32170,6 @@ namespace shopify
     public class PriceRuleActivatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The activated price rule.
         ///</summary>
         public PriceRule? priceRule { get; set; }
@@ -35500,10 +32204,6 @@ namespace shopify
     public class PriceRuleConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public PriceRuleEdge[]? edges { get; set; }
@@ -35522,10 +32222,6 @@ namespace shopify
     ///</summary>
     public class PriceRuleCreatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The newly created price rule.
         ///</summary>
@@ -35550,10 +32246,6 @@ namespace shopify
     public class PriceRuleCustomerSelection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///List of customers to whom the price rule applies.
         ///</summary>
         public CustomerConnection? customers { get; set; }
@@ -35573,10 +32265,6 @@ namespace shopify
     public class PriceRuleDeactivatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The deactivated price rule.
         ///</summary>
         public PriceRule? priceRule { get; set; }
@@ -35595,10 +32283,6 @@ namespace shopify
     ///</summary>
     public class PriceRuleDeletePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The ID price of the deleted price rule.
         ///</summary>
@@ -35623,10 +32307,6 @@ namespace shopify
     public class PriceRuleDiscountCode : INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The application that created the discount code.
         ///</summary>
         public App? app { get; set; }
@@ -35650,10 +32330,6 @@ namespace shopify
     public class PriceRuleDiscountCodeConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public PriceRuleDiscountCodeEdge[]? edges { get; set; }
@@ -35672,10 +32348,6 @@ namespace shopify
     ///</summary>
     public class PriceRuleDiscountCodeCreatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The updated price rule.
         ///</summary>
@@ -35700,10 +32372,6 @@ namespace shopify
     public class PriceRuleDiscountCodeEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -35718,10 +32386,6 @@ namespace shopify
     ///</summary>
     public class PriceRuleDiscountCodeUpdatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The updated price rule.
         ///</summary>
@@ -35746,10 +32410,6 @@ namespace shopify
     public class PriceRuleEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -35764,10 +32424,6 @@ namespace shopify
     ///</summary>
     public class PriceRuleEntitlementToPrerequisiteQuantityRatio
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The quantity of entitled items in the ratio.
         ///</summary>
@@ -36118,10 +32774,6 @@ namespace shopify
     public class PriceRuleFixedAmountValue : IPriceRuleValue
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The monetary value of the price rule.
         ///</summary>
         public decimal? amount { get; set; }
@@ -36132,10 +32784,6 @@ namespace shopify
     ///</summary>
     public class PriceRuleItemEntitlements
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The collections to which the price rule applies.
         ///</summary>
@@ -36160,10 +32808,6 @@ namespace shopify
     public class PriceRuleLineItemPrerequisites
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The collections required for the price rule to be applicable.
         ///</summary>
         public CollectionConnection? collections { get; set; }
@@ -36182,10 +32826,6 @@ namespace shopify
     ///</summary>
     public class PriceRuleMoneyRange
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The lower bound of the money range.
         ///</summary>
@@ -36210,10 +32850,6 @@ namespace shopify
     public class PriceRulePercentValue : IPriceRuleValue
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The percent value of the price rule.
         ///</summary>
         public float? percentage { get; set; }
@@ -36224,10 +32860,6 @@ namespace shopify
     ///</summary>
     public class PriceRulePrerequisiteToEntitlementQuantityRatio
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The quantity of entitled items in the ratio.
         ///</summary>
@@ -36243,10 +32875,6 @@ namespace shopify
     ///</summary>
     public class PriceRuleQuantityRange
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The lower bound of the quantity range.
         ///</summary>
@@ -36270,10 +32898,6 @@ namespace shopify
     ///</summary>
     public class PriceRuleShareableUrl
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The image URL of the item (product or collection) to which the discount applies.
         ///</summary>
@@ -36316,10 +32940,6 @@ namespace shopify
     ///</summary>
     public class PriceRuleShippingLineEntitlements
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The codes for the countries to which the price rule applies to.
         ///</summary>
@@ -36437,10 +33057,6 @@ namespace shopify
     public class PriceRuleUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated price rule.
         ///</summary>
         public PriceRule? priceRule { get; set; }
@@ -36464,10 +33080,6 @@ namespace shopify
     public class PriceRuleUserError : IDisplayableError
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Error code to uniquely identify the error.
         ///</summary>
         public PriceRuleErrorCode? code { get; set; }
@@ -36486,10 +33098,6 @@ namespace shopify
     ///</summary>
     public class PriceRuleValidityPeriod
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The time after which the price rule becomes invalid.
         ///</summary>
@@ -36510,10 +33118,6 @@ namespace shopify
     {
         public PriceRuleFixedAmountValue? AsPriceRuleFixedAmountValue() => this as PriceRuleFixedAmountValue;
         public PriceRulePercentValue? AsPriceRulePercentValue() => this as PriceRulePercentValue;
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
     }
 
     ///<summary>
@@ -36522,10 +33126,6 @@ namespace shopify
     ///</summary>
     public class PricingPercentageValue : IPricingValue
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The percentage value of the object. This is a number between -100 (free) and 0 (no discount).
         ///</summary>
@@ -36542,10 +33142,6 @@ namespace shopify
     {
         public MoneyV2? AsMoneyV2() => this as MoneyV2;
         public PricingPercentageValue? AsPricingPercentageValue() => this as PricingPercentageValue;
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
     }
 
     ///<summary>
@@ -36556,10 +33152,6 @@ namespace shopify
     ///</summary>
     public class PrivateMetafield : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The date and time when the private metafield was created.
         ///</summary>
@@ -36596,10 +33188,6 @@ namespace shopify
     public class PrivateMetafieldConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public PrivateMetafieldEdge[]? edges { get; set; }
@@ -36619,10 +33207,6 @@ namespace shopify
     public class PrivateMetafieldDeletePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The ID of private metafield that was deleted.
         ///</summary>
         public string? deletedPrivateMetafieldId { get; set; }
@@ -36638,10 +33222,6 @@ namespace shopify
     public class PrivateMetafieldEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -36656,10 +33236,6 @@ namespace shopify
     ///</summary>
     public class PrivateMetafieldUpsertPayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The private metafield that was created or updated.
         ///</summary>
@@ -36694,10 +33270,6 @@ namespace shopify
     ///</summary>
     public class Product : IHasMetafieldDefinitions, IHasMetafields, IHasPublishedTranslations, ILegacyInteroperability, INavigable, INode, IOnlineStorePreviewable, IPublishable, ICommentEventEmbed, IMetafieldReference, IMetafieldReferencer
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The number of publications a resource is published to without feedback errors.
         ///</summary>
@@ -36984,10 +33556,6 @@ namespace shopify
     public class ProductAppendImagesPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///List of new images appended to the product.
         ///</summary>
         public Image[]? newImages { get; set; }
@@ -37007,10 +33575,6 @@ namespace shopify
     public class ProductCategory
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The product taxonomy node associated with the product category.
         ///</summary>
         public ProductTaxonomyNode? productTaxonomyNode { get; set; }
@@ -37021,10 +33585,6 @@ namespace shopify
     ///</summary>
     public class ProductChangeStatusPayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The product object.
         ///</summary>
@@ -37040,10 +33600,6 @@ namespace shopify
     ///</summary>
     public class ProductChangeStatusUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -37115,10 +33671,6 @@ namespace shopify
     public class ProductConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public ProductEdge[]? edges { get; set; }
@@ -37138,10 +33690,6 @@ namespace shopify
     ///</summary>
     public class ProductContextualPricing
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The number of fixed quantity rules for the product's variants on the price list.
         ///</summary>
@@ -37166,10 +33714,6 @@ namespace shopify
     public class ProductCreateMediaPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The newly created media.
         ///</summary>
         public IMedia[]? media { get; set; }
@@ -37193,10 +33737,6 @@ namespace shopify
     public class ProductCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The product object.
         ///</summary>
         public Product? product { get; set; }
@@ -37215,10 +33755,6 @@ namespace shopify
     ///</summary>
     public class ProductDeleteAsyncPayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The ID of the product that was requested to be deleted.
         ///</summary>
@@ -37239,10 +33775,6 @@ namespace shopify
     public class ProductDeleteImagesPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The array of image IDs to delete.
         ///</summary>
         public string[]? deletedImageIds { get; set; }
@@ -37261,10 +33793,6 @@ namespace shopify
     ///</summary>
     public class ProductDeleteMediaPayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///List of media IDs which were deleted.
         ///</summary>
@@ -37293,10 +33821,6 @@ namespace shopify
     public class ProductDeletePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The ID of the deleted product.
         ///</summary>
         public string? deletedProductId { get; set; }
@@ -37315,10 +33839,6 @@ namespace shopify
     ///</summary>
     public class ProductDeleteUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -37354,10 +33874,6 @@ namespace shopify
     public class ProductDuplicateAsyncPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The duplicated product ID.
         ///</summary>
         public string? duplicatedProductId { get; set; }
@@ -37376,10 +33892,6 @@ namespace shopify
     ///</summary>
     public class ProductDuplicateAsyncV2Payload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The duplicated product ID.
         ///</summary>
@@ -37400,10 +33912,6 @@ namespace shopify
     public class ProductDuplicateJob
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///This indicates if the job is still queued or has been run.
         ///</summary>
         public bool? done { get; set; }
@@ -37418,10 +33926,6 @@ namespace shopify
     ///</summary>
     public class ProductDuplicatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The asynchronous job that duplicates the product images.
         ///</summary>
@@ -37445,10 +33949,6 @@ namespace shopify
     ///</summary>
     public class ProductDuplicateUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -37500,10 +34000,6 @@ namespace shopify
     public class ProductEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -37518,10 +34014,6 @@ namespace shopify
     ///</summary>
     public class ProductFeed : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The country of the product feed.
         ///</summary>
@@ -37546,10 +34038,6 @@ namespace shopify
     public class ProductFeedConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public ProductFeedEdge[]? edges { get; set; }
@@ -37569,10 +34057,6 @@ namespace shopify
     public class ProductFeedCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The newly created product feed.
         ///</summary>
         public ProductFeed? productFeed { get; set; }
@@ -37587,10 +34071,6 @@ namespace shopify
     ///</summary>
     public class ProductFeedCreateUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -37626,10 +34106,6 @@ namespace shopify
     public class ProductFeedDeletePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The ID of the product feed that was deleted.
         ///</summary>
         public string? deletedId { get; set; }
@@ -37644,10 +34120,6 @@ namespace shopify
     ///</summary>
     public class ProductFeedDeleteUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -37679,10 +34151,6 @@ namespace shopify
     public class ProductFeedEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -37713,10 +34181,6 @@ namespace shopify
     public class ProductFullSyncPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The list of errors that occurred from executing the mutation.
         ///</summary>
         public ProductFullSyncUserError[]? userErrors { get; set; }
@@ -37727,10 +34191,6 @@ namespace shopify
     ///</summary>
     public class ProductFullSyncUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -37786,10 +34246,6 @@ namespace shopify
     public class ProductImageUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The image that has been updated.
         ///</summary>
         public Image? image { get; set; }
@@ -37805,10 +34261,6 @@ namespace shopify
     public class ProductJoinSellingPlanGroupsPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The product object.
         ///</summary>
         public Product? product { get; set; }
@@ -37823,10 +34275,6 @@ namespace shopify
     ///</summary>
     public class ProductLeaveSellingPlanGroupsPayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The product object.
         ///</summary>
@@ -37865,10 +34313,6 @@ namespace shopify
     public class ProductOption : IHasPublishedTranslations, INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A globally-unique ID.
         ///</summary>
         public string? id { get; set; }
@@ -37896,10 +34340,6 @@ namespace shopify
     public class ProductPriceRange
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The highest variant's price.
         ///</summary>
         public MoneyV2? maxVariantPrice { get; set; }
@@ -37915,10 +34355,6 @@ namespace shopify
     public class ProductPriceRangeV2
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The highest variant's price.
         ///</summary>
         public MoneyV2? maxVariantPrice { get; set; }
@@ -37933,10 +34369,6 @@ namespace shopify
     ///</summary>
     public class ProductPublication
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The channel where the product was or is published.
         ///</summary>
@@ -37961,10 +34393,6 @@ namespace shopify
     public class ProductPublicationConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public ProductPublicationEdge[]? edges { get; set; }
@@ -37984,10 +34412,6 @@ namespace shopify
     public class ProductPublicationEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -38002,10 +34426,6 @@ namespace shopify
     ///</summary>
     public class ProductPublishPayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The product that has been published.
         ///</summary>
@@ -38030,10 +34450,6 @@ namespace shopify
     public class ProductReorderImagesPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The asynchronous job which reorders the images.
         ///</summary>
         public Job? job { get; set; }
@@ -38048,10 +34464,6 @@ namespace shopify
     ///</summary>
     public class ProductReorderMediaPayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The asynchronous job which reorders the media.
         ///</summary>
@@ -38073,10 +34485,6 @@ namespace shopify
     ///</summary>
     public class ProductResourceFeedback
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The time when the feedback was generated. Used to help determine whether
         ///incoming feedback is outdated compared to existing feedback.
@@ -38105,10 +34513,6 @@ namespace shopify
     ///</summary>
     public class ProductSale : ISale
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The type of order action that the sale represents.
         ///</summary>
@@ -38221,10 +34625,6 @@ namespace shopify
     public class ProductTaxonomyNode : INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The full name of the product taxonomy node. For example,  Animals & Pet Supplies > Pet Supplies > Dog Supplies > Dog Beds.
         ///</summary>
         public string? fullName { get; set; }
@@ -38252,10 +34652,6 @@ namespace shopify
     public class ProductUnpublishPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The product that has been unpublished.
         ///</summary>
         public Product? product { get; set; }
@@ -38274,10 +34670,6 @@ namespace shopify
     ///</summary>
     public class ProductUpdateMediaPayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The updated media object.
         ///</summary>
@@ -38302,10 +34694,6 @@ namespace shopify
     public class ProductUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated product object.
         ///</summary>
         public Product? product { get; set; }
@@ -38320,10 +34708,6 @@ namespace shopify
     ///</summary>
     public class ProductVariant : IHasMetafieldDefinitions, IHasMetafields, IHasPublishedTranslations, ILegacyInteroperability, INavigable, INode, ICommentEventEmbed, IMetafieldReference, IMetafieldReferencer
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Whether the product variant is available for sale.
         ///</summary>
@@ -38522,10 +34906,6 @@ namespace shopify
     public class ProductVariantAppendMediaPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The product associated with the variants and media.
         ///</summary>
         public Product? product { get; set; }
@@ -38544,10 +34924,6 @@ namespace shopify
     ///</summary>
     public class ProductVariantComponent : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A globally-unique ID.
         ///</summary>
@@ -38568,10 +34944,6 @@ namespace shopify
     public class ProductVariantComponentConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public ProductVariantComponentEdge[]? edges { get; set; }
@@ -38591,10 +34963,6 @@ namespace shopify
     public class ProductVariantComponentEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -38609,10 +34977,6 @@ namespace shopify
     ///</summary>
     public class ProductVariantConnection
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A list of edges.
         ///</summary>
@@ -38634,10 +34998,6 @@ namespace shopify
     public class ProductVariantContextualPricing
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The final compare-at price after all adjustments are applied.
         ///</summary>
         public MoneyV2? compareAtPrice { get; set; }
@@ -38656,10 +35016,6 @@ namespace shopify
     ///</summary>
     public class ProductVariantCreatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The product associated with the variant.
         ///</summary>
@@ -38680,10 +35036,6 @@ namespace shopify
     public class ProductVariantDeletePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The ID of the deleted product variant.
         ///</summary>
         public string? deletedProductVariantId { get; set; }
@@ -38703,10 +35055,6 @@ namespace shopify
     public class ProductVariantDetachMediaPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The product associated with the variants and media.
         ///</summary>
         public Product? product { get; set; }
@@ -38725,10 +35073,6 @@ namespace shopify
     ///</summary>
     public class ProductVariantEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -38779,10 +35123,6 @@ namespace shopify
     public class ProductVariantJoinSellingPlanGroupsPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The product variant object.
         ///</summary>
         public ProductVariant? productVariant { get; set; }
@@ -38797,10 +35137,6 @@ namespace shopify
     ///</summary>
     public class ProductVariantLeaveSellingPlanGroupsPayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The product variant object.
         ///</summary>
@@ -38817,10 +35153,6 @@ namespace shopify
     public class ProductVariantPricePair
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The compare-at price of the variant with associated currency.
         ///</summary>
         public MoneyV2? compareAtPrice { get; set; }
@@ -38835,10 +35167,6 @@ namespace shopify
     ///</summary>
     public class ProductVariantPricePairConnection
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A list of edges.
         ///</summary>
@@ -38859,10 +35187,6 @@ namespace shopify
     public class ProductVariantPricePairEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -38878,10 +35202,6 @@ namespace shopify
     public class ProductVariantRelationshipBulkUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The product variants with successfully updated product variant relationships.
         ///</summary>
         public ProductVariant[]? parentProductVariants { get; set; }
@@ -38896,10 +35216,6 @@ namespace shopify
     ///</summary>
     public class ProductVariantRelationshipBulkUpdateUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -39064,10 +35380,6 @@ namespace shopify
     public class ProductVariantUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The product associated with the variant.
         ///</summary>
         public Product? product { get; set; }
@@ -39087,10 +35399,6 @@ namespace shopify
     public class ProductVariantsBulkCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated product object.
         ///</summary>
         public Product? product { get; set; }
@@ -39109,10 +35417,6 @@ namespace shopify
     ///</summary>
     public class ProductVariantsBulkCreateUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -39196,10 +35500,6 @@ namespace shopify
     public class ProductVariantsBulkDeletePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated product object.
         ///</summary>
         public Product? product { get; set; }
@@ -39214,10 +35514,6 @@ namespace shopify
     ///</summary>
     public class ProductVariantsBulkDeleteUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -39257,10 +35553,6 @@ namespace shopify
     public class ProductVariantsBulkReorderPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated product.
         ///</summary>
         public Product? product { get; set; }
@@ -39275,10 +35567,6 @@ namespace shopify
     ///</summary>
     public class ProductVariantsBulkReorderUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -39322,10 +35610,6 @@ namespace shopify
     public class ProductVariantsBulkUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated product object.
         ///</summary>
         public Product? product { get; set; }
@@ -39344,10 +35628,6 @@ namespace shopify
     ///</summary>
     public class ProductVariantsBulkUpdateUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -39463,10 +35743,6 @@ namespace shopify
     public class PubSubServerPixelUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The server pixel as configured by the mutation.
         ///</summary>
         public ServerPixel? serverPixel { get; set; }
@@ -39482,10 +35758,6 @@ namespace shopify
     public class PubSubWebhookSubscriptionCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The list of errors that occurred from executing the mutation.
         ///</summary>
         public PubSubWebhookSubscriptionCreateUserError[]? userErrors { get; set; }
@@ -39500,10 +35772,6 @@ namespace shopify
     ///</summary>
     public class PubSubWebhookSubscriptionCreateUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -39535,10 +35803,6 @@ namespace shopify
     public class PubSubWebhookSubscriptionUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The list of errors that occurred from executing the mutation.
         ///</summary>
         public PubSubWebhookSubscriptionUpdateUserError[]? userErrors { get; set; }
@@ -39553,10 +35817,6 @@ namespace shopify
     ///</summary>
     public class PubSubWebhookSubscriptionUpdateUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -39587,10 +35847,6 @@ namespace shopify
     ///</summary>
     public class Publication : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The app associated with the publication.
         ///</summary>
@@ -39647,10 +35903,6 @@ namespace shopify
     public class PublicationConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public PublicationEdge[]? edges { get; set; }
@@ -39685,10 +35937,6 @@ namespace shopify
     public class PublicationCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The publication that's been created.
         ///</summary>
         public Publication? publication { get; set; }
@@ -39704,10 +35952,6 @@ namespace shopify
     public class PublicationDeletePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The ID of the publication that was deleted.
         ///</summary>
         public string? deletedId { get; set; }
@@ -39722,10 +35966,6 @@ namespace shopify
     ///</summary>
     public class PublicationEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -39748,10 +35988,6 @@ namespace shopify
         public AddAllProductsOperation? AsAddAllProductsOperation() => this as AddAllProductsOperation;
         public CatalogCsvOperation? AsCatalogCsvOperation() => this as CatalogCsvOperation;
         public PublicationResourceOperation? AsPublicationResourceOperation() => this as PublicationResourceOperation;
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A globally-unique ID.
         ///</summary>
@@ -39776,10 +36012,6 @@ namespace shopify
     public class PublicationResourceOperation : INode, IResourceOperation, IPublicationOperation
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A globally-unique ID.
         ///</summary>
         public string? id { get; set; }
@@ -39803,10 +36035,6 @@ namespace shopify
     public class PublicationUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The publication that's been updated.
         ///</summary>
         public Publication? publication { get; set; }
@@ -39821,10 +36049,6 @@ namespace shopify
     ///</summary>
     public class PublicationUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -39925,10 +36149,6 @@ namespace shopify
     public interface IPublishable
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; }
-        ///<summary>
         ///The number of publications a resource is published to without feedback errors.
         ///</summary>
         public int? availablePublicationCount { get; }
@@ -39976,10 +36196,6 @@ namespace shopify
     public class PublishablePublishPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Resource that has been published.
         ///</summary>
         public IPublishable? publishable { get; set; }
@@ -39998,10 +36214,6 @@ namespace shopify
     ///</summary>
     public class PublishablePublishToCurrentChannelPayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Resource that has been published.
         ///</summary>
@@ -40022,10 +36234,6 @@ namespace shopify
     public class PublishableUnpublishPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Resource that has been unpublished.
         ///</summary>
         public IPublishable? publishable { get; set; }
@@ -40045,10 +36253,6 @@ namespace shopify
     public class PublishableUnpublishToCurrentChannelPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Resource that has been unpublished.
         ///</summary>
         public IPublishable? publishable { get; set; }
@@ -40067,10 +36271,6 @@ namespace shopify
     ///</summary>
     public class PurchasingCompany : IPurchasingEntity
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The company associated to the order or draft order.
         ///</summary>
@@ -40095,10 +36295,6 @@ namespace shopify
     {
         public Customer? AsCustomer() => this as Customer;
         public PurchasingCompany? AsPurchasingCompany() => this as PurchasingCompany;
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
     }
 
     ///<summary>
@@ -40106,10 +36302,6 @@ namespace shopify
     ///</summary>
     public class QuantityRule
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The value that specifies the quantity increment between minimum and maximum of the rule.
         ///Only quantities divisible by this value will be considered valid.
@@ -40148,10 +36340,6 @@ namespace shopify
     public class QuantityRuleConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public QuantityRuleEdge[]? edges { get; set; }
@@ -40174,10 +36362,6 @@ namespace shopify
     ///</summary>
     public class QuantityRuleEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -40208,10 +36392,6 @@ namespace shopify
     ///</summary>
     public class QuantityRuleUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -40283,10 +36463,6 @@ namespace shopify
     public class QuantityRulesAddPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The list of quantity rules that were added to or updated in the price list.
         ///</summary>
         public QuantityRule[]? quantityRules { get; set; }
@@ -40302,10 +36478,6 @@ namespace shopify
     public class QuantityRulesDeletePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of product variant IDs whose quantity rules were removed from the price list.
         ///</summary>
         public string[]? deletedQuantityRulesVariantIds { get; set; }
@@ -40320,10 +36492,6 @@ namespace shopify
     ///</summary>
     public class QueryRoot
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Returns an abandonment by ID.
         ///</summary>
@@ -41109,10 +37277,6 @@ namespace shopify
     public class Refund : ILegacyInteroperability, INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The date and time when the refund was created.
         ///</summary>
         public DateTime? createdAt { get; set; }
@@ -41172,10 +37336,6 @@ namespace shopify
     public class RefundAgreement : ISalesAgreement
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The application that created the agreement.
         ///</summary>
         public App? app { get; set; }
@@ -41211,10 +37371,6 @@ namespace shopify
     public class RefundConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public RefundEdge[]? edges { get; set; }
@@ -41234,10 +37390,6 @@ namespace shopify
     public class RefundCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The order associated with the created refund.
         ///</summary>
         public Order? order { get; set; }
@@ -41256,10 +37408,6 @@ namespace shopify
     ///</summary>
     public class RefundDuty
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The amount of a refunded duty in shop and presentment currencies.
         ///</summary>
@@ -41291,10 +37439,6 @@ namespace shopify
     public class RefundEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -41309,10 +37453,6 @@ namespace shopify
     ///</summary>
     public class RefundLineItem
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The `LineItem` resource associated to the refunded line item.
         ///</summary>
@@ -41365,10 +37505,6 @@ namespace shopify
     public class RefundLineItemConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public RefundLineItemEdge[]? edges { get; set; }
@@ -41387,10 +37523,6 @@ namespace shopify
     ///</summary>
     public class RefundLineItemEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -41431,10 +37563,6 @@ namespace shopify
     public class ResourceAlert
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Buttons in the alert that link to related information.
         ///For example, _Edit variants_.
         ///</summary>
@@ -41467,10 +37595,6 @@ namespace shopify
     ///</summary>
     public class ResourceAlertAction
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Whether the action appears as a button or as a link.
         ///</summary>
@@ -41538,10 +37662,6 @@ namespace shopify
     public class ResourceFeedback
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Feedback from an app about the steps a merchant needs to take to set up the app on their store.
         ///</summary>
         public AppFeedback[]? appFeedback { get; set; }
@@ -41576,10 +37696,6 @@ namespace shopify
     public class ResourceLimit
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Whether the resource is available.
         ///</summary>
         public bool? available { get; set; }
@@ -41602,10 +37718,6 @@ namespace shopify
     ///</summary>
     public interface IResourceOperation
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; }
         ///<summary>
         ///A globally-unique ID.
         ///</summary>
@@ -41652,10 +37764,6 @@ namespace shopify
     public class ResourcePublication
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The channel the resource publication is published to.
         ///</summary>
         public Channel? channel { get; set; }
@@ -41685,10 +37793,6 @@ namespace shopify
     public class ResourcePublicationConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public ResourcePublicationEdge[]? edges { get; set; }
@@ -41708,10 +37812,6 @@ namespace shopify
     public class ResourcePublicationEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -41729,10 +37829,6 @@ namespace shopify
     ///</summary>
     public class ResourcePublicationV2
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Whether the resource publication is published. If true, then the resource publication is published to the publication.
         ///If false, then the resource publication is staged to be published to the publication.
@@ -41758,10 +37854,6 @@ namespace shopify
     public class ResourcePublicationV2Connection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public ResourcePublicationV2Edge[]? edges { get; set; }
@@ -41781,10 +37873,6 @@ namespace shopify
     public class ResourcePublicationV2Edge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -41799,10 +37887,6 @@ namespace shopify
     ///</summary>
     public class Return : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Additional information about the declined return.
         ///</summary>
@@ -41851,10 +37935,6 @@ namespace shopify
     public class ReturnApproveRequestPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The approved return.
         ///</summary>
         public Return? @return { get; set; }
@@ -41869,10 +37949,6 @@ namespace shopify
     ///</summary>
     public class ReturnCancelPayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The canceled return.
         ///</summary>
@@ -41889,10 +37965,6 @@ namespace shopify
     public class ReturnClosePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The closed return.
         ///</summary>
         public Return? @return { get; set; }
@@ -41907,10 +37979,6 @@ namespace shopify
     ///</summary>
     public class ReturnConnection
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A list of edges.
         ///</summary>
@@ -41931,10 +37999,6 @@ namespace shopify
     public class ReturnCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The created return.
         ///</summary>
         public Return? @return { get; set; }
@@ -41949,10 +38013,6 @@ namespace shopify
     ///</summary>
     public class ReturnDecline
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The notification message sent to the customer about their declined return request.
         ///Maximum length: 500 characters.
@@ -41989,10 +38049,6 @@ namespace shopify
     public class ReturnDeclineRequestPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The declined return.
         ///</summary>
         public Return? @return { get; set; }
@@ -42007,10 +38063,6 @@ namespace shopify
     ///</summary>
     public class ReturnEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -42130,10 +38182,6 @@ namespace shopify
     public class ReturnLineItem : INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A note from the customer that describes the item to be returned. Maximum length: 300 characters.
         ///</summary>
         public string? customerNote { get; set; }
@@ -42181,10 +38229,6 @@ namespace shopify
     public class ReturnLineItemConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public ReturnLineItemEdge[]? edges { get; set; }
@@ -42203,10 +38247,6 @@ namespace shopify
     ///</summary>
     public class ReturnLineItemEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -42270,10 +38310,6 @@ namespace shopify
     public class ReturnRefundPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The created refund.
         ///</summary>
         public Refund? refund { get; set; }
@@ -42289,10 +38325,6 @@ namespace shopify
     public class ReturnReopenPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The reopened return.
         ///</summary>
         public Return? @return { get; set; }
@@ -42307,10 +38339,6 @@ namespace shopify
     ///</summary>
     public class ReturnRequestPayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The requested return.
         ///</summary>
@@ -42354,10 +38382,6 @@ namespace shopify
     public class ReturnUserError : IDisplayableError
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The error code.
         ///</summary>
         public ReturnErrorCode? code { get; set; }
@@ -42378,10 +38402,6 @@ namespace shopify
     public class ReturnableFulfillment : INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The fulfillment that the returnable fulfillment refers to.
         ///</summary>
         public Fulfillment? fulfillment { get; set; }
@@ -42400,10 +38420,6 @@ namespace shopify
     ///</summary>
     public class ReturnableFulfillmentConnection
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A list of edges.
         ///</summary>
@@ -42424,10 +38440,6 @@ namespace shopify
     public class ReturnableFulfillmentEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -42443,10 +38455,6 @@ namespace shopify
     public class ReturnableFulfillmentLineItem
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The fulfillment line item that can be returned.
         ///</summary>
         public FulfillmentLineItem? fulfillmentLineItem { get; set; }
@@ -42461,10 +38469,6 @@ namespace shopify
     ///</summary>
     public class ReturnableFulfillmentLineItemConnection
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A list of edges.
         ///</summary>
@@ -42485,10 +38489,6 @@ namespace shopify
     public class ReturnableFulfillmentLineItemEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -42506,10 +38506,6 @@ namespace shopify
     ///</summary>
     public class ReverseDelivery : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The deliverable associated with the reverse delivery.
         ///</summary>
@@ -42534,10 +38530,6 @@ namespace shopify
     public class ReverseDeliveryConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public ReverseDeliveryEdge[]? edges { get; set; }
@@ -42557,10 +38549,6 @@ namespace shopify
     public class ReverseDeliveryCreateWithShippingPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The created reverse delivery.
         ///</summary>
         public ReverseDelivery? reverseDelivery { get; set; }
@@ -42579,10 +38567,6 @@ namespace shopify
     {
         public ReverseDeliveryShippingDeliverable? AsReverseDeliveryShippingDeliverable() => this as ReverseDeliveryShippingDeliverable;
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The return label attached to the reverse delivery.
         ///</summary>
         public ReverseDeliveryLabelV2? label { get; set; }
@@ -42597,10 +38581,6 @@ namespace shopify
     ///</summary>
     public class ReverseDeliveryDisposePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The disposed reverse delivery line items.
         ///</summary>
@@ -42617,10 +38597,6 @@ namespace shopify
     public class ReverseDeliveryEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -42635,10 +38611,6 @@ namespace shopify
     ///</summary>
     public class ReverseDeliveryLabelV2
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The date and time when the reverse delivery label was created.
         ///</summary>
@@ -42658,10 +38630,6 @@ namespace shopify
     ///</summary>
     public class ReverseDeliveryLineItem : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The dispositions of the item.
         ///</summary>
@@ -42686,10 +38654,6 @@ namespace shopify
     public class ReverseDeliveryLineItemConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public ReverseDeliveryLineItemEdge[]? edges { get; set; }
@@ -42709,10 +38673,6 @@ namespace shopify
     public class ReverseDeliveryLineItemEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -42727,10 +38687,6 @@ namespace shopify
     ///</summary>
     public class ReverseDeliveryShippingDeliverable : IReverseDeliveryDeliverable
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The return label attached to the reverse delivery.
         ///</summary>
@@ -42747,10 +38703,6 @@ namespace shopify
     public class ReverseDeliveryShippingUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated reverse delivery.
         ///</summary>
         public ReverseDelivery? reverseDelivery { get; set; }
@@ -42765,10 +38717,6 @@ namespace shopify
     ///</summary>
     public class ReverseDeliveryTrackingV2
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The provider of the tracking information, in a human-readable format for display purposes.
         ///</summary>
@@ -42789,10 +38737,6 @@ namespace shopify
     ///</summary>
     public class ReverseFulfillmentOrder : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A globally-unique ID.
         ///</summary>
@@ -42826,10 +38770,6 @@ namespace shopify
     public class ReverseFulfillmentOrderConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public ReverseFulfillmentOrderEdge[]? edges { get; set; }
@@ -42849,10 +38789,6 @@ namespace shopify
     public class ReverseFulfillmentOrderDisposePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The disposed reverse fulfillment order line items.
         ///</summary>
         public ReverseFulfillmentOrderLineItem[]? reverseFulfillmentOrderLineItems { get; set; }
@@ -42867,10 +38803,6 @@ namespace shopify
     ///</summary>
     public class ReverseFulfillmentOrderDisposition : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A globally-unique ID.
         ///</summary>
@@ -42918,10 +38850,6 @@ namespace shopify
     public class ReverseFulfillmentOrderEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -42936,10 +38864,6 @@ namespace shopify
     ///</summary>
     public class ReverseFulfillmentOrderLineItem : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The dispositions of the item.
         ///</summary>
@@ -42964,10 +38888,6 @@ namespace shopify
     public class ReverseFulfillmentOrderLineItemConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public ReverseFulfillmentOrderLineItemEdge[]? edges { get; set; }
@@ -42986,10 +38906,6 @@ namespace shopify
     ///</summary>
     public class ReverseFulfillmentOrderLineItemEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -43024,10 +38940,6 @@ namespace shopify
     ///</summary>
     public class ReverseFulfillmentOrderThirdPartyConfirmation
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The status of the reverse fulfillment order third-party confirmation.
         ///</summary>
@@ -43071,10 +38983,6 @@ namespace shopify
     public class RowCount
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Estimated number of rows contained within this background operation.
         ///</summary>
         public int? count { get; set; }
@@ -43090,10 +38998,6 @@ namespace shopify
     public class SEO
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///SEO Description.
         ///</summary>
         public string? description { get; set; }
@@ -43108,10 +39012,6 @@ namespace shopify
     ///</summary>
     public interface ISale
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; }
         ///<summary>
         ///The type of order action that the sale represents.
         ///</summary>
@@ -43179,10 +39079,6 @@ namespace shopify
     public class SaleAdditionalFee : INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A globally-unique ID.
         ///</summary>
         public string? id { get; set; }
@@ -43206,10 +39102,6 @@ namespace shopify
     public class SaleConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public SaleEdge[]? edges { get; set; }
@@ -43228,10 +39120,6 @@ namespace shopify
     ///</summary>
     public class SaleEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -43287,10 +39175,6 @@ namespace shopify
     public class SaleTax
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The portion of the total tax amount on the related sale that comes from the associated tax line.
         ///</summary>
         public MoneyBag? amount { get; set; }
@@ -43309,10 +39193,6 @@ namespace shopify
     ///</summary>
     public interface ISalesAgreement
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; }
         ///<summary>
         ///The application that created the agreement.
         ///</summary>
@@ -43345,10 +39225,6 @@ namespace shopify
     public class SalesAgreementConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public SalesAgreementEdge[]? edges { get; set; }
@@ -43368,10 +39244,6 @@ namespace shopify
     public class SalesAgreementEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -43386,10 +39258,6 @@ namespace shopify
     ///</summary>
     public class SavedSearch : ILegacyInteroperability, INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The filters of a saved search.
         ///</summary>
@@ -43426,10 +39294,6 @@ namespace shopify
     public class SavedSearchConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public SavedSearchEdge[]? edges { get; set; }
@@ -43449,10 +39313,6 @@ namespace shopify
     public class SavedSearchCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The saved search that was created.
         ///</summary>
         public SavedSearch? savedSearch { get; set; }
@@ -43467,10 +39327,6 @@ namespace shopify
     ///</summary>
     public class SavedSearchDeletePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The ID of the saved search that was deleted.
         ///</summary>
@@ -43491,10 +39347,6 @@ namespace shopify
     public class SavedSearchEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -43509,10 +39361,6 @@ namespace shopify
     ///</summary>
     public class SavedSearchUpdatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The saved search that was updated.
         ///</summary>
@@ -43531,10 +39379,6 @@ namespace shopify
     ///</summary>
     public class ScriptDiscountApplication : IDiscountApplication
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The method by which the discount's value is applied to its entitled items.
         ///</summary>
@@ -43576,10 +39420,6 @@ namespace shopify
     public class ScriptTag : ILegacyInteroperability, INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Whether the Shopify CDN can cache and serve the script tag.
         ///If `true`, then the script will be cached and served by the CDN.
         ///The cache expires 15 minutes after the script tag is successfully returned.
@@ -43618,10 +39458,6 @@ namespace shopify
     public class ScriptTagConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public ScriptTagEdge[]? edges { get; set; }
@@ -43641,10 +39477,6 @@ namespace shopify
     public class ScriptTagCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The script tag that was created.
         ///</summary>
         public ScriptTag? scriptTag { get; set; }
@@ -43659,10 +39491,6 @@ namespace shopify
     ///</summary>
     public class ScriptTagDeletePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The ID of the deleted script tag.
         ///</summary>
@@ -43698,10 +39526,6 @@ namespace shopify
     public class ScriptTagEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -43716,10 +39540,6 @@ namespace shopify
     ///</summary>
     public class ScriptTagUpdatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The script tag that was updated.
         ///</summary>
@@ -43736,10 +39556,6 @@ namespace shopify
     public class SearchFilter
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The key of the search filter.
         ///</summary>
         public string? key { get; set; }
@@ -43755,10 +39571,6 @@ namespace shopify
     public class SearchFilterOptions
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of options that can be use to filter product availability.
         ///</summary>
         public FilterOption[]? productAvailability { get; set; }
@@ -43769,10 +39581,6 @@ namespace shopify
     ///</summary>
     public class SearchResult
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Returns the search result description text.
         ///</summary>
@@ -43801,10 +39609,6 @@ namespace shopify
     public class SearchResultConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public SearchResultEdge[]? edges { get; set; }
@@ -43823,10 +39627,6 @@ namespace shopify
     ///</summary>
     public class SearchResultEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -43871,10 +39671,6 @@ namespace shopify
     public class Segment : INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The date and time when the segment was added to the store.
         ///</summary>
         public DateTime? creationDate { get; set; }
@@ -43902,10 +39698,6 @@ namespace shopify
     public class SegmentAssociationFilter : ISegmentFilter
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The localized name of the filter.
         ///</summary>
         public string? localizedName { get; set; }
@@ -43925,10 +39717,6 @@ namespace shopify
     public class SegmentAttributeStatistics
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The average of a given attribute.
         ///</summary>
         public float? average { get; set; }
@@ -43943,10 +39731,6 @@ namespace shopify
     ///</summary>
     public class SegmentBooleanFilter : ISegmentFilter
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The localized name of the filter.
         ///</summary>
@@ -43967,10 +39751,6 @@ namespace shopify
     public class SegmentConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public SegmentEdge[]? edges { get; set; }
@@ -43990,10 +39770,6 @@ namespace shopify
     public class SegmentCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The newly created segment.
         ///</summary>
         public Segment? segment { get; set; }
@@ -44008,10 +39784,6 @@ namespace shopify
     ///</summary>
     public class SegmentDateFilter : ISegmentFilter
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The localized name of the filter.
         ///</summary>
@@ -44032,10 +39804,6 @@ namespace shopify
     public class SegmentDeletePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///ID of the deleted segment.
         ///</summary>
         public string? deletedSegmentId { get; set; }
@@ -44051,10 +39819,6 @@ namespace shopify
     public class SegmentEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -44069,10 +39833,6 @@ namespace shopify
     ///</summary>
     public class SegmentEnumFilter : ISegmentFilter
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The localized name of the filter.
         ///</summary>
@@ -44092,10 +39852,6 @@ namespace shopify
     ///</summary>
     public class SegmentEventFilter : ISegmentFilter
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The localized name of the filter.
         ///</summary>
@@ -44123,10 +39879,6 @@ namespace shopify
     ///</summary>
     public class SegmentEventFilterParameter
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Whether the parameter accepts a list of values.
         ///</summary>
@@ -44159,10 +39911,6 @@ namespace shopify
     public interface ISegmentFilter
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; }
-        ///<summary>
         ///The localized name of the filter.
         ///</summary>
         public string? localizedName { get; }
@@ -44181,10 +39929,6 @@ namespace shopify
     ///</summary>
     public class SegmentFilterConnection
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A list of edges.
         ///</summary>
@@ -44205,10 +39949,6 @@ namespace shopify
     public class SegmentFilterEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -44223,10 +39963,6 @@ namespace shopify
     ///</summary>
     public class SegmentFloatFilter : ISegmentFilter
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The localized name of the filter.
         ///</summary>
@@ -44247,10 +39983,6 @@ namespace shopify
     public class SegmentIntegerFilter : ISegmentFilter
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The localized name of the filter.
         ///</summary>
         public string? localizedName { get; set; }
@@ -44270,10 +40002,6 @@ namespace shopify
     public class SegmentMembership
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A Boolean that indicates whether or not the customer in the query is a member of the segment, which is identified using the `segmentId`.
         ///</summary>
         public bool? isMember { get; set; }
@@ -44289,10 +40017,6 @@ namespace shopify
     public class SegmentMembershipResponse
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The membership status for the given list of segments.
         ///</summary>
         public SegmentMembership[]? memberships { get; set; }
@@ -44304,10 +40028,6 @@ namespace shopify
     ///</summary>
     public class SegmentMigration
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A globally-unique ID.
         ///</summary>
@@ -44328,10 +40048,6 @@ namespace shopify
     public class SegmentMigrationConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public SegmentMigrationEdge[]? edges { get; set; }
@@ -44350,10 +40066,6 @@ namespace shopify
     ///</summary>
     public class SegmentMigrationEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -44394,10 +40106,6 @@ namespace shopify
     public class SegmentStatistics
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The statistics of a given attribute.
         ///</summary>
         public SegmentAttributeStatistics? attributeStatistics { get; set; }
@@ -44408,10 +40116,6 @@ namespace shopify
     ///</summary>
     public class SegmentStringFilter : ISegmentFilter
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The localized name of the filter.
         ///</summary>
@@ -44432,10 +40136,6 @@ namespace shopify
     public class SegmentUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated segment.
         ///</summary>
         public Segment? segment { get; set; }
@@ -44453,10 +40153,6 @@ namespace shopify
     public class SegmentValue
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The localized version of the value's name. This name is displayed to the merchant.
         ///</summary>
         public string? localizedValue { get; set; }
@@ -44471,10 +40167,6 @@ namespace shopify
     ///</summary>
     public class SegmentValueConnection
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A list of edges.
         ///</summary>
@@ -44495,10 +40187,6 @@ namespace shopify
     public class SegmentValueEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -44514,10 +40202,6 @@ namespace shopify
     ///</summary>
     public class SelectedOption
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The product option’s name.
         ///</summary>
@@ -44538,10 +40222,6 @@ namespace shopify
     ///</summary>
     public class SellingPlan : IHasPublishedTranslations, INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A selling plan policy which describes the recurring billing details.
         ///</summary>
@@ -44599,10 +40279,6 @@ namespace shopify
     ///</summary>
     public class SellingPlanAnchor
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The cutoff day for the anchor.
         ///
@@ -44666,10 +40342,6 @@ namespace shopify
     {
         public SellingPlanFixedBillingPolicy? AsSellingPlanFixedBillingPolicy() => this as SellingPlanFixedBillingPolicy;
         public SellingPlanRecurringBillingPolicy? AsSellingPlanRecurringBillingPolicy() => this as SellingPlanRecurringBillingPolicy;
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
     }
 
     ///<summary>
@@ -44703,10 +40375,6 @@ namespace shopify
     public class SellingPlanCheckoutCharge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The charge type for the checkout charge.
         ///</summary>
         public SellingPlanCheckoutChargeType? type { get; set; }
@@ -44721,10 +40389,6 @@ namespace shopify
     ///</summary>
     public class SellingPlanCheckoutChargePercentageValue : ISellingPlanCheckoutChargeValue
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The percentage value of the price used for checkout charge.
         ///</summary>
@@ -44756,10 +40420,6 @@ namespace shopify
     {
         public MoneyV2? AsMoneyV2() => this as MoneyV2;
         public SellingPlanCheckoutChargePercentageValue? AsSellingPlanCheckoutChargePercentageValue() => this as SellingPlanCheckoutChargePercentageValue;
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
     }
 
     ///<summary>
@@ -44767,10 +40427,6 @@ namespace shopify
     ///</summary>
     public class SellingPlanConnection
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A list of edges.
         ///</summary>
@@ -44799,10 +40455,6 @@ namespace shopify
         public SellingPlanFixedDeliveryPolicy? AsSellingPlanFixedDeliveryPolicy() => this as SellingPlanFixedDeliveryPolicy;
         public SellingPlanRecurringDeliveryPolicy? AsSellingPlanRecurringDeliveryPolicy() => this as SellingPlanRecurringDeliveryPolicy;
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The specific anchor dates upon which the delivery interval calculations should be made.
         ///</summary>
         public SellingPlanAnchor[]? anchors { get; set; }
@@ -44818,10 +40470,6 @@ namespace shopify
     public class SellingPlanEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -44836,10 +40484,6 @@ namespace shopify
     ///</summary>
     public class SellingPlanFixedBillingPolicy : ISellingPlanBillingPolicy
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The checkout charge when the full amount isn't charged at checkout.
         ///</summary>
@@ -44863,10 +40507,6 @@ namespace shopify
     ///</summary>
     public class SellingPlanFixedDeliveryPolicy : ISellingPlanDeliveryPolicy
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The specific anchor dates upon which the delivery interval calculations should be made.
         ///</summary>
@@ -44934,10 +40574,6 @@ namespace shopify
     public class SellingPlanFixedPricingPolicy : ISellingPlanPricingPolicyBase, ISellingPlanPricingPolicy
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The price adjustment type.
         ///</summary>
         public SellingPlanPricingPolicyAdjustmentType? adjustmentType { get; set; }
@@ -44981,10 +40617,6 @@ namespace shopify
     ///</summary>
     public class SellingPlanGroup : IHasPublishedTranslations, INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The ID for app, exposed in Liquid and product JSON.
         ///</summary>
@@ -45065,10 +40697,6 @@ namespace shopify
     public class SellingPlanGroupAddProductVariantsPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated selling plan group.
         ///</summary>
         public SellingPlanGroup? sellingPlanGroup { get; set; }
@@ -45084,10 +40712,6 @@ namespace shopify
     public class SellingPlanGroupAddProductsPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated selling plan group.
         ///</summary>
         public SellingPlanGroup? sellingPlanGroup { get; set; }
@@ -45102,10 +40726,6 @@ namespace shopify
     ///</summary>
     public class SellingPlanGroupConnection
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A list of edges.
         ///</summary>
@@ -45126,10 +40746,6 @@ namespace shopify
     public class SellingPlanGroupCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The created selling plan group object.
         ///</summary>
         public SellingPlanGroup? sellingPlanGroup { get; set; }
@@ -45144,10 +40760,6 @@ namespace shopify
     ///</summary>
     public class SellingPlanGroupDeletePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The ID of the deleted selling plan group object.
         ///</summary>
@@ -45164,10 +40776,6 @@ namespace shopify
     public class SellingPlanGroupEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -45183,10 +40791,6 @@ namespace shopify
     public class SellingPlanGroupRemoveProductVariantsPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The removed product variant ids.
         ///</summary>
         public string[]? removedProductVariantIds { get; set; }
@@ -45201,10 +40805,6 @@ namespace shopify
     ///</summary>
     public class SellingPlanGroupRemoveProductsPayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The removed product ids.
         ///</summary>
@@ -45249,10 +40849,6 @@ namespace shopify
     public class SellingPlanGroupUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The IDs of the deleted Subscription Plans.
         ///</summary>
         public string[]? deletedSellingPlanIds { get; set; }
@@ -45271,10 +40867,6 @@ namespace shopify
     ///</summary>
     public class SellingPlanGroupUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -45565,10 +41157,6 @@ namespace shopify
     public class SellingPlanInventoryPolicy
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///When to reserve inventory for the order.
         ///</summary>
         public SellingPlanReserve? reserve { get; set; }
@@ -45588,10 +41176,6 @@ namespace shopify
     {
         public SellingPlanFixedPricingPolicy? AsSellingPlanFixedPricingPolicy() => this as SellingPlanFixedPricingPolicy;
         public SellingPlanRecurringPricingPolicy? AsSellingPlanRecurringPricingPolicy() => this as SellingPlanRecurringPricingPolicy;
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The price adjustment type.
         ///</summary>
@@ -45635,10 +41219,6 @@ namespace shopify
     {
         public MoneyV2? AsMoneyV2() => this as MoneyV2;
         public SellingPlanPricingPolicyPercentageValue? AsSellingPlanPricingPolicyPercentageValue() => this as SellingPlanPricingPolicyPercentageValue;
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
     }
 
     ///<summary>
@@ -45646,10 +41226,6 @@ namespace shopify
     ///</summary>
     public interface ISellingPlanPricingPolicyBase
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; }
         ///<summary>
         ///The price adjustment type.
         ///</summary>
@@ -45666,10 +41242,6 @@ namespace shopify
     public class SellingPlanPricingPolicyPercentageValue : ISellingPlanPricingPolicyAdjustmentValue
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The percentage value.
         ///</summary>
         public float? percentage { get; set; }
@@ -45680,10 +41252,6 @@ namespace shopify
     ///</summary>
     public class SellingPlanRecurringBillingPolicy : ISellingPlanBillingPolicy
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Specific anchor dates upon which the billing interval calculations should be made.
         ///</summary>
@@ -45715,10 +41283,6 @@ namespace shopify
     ///</summary>
     public class SellingPlanRecurringDeliveryPolicy : ISellingPlanDeliveryPolicy
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The specific anchor dates upon which the delivery interval calculations should be made.
         ///</summary>
@@ -45786,10 +41350,6 @@ namespace shopify
     public class SellingPlanRecurringPricingPolicy : ISellingPlanPricingPolicyBase, ISellingPlanPricingPolicy
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The price adjustment type.
         ///</summary>
         public SellingPlanPricingPolicyAdjustmentType? adjustmentType { get; set; }
@@ -45847,10 +41407,6 @@ namespace shopify
     public class ServerPixel : INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A globally-unique ID.
         ///</summary>
         public string? id { get; set; }
@@ -45870,10 +41426,6 @@ namespace shopify
     public class ServerPixelCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The new server pixel.
         ///</summary>
         public ServerPixel? serverPixel { get; set; }
@@ -45888,10 +41440,6 @@ namespace shopify
     ///</summary>
     public class ServerPixelDeletePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The ID of the server pixel that was deleted, if one was deleted.
         ///</summary>
@@ -45937,10 +41485,6 @@ namespace shopify
     ///</summary>
     public class ShippingLine
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A reference to the carrier service that provided the rate.
         ///Present when the rate was computed by a third-party carrier service.
@@ -46019,10 +41563,6 @@ namespace shopify
     public class ShippingLineConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public ShippingLineEdge[]? edges { get; set; }
@@ -46042,10 +41582,6 @@ namespace shopify
     public class ShippingLineEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -46060,10 +41596,6 @@ namespace shopify
     ///</summary>
     public class ShippingLineSale : ISale
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The type of order action that the sale represents.
         ///</summary>
@@ -46112,10 +41644,6 @@ namespace shopify
     public class ShippingMethod
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A unique code associated with the rate. For example: `expedited_mail`
         ///</summary>
         public string? code { get; set; }
@@ -46132,10 +41660,6 @@ namespace shopify
     public class ShippingPackageDeletePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The ID of the deleted shipping package.
         ///</summary>
         public string? deletedId { get; set; }
@@ -46150,10 +41674,6 @@ namespace shopify
     ///</summary>
     public class ShippingPackageMakeDefaultPayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The list of errors that occurred from executing the mutation.
         ///</summary>
@@ -46189,10 +41709,6 @@ namespace shopify
     public class ShippingPackageUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The list of errors that occurred from executing the mutation.
         ///</summary>
         public UserError[]? userErrors { get; set; }
@@ -46203,10 +41719,6 @@ namespace shopify
     ///</summary>
     public class ShippingRate
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Human-readable unique identifier for this shipping rate.
         ///</summary>
@@ -46226,10 +41738,6 @@ namespace shopify
     ///</summary>
     public class ShippingRefund
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The monetary value of the shipping fees to be refunded.
         ///</summary>
@@ -46261,10 +41769,6 @@ namespace shopify
     ///</summary>
     public class Shop : IHasMetafields, IHasPublishedTranslations, INode, IMetafieldReferencer
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A list of the shop's active alert messages that appear in the Shopify admin.
         ///</summary>
@@ -46646,10 +42150,6 @@ namespace shopify
     public class ShopAddress : INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The first line of the address. Typically the street address or PO Box number.
         ///</summary>
         public string? address1 { get; set; }
@@ -46745,10 +42245,6 @@ namespace shopify
     public class ShopAlert
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The text for the button in the alert that links to related information. For example, _Add credit card_.
         ///</summary>
         public ShopAlertAction? action { get; set; }
@@ -46764,10 +42260,6 @@ namespace shopify
     public class ShopAlertAction
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The text for the button in the alert. For example, _Add credit card_.
         ///</summary>
         public string? title { get; set; }
@@ -46782,10 +42274,6 @@ namespace shopify
     ///</summary>
     public class ShopBillingPreferences
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The currency the shop uses to pay for apps and services.
         ///</summary>
@@ -46833,10 +42321,6 @@ namespace shopify
     ///</summary>
     public class ShopFeatures
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Whether a shop has access to Avalara AvaTax.
         ///</summary>
@@ -46947,10 +42431,6 @@ namespace shopify
     public class ShopLocale
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The locale ISO code.
         ///</summary>
         public string? locale { get; set; }
@@ -46978,10 +42458,6 @@ namespace shopify
     public class ShopLocaleDisablePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///ISO code of the locale that was deleted.
         ///</summary>
         public string? locale { get; set; }
@@ -46996,10 +42472,6 @@ namespace shopify
     ///</summary>
     public class ShopLocaleEnablePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///ISO code of the locale that was enabled.
         ///</summary>
@@ -47016,10 +42488,6 @@ namespace shopify
     public class ShopLocaleUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The locale that was updated.
         ///</summary>
         public ShopLocale? shopLocale { get; set; }
@@ -47034,10 +42502,6 @@ namespace shopify
     ///</summary>
     public class ShopPlan
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The name of the shop's billing plan.
         ///</summary>
@@ -47057,10 +42521,6 @@ namespace shopify
     ///</summary>
     public class ShopPolicy : IHasPublishedTranslations, INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The text of the policy. The maximum size is 512kb.
         ///</summary>
@@ -47139,10 +42599,6 @@ namespace shopify
     public class ShopPolicyUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The shop policy that has been updated.
         ///</summary>
         public ShopPolicy? shopPolicy { get; set; }
@@ -47157,10 +42613,6 @@ namespace shopify
     ///</summary>
     public class ShopPolicyUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -47181,10 +42633,6 @@ namespace shopify
     public class ShopResourceFeedbackCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The shop feedback that's created.
         ///</summary>
         public AppFeedback? feedback { get; set; }
@@ -47199,10 +42647,6 @@ namespace shopify
     ///</summary>
     public class ShopResourceFeedbackCreateUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -47246,10 +42690,6 @@ namespace shopify
     public class ShopResourceLimits
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Maximum number of locations allowed.
         ///</summary>
         public int? locationLimit { get; set; }
@@ -47291,10 +42731,6 @@ namespace shopify
     ///</summary>
     public class ShopifyFunction
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The API type of the Shopify Function.
         ///</summary>
@@ -47343,10 +42779,6 @@ namespace shopify
     public class ShopifyFunctionConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public ShopifyFunctionEdge[]? edges { get; set; }
@@ -47366,10 +42798,6 @@ namespace shopify
     public class ShopifyFunctionEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -47387,10 +42815,6 @@ namespace shopify
     ///</summary>
     public class ShopifyPaymentsAccount : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Whether the Shopify Payments setup is completed.
         ///</summary>
@@ -47473,10 +42897,6 @@ namespace shopify
     public class ShopifyPaymentsBankAccount : INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The account number of the bank account.
         ///</summary>
         public string? accountNumber { get; set; }
@@ -47524,10 +42944,6 @@ namespace shopify
     public class ShopifyPaymentsBankAccountConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public ShopifyPaymentsBankAccountEdge[]? edges { get; set; }
@@ -47546,10 +42962,6 @@ namespace shopify
     ///</summary>
     public class ShopifyPaymentsBankAccountEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -47589,10 +43001,6 @@ namespace shopify
     public interface IShopifyPaymentsChargeStatementDescriptor
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; }
-        ///<summary>
         ///The default charge statement descriptor.
         ///</summary>
         public string? @default { get; }
@@ -47608,10 +43016,6 @@ namespace shopify
     public class ShopifyPaymentsDefaultChargeStatementDescriptor : IShopifyPaymentsChargeStatementDescriptor
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The default charge statement descriptor.
         ///</summary>
         public string? @default { get; set; }
@@ -47626,10 +43030,6 @@ namespace shopify
     ///</summary>
     public class ShopifyPaymentsDispute : ILegacyInteroperability, INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The total amount disputed by the cardholder.
         ///</summary>
@@ -47682,10 +43082,6 @@ namespace shopify
     public class ShopifyPaymentsDisputeConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public ShopifyPaymentsDisputeEdge[]? edges { get; set; }
@@ -47705,10 +43101,6 @@ namespace shopify
     public class ShopifyPaymentsDisputeEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -47723,10 +43115,6 @@ namespace shopify
     ///</summary>
     public class ShopifyPaymentsDisputeEvidence : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The activity logs associated with the dispute evidence.
         ///</summary>
@@ -47862,10 +43250,6 @@ namespace shopify
     public class ShopifyPaymentsDisputeFileUpload : INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The type of the file for the dispute evidence.
         ///</summary>
         public ShopifyPaymentsDisputeEvidenceFileType? disputeEvidenceType { get; set; }
@@ -47896,10 +43280,6 @@ namespace shopify
     ///</summary>
     public class ShopifyPaymentsDisputeFulfillment : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A globally-unique ID.
         ///</summary>
@@ -47983,10 +43363,6 @@ namespace shopify
     public class ShopifyPaymentsDisputeReasonDetails
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The raw code provided by the payment network.
         ///</summary>
         public string? networkReasonCode { get; set; }
@@ -48001,10 +43377,6 @@ namespace shopify
     ///</summary>
     public class ShopifyPaymentsExtendedAuthorization
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The time after which the extended authorization expires. After the expiry, the merchant is unable to capture the payment.
         ///</summary>
@@ -48021,10 +43393,6 @@ namespace shopify
     public class ShopifyPaymentsFraudSettings
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Decline a charge if there's an AVS failure.
         ///</summary>
         public bool? declineChargeOnAvsFailure { get; set; }
@@ -48039,10 +43407,6 @@ namespace shopify
     ///</summary>
     public class ShopifyPaymentsJpChargeStatementDescriptor : IShopifyPaymentsChargeStatementDescriptor
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The default charge statement descriptor.
         ///</summary>
@@ -48067,10 +43431,6 @@ namespace shopify
     public class ShopifyPaymentsNotificationSettings
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Receive email notifications when new payouts are sent or payouts fail.
         ///</summary>
         public bool? payouts { get; set; }
@@ -48082,10 +43442,6 @@ namespace shopify
     ///</summary>
     public class ShopifyPaymentsPayout : ILegacyInteroperability, INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The bank account for the payout.
         ///</summary>
@@ -48131,10 +43487,6 @@ namespace shopify
     public class ShopifyPaymentsPayoutConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public ShopifyPaymentsPayoutEdge[]? edges { get; set; }
@@ -48153,10 +43505,6 @@ namespace shopify
     ///</summary>
     public class ShopifyPaymentsPayoutEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -48195,10 +43543,6 @@ namespace shopify
     ///</summary>
     public class ShopifyPaymentsPayoutSchedule
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The interval at which payouts are sent to the connected bank account.
         ///</summary>
@@ -48254,10 +43598,6 @@ namespace shopify
     ///</summary>
     public class ShopifyPaymentsPayoutSummary
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Total fees for all adjustments including disputes.
         ///</summary>
@@ -48321,10 +43661,6 @@ namespace shopify
     public class ShopifyPaymentsRefundSet
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The acquirer reference number (ARN) code generated for Visa/Mastercard transactions.
         ///</summary>
         public string? acquirerReferenceNumber { get; set; }
@@ -48335,10 +43671,6 @@ namespace shopify
     ///</summary>
     public class ShopifyPaymentsTransactionSet
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Contains all fields related to an extended authorization.
         ///</summary>
@@ -48355,10 +43687,6 @@ namespace shopify
     ///</summary>
     public class ShopifyPaymentsVerification : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A globally-unique ID.
         ///</summary>
@@ -48378,10 +43706,6 @@ namespace shopify
     ///</summary>
     public class ShopifyPaymentsVerificationDocument
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///True if the back side of the document is required.
         ///</summary>
@@ -48440,10 +43764,6 @@ namespace shopify
     public class ShopifyPaymentsVerificationSubject
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The family name of the individual to verify.
         ///</summary>
         public string? familyName { get; set; }
@@ -48458,10 +43778,6 @@ namespace shopify
     ///</summary>
     public interface IShopifyqlResponse
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; }
         ///<summary>
         ///A list of parse errors, if parsing fails.
         ///</summary>
@@ -48479,10 +43795,6 @@ namespace shopify
     ///</summary>
     public class StaffMember : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Whether the staff member is active.
         ///</summary>
@@ -48543,10 +43855,6 @@ namespace shopify
     public class StaffMemberConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public StaffMemberEdge[]? edges { get; set; }
@@ -48584,10 +43892,6 @@ namespace shopify
     ///</summary>
     public class StaffMemberEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -48699,10 +44003,6 @@ namespace shopify
     public class StaffMemberPrivateData
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The URL to the staff member's account settings page.
         ///</summary>
         public string? accountSettingsUrl { get; set; }
@@ -48725,10 +44025,6 @@ namespace shopify
     ///</summary>
     public class StagedMediaUploadTarget
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Parameters needed to authenticate a request to upload the file.
         ///</summary>
@@ -48775,10 +44071,6 @@ namespace shopify
     public class StagedUploadParameter
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The parameter's name.
         ///</summary>
         public string? name { get; set; }
@@ -48799,10 +44091,6 @@ namespace shopify
     public class StagedUploadTarget
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The parameters of an image to be uploaded.
         ///</summary>
         public ImageUploadParameter[]? parameters { get; set; }
@@ -48817,10 +44105,6 @@ namespace shopify
     ///</summary>
     public class StagedUploadTargetGeneratePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The signed parameters that can be used to upload the asset.
         ///</summary>
@@ -48927,10 +44211,6 @@ namespace shopify
     public class StagedUploadTargetsGeneratePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The staged upload targets that were generated.
         ///</summary>
         public StagedUploadTarget[]? urls { get; set; }
@@ -48945,10 +44225,6 @@ namespace shopify
     ///</summary>
     public class StagedUploadsCreatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The staged upload targets that were generated.
         ///</summary>
@@ -48965,10 +44241,6 @@ namespace shopify
     public class StandardMetafieldDefinitionEnablePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The metafield definition that was created.
         ///</summary>
         public MetafieldDefinition? createdDefinition { get; set; }
@@ -48983,10 +44255,6 @@ namespace shopify
     ///</summary>
     public class StandardMetafieldDefinitionEnableUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -49041,10 +44309,6 @@ namespace shopify
     public class StandardMetafieldDefinitionTemplate : INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The description of the standard metafield definition.
         ///</summary>
         public string? description { get; set; }
@@ -49088,10 +44352,6 @@ namespace shopify
     public class StandardMetafieldDefinitionTemplateConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public StandardMetafieldDefinitionTemplateEdge[]? edges { get; set; }
@@ -49111,10 +44371,6 @@ namespace shopify
     public class StandardMetafieldDefinitionTemplateEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -49129,10 +44385,6 @@ namespace shopify
     ///</summary>
     public class StandardMetaobjectDefinitionEnablePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The metaobject definition that was enabled using the standard template.
         ///</summary>
@@ -49149,10 +44401,6 @@ namespace shopify
     public class StandardizedProductType
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The product taxonomy node associated with the standardized product type.
         ///</summary>
         public ProductTaxonomyNode? productTaxonomyNode { get; set; }
@@ -49165,10 +44413,6 @@ namespace shopify
     ///</summary>
     public class StorefrontAccessToken : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///List of permissions associated with the token.
         ///</summary>
@@ -49201,10 +44445,6 @@ namespace shopify
     public class StorefrontAccessTokenConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public StorefrontAccessTokenEdge[]? edges { get; set; }
@@ -49223,10 +44463,6 @@ namespace shopify
     ///</summary>
     public class StorefrontAccessTokenCreatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The user's shop.
         ///</summary>
@@ -49247,10 +44483,6 @@ namespace shopify
     public class StorefrontAccessTokenDeletePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The ID of the deleted storefront access token.
         ///</summary>
         public string? deletedStorefrontAccessTokenId { get; set; }
@@ -49265,10 +44497,6 @@ namespace shopify
     ///</summary>
     public class StorefrontAccessTokenEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -49285,10 +44513,6 @@ namespace shopify
     public class StringConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public StringEdge[]? edges { get; set; }
@@ -49304,10 +44528,6 @@ namespace shopify
     public class StringEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -49322,10 +44542,6 @@ namespace shopify
     ///</summary>
     public class SubscriptionAppliedCodeDiscount : ISubscriptionDiscount
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The unique ID.
         ///</summary>
@@ -49347,10 +44563,6 @@ namespace shopify
     ///</summary>
     public class SubscriptionBillingAttempt : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The date and time when the billing attempt was completed.
         ///</summary>
@@ -49405,10 +44617,6 @@ namespace shopify
     public class SubscriptionBillingAttemptConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public SubscriptionBillingAttemptEdge[]? edges { get; set; }
@@ -49428,10 +44636,6 @@ namespace shopify
     public class SubscriptionBillingAttemptCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The subscription billing attempt.
         ///</summary>
         public SubscriptionBillingAttempt? subscriptionBillingAttempt { get; set; }
@@ -49446,10 +44650,6 @@ namespace shopify
     ///</summary>
     public class SubscriptionBillingAttemptEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -49566,10 +44766,6 @@ namespace shopify
     public class SubscriptionBillingCycle
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The date on which the billing attempt is expected to be made.
         ///</summary>
         public DateTime? billingAttemptExpectedDate { get; set; }
@@ -49632,10 +44828,6 @@ namespace shopify
     public class SubscriptionBillingCycleConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public SubscriptionBillingCycleEdge[]? edges { get; set; }
@@ -49655,10 +44847,6 @@ namespace shopify
     public class SubscriptionBillingCycleContractDraftCommitPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The committed Subscription Billing Cycle Edited Contract object.
         ///</summary>
         public SubscriptionBillingCycleEditedContract? contract { get; set; }
@@ -49673,10 +44861,6 @@ namespace shopify
     ///</summary>
     public class SubscriptionBillingCycleContractDraftConcatenatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The Subscription Draft object.
         ///</summary>
@@ -49693,10 +44877,6 @@ namespace shopify
     public class SubscriptionBillingCycleContractEditPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The draft subscription contract object.
         ///</summary>
         public SubscriptionDraft? draft { get; set; }
@@ -49711,10 +44891,6 @@ namespace shopify
     ///</summary>
     public class SubscriptionBillingCycleEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -49731,10 +44907,6 @@ namespace shopify
     public class SubscriptionBillingCycleEditDeletePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The list of updated billing cycles.
         ///</summary>
         public SubscriptionBillingCycle[]? billingCycles { get; set; }
@@ -49749,10 +44921,6 @@ namespace shopify
     ///</summary>
     public class SubscriptionBillingCycleEditedContract : ISubscriptionContractBase
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The subscription app that the subscription contract is registered to.
         ///</summary>
@@ -49824,10 +44992,6 @@ namespace shopify
     ///</summary>
     public class SubscriptionBillingCycleEditsDeletePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The list of updated billing cycles.
         ///</summary>
@@ -49918,10 +45082,6 @@ namespace shopify
     public class SubscriptionBillingCycleScheduleEditPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated billing cycle.
         ///</summary>
         public SubscriptionBillingCycle? billingCycle { get; set; }
@@ -49936,10 +45096,6 @@ namespace shopify
     ///</summary>
     public class SubscriptionBillingCycleUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -49991,10 +45147,6 @@ namespace shopify
     public class SubscriptionBillingPolicy
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Specific anchor dates upon which the billing interval calculations should be made.
         ///</summary>
         public SellingPlanAnchor[]? anchors { get; set; }
@@ -50021,10 +45173,6 @@ namespace shopify
     ///</summary>
     public class SubscriptionContract : INode, ISubscriptionContractBase
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The subscription app that the subscription contract is registered to.
         ///</summary>
@@ -50129,10 +45277,6 @@ namespace shopify
     public class SubscriptionContractAtomicCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The new Subscription Contract object.
         ///</summary>
         public SubscriptionContract? contract { get; set; }
@@ -50147,10 +45291,6 @@ namespace shopify
     ///</summary>
     public interface ISubscriptionContractBase
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; }
         ///<summary>
         ///The subscription app that the subscription contract is registered to.
         ///</summary>
@@ -50215,10 +45355,6 @@ namespace shopify
     public class SubscriptionContractConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public SubscriptionContractEdge[]? edges { get; set; }
@@ -50238,10 +45374,6 @@ namespace shopify
     public class SubscriptionContractCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The Subscription Contract object.
         ///</summary>
         public SubscriptionDraft? draft { get; set; }
@@ -50256,10 +45388,6 @@ namespace shopify
     ///</summary>
     public class SubscriptionContractEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -50302,10 +45430,6 @@ namespace shopify
     public class SubscriptionContractProductChangePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The new Subscription Contract object.
         ///</summary>
         public SubscriptionContract? contract { get; set; }
@@ -50324,10 +45448,6 @@ namespace shopify
     ///</summary>
     public class SubscriptionContractSetNextBillingDatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The updated Subscription Contract object.
         ///</summary>
@@ -50375,10 +45495,6 @@ namespace shopify
     public class SubscriptionContractUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The Subscription Contract object.
         ///</summary>
         public SubscriptionDraft? draft { get; set; }
@@ -50393,10 +45509,6 @@ namespace shopify
     ///</summary>
     public class SubscriptionContractUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -50416,10 +45528,6 @@ namespace shopify
     ///</summary>
     public class SubscriptionCyclePriceAdjustment
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Price adjustment type.
         ///</summary>
@@ -50450,10 +45558,6 @@ namespace shopify
         public SubscriptionDeliveryMethodLocalDelivery? AsSubscriptionDeliveryMethodLocalDelivery() => this as SubscriptionDeliveryMethodLocalDelivery;
         public SubscriptionDeliveryMethodPickup? AsSubscriptionDeliveryMethodPickup() => this as SubscriptionDeliveryMethodPickup;
         public SubscriptionDeliveryMethodShipping? AsSubscriptionDeliveryMethodShipping() => this as SubscriptionDeliveryMethodShipping;
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
     }
 
     ///<summary>
@@ -50461,10 +45565,6 @@ namespace shopify
     ///</summary>
     public class SubscriptionDeliveryMethodLocalDelivery : ISubscriptionDeliveryMethod
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The address to deliver to.
         ///</summary>
@@ -50480,10 +45580,6 @@ namespace shopify
     ///</summary>
     public class SubscriptionDeliveryMethodLocalDeliveryOption
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A custom reference to the delivery method for use with automations.
         ///</summary>
@@ -50517,10 +45613,6 @@ namespace shopify
     public class SubscriptionDeliveryMethodPickup : ISubscriptionDeliveryMethod
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The details of the pickup delivery method to use.
         ///</summary>
         public SubscriptionDeliveryMethodPickupOption? pickupOption { get; set; }
@@ -50531,10 +45623,6 @@ namespace shopify
     ///</summary>
     public class SubscriptionDeliveryMethodPickupOption
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A custom reference to the delivery method for use with automations.
         ///</summary>
@@ -50563,10 +45651,6 @@ namespace shopify
     public class SubscriptionDeliveryMethodShipping : ISubscriptionDeliveryMethod
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The address to ship to.
         ///</summary>
         public SubscriptionMailingAddress? address { get; set; }
@@ -50581,10 +45665,6 @@ namespace shopify
     ///</summary>
     public class SubscriptionDeliveryMethodShippingOption
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The carrier service that's providing this shipping option.
         ///This field isn't currently supported and returns null.
@@ -50621,10 +45701,6 @@ namespace shopify
         public SubscriptionPickupOption? AsSubscriptionPickupOption() => this as SubscriptionPickupOption;
         public SubscriptionShippingOption? AsSubscriptionShippingOption() => this as SubscriptionShippingOption;
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The code of the local delivery option.
         ///</summary>
         public string? code { get; set; }
@@ -50660,10 +45736,6 @@ namespace shopify
     {
         public SubscriptionDeliveryOptionResultFailure? AsSubscriptionDeliveryOptionResultFailure() => this as SubscriptionDeliveryOptionResultFailure;
         public SubscriptionDeliveryOptionResultSuccess? AsSubscriptionDeliveryOptionResultSuccess() => this as SubscriptionDeliveryOptionResultSuccess;
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
     }
 
     ///<summary>
@@ -50671,10 +45743,6 @@ namespace shopify
     ///</summary>
     public class SubscriptionDeliveryOptionResultFailure : ISubscriptionDeliveryOptionResult
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The reason for the failure.
         ///</summary>
@@ -50687,10 +45755,6 @@ namespace shopify
     public class SubscriptionDeliveryOptionResultSuccess : ISubscriptionDeliveryOptionResult
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The available delivery options.
         ///</summary>
         public ISubscriptionDeliveryOption[]? deliveryOptions { get; set; }
@@ -50701,10 +45765,6 @@ namespace shopify
     ///</summary>
     public class SubscriptionDeliveryPolicy
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The specific anchor dates upon which the delivery interval calculations should be made.
         ///</summary>
@@ -50730,10 +45790,6 @@ namespace shopify
         public SubscriptionAppliedCodeDiscount? AsSubscriptionAppliedCodeDiscount() => this as SubscriptionAppliedCodeDiscount;
         public SubscriptionManualDiscount? AsSubscriptionManualDiscount() => this as SubscriptionManualDiscount;
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The unique ID.
         ///</summary>
         public string? id { get; set; }
@@ -50749,10 +45805,6 @@ namespace shopify
     public class SubscriptionDiscountAllocation
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Allocation amount.
         ///</summary>
         public MoneyV2? amount { get; set; }
@@ -50767,10 +45819,6 @@ namespace shopify
     ///</summary>
     public class SubscriptionDiscountConnection
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A list of edges.
         ///</summary>
@@ -50791,10 +45839,6 @@ namespace shopify
     public class SubscriptionDiscountEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -50809,10 +45853,6 @@ namespace shopify
     ///</summary>
     public class SubscriptionDiscountEntitledLines
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Specify whether the subscription discount will apply on all subscription lines.
         ///</summary>
@@ -50829,10 +45869,6 @@ namespace shopify
     public class SubscriptionDiscountFixedAmountValue : ISubscriptionDiscountValue
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The fixed amount value of the discount.
         ///</summary>
         public MoneyV2? amount { get; set; }
@@ -50847,10 +45883,6 @@ namespace shopify
     ///</summary>
     public class SubscriptionDiscountPercentageValue : ISubscriptionDiscountValue
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The percentage value of the discount.
         ///</summary>
@@ -50918,10 +45950,6 @@ namespace shopify
     {
         public SubscriptionDiscountFixedAmountValue? AsSubscriptionDiscountFixedAmountValue() => this as SubscriptionDiscountFixedAmountValue;
         public SubscriptionDiscountPercentageValue? AsSubscriptionDiscountPercentageValue() => this as SubscriptionDiscountPercentageValue;
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
     }
 
     ///<summary>
@@ -50929,10 +45957,6 @@ namespace shopify
     ///</summary>
     public class SubscriptionDraft : INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The billing cycle that the subscription contract will be associated with.
         ///</summary>
@@ -51037,10 +46061,6 @@ namespace shopify
     public class SubscriptionDraftCommitPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The updated Subscription Contract object.
         ///</summary>
         public SubscriptionContract? contract { get; set; }
@@ -51055,10 +46075,6 @@ namespace shopify
     ///</summary>
     public class SubscriptionDraftDiscountAddPayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The added Subscription Discount.
         ///</summary>
@@ -51079,10 +46095,6 @@ namespace shopify
     public class SubscriptionDraftDiscountCodeApplyPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The added subscription discount.
         ///</summary>
         public SubscriptionAppliedCodeDiscount? appliedDiscount { get; set; }
@@ -51102,10 +46114,6 @@ namespace shopify
     public class SubscriptionDraftDiscountRemovePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The removed subscription draft discount.
         ///</summary>
         public ISubscriptionDiscount? discountRemoved { get; set; }
@@ -51124,10 +46132,6 @@ namespace shopify
     ///</summary>
     public class SubscriptionDraftDiscountUpdatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The updated Subscription Discount.
         ///</summary>
@@ -51315,10 +46319,6 @@ namespace shopify
     public class SubscriptionDraftFreeShippingDiscountAddPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The added subscription free shipping discount.
         ///</summary>
         public SubscriptionManualDiscount? discountAdded { get; set; }
@@ -51337,10 +46337,6 @@ namespace shopify
     ///</summary>
     public class SubscriptionDraftFreeShippingDiscountUpdatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The updated Subscription Discount.
         ///</summary>
@@ -51361,10 +46357,6 @@ namespace shopify
     public class SubscriptionDraftLineAddPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The Subscription Contract draft object.
         ///</summary>
         public SubscriptionDraft? draft { get; set; }
@@ -51383,10 +46375,6 @@ namespace shopify
     ///</summary>
     public class SubscriptionDraftLineRemovePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The list of updated subscription discounts impacted by the removed line.
         ///</summary>
@@ -51411,10 +46399,6 @@ namespace shopify
     public class SubscriptionDraftLineUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The Subscription Contract draft object.
         ///</summary>
         public SubscriptionDraft? draft { get; set; }
@@ -51434,10 +46418,6 @@ namespace shopify
     public class SubscriptionDraftUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The Subscription Draft object.
         ///</summary>
         public SubscriptionDraft? draft { get; set; }
@@ -51452,10 +46432,6 @@ namespace shopify
     ///</summary>
     public class SubscriptionDraftUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -51475,10 +46451,6 @@ namespace shopify
     ///</summary>
     public class SubscriptionLine
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The price per unit for the subscription line in the contract's currency.
         ///</summary>
@@ -51569,10 +46541,6 @@ namespace shopify
     public class SubscriptionLineConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public SubscriptionLineEdge[]? edges { get; set; }
@@ -51592,10 +46560,6 @@ namespace shopify
     public class SubscriptionLineEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -51610,10 +46574,6 @@ namespace shopify
     ///</summary>
     public class SubscriptionLocalDeliveryOption : ISubscriptionDeliveryOption
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The code of the local delivery option.
         ///</summary>
@@ -51645,10 +46605,6 @@ namespace shopify
     ///</summary>
     public class SubscriptionMailingAddress
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The first line of the address. Typically the street address or PO Box number.
         ///</summary>
@@ -51713,10 +46669,6 @@ namespace shopify
     public class SubscriptionManualDiscount : ISubscriptionDiscount
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Entitled line items used to apply the subscription discount on.
         ///</summary>
         public SubscriptionDiscountEntitledLines? entitledLines { get; set; }
@@ -51760,10 +46712,6 @@ namespace shopify
     public class SubscriptionManualDiscountConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public SubscriptionManualDiscountEdge[]? edges { get; set; }
@@ -51783,10 +46731,6 @@ namespace shopify
     public class SubscriptionManualDiscountEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -51801,10 +46745,6 @@ namespace shopify
     ///</summary>
     public class SubscriptionPickupOption : ISubscriptionDeliveryOption
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The code of the pickup option.
         ///</summary>
@@ -51845,10 +46785,6 @@ namespace shopify
     public class SubscriptionPricingPolicy
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The base price per unit for the subscription line in the contract's currency.
         ///</summary>
         public MoneyV2? basePrice { get; set; }
@@ -51863,10 +46799,6 @@ namespace shopify
     ///</summary>
     public class SubscriptionShippingOption : ISubscriptionDeliveryOption
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The carrier service that's providing this shipping option.
         ///This field isn't currently supported and returns null.
@@ -51908,10 +46840,6 @@ namespace shopify
     {
         public SubscriptionShippingOptionResultFailure? AsSubscriptionShippingOptionResultFailure() => this as SubscriptionShippingOptionResultFailure;
         public SubscriptionShippingOptionResultSuccess? AsSubscriptionShippingOptionResultSuccess() => this as SubscriptionShippingOptionResultSuccess;
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
     }
 
     ///<summary>
@@ -51919,10 +46847,6 @@ namespace shopify
     ///</summary>
     public class SubscriptionShippingOptionResultFailure : ISubscriptionShippingOptionResult
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///Failure reason.
         ///</summary>
@@ -51935,10 +46859,6 @@ namespace shopify
     public class SubscriptionShippingOptionResultSuccess : ISubscriptionShippingOptionResult
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Available shipping options.
         ///</summary>
         public SubscriptionShippingOption[]? shippingOptions { get; set; }
@@ -51950,10 +46870,6 @@ namespace shopify
     ///</summary>
     public class SuggestedOrderTransaction
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The masked account number associated with the payment method.
         ///</summary>
@@ -52008,10 +46924,6 @@ namespace shopify
     ///</summary>
     public class SuggestedRefund
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The total monetary value to be refunded.
         ///</summary>
@@ -52080,10 +46992,6 @@ namespace shopify
     public class SuggestedReturnRefund
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The total monetary value to be refunded in shop and presentment currencies.
         ///</summary>
         public MoneyBag? amount { get; set; }
@@ -52131,10 +47039,6 @@ namespace shopify
     public class TableData
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The data table columns.
         ///</summary>
         public TableDataColumn[]? columns { get; set; }
@@ -52153,10 +47057,6 @@ namespace shopify
     ///</summary>
     public class TableDataColumn
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///For comparison columns, indicates the column to compare to.
         ///</summary>
@@ -52181,10 +47081,6 @@ namespace shopify
     public class TableResponse : IShopifyqlResponse
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of parse errors, if parsing fails.
         ///</summary>
         public ParseError[]? parseErrors { get; set; }
@@ -52199,10 +47095,6 @@ namespace shopify
     ///</summary>
     public class TagsAddPayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The object that was updated.
         ///</summary>
@@ -52219,10 +47111,6 @@ namespace shopify
     public class TagsRemovePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The object that was updated.
         ///</summary>
         public INode? node { get; set; }
@@ -52238,10 +47126,6 @@ namespace shopify
     public class TaxAppConfiguration
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///State of the tax app configuration.
         ///</summary>
         public TaxPartnerState? state { get; set; }
@@ -52252,10 +47136,6 @@ namespace shopify
     ///</summary>
     public class TaxAppConfigurePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The updated tax app configuration.
         ///</summary>
@@ -52271,10 +47151,6 @@ namespace shopify
     ///</summary>
     public class TaxAppConfigureUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -52609,10 +47485,6 @@ namespace shopify
     public class TaxLine
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Whether the channel that submitted the tax line is liable for remitting. A value of null indicates unknown liability for this tax line.
         ///</summary>
         public bool? channelLiable { get; set; }
@@ -52665,10 +47537,6 @@ namespace shopify
     public class TenderTransaction : INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The amount and currency of the tender transaction.
         ///</summary>
         public MoneyV2? amount { get; set; }
@@ -52708,10 +47576,6 @@ namespace shopify
     public class TenderTransactionConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public TenderTransactionEdge[]? edges { get; set; }
@@ -52731,10 +47595,6 @@ namespace shopify
     public class TenderTransactionCreditCardDetails : ITenderTransactionDetails
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The name of the company that issued the customer's credit card. Example: `Visa`.
         ///</summary>
         public string? creditCardCompany { get; set; }
@@ -52753,10 +47613,6 @@ namespace shopify
     {
         public TenderTransactionCreditCardDetails? AsTenderTransactionCreditCardDetails() => this as TenderTransactionCreditCardDetails;
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The name of the company that issued the customer's credit card. Example: `Visa`.
         ///</summary>
         public string? creditCardCompany { get; set; }
@@ -52772,10 +47628,6 @@ namespace shopify
     public class TenderTransactionEdge
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
         public string? cursor { get; set; }
@@ -52790,10 +47642,6 @@ namespace shopify
     ///</summary>
     public class TipSale : ISale
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The type of order action that the sale represents.
         ///</summary>
@@ -52842,10 +47690,6 @@ namespace shopify
     public class TransactionFee : INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Amount of the fee.
         ///</summary>
         public MoneyV2? amount { get; set; }
@@ -52885,10 +47729,6 @@ namespace shopify
     public class TranslatableContent
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Hash digest representation of the content value.
         ///</summary>
         public string? digest { get; set; }
@@ -52916,10 +47756,6 @@ namespace shopify
     public class TranslatableResource
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///GID of the resource.
         ///</summary>
         public string? resourceId { get; set; }
@@ -52939,10 +47775,6 @@ namespace shopify
     public class TranslatableResourceConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public TranslatableResourceEdge[]? edges { get; set; }
@@ -52961,10 +47793,6 @@ namespace shopify
     ///</summary>
     public class TranslatableResourceEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -53073,10 +47901,6 @@ namespace shopify
     ///</summary>
     public class Translation
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///On the resource that this translation belongs to, the reference to the value being translated.
         ///</summary>
@@ -53188,10 +48012,6 @@ namespace shopify
     public class TranslationUserError : IDisplayableError
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The error code.
         ///</summary>
         public TranslationErrorCode? code { get; set; }
@@ -53211,10 +48031,6 @@ namespace shopify
     public class TranslationsRegisterPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The translations that were created or updated.
         ///</summary>
         public Translation[]? translations { get; set; }
@@ -53229,10 +48045,6 @@ namespace shopify
     ///</summary>
     public class TranslationsRemovePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The translations that were deleted.
         ///</summary>
@@ -53249,10 +48061,6 @@ namespace shopify
     public class TypedAttribute
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Key or name of the attribute.
         ///</summary>
         public string? key { get; set; }
@@ -53267,10 +48075,6 @@ namespace shopify
     ///</summary>
     public class UTMParameters
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The name of a marketing campaign.
         ///</summary>
@@ -53313,10 +48117,6 @@ namespace shopify
     ///</summary>
     public class UnknownSale : ISale
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The type of order action that the sale represents.
         ///</summary>
@@ -53361,10 +48161,6 @@ namespace shopify
     public class UrlRedirect : INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The ID of the URL redirect.
         ///</summary>
         public string? id { get; set; }
@@ -53384,10 +48180,6 @@ namespace shopify
     public class UrlRedirectBulkDeleteAllPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The asynchronous job removing the redirects.
         ///</summary>
         public Job? job { get; set; }
@@ -53403,10 +48195,6 @@ namespace shopify
     public class UrlRedirectBulkDeleteByIdsPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The asynchronous job removing the redirects.
         ///</summary>
         public Job? job { get; set; }
@@ -53421,10 +48209,6 @@ namespace shopify
     ///</summary>
     public class UrlRedirectBulkDeleteByIdsUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -53458,10 +48242,6 @@ namespace shopify
     public class UrlRedirectBulkDeleteBySavedSearchPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The asynchronous job removing the redirects.
         ///</summary>
         public Job? job { get; set; }
@@ -53476,10 +48256,6 @@ namespace shopify
     ///</summary>
     public class UrlRedirectBulkDeleteBySavedSearchUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -53515,10 +48291,6 @@ namespace shopify
     public class UrlRedirectBulkDeleteBySearchPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The asynchronous job removing the redirects.
         ///</summary>
         public Job? job { get; set; }
@@ -53533,10 +48305,6 @@ namespace shopify
     ///</summary>
     public class UrlRedirectBulkDeleteBySearchUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -53568,10 +48336,6 @@ namespace shopify
     public class UrlRedirectConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public UrlRedirectEdge[]? edges { get; set; }
@@ -53591,10 +48355,6 @@ namespace shopify
     public class UrlRedirectCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The created redirect.
         ///</summary>
         public UrlRedirect? urlRedirect { get; set; }
@@ -53610,10 +48370,6 @@ namespace shopify
     public class UrlRedirectDeletePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The ID of the deleted redirect.
         ///</summary>
         public string? deletedUrlRedirectId { get; set; }
@@ -53628,10 +48384,6 @@ namespace shopify
     ///</summary>
     public class UrlRedirectEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -53674,10 +48426,6 @@ namespace shopify
     public class UrlRedirectImport : INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The number of rows in the file.
         ///</summary>
         public int? count { get; set; }
@@ -53717,10 +48465,6 @@ namespace shopify
     public class UrlRedirectImportCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The created `URLRedirectImport` object.
         ///</summary>
         public UrlRedirectImport? urlRedirectImport { get; set; }
@@ -53759,10 +48503,6 @@ namespace shopify
     public class UrlRedirectImportPreview
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The old path to be redirected from. When the user visits this path, they will be redirected to the target location.
         ///</summary>
         public string? path { get; set; }
@@ -53778,10 +48518,6 @@ namespace shopify
     public class UrlRedirectImportSubmitPayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The asynchronous job importing the redirects.
         ///</summary>
         public Job? job { get; set; }
@@ -53796,10 +48532,6 @@ namespace shopify
     ///</summary>
     public class UrlRedirectImportUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -53840,10 +48572,6 @@ namespace shopify
     public class UrlRedirectUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Returns the updated URL redirect.
         ///</summary>
         public UrlRedirect? urlRedirect { get; set; }
@@ -53858,10 +48586,6 @@ namespace shopify
     ///</summary>
     public class UrlRedirectUserError : IDisplayableError
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The error code.
         ///</summary>
@@ -53882,10 +48606,6 @@ namespace shopify
     public class UserError : IDisplayableError
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The path to the input field that caused the error.
         ///</summary>
         public string[]? field { get; set; }
@@ -53900,10 +48620,6 @@ namespace shopify
     ///</summary>
     public class VaultCreditCard : IPaymentInstrument
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The billing address of the card.
         ///</summary>
@@ -53940,10 +48656,6 @@ namespace shopify
     public class VaultPaypalBillingAgreement : IPaymentInstrument
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///Whether the paypal billing agreement is inactive.
         ///</summary>
         public bool? inactive { get; set; }
@@ -53965,10 +48677,6 @@ namespace shopify
     public class Vector3
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The x coordinate of Vector3.
         ///</summary>
         public float? x { get; set; }
@@ -53987,10 +48695,6 @@ namespace shopify
     ///</summary>
     public class Video : IFile, IMedia, INode, IMetafieldReference
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A word or phrase to share the nature or contents of a media.
         ///</summary>
@@ -54068,10 +48772,6 @@ namespace shopify
     public class VideoSource
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The video source's file size in bytes.
         ///</summary>
         public int? fileSize { get; set; }
@@ -54118,10 +48818,6 @@ namespace shopify
     public class WebPixel : INode
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A globally-unique ID.
         ///</summary>
         public string? id { get; set; }
@@ -54136,10 +48832,6 @@ namespace shopify
     ///</summary>
     public class WebPixelCreatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The list of errors that occurred from executing the mutation.
         ///</summary>
@@ -54156,10 +48848,6 @@ namespace shopify
     public class WebPixelDeletePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The ID of the web pixel settings that was deleted.
         ///</summary>
         public string? deletedWebPixelId { get; set; }
@@ -54174,10 +48862,6 @@ namespace shopify
     ///</summary>
     public class WebPixelUpdatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The list of errors that occurred from executing the mutation.
         ///</summary>
@@ -54194,10 +48878,6 @@ namespace shopify
     public class WebhookEventBridgeEndpoint : IWebhookSubscriptionEndpoint
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The ARN of this EventBridge partner event source.
         ///</summary>
         public string? arn { get; set; }
@@ -54209,10 +48889,6 @@ namespace shopify
     public class WebhookHttpEndpoint : IWebhookSubscriptionEndpoint
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The URL to which the webhooks events are sent.
         ///</summary>
         public string? callbackUrl { get; set; }
@@ -54223,10 +48899,6 @@ namespace shopify
     ///</summary>
     public class WebhookPubSubEndpoint : IWebhookSubscriptionEndpoint
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The Google Cloud Pub/Sub project ID.
         ///</summary>
@@ -54245,10 +48917,6 @@ namespace shopify
     ///</summary>
     public class WebhookSubscription : ILegacyInteroperability, INode
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The Admin API version that Shopify uses to serialize webhook events. This value is inherited from the app that created the webhook subscription.
         ///</summary>
@@ -54305,10 +48973,6 @@ namespace shopify
     public class WebhookSubscriptionConnection
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A list of edges.
         ///</summary>
         public WebhookSubscriptionEdge[]? edges { get; set; }
@@ -54328,10 +48992,6 @@ namespace shopify
     public class WebhookSubscriptionCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The list of errors that occurred from executing the mutation.
         ///</summary>
         public UserError[]? userErrors { get; set; }
@@ -54347,10 +49007,6 @@ namespace shopify
     public class WebhookSubscriptionDeletePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The ID of the deleted webhook subscription.
         ///</summary>
         public string? deletedWebhookSubscriptionId { get; set; }
@@ -54365,10 +49021,6 @@ namespace shopify
     ///</summary>
     public class WebhookSubscriptionEdge
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///A cursor for use in pagination.
         ///</summary>
@@ -54391,10 +49043,6 @@ namespace shopify
         public WebhookEventBridgeEndpoint? AsWebhookEventBridgeEndpoint() => this as WebhookEventBridgeEndpoint;
         public WebhookHttpEndpoint? AsWebhookHttpEndpoint() => this as WebhookHttpEndpoint;
         public WebhookPubSubEndpoint? AsWebhookPubSubEndpoint() => this as WebhookPubSubEndpoint;
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
     }
 
     ///<summary>
@@ -55109,10 +49757,6 @@ namespace shopify
     public class WebhookSubscriptionUpdatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The list of errors that occurred from executing the mutation.
         ///</summary>
         public UserError[]? userErrors { get; set; }
@@ -55127,10 +49771,6 @@ namespace shopify
     ///</summary>
     public class Weight : IDeliveryConditionCriteria
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The unit of measurement for `value`.
         ///</summary>
@@ -55171,10 +49811,6 @@ namespace shopify
     ///</summary>
     public class __Directive
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         public __InputValue[]? args { get; set; }
         public string? description { get; set; }
         public bool? isRepeatable { get; set; }
@@ -55273,10 +49909,6 @@ namespace shopify
     ///</summary>
     public class __EnumValue
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         public string? deprecationReason { get; set; }
         public string? description { get; set; }
         public bool? isDeprecated { get; set; }
@@ -55289,10 +49921,6 @@ namespace shopify
     ///</summary>
     public class __Field
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         public bool? accessRestricted { get; set; }
         public string? accessRestrictedReason { get; set; }
         public __InputValue[]? args { get; set; }
@@ -55314,10 +49942,6 @@ namespace shopify
     public class __InputValue
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///A GraphQL-formatted string representing the default value for this input value.
         ///</summary>
         public string? defaultValue { get; set; }
@@ -55334,10 +49958,6 @@ namespace shopify
     ///</summary>
     public class __Schema
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         public string? description { get; set; }
         ///<summary>
         ///A list of all directives supported by this server.
@@ -55368,10 +49988,6 @@ namespace shopify
     ///</summary>
     public class __Type
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         public bool? accessRestricted { get; set; }
         public string? accessRestrictedReason { get; set; }
         public string? componentName { get; set; }
@@ -55437,10 +50053,6 @@ namespace shopify
     public class deliveryProfileCreatePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The delivery profile that was created.
         ///</summary>
         public DeliveryProfile? profile { get; set; }
@@ -55456,10 +50068,6 @@ namespace shopify
     public class deliveryProfileRemovePayload
     {
         ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
-        ///<summary>
         ///The delivery profile deletion job triggered by the mutation.
         ///</summary>
         public Job? job { get; set; }
@@ -55474,10 +50082,6 @@ namespace shopify
     ///</summary>
     public class deliveryProfileUpdatePayload
     {
-        ///<summary>
-        ///the name of the object type
-        ///</summary>
-        public string? __typename { get; set; }
         ///<summary>
         ///The delivery profile that was updated.
         ///</summary>
