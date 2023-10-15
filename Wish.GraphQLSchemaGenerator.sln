@@ -7,11 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wish.GraphQLSchemaGenerator
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BEB0A1FF-E00D-48A7-A74B-CAE0F46A64DE}"
 	ProjectSection(SolutionItems) = preProject
-		ci.yml = ci.yml
+		.github\workflows\ci.yml = .github\workflows\ci.yml
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wish.GraphQLSchemaGenerator.Tests", "Wish.GraphQLSchemaGenerator.Tests\Wish.GraphQLSchemaGenerator.Tests.csproj", "{41156CB3-D355-4368-8F75-7A5B67BE9F97}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wish.GraphQLSchemaGenerator.Tests", "Wish.GraphQLSchemaGenerator.Tests\Wish.GraphQLSchemaGenerator.Tests.csproj", "{41156CB3-D355-4368-8F75-7A5B67BE9F97}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
