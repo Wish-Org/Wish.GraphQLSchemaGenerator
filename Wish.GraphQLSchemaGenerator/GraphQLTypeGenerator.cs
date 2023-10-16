@@ -106,7 +106,7 @@ namespace Wish.GraphQLSchemaGenerator
             var schemaElt = introspectionQueryResponse.RootElement.TryGetProperty("data", out var dataElt) ?
                                                                                 dataElt.GetProperty("__schema") :
                                                                                 introspectionQueryResponse.RootElement.GetProperty("__schema");
-            var types = schemaElt.GetProperty("types")
+            var allTypes = schemaElt.GetProperty("types")
                                  .Deserialize<GraphQLType[]>();
 
             var str = new StringBuilder()
@@ -114,11 +114,11 @@ namespace Wish.GraphQLSchemaGenerator
                             .AppendLine("using System.Text.Json.Serialization;")
                             .AppendLine($"namespace {@namespace} {{");
 
-            var objectTypeNameToUnionTypes = types.Where(t => t.kind == GraphQLTypeKind.UNION)
+            var objectTypeNameToUnionTypes = allTypes.Where(t => t.kind == GraphQLTypeKind.UNION)
                                               .SelectMany(tUnion => tUnion.possibleTypes.Select(tObject => (tUnion, tObject)))
                                               .ToLookup(i => i.tObject.name, i => i.tUnion);
 
-            types.Select(t => GenerateType(t, scalarNameToTypeName, objectTypeNameToUnionTypes))
+            allTypes.Select(t => GenerateType(t, scalarNameToTypeName, objectTypeNameToUnionTypes))
                  .ForEach(strType => str.Append(strType)
                                         .AppendLine());
 
@@ -198,6 +198,15 @@ namespace Wish.GraphQLSchemaGenerator
                 str.Append($" : {string.Join(',', interfaces.Select(i => this.GenerateTypeName(i, scalarNameToTypeName)))}");
             str.AppendLine();
             str.AppendLine("{");
+
+            if (type.interfaces.IsEmpty())
+            {
+                foreach (var t in type.possibleTypes.DistinctBy(i => i.name))//found case where same type included twice
+                {
+                    var typeName = GenerateTypeName(t, scalarNameToTypeName);
+                    str.AppendLine($"public {typeName}? As{typeName}() => this as {typeName};");
+                }
+            }
 
             type.fields
                 //interface shouldn't redeclare fields already declare in parent interfaces
