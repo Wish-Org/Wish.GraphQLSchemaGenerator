@@ -115,8 +115,8 @@ namespace Wish.GraphQLSchemaGenerator
                             .AppendLine($"namespace {@namespace} {{");
 
             var objectTypeNameToUnionTypes = types.Where(t => t.kind == GraphQLTypeKind.UNION)
-                                              .SelectMany(tUnion => tUnion.possibleTypes.Select(tObject => new { UnionType = tUnion, ObjectType = tObject }))
-                                              .ToLookup(i => i.ObjectType.name, i => i.UnionType);
+                                              .SelectMany(tUnion => tUnion.possibleTypes.Select(tObject => (tUnion, tObject)))
+                                              .ToLookup(i => i.tObject.name, i => i.tUnion);
 
             types.Select(t => GenerateType(t, scalarNameToTypeName, objectTypeNameToUnionTypes))
                  .ForEach(strType => str.Append(strType)
@@ -137,7 +137,8 @@ namespace Wish.GraphQLSchemaGenerator
             {
                 GraphQLTypeKind.SCALAR or GraphQLTypeKind.INPUT_OBJECT => new StringBuilder(),
                 GraphQLTypeKind.ENUM => GenerateEnum(type),
-                GraphQLTypeKind.INTERFACE or GraphQLTypeKind.OBJECT => GenerateClassOrInterface(type, scalarNameToTypeName, objectTypeNameToUnionTypes),
+                GraphQLTypeKind.OBJECT => GenerateClass(type, scalarNameToTypeName, objectTypeNameToUnionTypes),
+                GraphQLTypeKind.INTERFACE => GenerateInterface(type, scalarNameToTypeName),
                 GraphQLTypeKind.UNION => GenerateUnion(type, scalarNameToTypeName),
                 _ => throw new Exception($"Unexpected type kind {type.kind}")
             };
@@ -179,11 +180,40 @@ namespace Wish.GraphQLSchemaGenerator
             return str;
         }
 
-        private StringBuilder GenerateClassOrInterface(GraphQLType type, Dictionary<string, string> scalarNameToTypeName, ILookup<string, GraphQLType> objectTypeNameToUnionTypes)
+        private StringBuilder GenerateInterface(GraphQLType type, Dictionary<string, string> scalarNameToTypeName)
         {
             var str = new StringBuilder()
                             .AppendLine(GenerateDescriptionComment(type.description))
-                            .Append($"public {(type.kind is GraphQLTypeKind.INTERFACE or GraphQLTypeKind.UNION ? "interface" : "class")} {GenerateTypeName(type, scalarNameToTypeName)}");
+                            .AppendLine("[JsonPolymorphic(TypeDiscriminatorPropertyName = \"__typename\")]");
+
+            foreach (var t in type.possibleTypes)
+            {
+                str.AppendLine($"[JsonDerivedType(typeof({GenerateTypeName(t, scalarNameToTypeName)}), typeDiscriminator: \"{t.name}\")]");
+            }
+
+            str.AppendLine($"public interface {GenerateTypeName(type, scalarNameToTypeName)}");
+
+            var interfaces = type.interfaces;
+            if (interfaces.Any())
+                str.Append($" : {string.Join(',', interfaces.Select(i => this.GenerateTypeName(i, scalarNameToTypeName)))}");
+            str.AppendLine();
+            str.AppendLine("{");
+
+            type.fields
+                //interface shouldn't redeclare fields already declare in parent interfaces
+                .Where(f => type.interfaces.SelectMany(i => i.fields).Where(f2 => f2.name == f.name).IsEmpty())
+                .ForEach(f => str.Append(GenerateField(type, f, scalarNameToTypeName)));
+
+            str.AppendLine("}");
+            return str;
+        }
+
+
+        private StringBuilder GenerateClass(GraphQLType type, Dictionary<string, string> scalarNameToTypeName, ILookup<string, GraphQLType> objectTypeNameToUnionTypes)
+        {
+            var str = new StringBuilder()
+                            .AppendLine(GenerateDescriptionComment(type.description))
+                            .Append($"public class {GenerateTypeName(type, scalarNameToTypeName)}");
 
             var interfaces = type.interfaces.Concat(objectTypeNameToUnionTypes[type.name]);
             if (interfaces.Any())
@@ -192,8 +222,6 @@ namespace Wish.GraphQLSchemaGenerator
             str.AppendLine("{");
 
             type.fields
-                //interface shouldn't redeclare fields already declare in parent interfaces
-                .Where(f => type.kind != GraphQLTypeKind.INTERFACE || type.interfaces.SelectMany(i => i.fields).Where(f2 => f2.name == f.name).IsEmpty())
                 .ForEach(f => str.Append(GenerateField(type, f, scalarNameToTypeName)));
 
             str.AppendLine("}");
