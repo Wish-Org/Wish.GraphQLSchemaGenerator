@@ -508,9 +508,11 @@ namespace shopify
         ///The type of app developer.
         ///</summary>
         public AppDeveloperType? developerType { get; set; }
+
         ///<summary>
         ///Website of the developer who created the app.
         ///</summary>
+        [Obsolete("Use `appStoreDeveloperUrl` instead.")]
         public string? developerUrl { get; set; }
         ///<summary>
         ///Whether the app uses the Embedded App SDK.
@@ -553,13 +555,17 @@ namespace shopify
         ///Whether the app is the [post purchase](https://shopify.dev/apps/checkout/post-purchase) app in use.
         ///</summary>
         public bool? isPostPurchaseAppInUse { get; set; }
+
         ///<summary>
         ///Webpage that the app starts in.
         ///</summary>
+        [Obsolete("Use AppInstallation.launchUrl instead")]
         public string? launchUrl { get; set; }
+
         ///<summary>
         ///Menu items for the app, which also appear as submenu items in left navigation sidebar in the Shopify admin.
         ///</summary>
+        [Obsolete("Use AppInstallation.navigationItems instead")]
         public NavigationItem[]? navigationItems { get; set; }
         ///<summary>
         ///Whether the app was previously installed on the current shop.
@@ -606,9 +612,11 @@ namespace shopify
         ///By removing this app, you will no longer be able to publish products to MySocialSite or view this app in your Shopify admin. You can re-enable this channel at any time.
         ///</summary>
         public string? uninstallMessage { get; set; }
+
         ///<summary>
         ///Webpage where you can uninstall the app.
         ///</summary>
+        [Obsolete("Use AppInstallation.uninstallUrl instead")]
         public string? uninstallUrl { get; set; }
         ///<summary>
         ///The webhook API version for the app.
@@ -850,9 +858,11 @@ namespace shopify
         ///Application which is installed.
         ///</summary>
         public App? app { get; set; }
+
         ///<summary>
         ///Channel associated with the installed application.
         ///</summary>
+        [Obsolete("Use `publication` instead.")]
         public Channel? channel { get; set; }
         ///<summary>
         ///Credits that can be used towards future app purchases.
@@ -878,13 +888,17 @@ namespace shopify
         ///One-time purchases to a shop.
         ///</summary>
         public AppPurchaseOneTimeConnection? oneTimePurchases { get; set; }
+
         ///<summary>
         ///Returns a private metafield by namespace and key that belongs to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafield? privateMetafield { get; set; }
+
         ///<summary>
         ///List of private metafields that belong to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafieldConnection? privateMetafields { get; set; }
         ///<summary>
         ///The publication associated with the installed application.
@@ -894,9 +908,11 @@ namespace shopify
         ///The records that track the externally-captured revenue for the app. The records are used for revenue attribution purposes.
         ///</summary>
         public AppRevenueAttributionRecordConnection? revenueAttributionRecords { get; set; }
+
         ///<summary>
         ///Subscriptions charge to a shop on a recurring basis.
         ///</summary>
+        [Obsolete("Use `activeSubscriptions` instead.")]
         public AppSubscription[]? subscriptions { get; set; }
         ///<summary>
         ///The URL to uninstall the application.
@@ -1186,6 +1202,7 @@ namespace shopify
         ///<summary>
         ///The app purchase has been approved by the merchant and is ready to be activated by the app. App purchases created through the GraphQL Admin API are activated upon approval.
         ///</summary>
+        [Obsolete("As of API version 2021-01, when a merchant accepts an app purchase, the status immediately changes from `pending` to `active`.")]
         ACCEPTED,
         ///<summary>
         ///The app purchase was approved by the merchant and has been activated by the app. Active app purchases are charged to the merchant and are paid out to the partner.
@@ -1696,6 +1713,7 @@ namespace shopify
         ///<summary>
         ///The app subscription has been approved by the merchant and is ready to be activated by the app.
         ///</summary>
+        [Obsolete("As of API version 2021-01, when a merchant approves an app subscription, the status immediately transitions from `pending` to `active`.")]
         ACCEPTED,
         ///<summary>
         ///The app subscription has been approved by the merchant. Active app subscriptions are billed to the shop. After payment, partners receive payouts.
@@ -2949,9 +2967,11 @@ namespace shopify
         ///A list of attributes that represent custom features or special requests.
         ///</summary>
         public Attribute[]? customAttributes { get; set; }
+
         ///<summary>
         ///The discounts that have been allocated onto the line item by discount applications.
         ///</summary>
+        [Obsolete("Use `calculatedDiscountAllocations` instead.")]
         public DiscountAllocation[]? discountAllocations { get; set; }
         ///<summary>
         ///The price of a single quantity of the line item with line item discounts applied, in shop and presentment currencies. Discounts applied to the entire order aren't included in this price.
@@ -3132,9 +3152,11 @@ namespace shopify
         ///The customer notification title.
         ///</summary>
         public string? notificationPreviewTitle { get; set; }
+
         ///<summary>
         ///The order without any changes applied.
         ///</summary>
+        [Obsolete("Use `originalOrder` instead.")]
         public Order? order { get; set; }
         ///<summary>
         ///The order without any changes applied.
@@ -3265,13 +3287,17 @@ namespace shopify
         ///List of metafields that belong to the resource.
         ///</summary>
         public MetafieldConnection? metafields { get; set; }
+
         ///<summary>
         ///Returns a private metafield by namespace and key that belongs to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafield? privateMetafield { get; set; }
+
         ///<summary>
         ///List of private metafields that belong to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafieldConnection? privateMetafields { get; set; }
     }
 
@@ -3814,9 +3840,11 @@ namespace shopify
         ///The list of collections published to the channel.
         ///</summary>
         public CollectionConnection? collections { get; set; }
+
         ///<summary>
         ///The unique identifier for the channel.
         ///</summary>
+        [Obsolete("Use `id` instead.")]
         public string? handle { get; set; }
         ///<summary>
         ///Whether the collection is available to the channel.
@@ -3830,17 +3858,23 @@ namespace shopify
         ///The name of the channel.
         ///</summary>
         public string? name { get; set; }
+
         ///<summary>
         ///The menu items for the channel, which also appear as submenu items in the left navigation sidebar in the Shopify admin.
         ///</summary>
+        [Obsolete("Use [AppInstallation.navigationItems](\n          https://shopify.dev/api/admin-graphql/current/objects/AppInstallation#field-appinstallation-navigationitems) instead.")]
         public NavigationItem[]? navigationItems { get; set; }
+
         ///<summary>
         ///Home page for the channel.
         ///</summary>
+        [Obsolete("Use [AppInstallation.launchUrl](\n          https://shopify.dev/api/admin-graphql/current/objects/AppInstallation#field-appinstallation-launchurl) instead.")]
         public string? overviewPath { get; set; }
+
         ///<summary>
         ///The product publications for the products published to the channel.
         ///</summary>
+        [Obsolete("Use `productPublicationsV3` instead.")]
         public ProductPublicationConnection? productPublications { get; set; }
         ///<summary>
         ///The product publications for the list of products published to the channel.
@@ -4139,13 +4173,17 @@ namespace shopify
         ///List of metafields that belong to the resource.
         ///</summary>
         public MetafieldConnection? metafields { get; set; }
+
         ///<summary>
         ///Returns a private metafield by namespace and key that belongs to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafield? privateMetafield { get; set; }
+
         ///<summary>
         ///List of private metafields that belong to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafieldConnection? privateMetafields { get; set; }
         ///<summary>
         ///The products that are included in the collection.
@@ -4159,17 +4197,23 @@ namespace shopify
         ///The number of publications a resource is published on.
         ///</summary>
         public int? publicationCount { get; set; }
+
         ///<summary>
         ///The channels where the collection is published.
         ///</summary>
+        [Obsolete("Use `resourcePublications` instead.")]
         public CollectionPublicationConnection? publications { get; set; }
+
         ///<summary>
         ///Check to see whether the resource is published to a given channel.
         ///</summary>
+        [Obsolete("Use `publishedOnPublication` instead.")]
         public bool? publishedOnChannel { get; set; }
+
         ///<summary>
         ///Check to see whether the resource is published to the calling app's channel.
         ///</summary>
+        [Obsolete("Use `publishedOnCurrentPublication` instead.")]
         public bool? publishedOnCurrentChannel { get; set; }
         ///<summary>
         ///Check to see whether the resource is published to the calling app's publication.
@@ -4199,11 +4243,13 @@ namespace shopify
         ///The order in which the products in the collection are displayed by default in the Shopify admin and in sales channels, such as an online store.
         ///</summary>
         public CollectionSortOrder? sortOrder { get; set; }
+
         ///<summary>
         ///The Storefront GraphQL API ID of the `Collection`.
         ///
         ///As of the `2022-04` version release, the Storefront GraphQL API will no longer return Base64 encoded IDs to match the behavior of the Admin GraphQL API. Therefore, you can safely use the `id` field's value instead.
         ///</summary>
+        [Obsolete("Use `id` instead.")]
         public string? storefrontId { get; set; }
         ///<summary>
         ///The suffix of the Liquid template being used to show the collection in an online store. For example, if the value is `custom`, then the collection is using the `collection.custom.liquid` template. If the value is `null`, then the collection is using the default `collection.liquid` template.
@@ -4217,9 +4263,11 @@ namespace shopify
         ///The translations associated with the resource.
         ///</summary>
         public Translation[]? translations { get; set; }
+
         ///<summary>
         ///The list of channels that the resource is not published to.
         ///</summary>
+        [Obsolete("Use `unpublishedPublications` instead.")]
         public ChannelConnection? unpublishedChannels { get; set; }
         ///<summary>
         ///The list of publications that the resource is not published to.
@@ -4371,6 +4419,7 @@ namespace shopify
         ///<summary>
         ///The channel where the collection will be published.
         ///</summary>
+        [Obsolete("Use `publication` instead.")]
         public Channel? channel { get; set; }
         ///<summary>
         ///The collection to be published on the publication.
@@ -4945,13 +4994,17 @@ namespace shopify
         ///List of metafields that belong to the resource.
         ///</summary>
         public MetafieldConnection? metafields { get; set; }
+
         ///<summary>
         ///Returns a private metafield by namespace and key that belongs to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafield? privateMetafield { get; set; }
+
         ///<summary>
         ///List of private metafields that belong to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafieldConnection? privateMetafields { get; set; }
         ///<summary>
         ///The date and time when the customer was last updated.
@@ -5099,13 +5152,17 @@ namespace shopify
         ///The list of the company's orders.
         ///</summary>
         public OrderConnection? orders { get; set; }
+
         ///<summary>
         ///Returns a private metafield by namespace and key that belongs to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafield? privateMetafield { get; set; }
+
         ///<summary>
         ///List of private metafields that belong to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafieldConnection? privateMetafields { get; set; }
         ///<summary>
         ///The total amount spent by this company, across all its locations.
@@ -5870,13 +5927,17 @@ namespace shopify
         ///The phone number of the company location.
         ///</summary>
         public string? phone { get; set; }
+
         ///<summary>
         ///Returns a private metafield by namespace and key that belongs to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafield? privateMetafield { get; set; }
+
         ///<summary>
         ///List of private metafields that belong to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafieldConnection? privateMetafields { get; set; }
         ///<summary>
         ///The list of roles assigned to the company location.
@@ -7408,6 +7469,10 @@ namespace shopify
         ///</summary>
         BIF,
         ///<summary>
+        ///Belarusian Ruble (BYN).
+        ///</summary>
+        BYN,
+        ///<summary>
         ///Belize Dollar (BZD).
         ///</summary>
         BZD,
@@ -7500,6 +7565,10 @@ namespace shopify
         ///</summary>
         DKK,
         ///<summary>
+        ///Djiboutian Franc (DJF).
+        ///</summary>
+        DJF,
+        ///<summary>
         ///Dominican Peso (DOP).
         ///</summary>
         DOP,
@@ -7512,9 +7581,17 @@ namespace shopify
         ///</summary>
         EGP,
         ///<summary>
+        ///Eritrean Nakfa (ERN).
+        ///</summary>
+        ERN,
+        ///<summary>
         ///Ethiopian Birr (ETB).
         ///</summary>
         ETB,
+        ///<summary>
+        ///Falkland Islands Pounds (FKP).
+        ///</summary>
+        FKP,
         ///<summary>
         ///CFP Franc (XPF).
         ///</summary>
@@ -7523,6 +7600,10 @@ namespace shopify
         ///Fijian Dollars (FJD).
         ///</summary>
         FJD,
+        ///<summary>
+        ///Gibraltar Pounds (GIP).
+        ///</summary>
+        GIP,
         ///<summary>
         ///Gambian Dalasi (GMD).
         ///</summary>
@@ -7543,6 +7624,10 @@ namespace shopify
         ///Georgian Lari (GEL).
         ///</summary>
         GEL,
+        ///<summary>
+        ///Guinean Franc (GNF).
+        ///</summary>
+        GNF,
         ///<summary>
         ///Haitian Gourde (HTG).
         ///</summary>
@@ -7576,6 +7661,10 @@ namespace shopify
         ///</summary>
         ILS,
         ///<summary>
+        ///Iranian Rial (IRR).
+        ///</summary>
+        IRR,
+        ///<summary>
         ///Iraqi Dinar (IQD).
         ///</summary>
         IQD,
@@ -7603,6 +7692,10 @@ namespace shopify
         ///Kenyan Shilling (KES).
         ///</summary>
         KES,
+        ///<summary>
+        ///Kiribati Dollar (KID).
+        ///</summary>
+        KID,
         ///<summary>
         ///Kuwaiti Dinar (KWD).
         ///</summary>
@@ -7632,6 +7725,10 @@ namespace shopify
         ///</summary>
         LRD,
         ///<summary>
+        ///Libyan Dinar (LYD).
+        ///</summary>
+        LYD,
+        ///<summary>
         ///Lithuanian Litai (LTL).
         ///</summary>
         LTL,
@@ -7655,6 +7752,10 @@ namespace shopify
         ///Maldivian Rufiyaa (MVR).
         ///</summary>
         MVR,
+        ///<summary>
+        ///Mauritanian Ouguiya (MRU).
+        ///</summary>
+        MRU,
         ///<summary>
         ///Mexican Pesos (MXN).
         ///</summary>
@@ -7764,6 +7865,10 @@ namespace shopify
         ///</summary>
         WST,
         ///<summary>
+        ///Saint Helena Pounds (SHP).
+        ///</summary>
+        SHP,
+        ///<summary>
         ///Saudi Riyal (SAR).
         ///</summary>
         SAR,
@@ -7776,6 +7881,10 @@ namespace shopify
         ///</summary>
         SCR,
         ///<summary>
+        ///Sierra Leonean Leone (SLL).
+        ///</summary>
+        SLL,
+        ///<summary>
         ///Singapore Dollars (SGD).
         ///</summary>
         SGD,
@@ -7783,6 +7892,10 @@ namespace shopify
         ///Sudanese Pound (SDG).
         ///</summary>
         SDG,
+        ///<summary>
+        ///Somali Shilling (SOS).
+        ///</summary>
+        SOS,
         ///<summary>
         ///Syrian Pound (SYP).
         ///</summary>
@@ -7832,9 +7945,17 @@ namespace shopify
         ///</summary>
         THB,
         ///<summary>
+        ///Tajikistani Somoni (TJS).
+        ///</summary>
+        TJS,
+        ///<summary>
         ///Tanzanian Shilling (TZS).
         ///</summary>
         TZS,
+        ///<summary>
+        ///Tongan Pa'anga (TOP).
+        ///</summary>
+        TOP,
         ///<summary>
         ///Trinidad and Tobago Dollars (TTD).
         ///</summary>
@@ -7876,6 +7997,10 @@ namespace shopify
         ///</summary>
         VUV,
         ///<summary>
+        ///Venezuelan Bolivares Soberanos (VES).
+        ///</summary>
+        VES,
+        ///<summary>
         ///Vietnamese đồng (VND).
         ///</summary>
         VND,
@@ -7892,77 +8017,19 @@ namespace shopify
         ///</summary>
         ZMW,
         ///<summary>
-        ///Belarusian Ruble (BYN).
-        ///</summary>
-        BYN,
-        ///<summary>
         ///Belarusian Ruble (BYR).
         ///</summary>
+        [Obsolete("`BYR` is deprecated. Use `BYN` available from version `2021-01` onwards instead.")]
         BYR,
-        ///<summary>
-        ///Djiboutian Franc (DJF).
-        ///</summary>
-        DJF,
-        ///<summary>
-        ///Eritrean Nakfa (ERN).
-        ///</summary>
-        ERN,
-        ///<summary>
-        ///Falkland Islands Pounds (FKP).
-        ///</summary>
-        FKP,
-        ///<summary>
-        ///Gibraltar Pounds (GIP).
-        ///</summary>
-        GIP,
-        ///<summary>
-        ///Guinean Franc (GNF).
-        ///</summary>
-        GNF,
-        ///<summary>
-        ///Iranian Rial (IRR).
-        ///</summary>
-        IRR,
-        ///<summary>
-        ///Kiribati Dollar (KID).
-        ///</summary>
-        KID,
-        ///<summary>
-        ///Libyan Dinar (LYD).
-        ///</summary>
-        LYD,
-        ///<summary>
-        ///Mauritanian Ouguiya (MRU).
-        ///</summary>
-        MRU,
-        ///<summary>
-        ///Sierra Leonean Leone (SLL).
-        ///</summary>
-        SLL,
-        ///<summary>
-        ///Saint Helena Pounds (SHP).
-        ///</summary>
-        SHP,
-        ///<summary>
-        ///Somali Shilling (SOS).
-        ///</summary>
-        SOS,
         ///<summary>
         ///Sao Tome And Principe Dobra (STD).
         ///</summary>
+        [Obsolete("`STD` is deprecated. Use `STN` available from version `2022-07` onwards instead.")]
         STD,
         ///<summary>
         ///Sao Tome And Principe Dobra (STN).
         ///</summary>
         STN,
-        ///<summary>
-        ///Tajikistani Somoni (TJS).
-        ///</summary>
-        TJS,
-        ///<summary>
-        ///Tongan Pa'anga (TOP).
-        ///</summary>
-        TOP,
         ///<summary>
         ///Venezuelan Bolivares (VED).
         ///</summary>
@@ -7970,11 +8037,8 @@ namespace shopify
         ///<summary>
         ///Venezuelan Bolivares (VEF).
         ///</summary>
+        [Obsolete("`VEF` is deprecated. Use `VES` available from version `2020-10` onwards instead.")]
         VEF,
-        ///<summary>
-        ///Venezuelan Bolivares (VES).
-        ///</summary>
-        VES,
         ///<summary>
         ///Unrecognized currency.
         ///</summary>
@@ -8072,10 +8136,13 @@ namespace shopify
         ///<summary>
         ///Whether the customer has agreed to receive marketing material.
         ///</summary>
+        [Obsolete("Use `emailMarketingConsent` instead.")]
         public bool? acceptsMarketing { get; set; }
+
         ///<summary>
         ///The date and time when the customer consented or objected to receiving marketing material by email.
         ///</summary>
+        [Obsolete("Use `emailMarketingConsent` instead.")]
         public DateTime? acceptsMarketingUpdatedAt { get; set; }
         ///<summary>
         ///A list of addresses associated with the customer.
@@ -8085,13 +8152,17 @@ namespace shopify
         ///The total amount that the customer has spent on orders in their lifetime.
         ///</summary>
         public MoneyV2? amountSpent { get; set; }
+
         ///<summary>
         ///The average amount that the customer spent per order.
         ///</summary>
+        [Obsolete("This field is no longer supported.")]
         public decimal? averageOrderAmount { get; set; }
+
         ///<summary>
         ///The average amount that the customer spent per order.
         ///</summary>
+        [Obsolete("This field is no longer supported.")]
         public MoneyV2? averageOrderAmountV2 { get; set; }
         ///<summary>
         ///Whether the merchant can delete the customer from their store.
@@ -8134,9 +8205,11 @@ namespace shopify
         ///The customer's first name.
         ///</summary>
         public string? firstName { get; set; }
+
         ///<summary>
         ///Whether the merchant has added timeline comments about the customer on the customer's page.
         ///</summary>
+        [Obsolete("To query for comments on the timeline, use the events connection and a `query` argument containing `verb:comment`, or look for a `CommentEvent` in the `__typename` of events.")]
         public bool? hasTimelineComment { get; set; }
         ///<summary>
         ///A globally-unique ID.
@@ -8172,12 +8245,14 @@ namespace shopify
         ///The market that includes the customer’s default address.
         ///</summary>
         public Market? market { get; set; }
+
         ///<summary>
         ///The marketing subscription opt-in level, as described by the M3AAWG best practices guidelines, that the
         ///customer gave when they consented to receive marketing material by email.
         ///
         ///If the customer doesn't accept email marketing, then this property is `null`.
         ///</summary>
+        [Obsolete("Use `emailMarketingConsent` instead.")]
         public CustomerMarketingOptInLevel? marketingOptInLevel { get; set; }
         ///<summary>
         ///Whether the customer can be merged with another customer.
@@ -8219,13 +8294,17 @@ namespace shopify
         ///The customer's phone number.
         ///</summary>
         public string? phone { get; set; }
+
         ///<summary>
         ///Returns a private metafield by namespace and key that belongs to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafield? privateMetafield { get; set; }
+
         ///<summary>
         ///List of private metafields that belong to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafieldConnection? privateMetafields { get; set; }
         ///<summary>
         ///Possible subscriber states of a customer defined by their subscription contracts.
@@ -9930,13 +10009,17 @@ namespace shopify
         ///The total number of orders that the member has made.
         ///</summary>
         public ulong? numberOfOrders { get; set; }
+
         ///<summary>
         ///Returns a private metafield by namespace and key that belongs to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafield? privateMetafield { get; set; }
+
         ///<summary>
         ///List of private metafields that belong to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafieldConnection? privateMetafields { get; set; }
     }
 
@@ -10937,13 +11020,17 @@ namespace shopify
         ///List of metafields that belong to the resource.
         ///</summary>
         public MetafieldConnection? metafields { get; set; }
+
         ///<summary>
         ///Returns a private metafield by namespace and key that belongs to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafield? privateMetafield { get; set; }
+
         ///<summary>
         ///List of private metafields that belong to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafieldConnection? privateMetafields { get; set; }
         ///<summary>
         ///The Shopify Function implementing the delivery customization.
@@ -11146,6 +11233,7 @@ namespace shopify
         ///<summary>
         ///Multi-Location mode is disabled. The shop can't convert to full multi-location delivery profiles mode.
         ///</summary>
+        [Obsolete("All shops are now using multi-location mode.")]
         MULTI_LOCATION_DISABLED,
         ///<summary>
         ///There are no locations for this store that can fulfill online orders.
@@ -11551,9 +11639,11 @@ namespace shopify
         ///The number of active origin locations for the profile.
         ///</summary>
         public int? originLocationCount { get; set; }
+
         ///<summary>
         ///The number of product variants for this profile. The count for the default profile isn't supported and will return -1.
         ///</summary>
+        [Obsolete("Use `productVariantsCountV2` instead.")]
         public int? productVariantsCount { get; set; }
         ///<summary>
         ///How many product variants are in this profile.
@@ -11892,6 +11982,7 @@ namespace shopify
         ///<summary>
         ///The money amount that's allocated to a line based on the associated discount application.
         ///</summary>
+        [Obsolete("Use `allocatedAmountSet` instead.")]
         public MoneyV2? allocatedAmount { get; set; }
         ///<summary>
         ///The money amount that's allocated to a line based on the associated discount application in shop and presentment currencies.
@@ -11974,6 +12065,7 @@ namespace shopify
         ///<summary>
         ///The value is specifically applied onto a particular line.
         ///</summary>
+        [Obsolete("Use ACROSS instead.")]
         ONE,
     }
 
@@ -12268,9 +12360,11 @@ namespace shopify
         ///The date and time when the discount was updated.
         ///</summary>
         public DateTime? updatedAt { get; set; }
+
         ///<summary>
         ///The number of times that the discount has been used.
         ///</summary>
+        [Obsolete("Use `asyncUsageCount` instead.")]
         public int? usageCount { get; set; }
     }
 
@@ -12356,9 +12450,11 @@ namespace shopify
         ///The paginated list of events associated with the host subject.
         ///</summary>
         public EventConnection? events { get; set; }
+
         ///<summary>
         ///A legacy unique ID for the discount.
         ///</summary>
+        [Obsolete("Use DiscountAutomaticNode.id instead.")]
         public string? id { get; set; }
         ///<summary>
         ///The date and time when the discount starts.
@@ -12380,9 +12476,11 @@ namespace shopify
         ///The date and time when the discount was updated.
         ///</summary>
         public DateTime? updatedAt { get; set; }
+
         ///<summary>
         ///The number of times that the discount has been used.
         ///</summary>
+        [Obsolete("Use `asyncUsageCount` instead.")]
         public int? usageCount { get; set; }
         ///<summary>
         ///The maximum number of times that the discount can be applied to an order.
@@ -12513,13 +12611,17 @@ namespace shopify
         ///List of metafields that belong to the resource.
         ///</summary>
         public MetafieldConnection? metafields { get; set; }
+
         ///<summary>
         ///Returns a private metafield by namespace and key that belongs to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafield? privateMetafield { get; set; }
+
         ///<summary>
         ///List of private metafields that belong to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafieldConnection? privateMetafields { get; set; }
     }
 
@@ -13314,13 +13416,17 @@ namespace shopify
         ///List of metafields that belong to the resource.
         ///</summary>
         public MetafieldConnection? metafields { get; set; }
+
         ///<summary>
         ///Returns a private metafield by namespace and key that belongs to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafield? privateMetafield { get; set; }
+
         ///<summary>
         ///List of private metafields that belong to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafieldConnection? privateMetafields { get; set; }
     }
 
@@ -13762,13 +13868,17 @@ namespace shopify
         ///List of metafields that belong to the resource.
         ///</summary>
         public MetafieldConnection? metafields { get; set; }
+
         ///<summary>
         ///Returns a private metafield by namespace and key that belongs to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafield? privateMetafield { get; set; }
+
         ///<summary>
         ///List of private metafields that belong to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafieldConnection? privateMetafields { get; set; }
     }
 
@@ -14703,21 +14813,24 @@ namespace shopify
         ///The payment currency of the customer for this draft order.
         ///</summary>
         public CurrencyCode? presentmentCurrencyCode { get; set; }
+
         ///<summary>
         ///Returns a private metafield by namespace and key that belongs to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafield? privateMetafield { get; set; }
+
         ///<summary>
         ///List of private metafields that belong to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafieldConnection? privateMetafields { get; set; }
         ///<summary>
         ///The purchasing entity for the draft order.
         ///</summary>
         public IPurchasingEntity? purchasingEntity { get; set; }
         ///<summary>
-        ///Whether the Draft Order is ready and can be completed. Draft Orders
-        ///        might have asynchronous operations that can take time to finish.
+        ///Whether the Draft Order is ready and can be completed. Draft Orders might have asynchronous operations that can take time to finish.
         ///</summary>
         public bool? ready { get; set; }
         ///<summary>
@@ -14818,6 +14931,7 @@ namespace shopify
         ///<summary>
         ///Amount of the order-level discount that's applied to the draft order.
         ///</summary>
+        [Obsolete("Use `amountV2` instead.")]
         public decimal? amount { get; set; }
         ///<summary>
         ///The amount of money discounted, with values shown in both shop currency and presentment currency.
@@ -15121,10 +15235,12 @@ namespace shopify
         ///Deleted fulfillment services will return null.
         ///</summary>
         public FulfillmentService? fulfillmentService { get; set; }
+
         ///<summary>
         ///The weight of the line item in grams. The weight can only be specified if the line item is a custom
         ///line item.
         ///</summary>
+        [Obsolete("Use `weight` instead.")]
         public int? grams { get; set; }
         ///<summary>
         ///A globally-unique ID.
@@ -15917,9 +16033,11 @@ namespace shopify
         ///The embed URL of the video for the respective host.
         ///</summary>
         public string? embedUrl { get; set; }
+
         ///<summary>
         ///The URL.
         ///</summary>
+        [Obsolete("Use `originUrl` instead.")]
         public string? embeddedUrl { get; set; }
         ///<summary>
         ///The host of the external video.
@@ -16951,6 +17069,7 @@ namespace shopify
         ///<summary>
         ///The total price after discounts are applied.
         ///</summary>
+        [Obsolete("Use `discountedTotalSet` instead.")]
         public decimal? discountedTotal { get; set; }
         ///<summary>
         ///The total price after discounts are applied in shop and presentment currencies.
@@ -16964,9 +17083,11 @@ namespace shopify
         ///The associated order's line item.
         ///</summary>
         public LineItem? lineItem { get; set; }
+
         ///<summary>
         ///The total price before discounts are applied.
         ///</summary>
+        [Obsolete("Use `originalTotalSet` instead.")]
         public decimal? originalTotal { get; set; }
         ///<summary>
         ///The total price before discounts are applied in shop and presentment currencies.
@@ -17658,9 +17779,11 @@ namespace shopify
         ///The ID of the inventory item.
         ///</summary>
         public string? inventoryItemId { get; set; }
+
         ///<summary>
         ///The associated order line item.
         ///</summary>
+        [Obsolete("          As of API version 2023-01, this field has been deprecated. The order line item associated with a `FulfillmentOrderLineItem`\n          shouldn't be used to determine what to fulfill. Use the `FulfillmentOrderLineItem` and `FulfillmentOrder` objects\n          instead. An order `LineItem` represents a single line item on an order, but it doesn't represent what should be fulfilled.")]
         public LineItem? lineItem { get; set; }
         ///<summary>
         ///The variant unit price without discounts applied, in shop and presentment currencies.
@@ -18672,9 +18795,11 @@ namespace shopify
         ///The name of the fulfillment service as seen by merchants.
         ///</summary>
         public string? serviceName { get; set; }
+
         ///<summary>
         ///Shipping methods associated with the fulfillment service provider. Applies only to Fulfill By Amazon fulfillment service.
         ///</summary>
+        [Obsolete("The Fulfillment by Amazon feature will no longer be supported from March 30, 2023. To continue using Amazon fulfillment, merchants need to set up a Multi-Channel Fulfillment solution recommended by Amazon: https://help.shopify.com/manual/shipping/fulfillment-services/amazon#activate-fulfillment-by-amazon")]
         public ShippingMethod[]? shippingMethods { get; set; }
         ///<summary>
         ///Type associated with the fulfillment service.
@@ -18754,10 +18879,12 @@ namespace shopify
         ///<summary>
         ///Shopify has created the fulfillment and is waiting for the third-party fulfillment service to transition it to `open` or `success`.
         ///</summary>
+        [Obsolete("This is a legacy status and is due to be deprecated.")]
         PENDING,
         ///<summary>
         ///The third-party fulfillment service has acknowledged the fulfillment and is processing it.
         ///</summary>
+        [Obsolete("This is a legacy status and is due to be deprecated.")]
         OPEN,
         ///<summary>
         ///The fulfillment was completed successfully.
@@ -19495,13 +19622,17 @@ namespace shopify
         ///List of metafields that belong to the resource.
         ///</summary>
         public MetafieldConnection? metafields { get; }
+
         ///<summary>
         ///Returns a private metafield by namespace and key that belongs to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafield? privateMetafield { get; }
+
         ///<summary>
         ///List of private metafields that belong to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafieldConnection? privateMetafields { get; }
     }
 
@@ -19566,30 +19697,40 @@ namespace shopify
         ///List of metafields that belong to the resource.
         ///</summary>
         public MetafieldConnection? metafields { get; set; }
+
         ///<summary>
         ///The location of the original image as a URL.
         ///
         ///If there are any existing transformations in the original source URL, they will remain and not be stripped.
         ///</summary>
+        [Obsolete("Use `url` instead.")]
         public string? originalSrc { get; set; }
+
         ///<summary>
         ///Returns a private metafield by namespace and key that belongs to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafield? privateMetafield { get; set; }
+
         ///<summary>
         ///List of private metafields that belong to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafieldConnection? privateMetafields { get; set; }
+
         ///<summary>
         ///The location of the image as a URL.
         ///</summary>
+        [Obsolete("Use `url` instead.")]
         public string? src { get; set; }
+
         ///<summary>
         ///The location of the transformed image as a URL.
         ///
         ///All transformation arguments are considered "best-effort". If they can be applied to an image, they will be.
         ///Otherwise any transformations which an image type doesn't support will be ignored.
         ///</summary>
+        [Obsolete("Use `url(transform:)` instead")]
         public string? transformedSrc { get; set; }
         ///<summary>
         ///The location of the image as a URL.
@@ -19917,6 +20058,7 @@ namespace shopify
         ///<summary>
         ///Cannot unstock this inventory item from this location because it has committed and incoming quantities.
         ///</summary>
+        [Obsolete("This error code is deprecated. Both INCOMING_INVENTORY_AT_LOCATION and COMMITTED_INVENTORY_AT_LOCATION codes will be returned as individual errors instead.")]
         COMMITTED_AND_INCOMING_INVENTORY_AT_LOCATION,
         ///<summary>
         ///Cannot unstock this inventory item from this location because it has incoming quantities.
@@ -19982,7 +20124,8 @@ namespace shopify
         ///</summary>
         public Location? location { get; set; }
         ///<summary>
-        ///The name of the inventory quantity that was changed.
+        ///The [name](https://shopify.dev/docs/apps/fulfillment/inventory-management-apps#inventory-states)
+        ///of the inventory quantity that was changed.
         ///</summary>
         public string? name { get; set; }
         ///<summary>
@@ -20143,6 +20286,7 @@ namespace shopify
         ///<summary>
         ///The quantity of inventory items that are available at the inventory level's associated location.
         ///</summary>
+        [Obsolete("Use `quantities` instead.")]
         public int? available { get; set; }
         ///<summary>
         ///Whether the inventory items associated with the inventory level can be deactivated.
@@ -20156,17 +20300,21 @@ namespace shopify
         ///Describes either the impact of deactivating the inventory level, or why the inventory level can't be deactivated.
         ///</summary>
         public string? deactivationAlert { get; set; }
+
         ///<summary>
         ///Describes, in HTML with embedded URLs, either the impact of deactivating the inventory level or why the inventory level can't be deactivated.
         ///</summary>
+        [Obsolete("Use `deactivationAlert` instead.")]
         public string? deactivationAlertHtml { get; set; }
         ///<summary>
         ///A globally-unique ID.
         ///</summary>
         public string? id { get; set; }
+
         ///<summary>
         ///The quantity of inventory items that are going to the inventory level's associated location.
         ///</summary>
+        [Obsolete("Use `quantities` instead.")]
         public int? incoming { get; set; }
         ///<summary>
         ///Inventory item associated with the inventory level.
@@ -20346,7 +20494,8 @@ namespace shopify
     public class InventoryQuantity
     {
         ///<summary>
-        ///The name that identifies the inventory quantity.
+        ///The [name](https://shopify.dev/docs/apps/fulfillment/inventory-management-apps#inventory-states)
+        ///that identifies the inventory quantity.
         ///</summary>
         public string? name { get; set; }
         ///<summary>
@@ -20373,7 +20522,7 @@ namespace shopify
         ///</summary>
         public string[]? comprises { get; set; }
         ///<summary>
-        ///The i18n-friendly display name of the quantity.
+        ///The display name for quantity names translated into applicable language.
         ///</summary>
         public string? displayName { get; set; }
         ///<summary>
@@ -20381,7 +20530,9 @@ namespace shopify
         ///</summary>
         public bool? isInUse { get; set; }
         ///<summary>
-        ///The quantity name as used by the API.
+        ///The [name](https://shopify.dev/docs/apps/fulfillment/inventory-management-apps#inventory-states) of
+        ///the inventory quantity. Used by
+        ///[inventory queries and mutations](https://shopify.dev/docs/apps/fulfillment/inventory-management-apps#graphql-queries-and-mutations).
         ///</summary>
         public string? name { get; set; }
     }
@@ -21160,6 +21311,7 @@ namespace shopify
         ///<summary>
         ///Whether the line item can be restocked.
         ///</summary>
+        [Obsolete("Use `restockable` instead.")]
         public bool? canRestock { get; set; }
         ///<summary>
         ///The subscription contract associated with this line item.
@@ -21177,17 +21329,21 @@ namespace shopify
         ///The discounts that have been allocated onto the line item by discount applications, not including order edits and refunds.
         ///</summary>
         public DiscountAllocation[]? discountAllocations { get; set; }
+
         ///<summary>
         ///The total line price after discounts are applied, in shop currency.
         ///</summary>
+        [Obsolete("Use `discountedTotalSet` instead.")]
         public decimal? discountedTotal { get; set; }
         ///<summary>
         ///The total line price after discounts are applied, in shop and presentment currencies.
         ///</summary>
         public MoneyBag? discountedTotalSet { get; set; }
+
         ///<summary>
         ///The approximate split price of a line item unit, in shop currency. This value doesn't include discounts applied to the entire order.
         ///</summary>
+        [Obsolete("Use `discountedUnitPriceSet` instead.")]
         public decimal? discountedUnitPrice { get; set; }
         ///<summary>
         ///The approximate split price of a line item unit, in shop and presentment currencies. This value doesn't include discounts applied to the entire order.
@@ -21197,10 +21353,13 @@ namespace shopify
         ///The duties associated with the line item.
         ///</summary>
         public Duty[]? duties { get; set; }
+
         ///<summary>
         ///The total number of units to fulfill.
         ///</summary>
+        [Obsolete("Use [FulfillmentOrderLineItem#remainingQuantity](https://shopify.dev/api/admin-graphql/latest/objects/FulfillmentOrderLineItem#field-fulfillmentorderlineitem-remainingquantity) instead.")]
         public int? fulfillableQuantity { get; set; }
+
         ///<summary>
         ///The fulfillment service that stocks the product variant belonging to a line item.
         ///
@@ -21216,11 +21375,14 @@ namespace shopify
         ///
         ///If none of the above conditions are met, then the fulfillment service has the `manual` handle.
         ///</summary>
+        [Obsolete("\nThe [relationship between a product variant and a fulfillment service was changed in the `2022-07` API version](/changelog/fulfillment-service-sku-sharing). A [ProductVariant](/api/admin-graphql/latest/objects/ProductVariant) can be stocked by multiple fulfillment services. As a result, we recommend that you use the [inventoryItem field](/api/admin-graphql/latest/objects/ProductVariant#field-productvariant-inventoryitem) if you need to determine where a product variant is stocked.\n\nIf you need to determine whether a product is a gift card, then you should continue to use this field until an alternative is available.\n\nAltering the locations which stock a product variant won't change the value of this field for existing orders.\n\nLearn about [managing inventory quantities and states](/apps/fulfillment/inventory-management-apps/quantities-states).")]
         public FulfillmentService? fulfillmentService { get; set; }
+
         ///<summary>
         ///The line item's fulfillment status. Returns 'fulfilled' if fulfillableQuantity >= quantity,
         ///'partial' if  fulfillableQuantity > 0, and 'unfulfilled' otherwise.
         ///</summary>
+        [Obsolete("Use [FulfillmentOrderLineItem#remainingQuantity](https://shopify.dev/api/admin-graphql/latest/objects/FulfillmentOrderLineItem#field-fulfillmentorderlineitem-remainingquantity) instead")]
         public string? fulfillmentStatus { get; set; }
         ///<summary>
         ///A globally-unique ID.
@@ -21246,18 +21408,22 @@ namespace shopify
         ///The total number of units that can't be fulfilled. For example, if items have been refunded, or the item is not something that can be fulfilled, like a tip. Please see the [FulfillmentOrder](https://shopify.dev/api/admin-graphql/latest/objects/FulfillmentOrder) object for more fulfillment details.
         ///</summary>
         public int? nonFulfillableQuantity { get; set; }
+
         ///<summary>
         ///The total price without discounts applied, in shop currency.
         ///This value is based on the unit price of the variant x quantity.
         ///</summary>
+        [Obsolete("Use `originalTotalSet` instead.")]
         public decimal? originalTotal { get; set; }
         ///<summary>
         ///The total price in shop and presentment currencies, without discounts applied. This value is based on the unit price of the variant x quantity.
         ///</summary>
         public MoneyBag? originalTotalSet { get; set; }
+
         ///<summary>
         ///The variant unit price without discounts applied, in shop currency.
         ///</summary>
+        [Obsolete("Use `originalUnitPriceSet` instead.")]
         public decimal? originalUnitPrice { get; set; }
         ///<summary>
         ///The variant unit price without discounts applied, in shop and presentment currencies.
@@ -21307,25 +21473,31 @@ namespace shopify
         ///The title of the product at time of order creation.
         ///</summary>
         public string? title { get; set; }
+
         ///<summary>
         ///The total amount of the discount allocated to the line item in the shop currency.
         ///</summary>
+        [Obsolete("Use `totalDiscountSet` instead.")]
         public decimal? totalDiscount { get; set; }
         ///<summary>
         ///The total amount of the discount that's allocated to the line item, in the shop and presentment currencies. This field must be explicitly set using draft orders, Shopify scripts, or the API.
         ///</summary>
         public MoneyBag? totalDiscountSet { get; set; }
+
         ///<summary>
         ///The total discounted value of unfulfilled units, in shop currency.
         ///</summary>
+        [Obsolete("Use `unfulfilledDiscountedTotalSet` instead.")]
         public decimal? unfulfilledDiscountedTotal { get; set; }
         ///<summary>
         ///The total discounted value of unfulfilled units, in shop and presentment currencies.
         ///</summary>
         public MoneyBag? unfulfilledDiscountedTotalSet { get; set; }
+
         ///<summary>
         ///The total price, without any discounts applied. This value is based on the unit price of the variant x quantity of all unfulfilled units, in shop currency.
         ///</summary>
+        [Obsolete("Use `unfulfilledOriginalTotalSet` instead.")]
         public decimal? unfulfilledOriginalTotal { get; set; }
         ///<summary>
         ///The total price, without any discounts applied. This value is based on the unit price of the variant x quantity of all unfulfilled units, in shop and presentment currencies.
@@ -21410,6 +21582,7 @@ namespace shopify
         ///<summary>
         ///Whether the line item can be restocked.
         ///</summary>
+        [Obsolete("Use `restockable` instead.")]
         public bool? canRestock { get; set; }
         ///<summary>
         ///A list of attributes that represent custom features or special requests.
@@ -21419,17 +21592,21 @@ namespace shopify
         ///The discounts that have been allocated onto the line item by discount applications.
         ///</summary>
         public DiscountAllocation[]? discountAllocations { get; set; }
+
         ///<summary>
         ///The total line price after discounts are applied, in shop currency.
         ///</summary>
+        [Obsolete("Use `discountedTotalSet` instead.")]
         public decimal? discountedTotal { get; set; }
         ///<summary>
         ///The total line price after discounts are applied, in shop and presentment currencies.
         ///</summary>
         public MoneyBag? discountedTotalSet { get; set; }
+
         ///<summary>
         ///The approximate split price of a line item unit, in shop currency. This value doesn't include discounts applied to the entire order.
         ///</summary>
+        [Obsolete("Use `discountedUnitPriceSet` instead.")]
         public decimal? discountedUnitPrice { get; set; }
         ///<summary>
         ///The approximate split price of a line item unit, in shop and presentment currencies. This value doesn't include discounts applied to the entire order.
@@ -21470,17 +21647,21 @@ namespace shopify
         ///The total number of units that can't be fulfilled. For example, if items have been refunded, or the item isn't something that can be fulfilled, like a tip.
         ///</summary>
         public int? nonFulfillableQuantity { get; set; }
+
         ///<summary>
         ///The total price without any discounts applied, in shop currency. ""This value is based on the unit price of the variant x quantity.
         ///</summary>
+        [Obsolete("Use `originalTotalSet` instead.")]
         public decimal? originalTotal { get; set; }
         ///<summary>
         ///The total price in shop and presentment currencies, without discounts applied. This value is based on the unit price of the variant x quantity.
         ///</summary>
         public MoneyBag? originalTotalSet { get; set; }
+
         ///<summary>
         ///The variant unit price without discounts applied, in shop currency.
         ///</summary>
+        [Obsolete("Use `originalUnitPriceSet` instead.")]
         public decimal? originalUnitPrice { get; set; }
         ///<summary>
         ///The variant unit price without discounts applied, in shop and presentment currencies.
@@ -21526,25 +21707,31 @@ namespace shopify
         ///The title of the product.
         ///</summary>
         public string? title { get; set; }
+
         ///<summary>
         ///The total amount of the discount allocated to the line item in the shop currency. This field must be explicitly set using draft orders, Shopify scripts, or the API. Instead of using this field, Shopify recommends using `discountAllocations`, which provides the same information.
         ///</summary>
+        [Obsolete("Use `totalDiscountSet` instead.")]
         public decimal? totalDiscount { get; set; }
         ///<summary>
         ///The total amount of the discount allocated to the line item in the presentment currency. This field must be explicitly set using draft orders, Shopify scripts, or the API. Instead of using this field, Shopify recommends using `discountAllocations`, which provides the same information.
         ///</summary>
         public MoneyBag? totalDiscountSet { get; set; }
+
         ///<summary>
         ///The total discounted value of unfulfilled units, in shop currency.
         ///</summary>
+        [Obsolete("Use `unfulfilledDiscountedTotalSet` instead.")]
         public decimal? unfulfilledDiscountedTotal { get; set; }
         ///<summary>
         ///The total discounted value of unfulfilled units, in shop and presentment currencies.
         ///</summary>
         public MoneyBag? unfulfilledDiscountedTotalSet { get; set; }
+
         ///<summary>
         ///The total price without any discounts applied. This value is based on the unit price of the variant x quantity of all unfulfilled units, in shop currency.
         ///</summary>
+        [Obsolete("Use `unfulfilledOriginalTotalSet` instead.")]
         public decimal? unfulfilledOriginalTotal { get; set; }
         ///<summary>
         ///The total price without any discounts applied. This value is based on the unit price of the variant x quantity of all unfulfilled units, in shop and presentment currencies.
@@ -21886,9 +22073,11 @@ namespace shopify
         ///Whether the location is active.
         ///</summary>
         public bool? isActive { get; set; }
+
         ///<summary>
         ///Whether the location is your primary location for shipping inventory.
         ///</summary>
+        [Obsolete("The concept of a primary location is deprecated, shipsInventory can be used to get a fallback location")]
         public bool? isPrimary { get; set; }
         ///<summary>
         ///The ID of the corresponding resource in the REST Admin API.
@@ -21914,13 +22103,17 @@ namespace shopify
         ///The name of the location.
         ///</summary>
         public string? name { get; set; }
+
         ///<summary>
         ///Returns a private metafield by namespace and key that belongs to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafield? privateMetafield { get; set; }
+
         ///<summary>
         ///List of private metafields that belong to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafieldConnection? privateMetafields { get; set; }
         ///<summary>
         ///Whether this location is used for calculating shipping rates. In multi-origin shipping mode, this flag is ignored.
@@ -22120,11 +22313,11 @@ namespace shopify
         ///</summary>
         public string[]? formatted { get; set; }
         ///<summary>
-        ///The latitude coordinates of the location.
+        ///The approximate latitude coordinates of the location.
         ///</summary>
         public float? latitude { get; set; }
         ///<summary>
-        ///The longitude coordinates of the location.
+        ///The approximate longitude coordinates of the location.
         ///</summary>
         public float? longitude { get; set; }
         ///<summary>
@@ -22578,11 +22771,13 @@ namespace shopify
         ///The name of the country.
         ///</summary>
         public string? country { get; set; }
+
         ///<summary>
         ///The two-letter code for the country of the address.
         ///
         ///For example, US.
         ///</summary>
+        [Obsolete("Use `countryCodeV2` instead.")]
         public string? countryCode { get; set; }
         ///<summary>
         ///The two-letter code for the country of the address.
@@ -22776,13 +22971,17 @@ namespace shopify
         ///Whether the market is the shop’s primary market.
         ///</summary>
         public bool? primary { get; set; }
+
         ///<summary>
         ///Returns a private metafield by namespace and key that belongs to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafield? privateMetafield { get; set; }
+
         ///<summary>
         ///List of private metafields that belong to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafieldConnection? privateMetafields { get; set; }
         ///<summary>
         ///The regions that comprise the market.
@@ -22792,8 +22991,9 @@ namespace shopify
         ///The market’s web presence, which defines its SEO strategy. This can be a different domain,
         ///subdomain, or subfolders of the primary domain. Each web presence comprises one or more
         ///language variants. If a market doesn't have its own web presence, then the market is accessible on the
-        ///shop’s primary domain using [country
+        ///primary market's domains using [country
         ///selectors](https://shopify.dev/themes/internationalization/multiple-currencies-languages#the-country-selector).
+        ///If it's the primary market and it has multiple web presences, then this field will return the primary domain web presence.
         ///</summary>
         public MarketWebPresence? webPresence { get; set; }
     }
@@ -23601,9 +23801,11 @@ namespace shopify
         ///The current state of the marketing activity.
         ///</summary>
         public MarketingActivityStatus? status { get; set; }
+
         ///<summary>
         ///The severity of the marketing activity's status.
         ///</summary>
+        [Obsolete("Use `statusBadgeTypeV2` instead.")]
         public MarketingActivityStatusBadgeType? statusBadgeType { get; set; }
         ///<summary>
         ///The severity of the marketing activity's status.
@@ -24131,9 +24333,11 @@ namespace shopify
         ///The date and time when the marketing event started.
         ///</summary>
         public DateTime? startedAt { get; set; }
+
         ///<summary>
         ///The display text for the marketing event type.
         ///</summary>
+        [Obsolete("Use `sourceAndMedium` instead.")]
         public string? targetTypeDisplayText { get; set; }
         ///<summary>
         ///The marketing event type.
@@ -24271,18 +24475,22 @@ namespace shopify
         ///<summary>
         ///A display ad.
         ///</summary>
+        [Obsolete("`DISPLAY` is deprecated. Use `AD` instead.")]
         DISPLAY,
         ///<summary>
         ///Paid search.
         ///</summary>
+        [Obsolete("`SEARCH` is deprecated. Use `AD` instead.")]
         SEARCH,
         ///<summary>
         ///A follow-up email.
         ///</summary>
+        [Obsolete("'FOLLOW_UP' is deprecated. Use 'TRANSACTIONAL' instead.")]
         FOLLOW_UP,
         ///<summary>
         ///A promotional receipt.
         ///</summary>
+        [Obsolete("'RECEIPT' is deprecated. Use 'TRANSACTIONAL' instead.")]
         RECEIPT,
     }
 
@@ -24622,13 +24830,17 @@ namespace shopify
         ///The preview image for the media.
         ///</summary>
         public MediaPreviewImage? preview { get; set; }
+
         ///<summary>
         ///Returns a private metafield by namespace and key that belongs to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafield? privateMetafield { get; set; }
+
         ///<summary>
         ///List of private metafields that belong to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafieldConnection? privateMetafields { get; set; }
         ///<summary>
         ///Current status of the media.
@@ -25427,9 +25639,11 @@ namespace shopify
         ///Whether metafields without a definition can be migrated to a definition of this type.
         ///</summary>
         public bool? supportsDefinitionMigrations { get; set; }
+
         ///<summary>
         ///The value type for a metafield created with this definition type.
         ///</summary>
+        [Obsolete("`valueType` is deprecated and `name` should be used for type information.")]
         public MetafieldValueType? valueType { get; set; }
     }
 
@@ -25692,6 +25906,7 @@ namespace shopify
         ///<summary>
         ///The Product Image metafield owner type.
         ///</summary>
+        [Obsolete("`PRODUCTIMAGE` is deprecated. Use `MEDIA_IMAGE` instead.")]
         PRODUCTIMAGE,
         ///<summary>
         ///The Product metafield owner type.
@@ -26902,6 +27117,7 @@ namespace shopify
         ///<summary>
         ///Updates the email state value for an abandonment.
         ///</summary>
+        [Obsolete("Use `abandonmentUpdateActivitiesDeliveryStatuses` instead.")]
         public AbandonmentEmailStateUpdatePayload? abandonmentEmailStateUpdate { get; set; }
         ///<summary>
         ///Updates the marketing activities delivery statuses for an abandonment.
@@ -26913,13 +27129,17 @@ namespace shopify
         ///Test and demo shops aren't charged.
         ///</summary>
         public AppPurchaseOneTimeCreatePayload? appPurchaseOneTimeCreate { get; set; }
+
         ///<summary>
         ///Creates a record of the attributed revenue for the app. This mutation should only be used to capture transactions that are not managed by the Billing API.
         ///</summary>
+        [Obsolete("This mutation will be removed in a future version.")]
         public AppRevenueAttributionRecordCreatePayload? appRevenueAttributionRecordCreate { get; set; }
+
         ///<summary>
         ///Deletes a record of the attributed revenue for the app.
         ///</summary>
+        [Obsolete("This mutation will be removed in a future version.")]
         public AppRevenueAttributionRecordDeletePayload? appRevenueAttributionRecordDelete { get; set; }
         ///<summary>
         ///Cancels an app subscription on a store.
@@ -27006,9 +27226,11 @@ namespace shopify
         ///Deletes a collection.
         ///</summary>
         public CollectionDeletePayload? collectionDelete { get; set; }
+
         ///<summary>
         ///Publishes a collection to a channel.
         ///</summary>
+        [Obsolete("Use `publishablePublish` instead.")]
         public CollectionPublishPayload? collectionPublish { get; set; }
         ///<summary>
         ///Removes a set of products from a given collection. The mutation can take a long time to run. Instead of returning an updated collection the mutation returns a job, which should be [polled](https://shopify.dev/api/admin-graphql/latest/queries/job). For use with manual collections only.
@@ -27018,9 +27240,11 @@ namespace shopify
         ///Asynchronously reorders a set of products within a specified collection. Instead of returning an updated collection, this mutation returns a job, which should be [polled](https://shopify.dev/api/admin-graphql/latest/queries/job). The [`Collection.sortOrder`](https://shopify.dev/api/admin-graphql/latest/objects/Collection#field-collection-sortorder) must be `MANUAL`. Displaced products will have their position altered in a consistent manner, with no gaps.
         ///</summary>
         public CollectionReorderProductsPayload? collectionReorderProducts { get; set; }
+
         ///<summary>
         ///Unpublishes a collection.
         ///</summary>
+        [Obsolete("Use `publishableUnpublish` instead.")]
         public CollectionUnpublishPayload? collectionUnpublish { get; set; }
         ///<summary>
         ///Updates a collection.
@@ -27208,9 +27432,11 @@ namespace shopify
         ///Create a payment method from remote gateway identifiers.
         ///</summary>
         public CustomerPaymentMethodRemoteCreatePayload? customerPaymentMethodRemoteCreate { get; set; }
+
         ///<summary>
         ///Create a payment method from a credit card stored by Stripe.
         ///</summary>
+        [Obsolete("Use `customerPaymentMethodRemoteCreate` instead.")]
         public CustomerPaymentMethodRemoteCreditCardCreatePayload? customerPaymentMethodRemoteCreditCardCreate { get; set; }
         ///<summary>
         ///Revokes a customer's payment method.
@@ -27576,9 +27802,9 @@ namespace shopify
         ///(available as of the `2023-04` API version),
         ///or specify that the original fulfillment order contains line items which have already been fulfilled.
         ///
-        ///If the new location is already assigned to another active fulfillment order, on the same order,
-        ///then the line items are moved to the existing fulfillment order.
-        ///Otherwise, a new fulfillment order is created for the new location, and the line items are moved to the new location.
+        ///If the new location is already assigned to another active fulfillment order, on the same order, then
+        ///a new fulfillment order is created. The existing fulfillment order is closed and line items are recreated
+        ///in a new fulfillment order.
         ///</summary>
         public FulfillmentOrderMovePayload? fulfillmentOrderMove { get; set; }
         ///<summary>
@@ -27676,13 +27902,17 @@ namespace shopify
         ///Apply changes to inventory quantities.
         ///</summary>
         public InventoryAdjustQuantitiesPayload? inventoryAdjustQuantities { get; set; }
+
         ///<summary>
         ///Adjusts the inventory by a certain quantity.
         ///</summary>
+        [Obsolete("Use `inventoryAdjustQuantities` instead.")]
         public InventoryAdjustQuantityPayload? inventoryAdjustQuantity { get; set; }
+
         ///<summary>
         ///Adjusts the inventory at a location for multiple inventory items.
         ///</summary>
+        [Obsolete("Use `inventoryAdjustQuantities` instead.")]
         public InventoryBulkAdjustQuantityAtLocationPayload? inventoryBulkAdjustQuantityAtLocation { get; set; }
         ///<summary>
         ///Modify the activation status of an inventory item at locations. Activating an inventory item at a particular location allows that location to stock that inventory item. Deactivating an inventory item at a location removes the inventory item's quantities and turns off the inventory item from that location.
@@ -27827,15 +28057,19 @@ namespace shopify
         ///Deletes a metafield.
         ///</summary>
         public MetafieldDeletePayload? metafieldDelete { get; set; }
+
         ///<summary>
         ///Creates a `MetafieldStorefrontVisibility` record to make all metafields that belong to the specified resource
         ///and have the established `namespace` and `key` combination visible in the Storefront API.
         ///</summary>
+        [Obsolete("This mutation will be removed in a future version. Use the `metafieldDefinitionCreate` or `metafieldDefinitionUpdate` mutations with `access.storefront` set instead.")]
         public MetafieldStorefrontVisibilityCreatePayload? metafieldStorefrontVisibilityCreate { get; set; }
+
         ///<summary>
         ///Deletes a `MetafieldStorefrontVisibility` record. All metafields that belongs to the specified record will no
         ///longer be visible in the Storefront API.
         ///</summary>
+        [Obsolete("This mutation will be removed in a future version. Use the `metafieldDefinitionUpdate` mutation with `access.storefront` set instead.")]
         public MetafieldStorefrontVisibilityDeletePayload? metafieldStorefrontVisibilityDelete { get; set; }
         ///<summary>
         ///Sets metafield values. Metafield values will be set regardless if they were previously created or not.
@@ -27999,49 +28233,69 @@ namespace shopify
         ///If you modify the currency, then any fixed prices set on the price list will be deleted.
         ///</summary>
         public PriceListUpdatePayload? priceListUpdate { get; set; }
+
         ///<summary>
         ///Activate a price rule.
         ///</summary>
+        [Obsolete("Use `discountCodeActivate` instead.")]
         public PriceRuleActivatePayload? priceRuleActivate { get; set; }
+
         ///<summary>
         ///Create a price rule using the input.
         ///</summary>
+        [Obsolete("Use `discountCodeBasicCreate` instead.")]
         public PriceRuleCreatePayload? priceRuleCreate { get; set; }
+
         ///<summary>
         ///Deactivate a price rule.
         ///</summary>
+        [Obsolete("Use `discountCodeDeactivate` instead.")]
         public PriceRuleDeactivatePayload? priceRuleDeactivate { get; set; }
+
         ///<summary>
         ///Delete a price rule.
         ///</summary>
+        [Obsolete("Use `discountCodeDelete` instead.")]
         public PriceRuleDeletePayload? priceRuleDelete { get; set; }
+
         ///<summary>
         ///Create a discount code for a price rule.
         ///</summary>
+        [Obsolete("Use `discountRedeemCodeBulkAdd` instead.")]
         public PriceRuleDiscountCodeCreatePayload? priceRuleDiscountCodeCreate { get; set; }
+
         ///<summary>
         ///Update a discount code for a price rule.
         ///</summary>
+        [Obsolete("Use `discountCodeBasicUpdate` instead.")]
         public PriceRuleDiscountCodeUpdatePayload? priceRuleDiscountCodeUpdate { get; set; }
+
         ///<summary>
         ///Updates a price rule using its ID and an input.
         ///</summary>
+        [Obsolete("Use `discountCodeBasicUpdate` instead.")]
         public PriceRuleUpdatePayload? priceRuleUpdate { get; set; }
+
         ///<summary>
         ///Deletes a private metafield.
         ///Private metafields are automatically deleted when the app that created them is uninstalled.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafieldDeletePayload? privateMetafieldDelete { get; set; }
+
         ///<summary>
         ///Creates or updates a private metafield. Use private metafields when you don't want the metafield data to be accessible by merchants or other apps.
         ///Private metafields are accessible only by the application that created them and only from the GraphQL Admin API.
         ///
         ///An application can create a maximum of 10 private metafields per shop resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafieldUpsertPayload? privateMetafieldUpsert { get; set; }
+
         ///<summary>
         ///Appends images to a product.
         ///</summary>
+        [Obsolete("Use `productCreateMedia` instead.")]
         public ProductAppendImagesPayload? productAppendImages { get; set; }
         ///<summary>
         ///Changes the status of a product. This allows you to set the availability of the product across all channels.
@@ -28101,9 +28355,11 @@ namespace shopify
         ///Deletes a product asynchronously, including all associated variants and media.
         ///</summary>
         public ProductDeleteAsyncPayload? productDeleteAsync { get; set; }
+
         ///<summary>
         ///Removes product images from the product.
         ///</summary>
+        [Obsolete("Use `productDeleteMedia` instead.")]
         public ProductDeleteImagesPayload? productDeleteImages { get; set; }
         ///<summary>
         ///Deletes media for a product.
@@ -28121,9 +28377,11 @@ namespace shopify
         ///mutation.
         ///</summary>
         public ProductDuplicatePayload? productDuplicate { get; set; }
+
         ///<summary>
         ///Asynchronously duplicate a single product.
         ///</summary>
+        [Obsolete("Use `productDuplicateAsyncV2` instead.")]
         public ProductDuplicateAsyncPayload? productDuplicateAsync { get; set; }
         ///<summary>
         ///Asynchronously duplicate a single product.
@@ -28141,9 +28399,11 @@ namespace shopify
         ///Runs the full product sync for a given shop.
         ///</summary>
         public ProductFullSyncPayload? productFullSync { get; set; }
+
         ///<summary>
         ///Updates an image of a product.
         ///</summary>
+        [Obsolete("Use `productUpdateMedia` instead.")]
         public ProductImageUpdatePayload? productImageUpdate { get; set; }
         ///<summary>
         ///Adds multiple selling plan groups to a product.
@@ -28153,21 +28413,27 @@ namespace shopify
         ///Removes multiple groups from a product.
         ///</summary>
         public ProductLeaveSellingPlanGroupsPayload? productLeaveSellingPlanGroups { get; set; }
+
         ///<summary>
         ///Publishes a product. Products that are sold exclusively on subscription (`requiresSellingPlan: true`) can only be published on online stores.
         ///</summary>
+        [Obsolete("Use `publishablePublish` instead.")]
         public ProductPublishPayload? productPublish { get; set; }
+
         ///<summary>
         ///Asynchronously reorders a set of images for a given product.
         ///</summary>
+        [Obsolete("Use `productReorderMedia` instead.")]
         public ProductReorderImagesPayload? productReorderImages { get; set; }
         ///<summary>
         ///Asynchronously reorders the media attached to a product.
         ///</summary>
         public ProductReorderMediaPayload? productReorderMedia { get; set; }
+
         ///<summary>
         ///Unpublishes a product.
         ///</summary>
+        [Obsolete("Use `publishableUnpublish` instead.")]
         public ProductUnpublishPayload? productUnpublish { get; set; }
         ///<summary>
         ///Updates a product. If you update a product and only include some variants in the update,
@@ -28476,13 +28742,17 @@ namespace shopify
         ///Sending feedback replaces previously sent feedback for the shop. Send a new `shopResourceFeedbackCreate` mutation to push the latest state of a shop or its resources to Shopify.
         ///</summary>
         public ShopResourceFeedbackCreatePayload? shopResourceFeedbackCreate { get; set; }
+
         ///<summary>
         ///Generates the URL and signed paramaters needed to upload an asset to Shopify.
         ///</summary>
+        [Obsolete("Use `stagedUploadsCreate` instead.")]
         public StagedUploadTargetGeneratePayload? stagedUploadTargetGenerate { get; set; }
+
         ///<summary>
         ///Uploads multiple images.
         ///</summary>
+        [Obsolete("Use `stagedUploadsCreate` instead.")]
         public StagedUploadTargetsGeneratePayload? stagedUploadTargetsGenerate { get; set; }
         ///<summary>
         ///Creates staged upload targets for each input. This is the first step in the upload process.
@@ -29215,17 +29485,21 @@ namespace shopify
         ///Whether payment for the order can be captured.
         ///</summary>
         public bool? capturable { get; set; }
+
         ///<summary>
         ///The total order-level discount amount, before returns, in shop currency.
         ///</summary>
+        [Obsolete("Use `cartDiscountAmountSet` instead.")]
         public decimal? cartDiscountAmount { get; set; }
         ///<summary>
         ///The total order-level discount amount, before returns, in shop and presentment currencies.
         ///</summary>
         public MoneyBag? cartDiscountAmountSet { get; set; }
+
         ///<summary>
         ///The channel that created the order.
         ///</summary>
+        [Obsolete("Use `publication` instead.")]
         public Channel? channel { get; set; }
         ///<summary>
         ///Details about the channel that created the order.
@@ -29320,9 +29594,11 @@ namespace shopify
         ///Whether the customer agreed to receive marketing materials.
         ///</summary>
         public bool? customerAcceptsMarketing { get; set; }
+
         ///<summary>
         ///The customer's visits and interactions with the online store before placing the order.
         ///</summary>
+        [Obsolete("Use `customerJourneySummary` instead.")]
         public CustomerJourney? customerJourney { get; set; }
         ///<summary>
         ///The customer's visits and interactions with the online store before placing the order.
@@ -29418,13 +29694,17 @@ namespace shopify
         ///A globally-unique ID.
         ///</summary>
         public string? id { get; set; }
+
         ///<summary>
         ///The URL of the first page of the online store that the customer visited before they submitted the order.
         ///</summary>
+        [Obsolete("Use `customerJourneySummary.lastVisit.landingPageHtml` instead")]
         public string? landingPageDisplayText { get; set; }
+
         ///<summary>
         ///The first page of the online store that the customer visited before they submitted the order.
         ///</summary>
+        [Obsolete("Use `customerJourneySummary.lastVisit.landingPage` instead")]
         public string? landingPageUrl { get; set; }
         ///<summary>
         ///The ID of the corresponding resource in the REST Admin API.
@@ -29434,27 +29714,31 @@ namespace shopify
         ///A list of the order's line items.
         ///</summary>
         public LineItemConnection? lineItems { get; set; }
+
         ///<summary>
         ///A list of the order's line items.
         ///</summary>
+        [Obsolete("Use `lineItems` instead.")]
         public LineItemMutableConnection? lineItemsMutable { get; set; }
         ///<summary>
         ///List of localization extensions for the resource.
         ///</summary>
         public LocalizationExtensionConnection? localizationExtensions { get; set; }
+
         ///<summary>
         ///The fulfillment location that was assigned when the order was created.
         ///Orders can have multiple fulfillment orders. These fulfillment orders can each be assigned to a different location which is responsible for fulfilling a subset of the items in an order. The `Order.location` field will only point to one of these locations.
         ///Use the [`FulfillmentOrder`](https://shopify.dev/api/admin-graphql/latest/objects/fulfillmentorder)
         ///object for up-to-date fulfillment location information.
         ///</summary>
+        [Obsolete("Use `physicalLocation` instead.")]
         public string? location { get; set; }
         ///<summary>
         ///Whether the order can be edited by the merchant. For example, canceled orders can’t be edited.
         ///</summary>
         public bool? merchantEditable { get; set; }
         ///<summary>
-        ///A list of reasons why the order can't be edited. For example, "Canceled orders can’t be edited".
+        ///A list of reasons why the order can't be edited. For example, "Canceled orders can't be edited".
         ///</summary>
         public string[]? merchantEditableErrors { get; set; }
         ///<summary>
@@ -29479,9 +29763,11 @@ namespace shopify
         ///This value isn't unique across multiple stores.
         ///</summary>
         public string? name { get; set; }
+
         ///<summary>
         ///The net payment for the order, based on the total amount received minus the total amount refunded, in shop currency.
         ///</summary>
+        [Obsolete("Use `netPaymentSet` instead.")]
         public decimal? netPayment { get; set; }
         ///<summary>
         ///The net payment for the order, based on the total amount received minus the total amount refunded, in shop and presentment currencies.
@@ -29543,13 +29829,17 @@ namespace shopify
         ///The payment `CurrencyCode` of the customer for the order.
         ///</summary>
         public CurrencyCode? presentmentCurrencyCode { get; set; }
+
         ///<summary>
         ///Returns a private metafield by namespace and key that belongs to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafield? privateMetafield { get; set; }
+
         ///<summary>
         ///List of private metafields that belong to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafieldConnection? privateMetafields { get; set; }
         ///<summary>
         ///The date and time when the order was processed.
@@ -29564,19 +29854,25 @@ namespace shopify
         ///The purchasing entity for the order.
         ///</summary>
         public IPurchasingEntity? purchasingEntity { get; set; }
+
         ///<summary>
         ///The marketing referral code from the link that the customer clicked to visit the store.
         ///Supports the following URL attributes: "ref", "source", or "r".
         ///For example, if the URL is `{shop}.myshopify.com/products/slide?ref=j2tj1tn2`, then this value is `j2tj1tn2`.
         ///</summary>
+        [Obsolete("Use `customerJourneySummary.lastVisit.referralCode` instead")]
         public string? referralCode { get; set; }
+
         ///<summary>
         ///A web domain or short description of the source that sent the customer to your online store. For example, "shopify.com" or "email".
         ///</summary>
+        [Obsolete("Use `customerJourneySummary.lastVisit.referralInfoHtml` instead")]
         public string? referrerDisplayText { get; set; }
+
         ///<summary>
         ///The URL of the webpage where the customer clicked a link that sent them to your online store.
         ///</summary>
+        [Obsolete("Use `customerJourneySummary.lastVisit.referrerUrl` instead")]
         public string? referrerUrl { get; set; }
         ///<summary>
         ///The difference between the suggested and actual refund amount of all refunds that have been applied to the order. A positive value indicates a difference in the merchant's favor, and a negative value indicates a difference in the customer's favor.
@@ -29639,10 +29935,12 @@ namespace shopify
         ///The sum of the quantities for all line items that contribute to the order's subtotal price.
         ///</summary>
         public int? subtotalLineItemsQuantity { get; set; }
+
         ///<summary>
         ///The sum of the prices for all line items after discounts and before returns, in shop currency.
         ///If `taxesIncluded` is `true`, then the subtotal also includes tax.
         ///</summary>
+        [Obsolete("Use `subtotalPriceSet` instead.")]
         public decimal? subtotalPrice { get; set; }
         ///<summary>
         ///The sum of the prices for all line items after discounts and before returns, in shop and presentment currencies.
@@ -29679,20 +29977,24 @@ namespace shopify
         ///A test order can't be converted into a real order and vice versa.
         ///</summary>
         public bool? test { get; set; }
+
         ///<summary>
         ///The authorized amount that's uncaptured or undercaptured, in shop currency.
         ///This amount isn't adjusted for returns.
         ///</summary>
+        [Obsolete("Use `totalCapturableSet` instead.")]
         public decimal? totalCapturable { get; set; }
         ///<summary>
         ///The authorized amount that's uncaptured or undercaptured, in shop and presentment currencies.
         ///This amount isn't adjusted for returns.
         ///</summary>
         public MoneyBag? totalCapturableSet { get; set; }
+
         ///<summary>
         ///The total amount discounted on the order before returns, in shop currency.
         ///This includes both order and line level discounts.
         ///</summary>
+        [Obsolete("Use `totalDiscountsSet` instead.")]
         public decimal? totalDiscounts { get; set; }
         ///<summary>
         ///The total amount discounted on the order before returns, in shop and presentment currencies.
@@ -29704,27 +30006,33 @@ namespace shopify
         ///A positive value indicates a difference in the merchant's favor (payment from customer to merchant) and a negative value indicates a difference in the customer's favor (refund from merchant to customer).
         ///</summary>
         public MoneyBag? totalOutstandingSet { get; set; }
+
         ///<summary>
         ///The total price of the order, before returns, in shop currency.
         ///This includes taxes and discounts.
         ///</summary>
+        [Obsolete("Use `totalPriceSet` instead.")]
         public decimal? totalPrice { get; set; }
         ///<summary>
         ///The total price of the order, before returns, in shop and presentment currencies.
         ///This includes taxes and discounts.
         ///</summary>
         public MoneyBag? totalPriceSet { get; set; }
+
         ///<summary>
         ///The total amount received from the customer before returns, in shop currency.
         ///</summary>
+        [Obsolete("Use `totalReceivedSet` instead.")]
         public decimal? totalReceived { get; set; }
         ///<summary>
         ///The total amount received from the customer before returns, in shop and presentment currencies.
         ///</summary>
         public MoneyBag? totalReceivedSet { get; set; }
+
         ///<summary>
         ///The total amount that was refunded, in shop currency.
         ///</summary>
+        [Obsolete("Use `totalRefundedSet` instead.")]
         public decimal? totalRefunded { get; set; }
         ///<summary>
         ///The total amount that was refunded, in shop and presentment currencies.
@@ -29734,25 +30042,31 @@ namespace shopify
         ///The total amount of shipping that was refunded, in shop and presentment currencies.
         ///</summary>
         public MoneyBag? totalRefundedShippingSet { get; set; }
+
         ///<summary>
         ///The total shipping amount before discounts and returns, in shop currency.
         ///</summary>
+        [Obsolete("Use `totalShippingPriceSet` instead.")]
         public decimal? totalShippingPrice { get; set; }
         ///<summary>
         ///The total shipping amount before discounts and returns, in shop and presentment currencies.
         ///</summary>
         public MoneyBag? totalShippingPriceSet { get; set; }
+
         ///<summary>
         ///The total tax amount before returns, in shop currency.
         ///</summary>
+        [Obsolete("Use `totalTaxSet` instead.")]
         public decimal? totalTax { get; set; }
         ///<summary>
         ///The total tax amount before returns, in shop and presentment currencies.
         ///</summary>
         public MoneyBag? totalTaxSet { get; set; }
+
         ///<summary>
         ///The sum of all tip amounts for the order, in shop currency.
         ///</summary>
+        [Obsolete("Use `totalTipReceivedSet` instead.")]
         public MoneyV2? totalTipReceived { get; set; }
         ///<summary>
         ///The sum of all tip amounts for the order, in shop and presentment currencies.
@@ -30730,17 +31044,21 @@ namespace shopify
         ///The masked account number associated with the payment method.
         ///</summary>
         public string? accountNumber { get; set; }
+
         ///<summary>
         ///The amount of money.
         ///</summary>
+        [Obsolete("Use `amountSet` instead.")]
         public decimal? amount { get; set; }
         ///<summary>
         ///The amount and currency of the transaction in shop and presentment currencies.
         ///</summary>
         public MoneyBag? amountSet { get; set; }
+
         ///<summary>
         ///The amount and currency of the transaction.
         ///</summary>
+        [Obsolete("Use `amountSet` instead.")]
         public MoneyV2? amountV2 { get; set; }
         ///<summary>
         ///Authorization code associated with the transaction.
@@ -30782,10 +31100,12 @@ namespace shopify
         ///Whether the transaction can be manually captured.
         ///</summary>
         public bool? manuallyCapturable { get; set; }
+
         ///<summary>
         ///Specifies the available amount to refund on the gateway.
         ///This value is only available for transactions of type `SuggestedRefund`.
         ///</summary>
+        [Obsolete("Use `maximumRefundableV2` instead.")]
         public decimal? maximumRefundable { get; set; }
         ///<summary>
         ///Specifies the available amount with currency to refund on the gateway.
@@ -30812,18 +31132,22 @@ namespace shopify
         ///The payment ID associated with the transaction.
         ///</summary>
         public string? paymentId { get; set; }
+
         ///<summary>
         ///The payment method used for the transaction. This value is `null` if the payment method is unknown.
         ///</summary>
+        [Obsolete("Use `paymentIcon` instead.")]
         public PaymentMethods? paymentMethod { get; set; }
         ///<summary>
         ///Date and time when the transaction was processed.
         ///</summary>
         public DateTime? processedAt { get; set; }
+
         ///<summary>
         ///The transaction receipt that the payment gateway attaches to the transaction.
         ///The value of this field depends on which payment gateway processed the transaction.
         ///</summary>
+        [Obsolete("Use `receiptJson` instead.")]
         public string? receipt { get; set; }
         ///<summary>
         ///The transaction receipt that the payment gateway attaches to the transaction.
@@ -30850,20 +31174,24 @@ namespace shopify
         ///Whether the transaction is a test transaction.
         ///</summary>
         public bool? test { get; set; }
+
         ///<summary>
         ///Specifies the available amount to capture on the gateway.
         ///Only available when an amount is capturable or manually mark as paid.
         ///</summary>
+        [Obsolete("Use `totalUnsettledSet` instead.")]
         public decimal? totalUnsettled { get; set; }
         ///<summary>
         ///Specifies the available amount with currency to capture on the gateway in shop and presentment currencies.
         ///Only available when an amount is capturable or manually mark as paid.
         ///</summary>
         public MoneyBag? totalUnsettledSet { get; set; }
+
         ///<summary>
         ///Specifies the available amount with currency to capture on the gateway.
         ///Only available when an amount is capturable or manually mark as paid.
         ///</summary>
+        [Obsolete("Use `totalUnsettledSet` instead.")]
         public MoneyV2? totalUnsettledV2 { get; set; }
         ///<summary>
         ///Staff member who was logged into the Shopify POS device when the transaction was processed.
@@ -31395,13 +31723,17 @@ namespace shopify
         ///List of metafields that belong to the resource.
         ///</summary>
         public MetafieldConnection? metafields { get; set; }
+
         ///<summary>
         ///Returns a private metafield by namespace and key that belongs to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafield? privateMetafield { get; set; }
+
         ///<summary>
         ///List of private metafields that belong to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafieldConnection? privateMetafields { get; set; }
         ///<summary>
         ///The Shopify Function implementing the payment customization.
@@ -32669,6 +33001,7 @@ namespace shopify
         ///<summary>
         ///Cannot save the price list with context rule because the limit of context rules per shop was reached.
         ///</summary>
+        [Obsolete("The limit is removed.")]
         CONTEXT_RULE_LIMIT_REACHED,
         ///<summary>
         ///A price list context rule cannot have more than one country.
@@ -32811,9 +33144,11 @@ namespace shopify
         ///The date and time when the price rule ends. For open-ended price rules, use `null`.
         ///</summary>
         public DateTime? endsAt { get; set; }
+
         ///<summary>
         ///Quantity of prerequisite items required for the price rule to be applicable,  compared to quantity of entitled items.
         ///</summary>
+        [Obsolete("Use `prerequisiteToEntitlementQuantityRatio` instead.")]
         public PriceRuleEntitlementToPrerequisiteQuantityRatio? entitlementToPrerequisiteQuantityRatio { get; set; }
         ///<summary>
         ///The paginated list of events associated with the price rule.
@@ -32895,9 +33230,11 @@ namespace shopify
         ///The total sales from orders where the price rule was used.
         ///</summary>
         public MoneyV2? totalSales { get; set; }
+
         ///<summary>
         ///A list of the price rule's features.
         ///</summary>
+        [Obsolete("Use `features` instead.")]
         public PriceRuleTrait[]? traits { get; set; }
         ///<summary>
         ///The number of times that the price rule has been used. This value is updated asynchronously and can be different than the actual usage count.
@@ -32911,9 +33248,11 @@ namespace shopify
         ///A time period during which a price rule is applicable.
         ///</summary>
         public PriceRuleValidityPeriod? validityPeriod { get; set; }
+
         ///<summary>
         ///The value of the price rule.
         ///</summary>
+        [Obsolete("Use `valueV2` instead.")]
         public IPriceRuleValue? value { get; set; }
         ///<summary>
         ///The value of the price rule.
@@ -32934,9 +33273,11 @@ namespace shopify
         ///The list of errors that occurred from executing the mutation.
         ///</summary>
         public PriceRuleUserError[]? priceRuleUserErrors { get; set; }
+
         ///<summary>
         ///The list of errors that occurred from executing the mutation.
         ///</summary>
+        [Obsolete("Use `priceRuleUserErrors` instead.")]
         public UserError[]? userErrors { get; set; }
     }
 
@@ -32991,9 +33332,11 @@ namespace shopify
         ///The list of errors that occurred from executing the mutation.
         ///</summary>
         public PriceRuleUserError[]? priceRuleUserErrors { get; set; }
+
         ///<summary>
         ///The list of errors that occurred from executing the mutation.
         ///</summary>
+        [Obsolete("Use `priceRuleUserErrors` instead.")]
         public UserError[]? userErrors { get; set; }
     }
 
@@ -33029,9 +33372,11 @@ namespace shopify
         ///The list of errors that occurred from executing the mutation.
         ///</summary>
         public PriceRuleUserError[]? priceRuleUserErrors { get; set; }
+
         ///<summary>
         ///The list of errors that occurred from executing the mutation.
         ///</summary>
+        [Obsolete("Use `priceRuleUserErrors` instead.")]
         public UserError[]? userErrors { get; set; }
     }
 
@@ -33052,9 +33397,11 @@ namespace shopify
         ///The shop of the deleted price rule.
         ///</summary>
         public Shop? shop { get; set; }
+
         ///<summary>
         ///The list of errors that occurred from executing the mutation.
         ///</summary>
+        [Obsolete("Use `priceRuleUserErrors` instead.")]
         public UserError[]? userErrors { get; set; }
     }
 
@@ -33117,9 +33464,11 @@ namespace shopify
         ///The list of errors that occurred from executing the mutation.
         ///</summary>
         public PriceRuleUserError[]? priceRuleUserErrors { get; set; }
+
         ///<summary>
         ///The list of errors that occurred from executing the mutation.
         ///</summary>
+        [Obsolete("Use `priceRuleUserErrors` instead.")]
         public UserError[]? userErrors { get; set; }
     }
 
@@ -33155,9 +33504,11 @@ namespace shopify
         ///The list of errors that occurred from executing the mutation.
         ///</summary>
         public PriceRuleUserError[]? priceRuleUserErrors { get; set; }
+
         ///<summary>
         ///The list of errors that occurred from executing the mutation.
         ///</summary>
+        [Obsolete("Use `priceRuleUserErrors` instead.")]
         public UserError[]? userErrors { get; set; }
     }
 
@@ -33825,9 +34176,11 @@ namespace shopify
         ///The list of errors that occurred from executing the mutation.
         ///</summary>
         public PriceRuleUserError[]? priceRuleUserErrors { get; set; }
+
         ///<summary>
         ///The list of errors that occurred from executing the mutation.
         ///</summary>
+        [Obsolete("Use `priceRuleUserErrors` instead.")]
         public UserError[]? userErrors { get; set; }
     }
 
@@ -34031,9 +34384,11 @@ namespace shopify
         ///The number of publications a resource is published to without feedback errors.
         ///</summary>
         public int? availablePublicationCount { get; set; }
+
         ///<summary>
         ///The description of the product, complete with HTML formatting.
         ///</summary>
+        [Obsolete("Use `descriptionHtml` instead.")]
         public string? bodyHtml { get; set; }
         ///<summary>
         ///A list of the collections that include the product.
@@ -34047,9 +34402,11 @@ namespace shopify
         ///The date and time ([ISO 8601 format](http://en.wikipedia.org/wiki/ISO_8601)) when the product was created.
         ///</summary>
         public DateTime? createdAt { get; set; }
+
         ///<summary>
         ///The custom product type specified by the merchant.
         ///</summary>
+        [Obsolete("Deprecated in API version 2022-10. Use `productType` instead.")]
         public string? customProductType { get; set; }
         ///<summary>
         ///A default cursor that returns the single next record, sorted ascending by ID.
@@ -34063,10 +34420,12 @@ namespace shopify
         ///The description of the product, complete with HTML formatting.
         ///</summary>
         public string? descriptionHtml { get; set; }
+
         ///<summary>
         ///Stripped description of the product, single line with HTML tags removed.
         ///Truncated to 60 characters.
         ///</summary>
+        [Obsolete("Use `description` instead.")]
         public string? descriptionPlainSummary { get; set; }
         ///<summary>
         ///The featured image for the product.
@@ -34149,29 +34508,37 @@ namespace shopify
         ///A list of product options. The limit is specified by Shop.resourceLimits.maxProductOptions.
         ///</summary>
         public ProductOption[]? options { get; set; }
+
         ///<summary>
         ///The price range of the product.
         ///</summary>
+        [Obsolete("Deprecated in API version 2020-10. Use `priceRangeV2` instead.")]
         public ProductPriceRange? priceRange { get; set; }
         ///<summary>
         ///The price range of the product with prices formatted as decimals.
         ///</summary>
         public ProductPriceRangeV2? priceRangeV2 { get; set; }
+
         ///<summary>
         ///Returns a private metafield by namespace and key that belongs to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafield? privateMetafield { get; set; }
+
         ///<summary>
         ///List of private metafields that belong to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafieldConnection? privateMetafields { get; set; }
         ///<summary>
         ///The product category specified by the merchant.
         ///</summary>
         public ProductCategory? productCategory { get; set; }
+
         ///<summary>
         ///A list of the channels where the product is published.
         ///</summary>
+        [Obsolete("Use `resourcePublications` instead.")]
         public ProductPublicationConnection? productPublications { get; set; }
         ///<summary>
         ///The product type specified by the merchant.
@@ -34181,9 +34548,11 @@ namespace shopify
         ///The number of publications a resource is published on.
         ///</summary>
         public int? publicationCount { get; set; }
+
         ///<summary>
         ///A list of the channels where the product is published.
         ///</summary>
+        [Obsolete("Use `resourcePublications` instead.")]
         public ProductPublicationConnection? publications { get; set; }
         ///<summary>
         ///The date and time ([ISO 8601 format](http://en.wikipedia.org/wiki/ISO_8601)) when the product was published to the Online Store.
@@ -34193,13 +34562,17 @@ namespace shopify
         ///Whether or not the product is published for a customer in the given context.
         ///</summary>
         public bool? publishedInContext { get; set; }
+
         ///<summary>
         ///Check to see whether the resource is published to a given channel.
         ///</summary>
+        [Obsolete("Use `publishedOnPublication` instead.")]
         public bool? publishedOnChannel { get; set; }
+
         ///<summary>
         ///Check to see whether the resource is published to the calling app's channel.
         ///</summary>
+        [Obsolete("Use `publishedOnCurrentPublication` instead.")]
         public bool? publishedOnCurrentChannel { get; set; }
         ///<summary>
         ///Check to see whether the resource is published to the calling app's publication.
@@ -34237,19 +34610,23 @@ namespace shopify
         ///SEO information of the product.
         ///</summary>
         public SEO? seo { get; set; }
+
         ///<summary>
         ///The standardized product type in the Shopify product taxonomy.
         ///</summary>
+        [Obsolete("Deprecated in API version 2022-10. Use `productCategory` instead.")]
         public StandardizedProductType? standardizedProductType { get; set; }
         ///<summary>
         ///The product status. This controls visibility across all channels.
         ///</summary>
         public ProductStatus? status { get; set; }
+
         ///<summary>
         ///The Storefront GraphQL API ID of the `Product`.
         ///
         ///As of the `2022-04` version release, the Storefront GraphQL API will no longer return Base64 encoded IDs to match the behavior of the Admin GraphQL API. Therefore, you can safely use the `id` field's value instead.
         ///</summary>
+        [Obsolete("Use `id` instead.")]
         public string? storefrontId { get; set; }
         ///<summary>
         ///A comma separated list of tags associated with the product. Updating `tags` overwrites
@@ -34282,9 +34659,11 @@ namespace shopify
         ///The translations associated with the resource.
         ///</summary>
         public Translation[]? translations { get; set; }
+
         ///<summary>
         ///The list of channels that the resource is not published to.
         ///</summary>
+        [Obsolete("Use `unpublishedPublications` instead.")]
         public ChannelConnection? unpublishedChannels { get; set; }
         ///<summary>
         ///The list of publications that the resource is not published to.
@@ -34482,9 +34861,11 @@ namespace shopify
         ///The product associated with the media.
         ///</summary>
         public Product? product { get; set; }
+
         ///<summary>
         ///The list of errors that occurred from executing the mutation.
         ///</summary>
+        [Obsolete("Use `mediaUserErrors` instead.")]
         public UserError[]? userErrors { get; set; }
     }
 
@@ -34566,9 +34947,11 @@ namespace shopify
         ///The product associated with the deleted media.
         ///</summary>
         public Product? product { get; set; }
+
         ///<summary>
         ///The list of errors that occurred from executing the mutation.
         ///</summary>
+        [Obsolete("Use `mediaUserErrors` instead.")]
         public UserError[]? userErrors { get; set; }
     }
 
@@ -35187,9 +35570,11 @@ namespace shopify
         ///The product that has been published.
         ///</summary>
         public Product? product { get; set; }
+
         ///<summary>
         ///The channels where the product is published.
         ///</summary>
+        [Obsolete("Use Product.publications instead.")]
         public ProductPublication[]? productPublications { get; set; }
         ///<summary>
         ///The user's shop.
@@ -35229,9 +35614,11 @@ namespace shopify
         ///The list of errors that occurred from executing the mutation.
         ///</summary>
         public MediaUserError[]? mediaUserErrors { get; set; }
+
         ///<summary>
         ///The list of errors that occurred from executing the mutation.
         ///</summary>
+        [Obsolete("Use `mediaUserErrors` instead.")]
         public UserError[]? userErrors { get; set; }
     }
 
@@ -35439,9 +35826,11 @@ namespace shopify
         ///The product on which media was updated.
         ///</summary>
         public Product? product { get; set; }
+
         ///<summary>
         ///The list of errors that occurred from executing the mutation.
         ///</summary>
+        [Obsolete("Use `mediaUserErrors` instead.")]
         public UserError[]? userErrors { get; set; }
     }
 
@@ -35497,6 +35886,7 @@ namespace shopify
         ///Display name of the variant, based on product's title + variant's title.
         ///</summary>
         public string? displayName { get; set; }
+
         ///<summary>
         ///The fulfillment service that stocks a product variant.
         ///
@@ -35507,14 +35897,17 @@ namespace shopify
         ///
         ///If the conditions aren't met, then the fulfillment service has the `manual` handle.
         ///</summary>
+        [Obsolete("\nThe [relationship between a product variant and a fulfillment service was changed in the `2022-07` API version](/changelog/fulfillment-service-sku-sharing). A [ProductVariant](/api/admin-graphql/latest/objects/ProductVariant) can be stocked by multiple fulfillment services. As a result, we recommend that you use the [inventoryItem field](/api/admin-graphql/latest/objects/ProductVariant#field-productvariant-inventoryitem) if you need to determine where a product variant is stocked.\n\nIf you need to determine whether a product is a gift card, then you should continue to use this field until an alternative is available.\n\nLearn more about [managing inventory quantities and states](/apps/fulfillment/inventory-management-apps/quantities-states).")]
         public FulfillmentService? fulfillmentService { get; set; }
         ///<summary>
         ///Whether changes to the fulfillment service for the product variant are allowed.
         ///</summary>
         public EditableProperty? fulfillmentServiceEditable { get; set; }
+
         ///<summary>
         ///The Harmonized System Code (or HS Tariff Code) for the variant.
         ///</summary>
+        [Obsolete("Use `InventoryItem.harmonizedSystemCode` instead.")]
         public string? harmonizedSystemCode { get; set; }
         ///<summary>
         ///A globally-unique ID.
@@ -35528,9 +35921,11 @@ namespace shopify
         ///The inventory item, which is used to query for inventory information.
         ///</summary>
         public InventoryItem? inventoryItem { get; set; }
+
         ///<summary>
         ///The fulfillment service that tracks the number of items in stock for the product variant.
         ///</summary>
+        [Obsolete("Use tracked attribute on `inventoryItem` instead.")]
         public ProductVariantInventoryManagement? inventoryManagement { get; set; }
         ///<summary>
         ///Whether customers are allowed to place an order for the product variant when it's out of stock.
@@ -35564,21 +35959,27 @@ namespace shopify
         ///The order of the product variant in the list of product variants. The first position in the list is 1.
         ///</summary>
         public int? position { get; set; }
+
         ///<summary>
         ///List of prices and compare-at prices in the presentment currencies for this shop.
         ///</summary>
+        [Obsolete("Use `contextualPricing` instead.")]
         public ProductVariantPricePairConnection? presentmentPrices { get; set; }
         ///<summary>
         ///The price of the product variant in the default shop currency.
         ///</summary>
         public decimal? price { get; set; }
+
         ///<summary>
         ///Returns a private metafield by namespace and key that belongs to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafield? privateMetafield { get; set; }
+
         ///<summary>
         ///List of private metafields that belong to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafieldConnection? privateMetafields { get; set; }
         ///<summary>
         ///The product that this variant belongs to.
@@ -35594,9 +35995,11 @@ namespace shopify
         ///from channels that don't support bundles.
         ///</summary>
         public bool? requiresComponents { get; set; }
+
         ///<summary>
         ///Whether a customer needs to provide a shipping address when placing an order for the product variant.
         ///</summary>
+        [Obsolete("Use `InventoryItem.requiresShipping` instead.")]
         public bool? requiresShipping { get; set; }
         ///<summary>
         ///List of product options applied to the variant.
@@ -35621,11 +36024,13 @@ namespace shopify
         ///Required in order to connect to a fulfillment service.
         ///</summary>
         public string? sku { get; set; }
+
         ///<summary>
         ///The Storefront GraphQL API ID of the `ProductVariant`.
         ///
         ///As of the `2022-04` version release, the Storefront GraphQL API will no longer return Base64 encoded IDs to match the behavior of the Admin GraphQL API. Therefore, you can safely use the `id` field's value instead.
         ///</summary>
+        [Obsolete("Use `id` instead.")]
         public string? storefrontId { get; set; }
         ///<summary>
         ///The tax code for the product variant.
@@ -36607,6 +37012,7 @@ namespace shopify
         ///<summary>
         ///The app associated with the publication.
         ///</summary>
+        [Obsolete("Use [AppCatalog.apps](https://shopify.dev/api/admin-graphql/unstable/objects/AppCatalog#connection-appcatalog-apps) instead.")]
         public App? app { get; set; }
         ///<summary>
         ///Whether new products are automatically published to this publication.
@@ -36632,9 +37038,11 @@ namespace shopify
         ///A globally-unique ID.
         ///</summary>
         public string? id { get; set; }
+
         ///<summary>
         ///Name of the publication.
         ///</summary>
+        [Obsolete("Use [Catalog.title](https://shopify.dev/api/admin-graphql/unstable/interfaces/Catalog#field-catalog-title) instead.")]
         public string? name { get; set; }
         ///<summary>
         ///A background operation associated with this publication.
@@ -36918,13 +37326,17 @@ namespace shopify
         ///The number of publications a resource is published on.
         ///</summary>
         public int? publicationCount { get; }
+
         ///<summary>
         ///Check to see whether the resource is published to a given channel.
         ///</summary>
+        [Obsolete("Use `publishedOnPublication` instead.")]
         public bool? publishedOnChannel { get; }
+
         ///<summary>
         ///Check to see whether the resource is published to the calling app's channel.
         ///</summary>
+        [Obsolete("Use `publishedOnCurrentPublication` instead.")]
         public bool? publishedOnCurrentChannel { get; }
         ///<summary>
         ///Check to see whether the resource is published to the calling app's publication.
@@ -36942,9 +37354,11 @@ namespace shopify
         ///The list of resources that are either published or staged to be published to a publication.
         ///</summary>
         public ResourcePublicationV2Connection? resourcePublicationsV2 { get; }
+
         ///<summary>
         ///The list of channels that the resource is not published to.
         ///</summary>
+        [Obsolete("Use `unpublishedPublications` instead.")]
         public ChannelConnection? unpublishedChannels { get; }
         ///<summary>
         ///The list of publications that the resource is not published to.
@@ -37289,12 +37703,14 @@ namespace shopify
         ///</summary>
         public AppInstallation? appInstallation { get; set; }
         ///<summary>
-        ///List of app installations. Requires the `read_apps` access scope.
+        ///List of app installations. Requires contacting Shopify for access to the `read_apps` access scope.
         ///</summary>
         public AppInstallationConnection? appInstallations { get; set; }
+
         ///<summary>
         ///Returns an automatic discount resource by ID.
         ///</summary>
+        [Obsolete("Use `automaticDiscountNode` instead.")]
         public IDiscountAutomatic? automaticDiscount { get; set; }
         ///<summary>
         ///Returns an automatic discount resource by ID.
@@ -37308,9 +37724,11 @@ namespace shopify
         ///List of the shop's automatic discount saved searches.
         ///</summary>
         public SavedSearchConnection? automaticDiscountSavedSearches { get; set; }
+
         ///<summary>
         ///List of automatic discounts.
         ///</summary>
+        [Obsolete("Use `automaticDiscountNodes` instead.")]
         public DiscountAutomaticConnection? automaticDiscounts { get; set; }
         ///<summary>
         ///Returns a list of activated carrier services and associated shop locations that support them.
@@ -37340,13 +37758,17 @@ namespace shopify
         ///The catalogs belonging to the shop.
         ///</summary>
         public CatalogConnection? catalogs { get; set; }
+
         ///<summary>
         ///Lookup a channel by ID.
         ///</summary>
+        [Obsolete("Use `publication` instead.")]
         public Channel? channel { get; set; }
+
         ///<summary>
         ///List of the active sales channels.
         ///</summary>
+        [Obsolete("Use `publications` instead.")]
         public ChannelConnection? channels { get; set; }
         ///<summary>
         ///A checkout profile on a shop.
@@ -37581,7 +38003,9 @@ namespace shopify
         ///</summary>
         public ulong? giftCardsCount { get; set; }
         ///<summary>
-        ///Returns an `InventoryItem` object by ID.
+        ///Returns an
+        ///[InventoryItem](https://shopify.dev/docs/api/admin-graphql/latest/objects/InventoryItem)
+        ///object by ID.
         ///</summary>
         public InventoryItem? inventoryItem { get; set; }
         ///<summary>
@@ -37589,7 +38013,9 @@ namespace shopify
         ///</summary>
         public InventoryItemConnection? inventoryItems { get; set; }
         ///<summary>
-        ///Returns an `InventoryLevel` object by ID.
+        ///Returns an
+        ///[InventoryLevel](https://shopify.dev/docs/api/admin-graphql/latest/objects/InventoryLevel)
+        ///object by ID.
         ///</summary>
         public InventoryLevel? inventoryLevel { get; set; }
         ///<summary>
@@ -37608,9 +38034,11 @@ namespace shopify
         ///Returns a list of active inventory locations.
         ///</summary>
         public LocationConnection? locations { get; set; }
+
         ///<summary>
         ///Returns a list of all origin locations available for a delivery profile.
         ///</summary>
+        [Obsolete("Use `locationsAvailableForDeliveryProfilesConnection` instead.")]
         public Location[]? locationsAvailableForDeliveryProfiles { get; set; }
         ///<summary>
         ///Returns a list of all origin locations available for a delivery profile.
@@ -37679,14 +38107,18 @@ namespace shopify
         ///List of metafield definitions.
         ///</summary>
         public MetafieldDefinitionConnection? metafieldDefinitions { get; set; }
+
         ///<summary>
         ///List of the `MetafieldStorefrontVisibility` records.
         ///</summary>
+        [Obsolete("This query will be removed in a future version. Use the `access.storefront` field for nodes inside the `metafieldDefinitions` query instead.")]
         public MetafieldStorefrontVisibilityConnection? metafieldStorefrontVisibilities { get; set; }
+
         ///<summary>
         ///Returns a `MetafieldStorefrontVisibility` record by ID. A `MetafieldStorefrontVisibility` record lists the
         ///metafields to make visible in the Storefront API.
         ///</summary>
+        [Obsolete("This query will be removed in a future version. Use the `access.storefront` field inside the `metafieldDefinition` query instead.")]
         public MetafieldStorefrontVisibility? metafieldStorefrontVisibility { get; set; }
         ///<summary>
         ///Retrieves a metaobject by ID.
@@ -37763,30 +38195,38 @@ namespace shopify
         ///All price lists for a shop.
         ///</summary>
         public PriceListConnection? priceLists { get; set; }
+
         ///<summary>
         ///Returns a code price rule resource by ID.
         ///</summary>
+        [Obsolete("Use `codeDiscountNode` instead.")]
         public PriceRule? priceRule { get; set; }
         ///<summary>
         ///List of the shop's price rule saved searches.
         ///</summary>
         public SavedSearchConnection? priceRuleSavedSearches { get; set; }
+
         ///<summary>
         ///Returns a list of price rule resources that have at least one associated discount code.
         ///</summary>
+        [Obsolete("Use `codeDiscountNodes` instead.")]
         public PriceRuleConnection? priceRules { get; set; }
         ///<summary>
         ///The primary market of the shop.
         ///</summary>
         public Market? primaryMarket { get; set; }
+
         ///<summary>
         ///Returns a private metafield by ID.
         ///Private metafields are accessible only by the application that created them.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafield? privateMetafield { get; set; }
+
         ///<summary>
         ///Returns a list of private metafields associated to a resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafieldConnection? privateMetafields { get; set; }
         ///<summary>
         ///Returns a Product resource by ID.
@@ -38074,9 +38514,11 @@ namespace shopify
         ///The staff member who created the refund.
         ///</summary>
         public StaffMember? staffMember { get; set; }
+
         ///<summary>
         ///The total amount across all transactions for the refund.
         ///</summary>
+        [Obsolete("Use `totalRefundedSet` instead.")]
         public MoneyV2? totalRefunded { get; set; }
         ///<summary>
         ///The total amount across all transactions for the refund, in shop and presentment currencies.
@@ -38223,9 +38665,11 @@ namespace shopify
         ///The inventory restock location.
         ///</summary>
         public Location? location { get; set; }
+
         ///<summary>
         ///The price of a refunded line item.
         ///</summary>
+        [Obsolete("Use `priceSet` instead.")]
         public decimal? price { get; set; }
         ///<summary>
         ///The price of a refunded line item in shop and presentment currencies.
@@ -38243,17 +38687,21 @@ namespace shopify
         ///Whether the refunded line item was restocked. Not applicable in the context of a SuggestedRefund.
         ///</summary>
         public bool? restocked { get; set; }
+
         ///<summary>
         ///The subtotal price of a refunded line item.
         ///</summary>
+        [Obsolete("Use `subtotalSet` instead.")]
         public decimal? subtotal { get; set; }
         ///<summary>
         ///The subtotal price of a refunded line item in shop and presentment currencies.
         ///</summary>
         public MoneyBag? subtotalSet { get; set; }
+
         ///<summary>
         ///The total tax charged on a refunded line item.
         ///</summary>
+        [Obsolete("Use `totalTaxSet` instead.")]
         public decimal? totalTax { get; set; }
         ///<summary>
         ///The total tax charged on a refunded line item in shop and presentment currencies.
@@ -38415,6 +38863,7 @@ namespace shopify
         ///Indicates a critical alert. For example, a blocked app.
         ///</summary>
         CRITICAL,
+        [Obsolete("`ERROR` severity is being deprecated in favour of `WARNING` or `CRITICAL` instead.")]
         ERROR,
     }
 
@@ -38426,6 +38875,7 @@ namespace shopify
         ///<summary>
         ///Feedback from an app about the steps a merchant needs to take to set up the app on their store.
         ///</summary>
+        [Obsolete("Use `details` instead.")]
         public AppFeedback[]? appFeedback { get; set; }
         ///<summary>
         ///List of AppFeedback detailing issues regarding a resource.
@@ -38535,6 +38985,7 @@ namespace shopify
         ///<summary>
         ///The channel the resource publication is published to.
         ///</summary>
+        [Obsolete("Use `publication` instead.")]
         public Channel? channel { get; set; }
         ///<summary>
         ///Whether the resource publication is published. Also returns true if the resource publication is scheduled to be published.
@@ -38693,7 +39144,7 @@ namespace shopify
         ///</summary>
         public SuggestedReturnRefund? suggestedRefund { get; set; }
         ///<summary>
-        ///The sum of all line item quantities for the return.
+        ///The sum of all line item quantities for the return. Includes the total quantity of both return line items and exchange line items.
         ///</summary>
         public int? totalQuantity { get; set; }
     }
@@ -40176,9 +40627,11 @@ namespace shopify
         ///The method by which the discount's value is applied to its entitled items.
         ///</summary>
         public DiscountApplicationAllocationMethod? allocationMethod { get; set; }
+
         ///<summary>
         ///The description of the application as defined by the Script.
         ///</summary>
+        [Obsolete("Use `title` instead.")]
         public string? description { get; set; }
         ///<summary>
         ///An ordered index that can be used to identify the discount application and indicate the precedence
@@ -40409,9 +40862,11 @@ namespace shopify
         ///Information to aid in pagination.
         ///</summary>
         public PageInfo? pageInfo { get; set; }
+
         ///<summary>
         ///Information to aid in pagination.
         ///</summary>
+        [Obsolete("The provided information is not accurate.")]
         public int? resultsAfterCount { get; set; }
     }
 
@@ -41290,7 +41745,8 @@ namespace shopify
     }
 
     ///<summary>
-    ///The fixed selling plan billing policy.
+    ///The fixed selling plan billing policy defines how much of the price of the product will be billed to customer
+    ///at checkout. If there is an outstanding balance, it determines when it will be paid.
     ///</summary>
     public class SellingPlanFixedBillingPolicy : ISellingPlanBillingPolicy
     {
@@ -42321,9 +42777,11 @@ namespace shopify
         ///The discounts that have been allocated to the shipping line.
         ///</summary>
         public DiscountAllocation[]? discountAllocations { get; set; }
+
         ///<summary>
         ///The pre-tax shipping price with discounts applied.
         ///</summary>
+        [Obsolete("Use `discountedPriceSet` instead.")]
         public MoneyV2? discountedPrice { get; set; }
         ///<summary>
         ///The pre-tax shipping price with discounts applied.
@@ -42333,9 +42791,11 @@ namespace shopify
         ///A globally-unique ID.
         ///</summary>
         public string? id { get; set; }
+
         ///<summary>
         ///The pre-tax shipping price without any discounts applied.
         ///</summary>
+        [Obsolete("Use `originalPriceSet` instead.")]
         public MoneyV2? originalPrice { get; set; }
         ///<summary>
         ///The pre-tax shipping price without any discounts applied.
@@ -42345,9 +42805,11 @@ namespace shopify
         ///The phone number at the shipping address.
         ///</summary>
         public string? phone { get; set; }
+
         ///<summary>
         ///Returns the price of the shipping line.
         ///</summary>
+        [Obsolete("Use `originalPriceSet` instead.")]
         public decimal? price { get; set; }
         ///<summary>
         ///The fulfillment service requested for the shipping method.
@@ -42556,22 +43018,27 @@ namespace shopify
         ///<summary>
         ///The monetary value of the shipping fees to be refunded.
         ///</summary>
+        [Obsolete("Use `amountSet` instead.")]
         public decimal? amount { get; set; }
         ///<summary>
         ///The monetary value of the shipping fees to be refunded in shop and presentment currencies.
         ///</summary>
         public MoneyBag? amountSet { get; set; }
+
         ///<summary>
         ///The maximum amount of shipping fees currently refundable.
         ///</summary>
+        [Obsolete("Use `maximumRefundableSet` instead.")]
         public decimal? maximumRefundable { get; set; }
         ///<summary>
         ///The maximum amount of shipping fees currently refundable in shop and presentment currencies.
         ///</summary>
         public MoneyBag? maximumRefundableSet { get; set; }
+
         ///<summary>
         ///The monetary value of the tax allocated to shipping fees to be refunded.
         ///</summary>
+        [Obsolete("Use `taxSet` instead.")]
         public decimal? tax { get; set; }
         ///<summary>
         ///The monetary value of the tax allocated to shipping fees to be refunded in shop and presentment currencies.
@@ -42592,9 +43059,11 @@ namespace shopify
         ///A list of the shop's product categories. Limit: 1000 product categories.
         ///</summary>
         public ProductCategory[]? allProductCategories { get; set; }
+
         ///<summary>
         ///The token required to query the shop's reports or dashboards.
         ///</summary>
+        [Obsolete("Not supported anymore.")]
         public string? analyticsToken { get; set; }
         ///<summary>
         ///The paginated list of fulfillment orders assigned to the shop locations owned by the app.
@@ -42626,33 +43095,43 @@ namespace shopify
         ///The shop's billing address information.
         ///</summary>
         public ShopAddress? billingAddress { get; set; }
+
         ///<summary>
         ///Exposes the number of channels.
         ///</summary>
+        [Obsolete("Use `publicationCount` instead.")]
         public int? channelCount { get; set; }
         ///<summary>
         ///List of all channel definitions associated with a shop.
         ///</summary>
         public AvailableChannelDefinitionsByChannel[]? channelDefinitionsForInstalledChannels { get; set; }
+
         ///<summary>
         ///List of the shop's active sales channels.
         ///</summary>
+        [Obsolete("Use `QueryRoot.channels` instead.")]
         public ChannelConnection? channels { get; set; }
         ///<summary>
         ///Specifies whether the shop supports checkouts via Checkout API.
         ///</summary>
         public bool? checkoutApiSupported { get; set; }
+
         ///<summary>
         ///Return a collection by its handle.
         ///</summary>
+        [Obsolete("Use `QueryRoot.collectionByHandle` instead.")]
         public Collection? collectionByHandle { get; set; }
+
         ///<summary>
         ///List of the shop's collection saved searches.
         ///</summary>
+        [Obsolete("Use `QueryRoot.collectionSavedSearches` instead.")]
         public SavedSearchConnection? collectionSavedSearches { get; set; }
+
         ///<summary>
         ///List of the shop's collections.
         ///</summary>
+        [Obsolete("Use `QueryRoot.collections` instead.")]
         public CollectionConnection? collections { get; set; }
         ///<summary>
         ///The public-facing contact email address for the shop.
@@ -42679,37 +43158,47 @@ namespace shopify
         ///Whether customer accounts are required, optional, or disabled for the shop.
         ///</summary>
         public ShopCustomerAccountsSetting? customerAccounts { get; set; }
+
         ///<summary>
         ///List of the shop's customer saved searches.
         ///</summary>
+        [Obsolete("Use `QueryRoot.customerSavedSearches` instead.")]
         public SavedSearchConnection? customerSavedSearches { get; set; }
         ///<summary>
         ///A list of tags that have been added to customer accounts.
         ///</summary>
         public StringConnection? customerTags { get; set; }
+
         ///<summary>
         ///Customer accounts associated to the shop.
         ///</summary>
+        [Obsolete("Use `QueryRoot.customers` instead.")]
         public CustomerConnection? customers { get; set; }
         ///<summary>
         ///The shop's meta description used in search engine results.
         ///</summary>
         public string? description { get; set; }
+
         ///<summary>
         ///The domains configured for the shop.
         ///</summary>
+        [Obsolete("Use `domainsPaginated` instead.")]
         public Domain[]? domains { get; set; }
+
         ///<summary>
         ///List of the shop's draft order saved searches.
         ///</summary>
+        [Obsolete("Use `QueryRoot.draftOrderSavedSearches` instead.")]
         public SavedSearchConnection? draftOrderSavedSearches { get; set; }
         ///<summary>
         ///A list of tags that have been added to draft orders.
         ///</summary>
         public StringConnection? draftOrderTags { get; set; }
+
         ///<summary>
         ///List of saved draft orders on the shop.
         ///</summary>
+        [Obsolete("Use `QueryRoot.draftOrders` instead.")]
         public DraftOrderConnection? draftOrders { get; set; }
         ///<summary>
         ///The shop owner's email address.
@@ -42724,9 +43213,11 @@ namespace shopify
         ///The set of features enabled for the shop.
         ///</summary>
         public ShopFeatures? features { get; set; }
+
         ///<summary>
         ///The paginated list of merchant-managed and third-party fulfillment orders.
         ///</summary>
+        [Obsolete("Use `QueryRoot.fulfillmentOrders` instead.")]
         public FulfillmentOrderConnection? fulfillmentOrders { get; set; }
         ///<summary>
         ///List of the shop's installed fulfillment services.
@@ -42740,22 +43231,28 @@ namespace shopify
         ///A globally-unique ID.
         ///</summary>
         public string? id { get; set; }
+
         ///<summary>
         ///List of the shop's inventory items.
         ///</summary>
+        [Obsolete("Use `QueryRoot.inventoryItems` instead.")]
         public InventoryItemConnection? inventoryItems { get; set; }
         ///<summary>
         ///The number of pendings orders on the shop.
         ///Limited to a maximum of 10000.
         ///</summary>
         public LimitedPendingOrderCount? limitedPendingOrderCount { get; set; }
+
         ///<summary>
         ///List of active locations of the shop.
         ///</summary>
+        [Obsolete("Use `QueryRoot.locations` instead.")]
         public LocationConnection? locations { get; set; }
+
         ///<summary>
         ///List of a shop's marketing events.
         ///</summary>
+        [Obsolete("Use `QueryRoot.marketingEvents` instead.")]
         public MarketingEventConnection? marketingEvents { get; set; }
         ///<summary>
         ///The approval signals for a shop to support onboarding to channel apps.
@@ -42789,61 +43286,79 @@ namespace shopify
         ///The suffix that appears after order numbers.
         ///</summary>
         public string? orderNumberFormatSuffix { get; set; }
+
         ///<summary>
         ///List of the shop's order saved searches.
         ///</summary>
+        [Obsolete("Use `QueryRoot.orderSavedSearches` instead.")]
         public SavedSearchConnection? orderSavedSearches { get; set; }
         ///<summary>
         ///A list of tags that have been added to orders.
         ///</summary>
         public StringConnection? orderTags { get; set; }
+
         ///<summary>
         ///A list of the shop's orders.
         ///</summary>
+        [Obsolete("Use `QueryRoot.orders` instead.")]
         public OrderConnection? orders { get; set; }
         ///<summary>
         ///The shop's settings related to payments.
         ///</summary>
         public PaymentSettings? paymentSettings { get; set; }
+
         ///<summary>
         ///Number of pending orders on the shop.
         ///</summary>
+        [Obsolete("Use `limitedPendingOrderCount` instead.")]
         public int? pendingOrderCount { get; set; }
         ///<summary>
         ///The shop's billing plan.
         ///</summary>
         public ShopPlan? plan { get; set; }
+
         ///<summary>
         ///List of the shop's price rule saved searches.
         ///</summary>
+        [Obsolete("Use `QueryRoot.priceRuleSavedSearches` instead.")]
         public SavedSearchConnection? priceRuleSavedSearches { get; set; }
+
         ///<summary>
         ///List of the shop’s price rules.
         ///</summary>
+        [Obsolete("Use `QueryRoot.priceRules` instead.")]
         public PriceRuleConnection? priceRules { get; set; }
         ///<summary>
         ///The primary domain of the shop's online store.
         ///</summary>
         public Domain? primaryDomain { get; set; }
+
         ///<summary>
         ///Returns a private metafield by namespace and key that belongs to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafield? privateMetafield { get; set; }
+
         ///<summary>
         ///List of private metafields that belong to the resource.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public PrivateMetafieldConnection? privateMetafields { get; set; }
+
         ///<summary>
         ///Return a product by its handle.
         ///</summary>
+        [Obsolete("Use `QueryRoot.productByHandle` instead.")]
         public Product? productByHandle { get; set; }
         ///<summary>
         ///The list of all images of all products for the shop.
         ///</summary>
         public ImageConnection? productImages { get; set; }
+
         ///<summary>
         ///List of the shop's product saved searches.
         ///</summary>
+        [Obsolete("Use `QueryRoot.productSavedSearches` instead.")]
         public SavedSearchConnection? productSavedSearches { get; set; }
         ///<summary>
         ///A list of tags that have been added to products.
@@ -42853,17 +43368,21 @@ namespace shopify
         ///The list of types added to products.
         ///</summary>
         public StringConnection? productTypes { get; set; }
+
         ///<summary>
         ///List of the shop's product variants.
         ///</summary>
+        [Obsolete("Use `QueryRoot.productVariants` instead.")]
         public ProductVariantConnection? productVariants { get; set; }
         ///<summary>
         ///The list of vendors added to products.
         ///</summary>
         public StringConnection? productVendors { get; set; }
+
         ///<summary>
         ///List of the shop's products.
         ///</summary>
+        [Obsolete("Use `QueryRoot.products`.")]
         public ProductConnection? products { get; set; }
         ///<summary>
         ///The number of publications for the shop.
@@ -42897,9 +43416,11 @@ namespace shopify
         ///The list of all legal policies associated with a shop.
         ///</summary>
         public ShopPolicy[]? shopPolicies { get; set; }
+
         ///<summary>
         ///Shopify Payments account information, including balances and payouts.
         ///</summary>
+        [Obsolete("Use `QueryRoot.shopifyPaymentsAccount` instead.")]
         public ShopifyPaymentsAccount? shopifyPaymentsAccount { get; set; }
         ///<summary>
         ///The paginated list of the shop's staff members.
@@ -42909,9 +43430,11 @@ namespace shopify
         ///The storefront access token of a private application. These are scoped per-application.
         ///</summary>
         public StorefrontAccessTokenConnection? storefrontAccessTokens { get; set; }
+
         ///<summary>
         ///The URL of the shop's storefront.
         ///</summary>
+        [Obsolete("Use `url` instead.")]
         public string? storefrontUrl { get; set; }
         ///<summary>
         ///Whether the shop charges taxes for shipping.
@@ -42988,11 +43511,13 @@ namespace shopify
         ///The name of the country.
         ///</summary>
         public string? country { get; set; }
+
         ///<summary>
         ///The two-letter code for the country of the address.
         ///
         ///For example, US.
         ///</summary>
+        [Obsolete("Use `countryCodeV2` instead.")]
         public string? countryCode { get; set; }
         ///<summary>
         ///The two-letter code for the country of the address.
@@ -43000,9 +43525,11 @@ namespace shopify
         ///For example, US.
         ///</summary>
         public CountryCode? countryCodeV2 { get; set; }
+
         ///<summary>
         ///The first name.
         ///</summary>
+        [Obsolete("Always null in this context.")]
         public string? firstName { get; set; }
         ///<summary>
         ///A formatted version of the address, customized by the provided arguments.
@@ -43016,9 +43543,11 @@ namespace shopify
         ///A globally-unique ID.
         ///</summary>
         public string? id { get; set; }
+
         ///<summary>
         ///The last name.
         ///</summary>
+        [Obsolete("Always null in this context.")]
         public string? lastName { get; set; }
         ///<summary>
         ///The latitude coordinate of the address.
@@ -43028,9 +43557,11 @@ namespace shopify
         ///The longitude coordinate of the address.
         ///</summary>
         public float? longitude { get; set; }
+
         ///<summary>
         ///The full name, based on firstName and lastName.
         ///</summary>
+        [Obsolete("Always null in this context.")]
         public string? name { get; set; }
         ///<summary>
         ///A phone number associated with the address.
@@ -43156,9 +43687,11 @@ namespace shopify
         ///Whether a shop's online store can have CAPTCHA protection for domains not managed by Shopify.
         ///</summary>
         public bool? captchaExternalDomains { get; set; }
+
         ///<summary>
         ///Whether the delivery profiles functionality is enabled for this shop.
         ///</summary>
+        [Obsolete("Delivery profiles are now 100% enabled across Shopify.")]
         public bool? deliveryProfiles { get; set; }
         ///<summary>
         ///Whether a shop has access to the Google Analytics dynamic remarketing feature.
@@ -43202,9 +43735,11 @@ namespace shopify
         ///or don't have a storefront.
         ///</summary>
         public bool? liveView { get; set; }
+
         ///<summary>
         ///Whether a shop has multi-location functionality.
         ///</summary>
+        [Obsolete("All shops support multi-location inventory. Use `QueryRoot.locations` to determine whether shop has more than one location.")]
         public bool? multiLocation { get; set; }
         ///<summary>
         ///Whether a shop has access to the onboarding visual.
@@ -43222,9 +43757,11 @@ namespace shopify
         ///Whether a shop has ever had subscription products.
         ///</summary>
         public bool? sellsSubscriptions { get; set; }
+
         ///<summary>
         ///Whether the shop has a Shopify Plus subscription.
         ///</summary>
+        [Obsolete("Use Shop.plan.shopifyPlus instead.")]
         public bool? shopifyPlus { get; set; }
         ///<summary>
         ///Whether to show metrics in the Shopify admin. Metrics are hidden for new merchants until they become meaningful.
@@ -43520,9 +44057,11 @@ namespace shopify
         ///Whether the shop has reached the limit of the number of URL redirects it can make for resources.
         ///</summary>
         public bool? redirectLimitReached { get; set; }
+
         ///<summary>
         ///The maximum number of variants allowed per shop. If the shop has unlimited SKUs, then the quantity used can't be retrieved.
         ///</summary>
+        [Obsolete("This field is deprecated. After the 2023-10 version, we no longer set limits on number of SKUs per shop. Use `maxProductVariants` instead.")]
         public ResourceLimit? skuResourceLimits { get; set; }
     }
 
@@ -43642,11 +44181,13 @@ namespace shopify
         ///All bank accounts configured for the Shopify Payments account.
         ///</summary>
         public ShopifyPaymentsBankAccountConnection? bankAccounts { get; set; }
+
         ///<summary>
         ///The statement descriptor used for charges.
         ///
         ///The statement descriptor appears on a customer's credit card or bank statement when they make a purchase.
         ///</summary>
+        [Obsolete("Use `chargeStatementDescriptors` instead.")]
         public string? chargeStatementDescriptor { get; set; }
         ///<summary>
         ///The statement descriptors used for charges.
@@ -44266,9 +44807,11 @@ namespace shopify
         ///The bank account for the payout.
         ///</summary>
         public ShopifyPaymentsBankAccount? bankAccount { get; set; }
+
         ///<summary>
         ///The total amount and currency of the payout.
         ///</summary>
+        [Obsolete("Use `net` instead.")]
         public MoneyV2? gross { get; set; }
         ///<summary>
         ///A globally-unique ID.
@@ -44763,6 +45306,7 @@ namespace shopify
         ///<summary>
         ///The staff has the same permissions as the [store owner](https://shopify.dev/en/manual/your-account/staff-accounts/staff-permissions#store-owner-permissions) with some exceptions, such as modifying the account billing or deleting staff accounts.
         ///</summary>
+        [Obsolete("Use the list of the staff member's explicit permissions returned in the `StaffMember.permissions.userPermissions` field instead of `full` permission.")]
         FULL,
         ///<summary>
         ///The staff member can view, create, issue, and export gift cards to a CSV file.
@@ -44819,6 +45363,7 @@ namespace shopify
         ///<summary>
         ///The staff member can view and create translations.
         ///</summary>
+        [Obsolete("Unused.")]
         TRANSLATIONS,
     }
 
@@ -44835,9 +45380,11 @@ namespace shopify
         ///The date and time when the staff member was created.
         ///</summary>
         public DateTime? createdAt { get; set; }
+
         ///<summary>
         ///Access permissions for the staff member.
         ///</summary>
+        [Obsolete("Use StaffMember.permissions.userPermissions instead")]
         public StaffMemberPermission[]? permissions { get; set; }
     }
 
@@ -46391,7 +46938,8 @@ namespace shopify
     }
 
     ///<summary>
-    ///A local delivery method, which includes a mailing address and a local delivery option.
+    ///A subscription delivery method for local delivery.
+    ///The other subscription delivery methods can be found in the `SubscriptionDeliveryMethod` union type.
     ///</summary>
     public class SubscriptionDeliveryMethodLocalDelivery : ISubscriptionDeliveryMethod
     {
@@ -46499,6 +47047,7 @@ namespace shopify
         ///The carrier service that's providing this shipping option.
         ///This field isn't currently supported and returns null.
         ///</summary>
+        [Obsolete("This field has never been implemented.")]
         public DeliveryCarrierService? carrierService { get; set; }
         ///<summary>
         ///The code of the shipping option.
@@ -46875,9 +47424,11 @@ namespace shopify
         ///The original subscription contract.
         ///</summary>
         public SubscriptionContract? originalContract { get; set; }
+
         ///<summary>
         ///Available Shipping Options for a given delivery address. Returns NULL for pending requests.
         ///</summary>
+        [Obsolete("Use `deliveryOptions` instead.")]
         public ISubscriptionShippingOptionResult? shippingOptions { get; set; }
         ///<summary>
         ///The current status of the subscription contract.
@@ -47633,6 +48184,7 @@ namespace shopify
         ///The carrier service that's providing this shipping option.
         ///This field isn't currently supported and returns null.
         ///</summary>
+        [Obsolete("This field has never been implemented.")]
         public DeliveryCarrierService? carrierService { get; set; }
         ///<summary>
         ///The code of the shipping option.
@@ -47704,9 +48256,11 @@ namespace shopify
         ///The masked account number associated with the payment method.
         ///</summary>
         public string? accountNumber { get; set; }
+
         ///<summary>
         ///The amount of the transaction.
         ///</summary>
+        [Obsolete("Use `amountSet` instead.")]
         public decimal? amount { get; set; }
         ///<summary>
         ///The amount and currency of the suggested order transaction in shop and presentment currencies.
@@ -47724,9 +48278,11 @@ namespace shopify
         ///Specifies the kind of the suggested order transaction.
         ///</summary>
         public SuggestedOrderTransactionKind? kind { get; set; }
+
         ///<summary>
         ///Specifies the available amount to refund on the gateway. Only available within SuggestedRefund.
         ///</summary>
+        [Obsolete("Use `maximumRefundableSet` instead.")]
         public decimal? maximumRefundable { get; set; }
         ///<summary>
         ///Specifies the available amount to refund on the gateway in shop and presentment currencies. Only available within SuggestedRefund.
@@ -47757,6 +48313,7 @@ namespace shopify
         ///<summary>
         ///The total monetary value to be refunded.
         ///</summary>
+        [Obsolete("Use `amountSet` instead.")]
         public decimal? amount { get; set; }
         ///<summary>
         ///The total monetary value to be refunded in shop and presentment currencies.
@@ -47766,9 +48323,11 @@ namespace shopify
         ///The sum of all the discounted prices of the line items being refunded.
         ///</summary>
         public MoneyBag? discountedSubtotalSet { get; set; }
+
         ///<summary>
         ///The total monetary value available to refund.
         ///</summary>
+        [Obsolete("Use `maximumRefundableSet` instead.")]
         public decimal? maximumRefundable { get; set; }
         ///<summary>
         ///The total monetary value available to refund in shop and presentment currencies.
@@ -47786,9 +48345,11 @@ namespace shopify
         ///The shipping costs to be refunded from the order.
         ///</summary>
         public ShippingRefund? shipping { get; set; }
+
         ///<summary>
         ///The sum of all the prices of the line items being refunded.
         ///</summary>
+        [Obsolete("Use `subtotalSet` instead.")]
         public decimal? subtotal { get; set; }
         ///<summary>
         ///The sum of all the prices of the line items being refunded in shop and presentment currencies.
@@ -47810,9 +48371,11 @@ namespace shopify
         ///The sum of the taxes being refunded from the order in shop and presentment currencies. The value must be positive.
         ///</summary>
         public MoneyBag? totalTaxSet { get; set; }
+
         ///<summary>
         ///The sum of the taxes being refunded from the order. The value must be positive.
         ///</summary>
+        [Obsolete("Use `totalTaxSet` instead.")]
         public decimal? totalTaxes { get; set; }
     }
 
@@ -48318,9 +48881,11 @@ namespace shopify
         ///Whether the channel that submitted the tax line is liable for remitting. A value of null indicates unknown liability for this tax line.
         ///</summary>
         public bool? channelLiable { get; set; }
+
         ///<summary>
         ///The amount of tax, in shop currency, after discounts and before returns.
         ///</summary>
+        [Obsolete("Use `priceSet` instead.")]
         public decimal? price { get; set; }
         ///<summary>
         ///The amount of tax, in shop and presentment currencies, after discounts and before returns.
@@ -49312,6 +49877,7 @@ namespace shopify
         ///<summary>
         ///CSV file does not exist at given URL.
         ///</summary>
+        [Obsolete("This error code is never returned")]
         FILE_DOES_NOT_EXIST,
         ///<summary>
         ///URL redirect import not found.
@@ -49751,9 +50317,11 @@ namespace shopify
         ///The Admin API version that Shopify uses to serialize webhook events. This value is inherited from the app that created the webhook subscription.
         ///</summary>
         public ApiVersion? apiVersion { get; set; }
+
         ///<summary>
         ///The destination URI to which the webhook subscription will send a message when an event occurs.
         ///</summary>
+        [Obsolete("Use `endpoint` instead.")]
         public string? callbackUrl { get; set; }
         ///<summary>
         ///The date and time when the webhook subscription was created.
@@ -49783,9 +50351,11 @@ namespace shopify
         ///The list of namespaces for any metafields that should be included in the webhook subscription.
         ///</summary>
         public string[]? metafieldNamespaces { get; set; }
+
         ///<summary>
         ///The list of namespaces for private metafields that should be included in the webhook subscription.
         ///</summary>
+        [Obsolete("Metafields created using a reserved namespace are private by default. See our guide for\n[migrating private metafields](https://shopify.dev/docs/apps/custom-data/metafields/migrate-private-metafields).")]
         public string[]? privateMetafieldNamespaces { get; set; }
         ///<summary>
         ///The type of event that triggers the webhook. The topic determines when the webhook subscription sends a webhook, as well as what class of data object that webhook contains.
@@ -50646,8 +51216,14 @@ namespace shopify
         public bool? isRepeatable { get; set; }
         public __DirectiveLocation[]? locations { get; set; }
         public string? name { get; set; }
+
+        [Obsolete("Use `locations`.")]
         public bool? onField { get; set; }
+
+        [Obsolete("Use `locations`.")]
         public bool? onFragment { get; set; }
+
+        [Obsolete("Use `locations`.")]
         public bool? onOperation { get; set; }
     }
 

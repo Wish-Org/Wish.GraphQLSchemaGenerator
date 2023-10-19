@@ -44,6 +44,8 @@ namespace Wish.GraphQLSchemaGenerator
             fragment fragField on __Field {
               name
               description
+              isDeprecated
+              deprecationReason
               type {
                 ...fragType
               }
@@ -76,6 +78,8 @@ namespace Wish.GraphQLSchemaGenerator
                   enumValues(includeDeprecated: true) {
                     name
                     description
+                    isDeprecated
+                    deprecationReason
                   }
                   ofType {
                     ...fragType
@@ -240,9 +244,11 @@ namespace Wish.GraphQLSchemaGenerator
         private StringBuilder GenerateField(GraphQLType containingType, GraphQLField f, Dictionary<string, string> scalarNameToTypeName)
         {
             var str = new StringBuilder()
-                            .AppendLine(GenerateDescriptionComment(f.description))
-                            .AppendLine($"public {this.GenerateTypeName(f.type, scalarNameToTypeName)}? {EscapeCSharpKeyword(f.name)} {{ {(containingType.kind == GraphQLTypeKind.INTERFACE ? "get;" : "get;set;")} }}")
-                            .AppendLine();
+                            .AppendLine(GenerateDescriptionComment(f.description));
+            if (f.isDeprecated)
+                str.AppendLine($"[Obsolete({SymbolDisplay.FormatLiteral(f.deprecationReason.TrimEnd(), true)})]");
+            str.AppendLine($"public {this.GenerateTypeName(f.type, scalarNameToTypeName)}? {EscapeCSharpKeyword(f.name)} {{ {(containingType.kind == GraphQLTypeKind.INTERFACE ? "get;" : "get;set;")} }}")
+               .AppendLine();
             return str;
         }
 
@@ -275,8 +281,13 @@ namespace Wish.GraphQLSchemaGenerator
                             .AppendLine($"public enum {type.name} {{");
 
             type.enumValues
-                .ForEach(v => str.AppendLine(GenerateDescriptionComment(v.description))
-                                 .AppendLine($"{v.name},"));
+                .ForEach(v =>
+                {
+                    str.AppendLine(GenerateDescriptionComment(v.description));
+                    if (v.isDeprecated)
+                        str.AppendLine($"[Obsolete({SymbolDisplay.FormatLiteral(v.deprecationReason.TrimEnd(), true)})]");
+                    str.AppendLine($"{v.name},");
+                });
 
             str.AppendLine("}");
 
