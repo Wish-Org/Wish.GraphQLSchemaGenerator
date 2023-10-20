@@ -16,7 +16,7 @@ namespace shopify
             },
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
         };
-        public static string Serialize(IGraphQLObject obj)
+        public static string Serialize(object obj)
         {
             return JsonSerializer.Serialize(obj, obj.GetType(), Options);
         }
@@ -27,7 +27,7 @@ namespace shopify
         }
 
         public static T? Deserialize<T>(string json)
-            where T : IGraphQLObject
+            where T : class
         {
             return JsonSerializer.Deserialize<T>(json, Options);
         }

@@ -57,5 +57,47 @@ namespace Wish.GraphQLSchemaGenerator.Tests
             var json2 = order2.ToJson();
             Assert.AreEqual(json1, json2);
         }
+
+        [TestMethod]
+        public void SerializerMustRoundTripArray()
+        {
+            var orders1 = new[]
+            {
+                new Order
+                {
+                    id = "123",
+                    customer = new Customer
+                    {
+                        id = "234"
+                    },
+                    purchasingEntity = new PurchasingCompany
+                    {
+                        contact = new CompanyContact
+                        {
+                            id = "456"
+                        }
+                    }
+                },
+                new Order
+                {
+                    id = "abc",
+                    customer = new Customer
+                    {
+                        id = "def"
+                    },
+                    purchasingEntity = new PurchasingCompany
+                    {
+                        contact = new CompanyContact
+                        {
+                            id = "ghi"
+                        }
+                    }
+                }
+            };
+            var json1 = Serializer.Serialize(orders1);
+            var orders2 = Serializer.Deserialize<Order[]>(json1);
+            var json2 = Serializer.Serialize(orders2);
+            Assert.AreEqual(json1, json2);
+        }
     }
 }

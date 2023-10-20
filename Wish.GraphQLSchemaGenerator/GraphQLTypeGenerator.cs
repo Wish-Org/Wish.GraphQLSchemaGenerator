@@ -110,7 +110,7 @@ namespace Wish.GraphQLSchemaGenerator
                     DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
                 };
 
-                public static string Serialize({{IGraphQLObjectInterfaceName}} obj)
+                public static string Serialize(object obj)
                 {
                     return JsonSerializer.Serialize(obj, obj.GetType(), Options);
                 }
@@ -120,7 +120,7 @@ namespace Wish.GraphQLSchemaGenerator
                     return JsonSerializer.Deserialize(json, type, Options);
                 }
 
-                public static T? Deserialize<T>(string json) where T : {{IGraphQLObjectInterfaceName}}
+                public static T? Deserialize<T>(string json) where T : class
                 {
                     return JsonSerializer.Deserialize<T>(json, Options);
                 }
