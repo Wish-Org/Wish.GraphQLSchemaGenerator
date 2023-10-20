@@ -98,8 +98,48 @@ namespace Wish.GraphQLSchemaGenerator
                 { "ID", "string" },
             };
 
-        private const string IGraphQLObject = "IGraphQLObject";
-        private const string IGraphQLObjectInterface = $"public interface {IGraphQLObject} {{ }}";//marker interface
+        private const string IGraphQLObjectInterfaceName = "IGraphQLObject";
+
+        private const string STATIC_PREFACE = $$"""
+            public static class Serializer
+            {
+                public static readonly JsonSerializerOptions Options = new JsonSerializerOptions
+                {
+                    NumberHandling = JsonNumberHandling.AllowReadingFromString,
+                    Converters = { new JsonStringEnumConverter() },
+                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+                };
+
+                public static string Serialize({{IGraphQLObjectInterfaceName}} obj)
+                {
+                    return JsonSerializer.Serialize(obj, obj.GetType(), Options);
+                }
+
+                public static object? Deserialize(string json, Type type)
+                {
+                    return JsonSerializer.Deserialize(json, type, Options);
+                }
+
+                public static T? Deserialize<T>(string json) where T : {{IGraphQLObjectInterfaceName}}
+                {
+                    return JsonSerializer.Deserialize<T>(json, Options);
+                }
+            }
+
+            public interface {{IGraphQLObjectInterfaceName}}
+            {
+            }
+
+            public abstract class GraphQLObject<TSelf> : {{IGraphQLObjectInterfaceName}} where TSelf : GraphQLObject<TSelf>
+            {
+                public static TSelf? FromJson(string json) => Serializer.Deserialize<TSelf>(json);
+            }
+
+            public static class GraphQLObjectExtensions
+            {
+                public static string ToJson(this {{IGraphQLObjectInterfaceName}} o) => Serializer.Serialize(o);
+            }
+            """;
 
         public async Task<string> GenerateTypesAsync(string @namespace, Dictionary<string, string> scalarNameToTypeName, SendGraphQLQueryAsync sendQuery)
         {
@@ -118,6 +158,7 @@ namespace Wish.GraphQLSchemaGenerator
 
             var str = new StringBuilder()
                             .AppendLine("using System;")
+                            .AppendLine("using System.Text.Json;")
                             .AppendLine("using System.Text.Json.Serialization;")
                             .AppendLine($"namespace {@namespace} {{");
 
@@ -125,7 +166,7 @@ namespace Wish.GraphQLSchemaGenerator
                                               .SelectMany(tUnion => tUnion.possibleTypes.Select(tObject => (tUnion, tObject)))
                                               .ToLookup(i => i.tObject.name, i => i.tUnion);
 
-            str.AppendLine(IGraphQLObjectInterface);
+            str.AppendLine(STATIC_PREFACE);
 
             allTypes.Select(t => GenerateType(t, scalarNameToTypeName, objectTypeNameToUnionTypes))
                  .ForEach(strType => str.Append(strType)
@@ -164,7 +205,7 @@ namespace Wish.GraphQLSchemaGenerator
                 str.AppendLine($"[JsonDerivedType(typeof({GenerateTypeName(t, scalarNameToTypeName)}), typeDiscriminator: \"{t.name}\")]");
             }
 
-            str.AppendLine($"public interface {GenerateTypeName(type, scalarNameToTypeName)} : {IGraphQLObject}");
+            str.AppendLine($"public interface {GenerateTypeName(type, scalarNameToTypeName)} : {IGraphQLObjectInterfaceName}");
 
             str.AppendLine("{");
 
@@ -200,7 +241,7 @@ namespace Wish.GraphQLSchemaGenerator
                 str.AppendLine($"[JsonDerivedType(typeof({GenerateTypeName(t, scalarNameToTypeName)}), typeDiscriminator: \"{t.name}\")]");
             }
 
-            str.AppendLine($"public interface {GenerateTypeName(type, scalarNameToTypeName)} : {IGraphQLObject}");
+            str.AppendLine($"public interface {GenerateTypeName(type, scalarNameToTypeName)} : {IGraphQLObjectInterfaceName}");
 
             var interfaces = type.interfaces;
             if (interfaces.Any())
@@ -229,9 +270,10 @@ namespace Wish.GraphQLSchemaGenerator
 
         private StringBuilder GenerateClass(GraphQLType type, Dictionary<string, string> scalarNameToTypeName, ILookup<string, GraphQLType> objectTypeNameToUnionTypes)
         {
+            string className = GenerateTypeName(type, scalarNameToTypeName);
             var str = new StringBuilder()
                             .AppendLine(GenerateDescriptionComment(type.description))
-                            .Append($"public class {GenerateTypeName(type, scalarNameToTypeName)} : {IGraphQLObject}");
+                            .Append($"public class {className} : GraphQLObject<{className}>");
 
             var interfaces = type.interfaces.Concat(objectTypeNameToUnionTypes[type.name]);
             if (interfaces.Any())

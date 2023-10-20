@@ -1,17 +1,56 @@
 #nullable enable
 using System;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace shopify
 {
+    public static class Serializer
+    {
+        public static readonly JsonSerializerOptions Options = new JsonSerializerOptions
+        {
+            NumberHandling = JsonNumberHandling.AllowReadingFromString,
+            Converters =
+            {
+                new JsonStringEnumConverter()
+            },
+            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+        };
+        public static string Serialize(IGraphQLObject obj)
+        {
+            return JsonSerializer.Serialize(obj, obj.GetType(), Options);
+        }
+
+        public static object? Deserialize(string json, Type type)
+        {
+            return JsonSerializer.Deserialize(json, type, Options);
+        }
+
+        public static T? Deserialize<T>(string json)
+            where T : IGraphQLObject
+        {
+            return JsonSerializer.Deserialize<T>(json, Options);
+        }
+    }
+
     public interface IGraphQLObject
     {
+    }
+
+    public abstract class GraphQLObject<TSelf> : IGraphQLObject where TSelf : GraphQLObject<TSelf>
+    {
+        public static TSelf? FromJson(string json) => Serializer.Deserialize<TSelf>(json);
+    }
+
+    public static class GraphQLObjectExtensions
+    {
+        public static string ToJson(this IGraphQLObject o) => Serializer.Serialize(o);
     }
 
     ///<summary>
     ///A checkout that was abandoned by the customer.
     ///</summary>
-    public class AbandonedCheckout : IGraphQLObject, INavigable, INode
+    public class AbandonedCheckout : GraphQLObject<AbandonedCheckout>, INavigable, INode
     {
         ///<summary>
         ///The URL for the buyer to recover their checkout.
@@ -38,7 +77,7 @@ namespace shopify
     ///<summary>
     ///A browse, cart, or checkout that was abandoned by a customer.
     ///</summary>
-    public class Abandonment : IGraphQLObject, INode
+    public class Abandonment : GraphQLObject<Abandonment>, INode
     {
         ///<summary>
         ///The abandonment payload for the abandoned checkout.
@@ -198,7 +237,7 @@ namespace shopify
     ///<summary>
     ///Return type for `abandonmentEmailStateUpdate` mutation.
     ///</summary>
-    public class AbandonmentEmailStateUpdatePayload : IGraphQLObject
+    public class AbandonmentEmailStateUpdatePayload : GraphQLObject<AbandonmentEmailStateUpdatePayload>
     {
         ///<summary>
         ///The updated abandonment.
@@ -213,7 +252,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `AbandonmentEmailStateUpdate`.
     ///</summary>
-    public class AbandonmentEmailStateUpdateUserError : IGraphQLObject, IDisplayableError
+    public class AbandonmentEmailStateUpdateUserError : GraphQLObject<AbandonmentEmailStateUpdateUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -243,7 +282,7 @@ namespace shopify
     ///<summary>
     ///Return type for `abandonmentUpdateActivitiesDeliveryStatuses` mutation.
     ///</summary>
-    public class AbandonmentUpdateActivitiesDeliveryStatusesPayload : IGraphQLObject
+    public class AbandonmentUpdateActivitiesDeliveryStatusesPayload : GraphQLObject<AbandonmentUpdateActivitiesDeliveryStatusesPayload>
     {
         ///<summary>
         ///The updated abandonment.
@@ -258,7 +297,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `AbandonmentUpdateActivitiesDeliveryStatuses`.
     ///</summary>
-    public class AbandonmentUpdateActivitiesDeliveryStatusesUserError : IGraphQLObject, IDisplayableError
+    public class AbandonmentUpdateActivitiesDeliveryStatusesUserError : GraphQLObject<AbandonmentUpdateActivitiesDeliveryStatusesUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -296,7 +335,7 @@ namespace shopify
     ///<summary>
     ///The permission required to access a Shopify Admin API or Storefront API resource for a shop. Merchants grant access scopes that are requested by applications.
     ///</summary>
-    public class AccessScope : IGraphQLObject
+    public class AccessScope : GraphQLObject<AccessScope>
     {
         ///<summary>
         ///A description of the actions that the access scope allows an app to perform.
@@ -311,7 +350,7 @@ namespace shopify
     ///<summary>
     ///Represents an operation publishing all products to a publication.
     ///</summary>
-    public class AddAllProductsOperation : IGraphQLObject, INode, IResourceOperation, IPublicationOperation
+    public class AddAllProductsOperation : GraphQLObject<AddAllProductsOperation>, INode, IResourceOperation, IPublicationOperation
     {
         ///<summary>
         ///A globally-unique ID.
@@ -334,7 +373,7 @@ namespace shopify
     ///<summary>
     ///The additional fees that have been applied to the order.
     ///</summary>
-    public class AdditionalFee : IGraphQLObject, INode
+    public class AdditionalFee : GraphQLObject<AdditionalFee>, INode
     {
         ///<summary>
         ///A globally-unique ID.
@@ -357,7 +396,7 @@ namespace shopify
     ///<summary>
     ///A sale associated with an additional fee charge.
     ///</summary>
-    public class AdditionalFeeSale : IGraphQLObject, ISale
+    public class AdditionalFeeSale : GraphQLObject<AdditionalFeeSale>, ISale
     {
         ///<summary>
         ///The type of order action that the sale represents.
@@ -404,7 +443,7 @@ namespace shopify
     ///<summary>
     ///A sale associated with an order price adjustment.
     ///</summary>
-    public class AdjustmentSale : IGraphQLObject, ISale
+    public class AdjustmentSale : GraphQLObject<AdjustmentSale>, ISale
     {
         ///<summary>
         ///The type of order action that the sale represents.
@@ -447,7 +486,7 @@ namespace shopify
     ///<summary>
     ///Targets all items the cart for a specified discount.
     ///</summary>
-    public class AllDiscountItems : IGraphQLObject, IDiscountItems
+    public class AllDiscountItems : GraphQLObject<AllDiscountItems>, IDiscountItems
     {
         ///<summary>
         ///Whether all items are eligible for the discount. This value always returns `true`.
@@ -459,7 +498,7 @@ namespace shopify
     ///A version of the API, as defined by [Shopify API versioning](https://shopify.dev/api/usage/versioning).
     ///Versions are commonly referred to by their handle (for example, `2021-10`).
     ///</summary>
-    public class ApiVersion : IGraphQLObject
+    public class ApiVersion : GraphQLObject<ApiVersion>
     {
         ///<summary>
         ///The human-readable name of the version.
@@ -478,7 +517,7 @@ namespace shopify
     ///<summary>
     ///A Shopify application.
     ///</summary>
-    public class App : IGraphQLObject, INode
+    public class App : GraphQLObject<App>, INode
     {
         ///<summary>
         ///A unique application API identifier.
@@ -631,7 +670,7 @@ namespace shopify
     ///<summary>
     ///A catalog that defines the publication associated with an app.
     ///</summary>
-    public class AppCatalog : IGraphQLObject, ICatalog, INode
+    public class AppCatalog : GraphQLObject<AppCatalog>, ICatalog, INode
     {
         ///<summary>
         ///The apps associated with the catalog.
@@ -666,7 +705,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Apps.
     ///</summary>
-    public class AppConnection : IGraphQLObject
+    public class AppConnection : GraphQLObject<AppConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -685,7 +724,7 @@ namespace shopify
     ///<summary>
     ///App credits can be applied by the merchant towards future app purchases, subscriptions, or usage records in Shopify.
     ///</summary>
-    public class AppCredit : IGraphQLObject, INode
+    public class AppCredit : GraphQLObject<AppCredit>, INode
     {
         ///<summary>
         ///The amount that can be used towards future app purchases in Shopify.
@@ -712,7 +751,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple AppCredits.
     ///</summary>
-    public class AppCreditConnection : IGraphQLObject
+    public class AppCreditConnection : GraphQLObject<AppCreditConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -731,7 +770,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one AppCredit and a cursor during pagination.
     ///</summary>
-    public class AppCreditEdge : IGraphQLObject
+    public class AppCreditEdge : GraphQLObject<AppCreditEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -769,7 +808,7 @@ namespace shopify
     ///<summary>
     ///A script that defines a discount type.
     ///</summary>
-    public class AppDiscountType : IGraphQLObject
+    public class AppDiscountType : GraphQLObject<AppDiscountType>
     {
         ///<summary>
         ///The app providing the app discount type.
@@ -808,7 +847,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one App and a cursor during pagination.
     ///</summary>
-    public class AppEdge : IGraphQLObject
+    public class AppEdge : GraphQLObject<AppEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -825,7 +864,7 @@ namespace shopify
     ///within Shopify admin. AppFeedback is used to notify merchants about steps they need to take
     ///to set up an app on their store.
     ///</summary>
-    public class AppFeedback : IGraphQLObject
+    public class AppFeedback : GraphQLObject<AppFeedback>
     {
         ///<summary>
         ///The application associated to the feedback.
@@ -844,7 +883,7 @@ namespace shopify
     ///<summary>
     ///Represents an installed application on a shop.
     ///</summary>
-    public class AppInstallation : IGraphQLObject, IHasMetafields, INode, IMetafieldReferencer
+    public class AppInstallation : GraphQLObject<AppInstallation>, IHasMetafields, INode, IMetafieldReferencer
     {
         ///<summary>
         ///The access scopes granted to the application by a merchant during installation.
@@ -943,7 +982,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple AppInstallations.
     ///</summary>
-    public class AppInstallationConnection : IGraphQLObject
+    public class AppInstallationConnection : GraphQLObject<AppInstallationConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -962,7 +1001,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one AppInstallation and a cursor during pagination.
     ///</summary>
-    public class AppInstallationEdge : IGraphQLObject
+    public class AppInstallationEdge : GraphQLObject<AppInstallationEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -1010,7 +1049,7 @@ namespace shopify
     ///<summary>
     ///The app plan that the merchant is subscribed to.
     ///</summary>
-    public class AppPlanV2 : IGraphQLObject
+    public class AppPlanV2 : GraphQLObject<AppPlanV2>
     {
         ///<summary>
         ///The plan billed to a shop on a recurring basis.
@@ -1106,7 +1145,7 @@ namespace shopify
     ///<summary>
     ///Services and features purchased once by a store.
     ///</summary>
-    public class AppPurchaseOneTime : IGraphQLObject, IAppPurchase, INode
+    public class AppPurchaseOneTime : GraphQLObject<AppPurchaseOneTime>, IAppPurchase, INode
     {
         ///<summary>
         ///The date and time when the app purchase occurred.
@@ -1137,7 +1176,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple AppPurchaseOneTimes.
     ///</summary>
-    public class AppPurchaseOneTimeConnection : IGraphQLObject
+    public class AppPurchaseOneTimeConnection : GraphQLObject<AppPurchaseOneTimeConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -1156,7 +1195,7 @@ namespace shopify
     ///<summary>
     ///Return type for `appPurchaseOneTimeCreate` mutation.
     ///</summary>
-    public class AppPurchaseOneTimeCreatePayload : IGraphQLObject
+    public class AppPurchaseOneTimeCreatePayload : GraphQLObject<AppPurchaseOneTimeCreatePayload>
     {
         ///<summary>
         ///The newly created app one-time purchase.
@@ -1180,7 +1219,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one AppPurchaseOneTime and a cursor during pagination.
     ///</summary>
-    public class AppPurchaseOneTimeEdge : IGraphQLObject
+    public class AppPurchaseOneTimeEdge : GraphQLObject<AppPurchaseOneTimeEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -1231,7 +1270,7 @@ namespace shopify
     ///The object contains an interval (the frequency at which the shop is billed for an app subscription) and
     ///a price (the amount to be charged to the subscribing shop at each interval).
     ///</summary>
-    public class AppRecurringPricing : IGraphQLObject, IAppPricingDetails
+    public class AppRecurringPricing : GraphQLObject<AppRecurringPricing>, IAppPricingDetails
     {
         ///<summary>
         ///The discount applied to the subscription for a given number of billing intervals.
@@ -1250,7 +1289,7 @@ namespace shopify
     ///<summary>
     ///Represents app revenue that was captured externally by the partner.
     ///</summary>
-    public class AppRevenueAttributionRecord : IGraphQLObject, INode
+    public class AppRevenueAttributionRecord : GraphQLObject<AppRevenueAttributionRecord>, INode
     {
         ///<summary>
         ///The financial amount captured in this attribution.
@@ -1287,7 +1326,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple AppRevenueAttributionRecords.
     ///</summary>
-    public class AppRevenueAttributionRecordConnection : IGraphQLObject
+    public class AppRevenueAttributionRecordConnection : GraphQLObject<AppRevenueAttributionRecordConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -1306,7 +1345,7 @@ namespace shopify
     ///<summary>
     ///Return type for `appRevenueAttributionRecordCreate` mutation.
     ///</summary>
-    public class AppRevenueAttributionRecordCreatePayload : IGraphQLObject
+    public class AppRevenueAttributionRecordCreatePayload : GraphQLObject<AppRevenueAttributionRecordCreatePayload>
     {
         ///<summary>
         ///The created app revenue attribution record.
@@ -1321,7 +1360,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `AppRevenueAttributionRecordCreate`.
     ///</summary>
-    public class AppRevenueAttributionRecordCreateUserError : IGraphQLObject, IDisplayableError
+    public class AppRevenueAttributionRecordCreateUserError : GraphQLObject<AppRevenueAttributionRecordCreateUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -1355,7 +1394,7 @@ namespace shopify
     ///<summary>
     ///Return type for `appRevenueAttributionRecordDelete` mutation.
     ///</summary>
-    public class AppRevenueAttributionRecordDeletePayload : IGraphQLObject
+    public class AppRevenueAttributionRecordDeletePayload : GraphQLObject<AppRevenueAttributionRecordDeletePayload>
     {
         ///<summary>
         ///The ID of the revenue attribution that was deleted, if one was.
@@ -1370,7 +1409,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `AppRevenueAttributionRecordDelete`.
     ///</summary>
-    public class AppRevenueAttributionRecordDeleteUserError : IGraphQLObject, IDisplayableError
+    public class AppRevenueAttributionRecordDeleteUserError : GraphQLObject<AppRevenueAttributionRecordDeleteUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -1400,7 +1439,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one AppRevenueAttributionRecord and a cursor during pagination.
     ///</summary>
-    public class AppRevenueAttributionRecordEdge : IGraphQLObject
+    public class AppRevenueAttributionRecordEdge : GraphQLObject<AppRevenueAttributionRecordEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -1458,7 +1497,7 @@ namespace shopify
     ///<summary>
     ///Provides users access to services and/or features for a duration of time.
     ///</summary>
-    public class AppSubscription : IGraphQLObject, INode
+    public class AppSubscription : GraphQLObject<AppSubscription>, INode
     {
         ///<summary>
         ///The date and time when the app subscription was created.
@@ -1501,7 +1540,7 @@ namespace shopify
     ///<summary>
     ///Return type for `appSubscriptionCancel` mutation.
     ///</summary>
-    public class AppSubscriptionCancelPayload : IGraphQLObject
+    public class AppSubscriptionCancelPayload : GraphQLObject<AppSubscriptionCancelPayload>
     {
         ///<summary>
         ///The cancelled app subscription.
@@ -1516,7 +1555,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple AppSubscriptions.
     ///</summary>
-    public class AppSubscriptionConnection : IGraphQLObject
+    public class AppSubscriptionConnection : GraphQLObject<AppSubscriptionConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -1535,7 +1574,7 @@ namespace shopify
     ///<summary>
     ///Return type for `appSubscriptionCreate` mutation.
     ///</summary>
-    public class AppSubscriptionCreatePayload : IGraphQLObject
+    public class AppSubscriptionCreatePayload : GraphQLObject<AppSubscriptionCreatePayload>
     {
         ///<summary>
         ///The newly-created app subscription.
@@ -1554,7 +1593,7 @@ namespace shopify
     ///<summary>
     ///Discount applied to the recurring pricing portion of a subscription.
     ///</summary>
-    public class AppSubscriptionDiscount : IGraphQLObject
+    public class AppSubscriptionDiscount : GraphQLObject<AppSubscriptionDiscount>
     {
         ///<summary>
         ///The total number of billing intervals to which the discount will be applied.
@@ -1578,7 +1617,7 @@ namespace shopify
     ///<summary>
     ///The fixed amount value of a discount.
     ///</summary>
-    public class AppSubscriptionDiscountAmount : IGraphQLObject, IAppSubscriptionDiscountValue
+    public class AppSubscriptionDiscountAmount : GraphQLObject<AppSubscriptionDiscountAmount>, IAppSubscriptionDiscountValue
     {
         ///<summary>
         ///The fixed amount value of a discount.
@@ -1589,7 +1628,7 @@ namespace shopify
     ///<summary>
     ///The percentage value of a discount.
     ///</summary>
-    public class AppSubscriptionDiscountPercentage : IGraphQLObject, IAppSubscriptionDiscountValue
+    public class AppSubscriptionDiscountPercentage : GraphQLObject<AppSubscriptionDiscountPercentage>, IAppSubscriptionDiscountValue
     {
         ///<summary>
         ///The percentage value of a discount.
@@ -1612,7 +1651,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one AppSubscription and a cursor during pagination.
     ///</summary>
-    public class AppSubscriptionEdge : IGraphQLObject
+    public class AppSubscriptionEdge : GraphQLObject<AppSubscriptionEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -1627,7 +1666,7 @@ namespace shopify
     ///<summary>
     ///The plan attached to an app subscription.
     ///</summary>
-    public class AppSubscriptionLineItem : IGraphQLObject
+    public class AppSubscriptionLineItem : GraphQLObject<AppSubscriptionLineItem>
     {
         ///<summary>
         ///A globally-unique ID.
@@ -1646,7 +1685,7 @@ namespace shopify
     ///<summary>
     ///Return type for `appSubscriptionLineItemUpdate` mutation.
     ///</summary>
-    public class AppSubscriptionLineItemUpdatePayload : IGraphQLObject
+    public class AppSubscriptionLineItemUpdatePayload : GraphQLObject<AppSubscriptionLineItemUpdatePayload>
     {
         ///<summary>
         ///The updated app subscription.
@@ -1744,7 +1783,7 @@ namespace shopify
     ///<summary>
     ///Return type for `appSubscriptionTrialExtend` mutation.
     ///</summary>
-    public class AppSubscriptionTrialExtendPayload : IGraphQLObject
+    public class AppSubscriptionTrialExtendPayload : GraphQLObject<AppSubscriptionTrialExtendPayload>
     {
         ///<summary>
         ///The app subscription that had its trial extended.
@@ -1759,7 +1798,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `AppSubscriptionTrialExtend`.
     ///</summary>
-    public class AppSubscriptionTrialExtendUserError : IGraphQLObject, IDisplayableError
+    public class AppSubscriptionTrialExtendUserError : GraphQLObject<AppSubscriptionTrialExtendUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -1818,7 +1857,7 @@ namespace shopify
     ///Defines a usage pricing model for the app subscription.
     ///These charges are variable based on how much the merchant uses the app.
     ///</summary>
-    public class AppUsagePricing : IGraphQLObject, IAppPricingDetails
+    public class AppUsagePricing : GraphQLObject<AppUsagePricing>, IAppPricingDetails
     {
         ///<summary>
         ///The total usage records for interval.
@@ -1845,7 +1884,7 @@ namespace shopify
     ///<summary>
     ///Store usage for app subscriptions with usage pricing.
     ///</summary>
-    public class AppUsageRecord : IGraphQLObject, INode
+    public class AppUsageRecord : GraphQLObject<AppUsageRecord>, INode
     {
         ///<summary>
         ///The date and time when the usage record was created.
@@ -1876,7 +1915,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple AppUsageRecords.
     ///</summary>
-    public class AppUsageRecordConnection : IGraphQLObject
+    public class AppUsageRecordConnection : GraphQLObject<AppUsageRecordConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -1895,7 +1934,7 @@ namespace shopify
     ///<summary>
     ///Return type for `appUsageRecordCreate` mutation.
     ///</summary>
-    public class AppUsageRecordCreatePayload : IGraphQLObject
+    public class AppUsageRecordCreatePayload : GraphQLObject<AppUsageRecordCreatePayload>
     {
         ///<summary>
         ///The newly created app usage record.
@@ -1910,7 +1949,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one AppUsageRecord and a cursor during pagination.
     ///</summary>
-    public class AppUsageRecordEdge : IGraphQLObject
+    public class AppUsageRecordEdge : GraphQLObject<AppUsageRecordEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -1945,7 +1984,7 @@ namespace shopify
     ///<summary>
     ///Represents a generic custom attribute.
     ///</summary>
-    public class Attribute : IGraphQLObject
+    public class Attribute : GraphQLObject<Attribute>
     {
         ///<summary>
         ///Key or name of the attribute.
@@ -1960,7 +1999,7 @@ namespace shopify
     ///<summary>
     ///Automatic discount applications capture the intentions of a discount that was automatically applied.
     ///</summary>
-    public class AutomaticDiscountApplication : IGraphQLObject, IDiscountApplication
+    public class AutomaticDiscountApplication : GraphQLObject<AutomaticDiscountApplication>, IDiscountApplication
     {
         ///<summary>
         ///The method by which the discount's value is applied to its entitled items.
@@ -2012,7 +2051,7 @@ namespace shopify
     ///<summary>
     ///Represents an object containing all information for channels available to a shop.
     ///</summary>
-    public class AvailableChannelDefinitionsByChannel : IGraphQLObject
+    public class AvailableChannelDefinitionsByChannel : GraphQLObject<AvailableChannelDefinitionsByChannel>
     {
         ///<summary>
         ///The channel definitions for channels installed on a shop.
@@ -2055,7 +2094,7 @@ namespace shopify
     ///Basic events chronicle resource activities such as the creation of an article, the fulfillment of an order, or
     ///the addition of a product.
     ///</summary>
-    public class BasicEvent : IGraphQLObject, IEvent, INode
+    public class BasicEvent : GraphQLObject<BasicEvent>, IEvent, INode
     {
         ///<summary>
         ///The name of the app that created the event.
@@ -2090,7 +2129,7 @@ namespace shopify
     ///<summary>
     ///Represents an error that happens during the execution of a billing attempt mutation.
     ///</summary>
-    public class BillingAttemptUserError : IGraphQLObject, IDisplayableError
+    public class BillingAttemptUserError : GraphQLObject<BillingAttemptUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -2175,7 +2214,7 @@ namespace shopify
     ///<summary>
     ///Represents an error that happens during execution of a bulk mutation.
     ///</summary>
-    public class BulkMutationUserError : IGraphQLObject, IDisplayableError
+    public class BulkMutationUserError : GraphQLObject<BulkMutationUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -2200,7 +2239,7 @@ namespace shopify
     ///
     ///Refer to the [bulk operations guide](https://shopify.dev/api/usage/bulk-operations/imports) for more details.
     ///</summary>
-    public class BulkOperation : IGraphQLObject, INode
+    public class BulkOperation : GraphQLObject<BulkOperation>, INode
     {
         ///<summary>
         ///When the bulk operation was successfully completed.
@@ -2261,7 +2300,7 @@ namespace shopify
     ///<summary>
     ///Return type for `bulkOperationCancel` mutation.
     ///</summary>
-    public class BulkOperationCancelPayload : IGraphQLObject
+    public class BulkOperationCancelPayload : GraphQLObject<BulkOperationCancelPayload>
     {
         ///<summary>
         ///The bulk operation to be canceled.
@@ -2299,7 +2338,7 @@ namespace shopify
     ///<summary>
     ///Return type for `bulkOperationRunMutation` mutation.
     ///</summary>
-    public class BulkOperationRunMutationPayload : IGraphQLObject
+    public class BulkOperationRunMutationPayload : GraphQLObject<BulkOperationRunMutationPayload>
     {
         ///<summary>
         ///The newly created bulk operation.
@@ -2314,7 +2353,7 @@ namespace shopify
     ///<summary>
     ///Return type for `bulkOperationRunQuery` mutation.
     ///</summary>
-    public class BulkOperationRunQueryPayload : IGraphQLObject
+    public class BulkOperationRunQueryPayload : GraphQLObject<BulkOperationRunQueryPayload>
     {
         ///<summary>
         ///The newly created bulk operation.
@@ -2381,7 +2420,7 @@ namespace shopify
     ///<summary>
     ///Return type for `bulkProductResourceFeedbackCreate` mutation.
     ///</summary>
-    public class BulkProductResourceFeedbackCreatePayload : IGraphQLObject
+    public class BulkProductResourceFeedbackCreatePayload : GraphQLObject<BulkProductResourceFeedbackCreatePayload>
     {
         ///<summary>
         ///The feedback that's created.
@@ -2396,7 +2435,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `BulkProductResourceFeedbackCreate`.
     ///</summary>
-    public class BulkProductResourceFeedbackCreateUserError : IGraphQLObject, IDisplayableError
+    public class BulkProductResourceFeedbackCreateUserError : GraphQLObject<BulkProductResourceFeedbackCreateUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -2450,7 +2489,7 @@ namespace shopify
     ///<summary>
     ///Represents the Bundles feature configuration for the shop.
     ///</summary>
-    public class BundlesFeature : IGraphQLObject
+    public class BundlesFeature : GraphQLObject<BundlesFeature>
     {
         ///<summary>
         ///Whether a shop is configured properly to sell bundles.
@@ -2524,7 +2563,7 @@ namespace shopify
     ///<summary>
     ///An error that happens during the execution of a business customer mutation.
     ///</summary>
-    public class BusinessCustomerUserError : IGraphQLObject, IDisplayableError
+    public class BusinessCustomerUserError : GraphQLObject<BusinessCustomerUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -2543,7 +2582,7 @@ namespace shopify
     ///<summary>
     ///Settings describing the behavior of checkout for a B2B buyer.
     ///</summary>
-    public class BuyerExperienceConfiguration : IGraphQLObject
+    public class BuyerExperienceConfiguration : GraphQLObject<BuyerExperienceConfiguration>
     {
         ///<summary>
         ///Whether to checkout to draft order for merchant review.
@@ -2567,7 +2606,7 @@ namespace shopify
     ///<summary>
     ///A discount that is automatically applied to an order that is being edited.
     ///</summary>
-    public class CalculatedAutomaticDiscountApplication : IGraphQLObject, ICalculatedDiscountApplication
+    public class CalculatedAutomaticDiscountApplication : GraphQLObject<CalculatedAutomaticDiscountApplication>, ICalculatedDiscountApplication
     {
         ///<summary>
         ///The method by which the discount's value is allocated to its entitled items.
@@ -2602,7 +2641,7 @@ namespace shopify
     ///<summary>
     ///An amount discounting the line that has been allocated by an associated discount application.
     ///</summary>
-    public class CalculatedDiscountAllocation : IGraphQLObject
+    public class CalculatedDiscountAllocation : GraphQLObject<CalculatedDiscountAllocation>
     {
         ///<summary>
         ///The money amount that's allocated by the discount application in shop and presentment currencies.
@@ -2661,7 +2700,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple CalculatedDiscountApplications.
     ///</summary>
-    public class CalculatedDiscountApplicationConnection : IGraphQLObject
+    public class CalculatedDiscountApplicationConnection : GraphQLObject<CalculatedDiscountApplicationConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -2680,7 +2719,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one CalculatedDiscountApplication and a cursor during pagination.
     ///</summary>
-    public class CalculatedDiscountApplicationEdge : IGraphQLObject
+    public class CalculatedDiscountApplicationEdge : GraphQLObject<CalculatedDiscountApplicationEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -2695,7 +2734,7 @@ namespace shopify
     ///<summary>
     ///A discount code that is applied to an order that is being edited.
     ///</summary>
-    public class CalculatedDiscountCodeApplication : IGraphQLObject, ICalculatedDiscountApplication
+    public class CalculatedDiscountCodeApplication : GraphQLObject<CalculatedDiscountCodeApplication>, ICalculatedDiscountApplication
     {
         ///<summary>
         ///The method by which the discount's value is allocated to its entitled items.
@@ -2734,7 +2773,7 @@ namespace shopify
     ///<summary>
     ///The computed properties for a draft order.
     ///</summary>
-    public class CalculatedDraftOrder : IGraphQLObject
+    public class CalculatedDraftOrder : GraphQLObject<CalculatedDraftOrder>
     {
         ///<summary>
         ///Order-level discount applied to the draft order.
@@ -2837,7 +2876,7 @@ namespace shopify
     ///<summary>
     ///The computed line items for a draft order.
     ///</summary>
-    public class CalculatedDraftOrderLineItem : IGraphQLObject
+    public class CalculatedDraftOrderLineItem : GraphQLObject<CalculatedDraftOrderLineItem>
     {
         ///<summary>
         ///The discount applied to the line item.
@@ -2961,7 +3000,7 @@ namespace shopify
     ///<summary>
     ///A line item involved in order editing that may be newly added or have new changes applied.
     ///</summary>
-    public class CalculatedLineItem : IGraphQLObject
+    public class CalculatedLineItem : GraphQLObject<CalculatedLineItem>
     {
         ///<summary>
         ///The discounts that have been allocated onto the line item by discount applications.
@@ -3051,7 +3090,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple CalculatedLineItems.
     ///</summary>
-    public class CalculatedLineItemConnection : IGraphQLObject
+    public class CalculatedLineItemConnection : GraphQLObject<CalculatedLineItemConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -3070,7 +3109,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one CalculatedLineItem and a cursor during pagination.
     ///</summary>
-    public class CalculatedLineItemEdge : IGraphQLObject
+    public class CalculatedLineItemEdge : GraphQLObject<CalculatedLineItemEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -3085,7 +3124,7 @@ namespace shopify
     ///<summary>
     ///Represents a discount that was manually created for an order that is being edited.
     ///</summary>
-    public class CalculatedManualDiscountApplication : IGraphQLObject, ICalculatedDiscountApplication
+    public class CalculatedManualDiscountApplication : GraphQLObject<CalculatedManualDiscountApplication>, ICalculatedDiscountApplication
     {
         ///<summary>
         ///The method by which the discount's value is allocated to its entitled items.
@@ -3120,7 +3159,7 @@ namespace shopify
     ///<summary>
     ///An order with edits applied but not saved.
     ///</summary>
-    public class CalculatedOrder : IGraphQLObject, INode
+    public class CalculatedOrder : GraphQLObject<CalculatedOrder>, INode
     {
         ///<summary>
         ///Returns only the new discount applications being added to the order in the current edit.
@@ -3195,7 +3234,7 @@ namespace shopify
     ///<summary>
     ///A discount created by a Shopify script for an order that is being edited.
     ///</summary>
-    public class CalculatedScriptDiscountApplication : IGraphQLObject, ICalculatedDiscountApplication
+    public class CalculatedScriptDiscountApplication : GraphQLObject<CalculatedScriptDiscountApplication>, ICalculatedDiscountApplication
     {
         ///<summary>
         ///The method by which the discount's value is allocated to its entitled items.
@@ -3230,7 +3269,7 @@ namespace shopify
     ///<summary>
     ///Card payment details related to a transaction.
     ///</summary>
-    public class CardPaymentDetails : IGraphQLObject, IPaymentDetails
+    public class CardPaymentDetails : GraphQLObject<CardPaymentDetails>, IPaymentDetails
     {
         ///<summary>
         ///The response code from the address verification system (AVS). The code is always a single letter.
@@ -3273,7 +3312,7 @@ namespace shopify
     ///<summary>
     ///A Cart Transform Function to create [Customized Bundles.](https://shopify.dev/docs/apps/selling-strategies/bundles/add-a-customized-bundle).
     ///</summary>
-    public class CartTransform : IGraphQLObject, IHasMetafields, INode
+    public class CartTransform : GraphQLObject<CartTransform>, IHasMetafields, INode
     {
         ///<summary>
         ///The ID for the Cart Transform function.
@@ -3308,7 +3347,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple CartTransforms.
     ///</summary>
-    public class CartTransformConnection : IGraphQLObject
+    public class CartTransformConnection : GraphQLObject<CartTransformConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -3327,7 +3366,7 @@ namespace shopify
     ///<summary>
     ///Return type for `cartTransformCreate` mutation.
     ///</summary>
-    public class CartTransformCreatePayload : IGraphQLObject
+    public class CartTransformCreatePayload : GraphQLObject<CartTransformCreatePayload>
     {
         ///<summary>
         ///The newly created cart transform function.
@@ -3342,7 +3381,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `CartTransformCreate`.
     ///</summary>
-    public class CartTransformCreateUserError : IGraphQLObject, IDisplayableError
+    public class CartTransformCreateUserError : GraphQLObject<CartTransformCreateUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -3384,7 +3423,7 @@ namespace shopify
     ///<summary>
     ///Return type for `cartTransformDelete` mutation.
     ///</summary>
-    public class CartTransformDeletePayload : IGraphQLObject
+    public class CartTransformDeletePayload : GraphQLObject<CartTransformDeletePayload>
     {
         ///<summary>
         ///The globally-unique ID for the deleted cart transform.
@@ -3399,7 +3438,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `CartTransformDelete`.
     ///</summary>
-    public class CartTransformDeleteUserError : IGraphQLObject, IDisplayableError
+    public class CartTransformDeleteUserError : GraphQLObject<CartTransformDeleteUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -3433,7 +3472,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one CartTransform and a cursor during pagination.
     ///</summary>
-    public class CartTransformEdge : IGraphQLObject
+    public class CartTransformEdge : GraphQLObject<CartTransformEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -3480,7 +3519,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Catalogs.
     ///</summary>
-    public class CatalogConnection : IGraphQLObject
+    public class CatalogConnection : GraphQLObject<CatalogConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -3503,7 +3542,7 @@ namespace shopify
     ///<summary>
     ///Return type for `catalogContextUpdate` mutation.
     ///</summary>
-    public class CatalogContextUpdatePayload : IGraphQLObject
+    public class CatalogContextUpdatePayload : GraphQLObject<CatalogContextUpdatePayload>
     {
         ///<summary>
         ///The updated catalog.
@@ -3518,7 +3557,7 @@ namespace shopify
     ///<summary>
     ///Return type for `catalogCreate` mutation.
     ///</summary>
-    public class CatalogCreatePayload : IGraphQLObject
+    public class CatalogCreatePayload : GraphQLObject<CatalogCreatePayload>
     {
         ///<summary>
         ///The newly created catalog.
@@ -3533,7 +3572,7 @@ namespace shopify
     ///<summary>
     ///A catalog csv operation represents a CSV file import.
     ///</summary>
-    public class CatalogCsvOperation : IGraphQLObject, INode, IResourceOperation, IPublicationOperation
+    public class CatalogCsvOperation : GraphQLObject<CatalogCsvOperation>, INode, IResourceOperation, IPublicationOperation
     {
         ///<summary>
         ///A globally-unique ID.
@@ -3556,7 +3595,7 @@ namespace shopify
     ///<summary>
     ///Return type for `catalogDelete` mutation.
     ///</summary>
-    public class CatalogDeletePayload : IGraphQLObject
+    public class CatalogDeletePayload : GraphQLObject<CatalogDeletePayload>
     {
         ///<summary>
         ///The ID of the deleted catalog.
@@ -3571,7 +3610,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one Catalog and a cursor during pagination.
     ///</summary>
-    public class CatalogEdge : IGraphQLObject
+    public class CatalogEdge : GraphQLObject<CatalogEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -3648,7 +3687,7 @@ namespace shopify
     ///<summary>
     ///Return type for `catalogUpdate` mutation.
     ///</summary>
-    public class CatalogUpdatePayload : IGraphQLObject
+    public class CatalogUpdatePayload : GraphQLObject<CatalogUpdatePayload>
     {
         ///<summary>
         ///The updated catalog.
@@ -3663,7 +3702,7 @@ namespace shopify
     ///<summary>
     ///Defines errors encountered while managing a catalog.
     ///</summary>
-    public class CatalogUserError : IGraphQLObject, IDisplayableError
+    public class CatalogUserError : GraphQLObject<CatalogUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -3830,7 +3869,7 @@ namespace shopify
     ///A channel represents an app where you sell a group of products and collections.
     ///A channel can be a platform or marketplace such as Facebook or Pinterest, an online store, or POS.
     ///</summary>
-    public class Channel : IGraphQLObject, INode
+    public class Channel : GraphQLObject<Channel>, INode
     {
         ///<summary>
         ///The underlying app used by the channel.
@@ -3897,7 +3936,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Channels.
     ///</summary>
-    public class ChannelConnection : IGraphQLObject
+    public class ChannelConnection : GraphQLObject<ChannelConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -3917,7 +3956,7 @@ namespace shopify
     ///A channel definition represents channels surfaces on the platform.
     ///A channel definition can be a platform or a subsegment of it such as Facebook Home, Instagram Live, Instagram Shops, or WhatsApp chat.
     ///</summary>
-    public class ChannelDefinition : IGraphQLObject, INode
+    public class ChannelDefinition : GraphQLObject<ChannelDefinition>, INode
     {
         ///<summary>
         ///Name of the channel that this sub channel belongs to.
@@ -3948,7 +3987,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one Channel and a cursor during pagination.
     ///</summary>
-    public class ChannelEdge : IGraphQLObject
+    public class ChannelEdge : GraphQLObject<ChannelEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -3963,7 +4002,7 @@ namespace shopify
     ///<summary>
     ///Contains the information for a given sales channel.
     ///</summary>
-    public class ChannelInformation : IGraphQLObject, INode
+    public class ChannelInformation : GraphQLObject<ChannelInformation>, INode
     {
         ///<summary>
         ///The app associated with the channel.
@@ -3986,7 +4025,7 @@ namespace shopify
     ///<summary>
     ///A checkout profile defines the branding settings and the UI extensions for a store's checkout. A checkout profile could be published or draft. A store might have at most one published checkout profile, which is used to render their live checkout. The store could also have multiple draft profiles that were created, previewed, and published using the admin checkout editor.
     ///</summary>
-    public class CheckoutProfile : IGraphQLObject, INode
+    public class CheckoutProfile : GraphQLObject<CheckoutProfile>, INode
     {
         ///<summary>
         ///The date and time when the checkout profile was created.
@@ -4017,7 +4056,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple CheckoutProfiles.
     ///</summary>
-    public class CheckoutProfileConnection : IGraphQLObject
+    public class CheckoutProfileConnection : GraphQLObject<CheckoutProfileConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -4036,7 +4075,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one CheckoutProfile and a cursor during pagination.
     ///</summary>
-    public class CheckoutProfileEdge : IGraphQLObject
+    public class CheckoutProfileEdge : GraphQLObject<CheckoutProfileEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -4123,7 +4162,7 @@ namespace shopify
     ///
     ///Collections can also be created for a custom group of products. These are called custom or manual collections.
     ///</summary>
-    public class Collection : IGraphQLObject, IHasMetafieldDefinitions, IHasMetafields, IHasPublishedTranslations, INode, IPublishable, IMetafieldReference, IMetafieldReferencer
+    public class Collection : GraphQLObject<Collection>, IHasMetafieldDefinitions, IHasMetafields, IHasPublishedTranslations, INode, IPublishable, IMetafieldReference, IMetafieldReferencer
     {
         ///<summary>
         ///The number of publications a resource is published to without feedback errors.
@@ -4286,7 +4325,7 @@ namespace shopify
     ///<summary>
     ///Return type for `collectionAddProducts` mutation.
     ///</summary>
-    public class CollectionAddProductsPayload : IGraphQLObject
+    public class CollectionAddProductsPayload : GraphQLObject<CollectionAddProductsPayload>
     {
         ///<summary>
         ///The updated collection. Returns `null` if an error is raised.
@@ -4301,7 +4340,7 @@ namespace shopify
     ///<summary>
     ///Return type for `collectionAddProductsV2` mutation.
     ///</summary>
-    public class CollectionAddProductsV2Payload : IGraphQLObject
+    public class CollectionAddProductsV2Payload : GraphQLObject<CollectionAddProductsV2Payload>
     {
         ///<summary>
         ///The asynchronous job adding the products.
@@ -4316,7 +4355,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `CollectionAddProductsV2`.
     ///</summary>
-    public class CollectionAddProductsV2UserError : IGraphQLObject, IDisplayableError
+    public class CollectionAddProductsV2UserError : GraphQLObject<CollectionAddProductsV2UserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -4350,7 +4389,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Collections.
     ///</summary>
-    public class CollectionConnection : IGraphQLObject
+    public class CollectionConnection : GraphQLObject<CollectionConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -4369,7 +4408,7 @@ namespace shopify
     ///<summary>
     ///Return type for `collectionCreate` mutation.
     ///</summary>
-    public class CollectionCreatePayload : IGraphQLObject
+    public class CollectionCreatePayload : GraphQLObject<CollectionCreatePayload>
     {
         ///<summary>
         ///The collection that has been created.
@@ -4384,7 +4423,7 @@ namespace shopify
     ///<summary>
     ///Return type for `collectionDelete` mutation.
     ///</summary>
-    public class CollectionDeletePayload : IGraphQLObject
+    public class CollectionDeletePayload : GraphQLObject<CollectionDeletePayload>
     {
         ///<summary>
         ///The ID of the collection that was deleted. Returns `null` if the collection doesn't exist.
@@ -4403,7 +4442,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one Collection and a cursor during pagination.
     ///</summary>
-    public class CollectionEdge : IGraphQLObject
+    public class CollectionEdge : GraphQLObject<CollectionEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -4418,7 +4457,7 @@ namespace shopify
     ///<summary>
     ///Represents the publications where a collection is published.
     ///</summary>
-    public class CollectionPublication : IGraphQLObject
+    public class CollectionPublication : GraphQLObject<CollectionPublication>
     {
         ///<summary>
         ///The channel where the collection will be published.
@@ -4446,7 +4485,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple CollectionPublications.
     ///</summary>
-    public class CollectionPublicationConnection : IGraphQLObject
+    public class CollectionPublicationConnection : GraphQLObject<CollectionPublicationConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -4465,7 +4504,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one CollectionPublication and a cursor during pagination.
     ///</summary>
-    public class CollectionPublicationEdge : IGraphQLObject
+    public class CollectionPublicationEdge : GraphQLObject<CollectionPublicationEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -4480,7 +4519,7 @@ namespace shopify
     ///<summary>
     ///Return type for `collectionPublish` mutation.
     ///</summary>
-    public class CollectionPublishPayload : IGraphQLObject
+    public class CollectionPublishPayload : GraphQLObject<CollectionPublishPayload>
     {
         ///<summary>
         ///The published collection.
@@ -4503,7 +4542,7 @@ namespace shopify
     ///<summary>
     ///Return type for `collectionRemoveProducts` mutation.
     ///</summary>
-    public class CollectionRemoveProductsPayload : IGraphQLObject
+    public class CollectionRemoveProductsPayload : GraphQLObject<CollectionRemoveProductsPayload>
     {
         ///<summary>
         ///The asynchronous job removing the products.
@@ -4518,7 +4557,7 @@ namespace shopify
     ///<summary>
     ///Return type for `collectionReorderProducts` mutation.
     ///</summary>
-    public class CollectionReorderProductsPayload : IGraphQLObject
+    public class CollectionReorderProductsPayload : GraphQLObject<CollectionReorderProductsPayload>
     {
         ///<summary>
         ///The asynchronous job reordering the products.
@@ -4533,7 +4572,7 @@ namespace shopify
     ///<summary>
     ///Represents at rule that's used to assign products to a collection.
     ///</summary>
-    public class CollectionRule : IGraphQLObject
+    public class CollectionRule : GraphQLObject<CollectionRule>
     {
         ///<summary>
         ///The attribute that the rule focuses on. For example, `title` or `product_type`.
@@ -4631,7 +4670,7 @@ namespace shopify
     ///<summary>
     ///This object defines all columns and allowed relations that can be used in rules for smart collections to automatically include the matching products.
     ///</summary>
-    public class CollectionRuleConditions : IGraphQLObject
+    public class CollectionRuleConditions : GraphQLObject<CollectionRuleConditions>
     {
         ///<summary>
         ///Allowed relations of the rule.
@@ -4668,7 +4707,7 @@ namespace shopify
     ///<summary>
     ///Identifies a metafield definition used as a rule for the smart collection.
     ///</summary>
-    public class CollectionRuleMetafieldCondition : IGraphQLObject, ICollectionRuleConditionObject, ICollectionRuleConditionsRuleObject
+    public class CollectionRuleMetafieldCondition : GraphQLObject<CollectionRuleMetafieldCondition>, ICollectionRuleConditionObject, ICollectionRuleConditionsRuleObject
     {
         ///<summary>
         ///The metafield definition associated with the condition.
@@ -4679,7 +4718,7 @@ namespace shopify
     ///<summary>
     ///Specifies the condition for a Product Category field.
     ///</summary>
-    public class CollectionRuleProductCategoryCondition : IGraphQLObject, ICollectionRuleConditionObject
+    public class CollectionRuleProductCategoryCondition : GraphQLObject<CollectionRuleProductCategoryCondition>, ICollectionRuleConditionObject
     {
         ///<summary>
         ///The value of the condition.
@@ -4737,7 +4776,7 @@ namespace shopify
     ///<summary>
     ///The set of rules that are used to determine which products are included in the collection.
     ///</summary>
-    public class CollectionRuleSet : IGraphQLObject
+    public class CollectionRuleSet : GraphQLObject<CollectionRuleSet>
     {
         ///<summary>
         ///Whether products must match any or all of the rules to be included in the collection.
@@ -4754,7 +4793,7 @@ namespace shopify
     ///<summary>
     ///Specifies the condition for a text field.
     ///</summary>
-    public class CollectionRuleTextCondition : IGraphQLObject, ICollectionRuleConditionObject
+    public class CollectionRuleTextCondition : GraphQLObject<CollectionRuleTextCondition>, ICollectionRuleConditionObject
     {
         ///<summary>
         ///The value of the condition.
@@ -4828,7 +4867,7 @@ namespace shopify
     ///<summary>
     ///Return type for `collectionUnpublish` mutation.
     ///</summary>
-    public class CollectionUnpublishPayload : IGraphQLObject
+    public class CollectionUnpublishPayload : GraphQLObject<CollectionUnpublishPayload>
     {
         ///<summary>
         ///The collection that has been unpublished.
@@ -4847,7 +4886,7 @@ namespace shopify
     ///<summary>
     ///Return type for `collectionUpdate` mutation.
     ///</summary>
-    public class CollectionUpdatePayload : IGraphQLObject
+    public class CollectionUpdatePayload : GraphQLObject<CollectionUpdatePayload>
     {
         ///<summary>
         ///The updated collection.
@@ -4867,7 +4906,7 @@ namespace shopify
     ///Comment events are generated by staff members of a shop.
     ///They are created when a staff member adds a comment to the timeline of an order, draft order, customer, or transfer.
     ///</summary>
-    public class CommentEvent : IGraphQLObject, IEvent, INode
+    public class CommentEvent : GraphQLObject<CommentEvent>, IEvent, INode
     {
         ///<summary>
         ///The name of the app that created the event.
@@ -4934,7 +4973,7 @@ namespace shopify
     ///<summary>
     ///A file attachment associated to a comment event.
     ///</summary>
-    public class CommentEventAttachment : IGraphQLObject
+    public class CommentEventAttachment : GraphQLObject<CommentEventAttachment>
     {
         ///<summary>
         ///The file extension of the comment event attachment, indicating the file format.
@@ -5047,7 +5086,7 @@ namespace shopify
     ///<summary>
     ///Return type for `companiesDelete` mutation.
     ///</summary>
-    public class CompaniesDeletePayload : IGraphQLObject
+    public class CompaniesDeletePayload : GraphQLObject<CompaniesDeletePayload>
     {
         ///<summary>
         ///A list of IDs of the deleted companies.
@@ -5062,7 +5101,7 @@ namespace shopify
     ///<summary>
     ///Represents information about a company which is also a customer of the shop.
     ///</summary>
-    public class Company : IGraphQLObject, ICommentEventSubject, IHasEvents, IHasMetafieldDefinitions, IHasMetafields, INavigable, INode
+    public class Company : GraphQLObject<Company>, ICommentEventSubject, IHasEvents, IHasMetafieldDefinitions, IHasMetafields, INavigable, INode
     {
         ///<summary>
         ///The number of contacts that belong to the company.
@@ -5181,7 +5220,7 @@ namespace shopify
     ///<summary>
     ///Represents a billing or shipping address for a company location.
     ///</summary>
-    public class CompanyAddress : IGraphQLObject, INode
+    public class CompanyAddress : GraphQLObject<CompanyAddress>, INode
     {
         ///<summary>
         ///The first line of the address. Typically the street address or PO Box number.
@@ -5255,7 +5294,7 @@ namespace shopify
     ///<summary>
     ///Return type for `companyAddressDelete` mutation.
     ///</summary>
-    public class CompanyAddressDeletePayload : IGraphQLObject
+    public class CompanyAddressDeletePayload : GraphQLObject<CompanyAddressDeletePayload>
     {
         ///<summary>
         ///The ID of the deleted address.
@@ -5285,7 +5324,7 @@ namespace shopify
     ///<summary>
     ///Return type for `companyAssignCustomerAsContact` mutation.
     ///</summary>
-    public class CompanyAssignCustomerAsContactPayload : IGraphQLObject
+    public class CompanyAssignCustomerAsContactPayload : GraphQLObject<CompanyAssignCustomerAsContactPayload>
     {
         ///<summary>
         ///The created company contact.
@@ -5300,7 +5339,7 @@ namespace shopify
     ///<summary>
     ///Return type for `companyAssignMainContact` mutation.
     ///</summary>
-    public class CompanyAssignMainContactPayload : IGraphQLObject
+    public class CompanyAssignMainContactPayload : GraphQLObject<CompanyAssignMainContactPayload>
     {
         ///<summary>
         ///The company for which the main contact is assigned.
@@ -5315,7 +5354,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Companies.
     ///</summary>
-    public class CompanyConnection : IGraphQLObject
+    public class CompanyConnection : GraphQLObject<CompanyConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -5334,7 +5373,7 @@ namespace shopify
     ///<summary>
     ///A person that acts on behalf of company associated to [a customer](https://shopify.dev/api/admin-graphql/latest/objects/customer).
     ///</summary>
-    public class CompanyContact : IGraphQLObject, INode
+    public class CompanyContact : GraphQLObject<CompanyContact>, INode
     {
         ///<summary>
         ///The company to which the contact belongs.
@@ -5389,7 +5428,7 @@ namespace shopify
     ///<summary>
     ///Return type for `companyContactAssignRole` mutation.
     ///</summary>
-    public class CompanyContactAssignRolePayload : IGraphQLObject
+    public class CompanyContactAssignRolePayload : GraphQLObject<CompanyContactAssignRolePayload>
     {
         ///<summary>
         ///The company contact role assignment.
@@ -5404,7 +5443,7 @@ namespace shopify
     ///<summary>
     ///Return type for `companyContactAssignRoles` mutation.
     ///</summary>
-    public class CompanyContactAssignRolesPayload : IGraphQLObject
+    public class CompanyContactAssignRolesPayload : GraphQLObject<CompanyContactAssignRolesPayload>
     {
         ///<summary>
         ///A list of newly created assignments of company contacts to a company location.
@@ -5419,7 +5458,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple CompanyContacts.
     ///</summary>
-    public class CompanyContactConnection : IGraphQLObject
+    public class CompanyContactConnection : GraphQLObject<CompanyContactConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -5438,7 +5477,7 @@ namespace shopify
     ///<summary>
     ///Return type for `companyContactCreate` mutation.
     ///</summary>
-    public class CompanyContactCreatePayload : IGraphQLObject
+    public class CompanyContactCreatePayload : GraphQLObject<CompanyContactCreatePayload>
     {
         ///<summary>
         ///The created company contact.
@@ -5453,7 +5492,7 @@ namespace shopify
     ///<summary>
     ///Return type for `companyContactDelete` mutation.
     ///</summary>
-    public class CompanyContactDeletePayload : IGraphQLObject
+    public class CompanyContactDeletePayload : GraphQLObject<CompanyContactDeletePayload>
     {
         ///<summary>
         ///The ID of the deleted company contact.
@@ -5468,7 +5507,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one CompanyContact and a cursor during pagination.
     ///</summary>
-    public class CompanyContactEdge : IGraphQLObject
+    public class CompanyContactEdge : GraphQLObject<CompanyContactEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -5483,7 +5522,7 @@ namespace shopify
     ///<summary>
     ///Return type for `companyContactRemoveFromCompany` mutation.
     ///</summary>
-    public class CompanyContactRemoveFromCompanyPayload : IGraphQLObject
+    public class CompanyContactRemoveFromCompanyPayload : GraphQLObject<CompanyContactRemoveFromCompanyPayload>
     {
         ///<summary>
         ///The ID of the removed company contact.
@@ -5498,7 +5537,7 @@ namespace shopify
     ///<summary>
     ///Return type for `companyContactRevokeRole` mutation.
     ///</summary>
-    public class CompanyContactRevokeRolePayload : IGraphQLObject
+    public class CompanyContactRevokeRolePayload : GraphQLObject<CompanyContactRevokeRolePayload>
     {
         ///<summary>
         ///The role assignment that was revoked.
@@ -5513,7 +5552,7 @@ namespace shopify
     ///<summary>
     ///Return type for `companyContactRevokeRoles` mutation.
     ///</summary>
-    public class CompanyContactRevokeRolesPayload : IGraphQLObject
+    public class CompanyContactRevokeRolesPayload : GraphQLObject<CompanyContactRevokeRolesPayload>
     {
         ///<summary>
         ///A list of role assignment IDs that were removed from the company contact.
@@ -5528,7 +5567,7 @@ namespace shopify
     ///<summary>
     ///The role for a [company contact](https://shopify.dev/api/admin-graphql/latest/objects/companycontact).
     ///</summary>
-    public class CompanyContactRole : IGraphQLObject, INode
+    public class CompanyContactRole : GraphQLObject<CompanyContactRole>, INode
     {
         ///<summary>
         ///A globally-unique ID.
@@ -5548,7 +5587,7 @@ namespace shopify
     ///<summary>
     ///The CompanyContactRoleAssignment describes the company and location associated to a company contact's role.
     ///</summary>
-    public class CompanyContactRoleAssignment : IGraphQLObject, INode
+    public class CompanyContactRoleAssignment : GraphQLObject<CompanyContactRoleAssignment>, INode
     {
         ///<summary>
         ///The company this role assignment belongs to.
@@ -5583,7 +5622,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple CompanyContactRoleAssignments.
     ///</summary>
-    public class CompanyContactRoleAssignmentConnection : IGraphQLObject
+    public class CompanyContactRoleAssignmentConnection : GraphQLObject<CompanyContactRoleAssignmentConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -5602,7 +5641,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one CompanyContactRoleAssignment and a cursor during pagination.
     ///</summary>
-    public class CompanyContactRoleAssignmentEdge : IGraphQLObject
+    public class CompanyContactRoleAssignmentEdge : GraphQLObject<CompanyContactRoleAssignmentEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -5645,7 +5684,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple CompanyContactRoles.
     ///</summary>
-    public class CompanyContactRoleConnection : IGraphQLObject
+    public class CompanyContactRoleConnection : GraphQLObject<CompanyContactRoleConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -5664,7 +5703,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one CompanyContactRole and a cursor during pagination.
     ///</summary>
-    public class CompanyContactRoleEdge : IGraphQLObject
+    public class CompanyContactRoleEdge : GraphQLObject<CompanyContactRoleEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -5703,7 +5742,7 @@ namespace shopify
     ///<summary>
     ///Return type for `companyContactSendWelcomeEmail` mutation.
     ///</summary>
-    public class CompanyContactSendWelcomeEmailPayload : IGraphQLObject
+    public class CompanyContactSendWelcomeEmailPayload : GraphQLObject<CompanyContactSendWelcomeEmailPayload>
     {
         ///<summary>
         ///The company contact to whom a welcome email was sent.
@@ -5762,7 +5801,7 @@ namespace shopify
     ///<summary>
     ///Return type for `companyContactUpdate` mutation.
     ///</summary>
-    public class CompanyContactUpdatePayload : IGraphQLObject
+    public class CompanyContactUpdatePayload : GraphQLObject<CompanyContactUpdatePayload>
     {
         ///<summary>
         ///The updated company contact.
@@ -5777,7 +5816,7 @@ namespace shopify
     ///<summary>
     ///Return type for `companyContactsDelete` mutation.
     ///</summary>
-    public class CompanyContactsDeletePayload : IGraphQLObject
+    public class CompanyContactsDeletePayload : GraphQLObject<CompanyContactsDeletePayload>
     {
         ///<summary>
         ///The list of IDs of the deleted company contacts.
@@ -5792,7 +5831,7 @@ namespace shopify
     ///<summary>
     ///Return type for `companyCreate` mutation.
     ///</summary>
-    public class CompanyCreatePayload : IGraphQLObject
+    public class CompanyCreatePayload : GraphQLObject<CompanyCreatePayload>
     {
         ///<summary>
         ///The created company.
@@ -5807,7 +5846,7 @@ namespace shopify
     ///<summary>
     ///Return type for `companyDelete` mutation.
     ///</summary>
-    public class CompanyDeletePayload : IGraphQLObject
+    public class CompanyDeletePayload : GraphQLObject<CompanyDeletePayload>
     {
         ///<summary>
         ///The ID of the deleted company.
@@ -5822,7 +5861,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one Company and a cursor during pagination.
     ///</summary>
-    public class CompanyEdge : IGraphQLObject
+    public class CompanyEdge : GraphQLObject<CompanyEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -5837,7 +5876,7 @@ namespace shopify
     ///<summary>
     ///A location or branch of a [company that's a customer](https://shopify.dev/api/admin-graphql/latest/objects/company) of the shop. Configuration of B2B relationship, for example prices lists and checkout settings, may be done for a location.
     ///</summary>
-    public class CompanyLocation : IGraphQLObject, ICommentEventSubject, IHasEvents, IHasMetafieldDefinitions, IHasMetafields, INavigable, INode
+    public class CompanyLocation : GraphQLObject<CompanyLocation>, ICommentEventSubject, IHasEvents, IHasMetafieldDefinitions, IHasMetafields, INavigable, INode
     {
         ///<summary>
         ///The address used as billing address for the location.
@@ -5972,7 +6011,7 @@ namespace shopify
     ///<summary>
     ///Return type for `companyLocationAssignAddress` mutation.
     ///</summary>
-    public class CompanyLocationAssignAddressPayload : IGraphQLObject
+    public class CompanyLocationAssignAddressPayload : GraphQLObject<CompanyLocationAssignAddressPayload>
     {
         ///<summary>
         ///The list of updated addresses on the company location.
@@ -5987,7 +6026,7 @@ namespace shopify
     ///<summary>
     ///Return type for `companyLocationAssignRoles` mutation.
     ///</summary>
-    public class CompanyLocationAssignRolesPayload : IGraphQLObject
+    public class CompanyLocationAssignRolesPayload : GraphQLObject<CompanyLocationAssignRolesPayload>
     {
         ///<summary>
         ///A list of newly created assignments of company contacts to a company location.
@@ -6002,7 +6041,7 @@ namespace shopify
     ///<summary>
     ///Return type for `companyLocationAssignTaxExemptions` mutation.
     ///</summary>
-    public class CompanyLocationAssignTaxExemptionsPayload : IGraphQLObject
+    public class CompanyLocationAssignTaxExemptionsPayload : GraphQLObject<CompanyLocationAssignTaxExemptionsPayload>
     {
         ///<summary>
         ///The updated company location.
@@ -6017,7 +6056,7 @@ namespace shopify
     ///<summary>
     ///A list of products with publishing and pricing information associated with company locations.
     ///</summary>
-    public class CompanyLocationCatalog : IGraphQLObject, ICatalog, INode
+    public class CompanyLocationCatalog : GraphQLObject<CompanyLocationCatalog>, ICatalog, INode
     {
         ///<summary>
         ///The company locations associated with the catalog.
@@ -6056,7 +6095,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple CompanyLocations.
     ///</summary>
-    public class CompanyLocationConnection : IGraphQLObject
+    public class CompanyLocationConnection : GraphQLObject<CompanyLocationConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -6075,7 +6114,7 @@ namespace shopify
     ///<summary>
     ///Return type for `companyLocationCreate` mutation.
     ///</summary>
-    public class CompanyLocationCreatePayload : IGraphQLObject
+    public class CompanyLocationCreatePayload : GraphQLObject<CompanyLocationCreatePayload>
     {
         ///<summary>
         ///The created company location.
@@ -6090,7 +6129,7 @@ namespace shopify
     ///<summary>
     ///Return type for `companyLocationCreateTaxRegistration` mutation.
     ///</summary>
-    public class CompanyLocationCreateTaxRegistrationPayload : IGraphQLObject
+    public class CompanyLocationCreateTaxRegistrationPayload : GraphQLObject<CompanyLocationCreateTaxRegistrationPayload>
     {
         ///<summary>
         ///The company location with the created tax registration.
@@ -6105,7 +6144,7 @@ namespace shopify
     ///<summary>
     ///Return type for `companyLocationDelete` mutation.
     ///</summary>
-    public class CompanyLocationDeletePayload : IGraphQLObject
+    public class CompanyLocationDeletePayload : GraphQLObject<CompanyLocationDeletePayload>
     {
         ///<summary>
         ///The ID of the deleted company location.
@@ -6120,7 +6159,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one CompanyLocation and a cursor during pagination.
     ///</summary>
-    public class CompanyLocationEdge : IGraphQLObject
+    public class CompanyLocationEdge : GraphQLObject<CompanyLocationEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -6135,7 +6174,7 @@ namespace shopify
     ///<summary>
     ///Return type for `companyLocationRevokeRoles` mutation.
     ///</summary>
-    public class CompanyLocationRevokeRolesPayload : IGraphQLObject
+    public class CompanyLocationRevokeRolesPayload : GraphQLObject<CompanyLocationRevokeRolesPayload>
     {
         ///<summary>
         ///A list of role assignment IDs that were removed from the company location.
@@ -6150,7 +6189,7 @@ namespace shopify
     ///<summary>
     ///Return type for `companyLocationRevokeTaxExemptions` mutation.
     ///</summary>
-    public class CompanyLocationRevokeTaxExemptionsPayload : IGraphQLObject
+    public class CompanyLocationRevokeTaxExemptionsPayload : GraphQLObject<CompanyLocationRevokeTaxExemptionsPayload>
     {
         ///<summary>
         ///The updated company location.
@@ -6165,7 +6204,7 @@ namespace shopify
     ///<summary>
     ///Return type for `companyLocationRevokeTaxRegistration` mutation.
     ///</summary>
-    public class CompanyLocationRevokeTaxRegistrationPayload : IGraphQLObject
+    public class CompanyLocationRevokeTaxRegistrationPayload : GraphQLObject<CompanyLocationRevokeTaxRegistrationPayload>
     {
         ///<summary>
         ///The updated company location.
@@ -6216,7 +6255,7 @@ namespace shopify
     ///<summary>
     ///Return type for `companyLocationUpdate` mutation.
     ///</summary>
-    public class CompanyLocationUpdatePayload : IGraphQLObject
+    public class CompanyLocationUpdatePayload : GraphQLObject<CompanyLocationUpdatePayload>
     {
         ///<summary>
         ///The updated company location.
@@ -6231,7 +6270,7 @@ namespace shopify
     ///<summary>
     ///Return type for `companyLocationsDelete` mutation.
     ///</summary>
-    public class CompanyLocationsDeletePayload : IGraphQLObject
+    public class CompanyLocationsDeletePayload : GraphQLObject<CompanyLocationsDeletePayload>
     {
         ///<summary>
         ///A list of IDs of the deleted company locations.
@@ -6246,7 +6285,7 @@ namespace shopify
     ///<summary>
     ///Return type for `companyRevokeMainContact` mutation.
     ///</summary>
-    public class CompanyRevokeMainContactPayload : IGraphQLObject
+    public class CompanyRevokeMainContactPayload : GraphQLObject<CompanyRevokeMainContactPayload>
     {
         ///<summary>
         ///The company from which the main contact is revoked.
@@ -6301,7 +6340,7 @@ namespace shopify
     ///<summary>
     ///Return type for `companyUpdate` mutation.
     ///</summary>
-    public class CompanyUpdatePayload : IGraphQLObject
+    public class CompanyUpdatePayload : GraphQLObject<CompanyUpdatePayload>
     {
         ///<summary>
         ///The updated company.
@@ -6316,7 +6355,7 @@ namespace shopify
     ///<summary>
     ///The list of all the countries from the combined shipping zones for the shop.
     ///</summary>
-    public class CountriesInShippingZones : IGraphQLObject
+    public class CountriesInShippingZones : GraphQLObject<CountriesInShippingZones>
     {
         ///<summary>
         ///The list of all the countries from all the combined shipping zones.
@@ -7321,7 +7360,7 @@ namespace shopify
     ///<summary>
     ///The country-specific harmonized system code and ISO country code for an inventory item.
     ///</summary>
-    public class CountryHarmonizedSystemCode : IGraphQLObject
+    public class CountryHarmonizedSystemCode : GraphQLObject<CountryHarmonizedSystemCode>
     {
         ///<summary>
         ///The ISO 3166-1 alpha-2 country code for the country that issued the specified harmonized system code.
@@ -7336,7 +7375,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple CountryHarmonizedSystemCodes.
     ///</summary>
-    public class CountryHarmonizedSystemCodeConnection : IGraphQLObject
+    public class CountryHarmonizedSystemCodeConnection : GraphQLObject<CountryHarmonizedSystemCodeConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -7355,7 +7394,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one CountryHarmonizedSystemCode and a cursor during pagination.
     ///</summary>
-    public class CountryHarmonizedSystemCodeEdge : IGraphQLObject
+    public class CountryHarmonizedSystemCodeEdge : GraphQLObject<CountryHarmonizedSystemCodeEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -8052,7 +8091,7 @@ namespace shopify
     ///<summary>
     ///Currency formats configured for the merchant. These formats are available to use within Liquid.
     ///</summary>
-    public class CurrencyFormats : IGraphQLObject
+    public class CurrencyFormats : GraphQLObject<CurrencyFormats>
     {
         ///<summary>
         ///Money without currency in HTML.
@@ -8075,7 +8114,7 @@ namespace shopify
     ///<summary>
     ///A setting for a presentment currency.
     ///</summary>
-    public class CurrencySetting : IGraphQLObject
+    public class CurrencySetting : GraphQLObject<CurrencySetting>
     {
         ///<summary>
         ///The currency's ISO code.
@@ -8098,7 +8137,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple CurrencySettings.
     ///</summary>
-    public class CurrencySettingConnection : IGraphQLObject
+    public class CurrencySettingConnection : GraphQLObject<CurrencySettingConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -8117,7 +8156,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one CurrencySetting and a cursor during pagination.
     ///</summary>
-    public class CurrencySettingEdge : IGraphQLObject
+    public class CurrencySettingEdge : GraphQLObject<CurrencySettingEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -8135,7 +8174,7 @@ namespace shopify
     ///
     ///**Caution:** Only use this data if it's required for your app's functionality. Shopify will restrict [access to scopes](https://shopify.dev/api/usage/access-scopes) for apps that don't have a legitimate use for the associated data.
     ///</summary>
-    public class Customer : IGraphQLObject, ICommentEventSubject, IHasEvents, IHasMetafieldDefinitions, IHasMetafields, ILegacyInteroperability, INode, ICommentEventEmbed, IMetafieldReferencer, IPurchasingEntity
+    public class Customer : GraphQLObject<Customer>, ICommentEventSubject, IHasEvents, IHasMetafieldDefinitions, IHasMetafields, ILegacyInteroperability, INode, ICommentEventEmbed, IMetafieldReferencer, IPurchasingEntity
     {
         ///<summary>
         ///Whether the customer has agreed to receive marketing material.
@@ -8369,7 +8408,7 @@ namespace shopify
     ///<summary>
     ///Return type for `customerAddTaxExemptions` mutation.
     ///</summary>
-    public class CustomerAddTaxExemptionsPayload : IGraphQLObject
+    public class CustomerAddTaxExemptionsPayload : GraphQLObject<CustomerAddTaxExemptionsPayload>
     {
         ///<summary>
         ///The updated customer.
@@ -8384,7 +8423,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Customers.
     ///</summary>
-    public class CustomerConnection : IGraphQLObject
+    public class CustomerConnection : GraphQLObject<CustomerConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -8418,7 +8457,7 @@ namespace shopify
     ///<summary>
     ///Return type for `customerCreate` mutation.
     ///</summary>
-    public class CustomerCreatePayload : IGraphQLObject
+    public class CustomerCreatePayload : GraphQLObject<CustomerCreatePayload>
     {
         ///<summary>
         ///The created customer.
@@ -8433,7 +8472,7 @@ namespace shopify
     ///<summary>
     ///Represents a card instrument for customer payment method.
     ///</summary>
-    public class CustomerCreditCard : IGraphQLObject, ICustomerPaymentInstrument
+    public class CustomerCreditCard : GraphQLObject<CustomerCreditCard>, ICustomerPaymentInstrument
     {
         ///<summary>
         ///The billing address of the card.
@@ -8488,7 +8527,7 @@ namespace shopify
     ///<summary>
     ///The billing address of a credit card payment instrument.
     ///</summary>
-    public class CustomerCreditCardBillingAddress : IGraphQLObject
+    public class CustomerCreditCardBillingAddress : GraphQLObject<CustomerCreditCardBillingAddress>
     {
         ///<summary>
         ///The first line of the address. Typically the street address or PO Box number.
@@ -8533,7 +8572,7 @@ namespace shopify
     ///<summary>
     ///Return type for `customerDelete` mutation.
     ///</summary>
-    public class CustomerDeletePayload : IGraphQLObject
+    public class CustomerDeletePayload : GraphQLObject<CustomerDeletePayload>
     {
         ///<summary>
         ///The ID of the deleted customer.
@@ -8552,7 +8591,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one Customer and a cursor during pagination.
     ///</summary>
-    public class CustomerEdge : IGraphQLObject
+    public class CustomerEdge : GraphQLObject<CustomerEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -8567,7 +8606,7 @@ namespace shopify
     ///<summary>
     ///Represents an email address.
     ///</summary>
-    public class CustomerEmailAddress : IGraphQLObject
+    public class CustomerEmailAddress : GraphQLObject<CustomerEmailAddress>
     {
         ///<summary>
         ///The customer's default email address.
@@ -8640,7 +8679,7 @@ namespace shopify
     ///<summary>
     ///The record of when a customer consented to receive marketing material by email.
     ///</summary>
-    public class CustomerEmailMarketingConsentState : IGraphQLObject
+    public class CustomerEmailMarketingConsentState : GraphQLObject<CustomerEmailMarketingConsentState>
     {
         ///<summary>
         ///The date and time at which the customer consented to receive marketing material by email.
@@ -8662,7 +8701,7 @@ namespace shopify
     ///<summary>
     ///Return type for `customerEmailMarketingConsentUpdate` mutation.
     ///</summary>
-    public class CustomerEmailMarketingConsentUpdatePayload : IGraphQLObject
+    public class CustomerEmailMarketingConsentUpdatePayload : GraphQLObject<CustomerEmailMarketingConsentUpdatePayload>
     {
         ///<summary>
         ///The updated customer.
@@ -8677,7 +8716,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `CustomerEmailMarketingConsentUpdate`.
     ///</summary>
-    public class CustomerEmailMarketingConsentUpdateUserError : IGraphQLObject, IDisplayableError
+    public class CustomerEmailMarketingConsentUpdateUserError : GraphQLObject<CustomerEmailMarketingConsentUpdateUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -8750,7 +8789,7 @@ namespace shopify
     ///<summary>
     ///Return type for `customerGenerateAccountActivationUrl` mutation.
     ///</summary>
-    public class CustomerGenerateAccountActivationUrlPayload : IGraphQLObject
+    public class CustomerGenerateAccountActivationUrlPayload : GraphQLObject<CustomerGenerateAccountActivationUrlPayload>
     {
         ///<summary>
         ///The generated account activation URL.
@@ -8765,7 +8804,7 @@ namespace shopify
     ///<summary>
     ///Represents a customer's visiting activities on a shop's online store.
     ///</summary>
-    public class CustomerJourney : IGraphQLObject
+    public class CustomerJourney : GraphQLObject<CustomerJourney>
     {
         ///<summary>
         ///The position of the current order within the customer's order history.
@@ -8792,7 +8831,7 @@ namespace shopify
     ///<summary>
     ///Represents a customer's visiting activities on a shop's online store.
     ///</summary>
-    public class CustomerJourneySummary : IGraphQLObject
+    public class CustomerJourneySummary : GraphQLObject<CustomerJourneySummary>
     {
         ///<summary>
         ///The position of the current order within the customer's order history. Test orders aren't included.
@@ -8851,7 +8890,7 @@ namespace shopify
     ///<summary>
     ///The error blocking a customer merge.
     ///</summary>
-    public class CustomerMergeError : IGraphQLObject
+    public class CustomerMergeError : GraphQLObject<CustomerMergeError>
     {
         ///<summary>
         ///The list of fields preventing the customer from being merged.
@@ -8940,7 +8979,7 @@ namespace shopify
     ///<summary>
     ///Return type for `customerMerge` mutation.
     ///</summary>
-    public class CustomerMergePayload : IGraphQLObject
+    public class CustomerMergePayload : GraphQLObject<CustomerMergePayload>
     {
         ///<summary>
         ///The asynchronous job for merging the customers.
@@ -8959,7 +8998,7 @@ namespace shopify
     ///<summary>
     ///A preview of the results of a customer merge request.
     ///</summary>
-    public class CustomerMergePreview : IGraphQLObject
+    public class CustomerMergePreview : GraphQLObject<CustomerMergePreview>
     {
         ///<summary>
         ///The fields that can be used to override the default fields.
@@ -8986,7 +9025,7 @@ namespace shopify
     ///<summary>
     ///The fields that can be used to override the default fields.
     ///</summary>
-    public class CustomerMergePreviewAlternateFields : IGraphQLObject
+    public class CustomerMergePreviewAlternateFields : GraphQLObject<CustomerMergePreviewAlternateFields>
     {
         ///<summary>
         ///The default address of a customer.
@@ -9013,7 +9052,7 @@ namespace shopify
     ///<summary>
     ///The blocking fields of a customer merge preview. These fields will block customer merge unless edited.
     ///</summary>
-    public class CustomerMergePreviewBlockingFields : IGraphQLObject
+    public class CustomerMergePreviewBlockingFields : GraphQLObject<CustomerMergePreviewBlockingFields>
     {
         ///<summary>
         ///The merged note resulting from a customer merge. The merged note is over the 5000 character limit and will block customer merge.
@@ -9028,7 +9067,7 @@ namespace shopify
     ///<summary>
     ///The fields that will be kept as part of a customer merge preview.
     ///</summary>
-    public class CustomerMergePreviewDefaultFields : IGraphQLObject
+    public class CustomerMergePreviewDefaultFields : GraphQLObject<CustomerMergePreviewDefaultFields>
     {
         ///<summary>
         ///The merged addresses resulting from a customer merge.
@@ -9107,7 +9146,7 @@ namespace shopify
     ///<summary>
     ///A merge request for merging two customers.
     ///</summary>
-    public class CustomerMergeRequest : IGraphQLObject
+    public class CustomerMergeRequest : GraphQLObject<CustomerMergeRequest>
     {
         ///<summary>
         ///The merge errors that occurred during the customer merge request.
@@ -9153,7 +9192,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs while merging two customers.
     ///</summary>
-    public class CustomerMergeUserError : IGraphQLObject, IDisplayableError
+    public class CustomerMergeUserError : GraphQLObject<CustomerMergeUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -9172,7 +9211,7 @@ namespace shopify
     ///<summary>
     ///An object that represents whether a customer can be merged with another customer.
     ///</summary>
-    public class CustomerMergeable : IGraphQLObject
+    public class CustomerMergeable : GraphQLObject<CustomerMergeable>
     {
         ///<summary>
         ///The list of fields preventing the customer from being merged.
@@ -9209,7 +9248,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple CustomerMoments.
     ///</summary>
-    public class CustomerMomentConnection : IGraphQLObject
+    public class CustomerMomentConnection : GraphQLObject<CustomerMomentConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -9228,7 +9267,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one CustomerMoment and a cursor during pagination.
     ///</summary>
-    public class CustomerMomentEdge : IGraphQLObject
+    public class CustomerMomentEdge : GraphQLObject<CustomerMomentEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -9261,7 +9300,7 @@ namespace shopify
     ///<summary>
     ///The billing address of a payment instrument.
     ///</summary>
-    public class CustomerPaymentInstrumentBillingAddress : IGraphQLObject
+    public class CustomerPaymentInstrumentBillingAddress : GraphQLObject<CustomerPaymentInstrumentBillingAddress>
     {
         ///<summary>
         ///The first line of the address. Typically the street address or PO Box number.
@@ -9302,7 +9341,7 @@ namespace shopify
     ///<summary>
     ///A customer's payment method.
     ///</summary>
-    public class CustomerPaymentMethod : IGraphQLObject, INode
+    public class CustomerPaymentMethod : GraphQLObject<CustomerPaymentMethod>, INode
     {
         ///<summary>
         ///The customer to whom the payment method belongs.
@@ -9333,7 +9372,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple CustomerPaymentMethods.
     ///</summary>
-    public class CustomerPaymentMethodConnection : IGraphQLObject
+    public class CustomerPaymentMethodConnection : GraphQLObject<CustomerPaymentMethodConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -9352,7 +9391,7 @@ namespace shopify
     ///<summary>
     ///Return type for `customerPaymentMethodCreateFromDuplicationData` mutation.
     ///</summary>
-    public class CustomerPaymentMethodCreateFromDuplicationDataPayload : IGraphQLObject
+    public class CustomerPaymentMethodCreateFromDuplicationDataPayload : GraphQLObject<CustomerPaymentMethodCreateFromDuplicationDataPayload>
     {
         ///<summary>
         ///The customer payment method.
@@ -9367,7 +9406,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `CustomerPaymentMethodCreateFromDuplicationData`.
     ///</summary>
-    public class CustomerPaymentMethodCreateFromDuplicationDataUserError : IGraphQLObject, IDisplayableError
+    public class CustomerPaymentMethodCreateFromDuplicationDataUserError : GraphQLObject<CustomerPaymentMethodCreateFromDuplicationDataUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -9405,7 +9444,7 @@ namespace shopify
     ///<summary>
     ///Return type for `customerPaymentMethodCreditCardCreate` mutation.
     ///</summary>
-    public class CustomerPaymentMethodCreditCardCreatePayload : IGraphQLObject
+    public class CustomerPaymentMethodCreditCardCreatePayload : GraphQLObject<CustomerPaymentMethodCreditCardCreatePayload>
     {
         ///<summary>
         ///The customer payment method.
@@ -9420,7 +9459,7 @@ namespace shopify
     ///<summary>
     ///Return type for `customerPaymentMethodCreditCardUpdate` mutation.
     ///</summary>
-    public class CustomerPaymentMethodCreditCardUpdatePayload : IGraphQLObject
+    public class CustomerPaymentMethodCreditCardUpdatePayload : GraphQLObject<CustomerPaymentMethodCreditCardUpdatePayload>
     {
         ///<summary>
         ///The customer payment method.
@@ -9435,7 +9474,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one CustomerPaymentMethod and a cursor during pagination.
     ///</summary>
-    public class CustomerPaymentMethodEdge : IGraphQLObject
+    public class CustomerPaymentMethodEdge : GraphQLObject<CustomerPaymentMethodEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -9450,7 +9489,7 @@ namespace shopify
     ///<summary>
     ///Return type for `customerPaymentMethodGetDuplicationData` mutation.
     ///</summary>
-    public class CustomerPaymentMethodGetDuplicationDataPayload : IGraphQLObject
+    public class CustomerPaymentMethodGetDuplicationDataPayload : GraphQLObject<CustomerPaymentMethodGetDuplicationDataPayload>
     {
         ///<summary>
         ///The encrypted data from the payment method to be duplicated.
@@ -9465,7 +9504,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `CustomerPaymentMethodGetDuplicationData`.
     ///</summary>
-    public class CustomerPaymentMethodGetDuplicationDataUserError : IGraphQLObject, IDisplayableError
+    public class CustomerPaymentMethodGetDuplicationDataUserError : GraphQLObject<CustomerPaymentMethodGetDuplicationDataUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -9515,7 +9554,7 @@ namespace shopify
     ///<summary>
     ///Return type for `customerPaymentMethodGetUpdateUrl` mutation.
     ///</summary>
-    public class CustomerPaymentMethodGetUpdateUrlPayload : IGraphQLObject
+    public class CustomerPaymentMethodGetUpdateUrlPayload : GraphQLObject<CustomerPaymentMethodGetUpdateUrlPayload>
     {
         ///<summary>
         ///The URL to redirect the customer to update the payment method.
@@ -9530,7 +9569,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `CustomerPaymentMethodGetUpdateUrl`.
     ///</summary>
-    public class CustomerPaymentMethodGetUpdateUrlUserError : IGraphQLObject, IDisplayableError
+    public class CustomerPaymentMethodGetUpdateUrlUserError : GraphQLObject<CustomerPaymentMethodGetUpdateUrlUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -9572,7 +9611,7 @@ namespace shopify
     ///<summary>
     ///Return type for `customerPaymentMethodPaypalBillingAgreementCreate` mutation.
     ///</summary>
-    public class CustomerPaymentMethodPaypalBillingAgreementCreatePayload : IGraphQLObject
+    public class CustomerPaymentMethodPaypalBillingAgreementCreatePayload : GraphQLObject<CustomerPaymentMethodPaypalBillingAgreementCreatePayload>
     {
         ///<summary>
         ///The customer payment method.
@@ -9587,7 +9626,7 @@ namespace shopify
     ///<summary>
     ///Return type for `customerPaymentMethodPaypalBillingAgreementUpdate` mutation.
     ///</summary>
-    public class CustomerPaymentMethodPaypalBillingAgreementUpdatePayload : IGraphQLObject
+    public class CustomerPaymentMethodPaypalBillingAgreementUpdatePayload : GraphQLObject<CustomerPaymentMethodPaypalBillingAgreementUpdatePayload>
     {
         ///<summary>
         ///The customer payment method.
@@ -9602,7 +9641,7 @@ namespace shopify
     ///<summary>
     ///Return type for `customerPaymentMethodRemoteCreate` mutation.
     ///</summary>
-    public class CustomerPaymentMethodRemoteCreatePayload : IGraphQLObject
+    public class CustomerPaymentMethodRemoteCreatePayload : GraphQLObject<CustomerPaymentMethodRemoteCreatePayload>
     {
         ///<summary>
         ///The customer payment method.
@@ -9617,7 +9656,7 @@ namespace shopify
     ///<summary>
     ///Return type for `customerPaymentMethodRemoteCreditCardCreate` mutation.
     ///</summary>
-    public class CustomerPaymentMethodRemoteCreditCardCreatePayload : IGraphQLObject
+    public class CustomerPaymentMethodRemoteCreditCardCreatePayload : GraphQLObject<CustomerPaymentMethodRemoteCreditCardCreatePayload>
     {
         ///<summary>
         ///The customer payment method.
@@ -9632,7 +9671,7 @@ namespace shopify
     ///<summary>
     ///Represents an error in the input of a mutation.
     ///</summary>
-    public class CustomerPaymentMethodRemoteUserError : IGraphQLObject, IDisplayableError
+    public class CustomerPaymentMethodRemoteUserError : GraphQLObject<CustomerPaymentMethodRemoteUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -9745,7 +9784,7 @@ namespace shopify
     ///<summary>
     ///Return type for `customerPaymentMethodRevoke` mutation.
     ///</summary>
-    public class CustomerPaymentMethodRevokePayload : IGraphQLObject
+    public class CustomerPaymentMethodRevokePayload : GraphQLObject<CustomerPaymentMethodRevokePayload>
     {
         ///<summary>
         ///The ID of the revoked customer payment method.
@@ -9760,7 +9799,7 @@ namespace shopify
     ///<summary>
     ///Return type for `customerPaymentMethodSendUpdateEmail` mutation.
     ///</summary>
-    public class CustomerPaymentMethodSendUpdateEmailPayload : IGraphQLObject
+    public class CustomerPaymentMethodSendUpdateEmailPayload : GraphQLObject<CustomerPaymentMethodSendUpdateEmailPayload>
     {
         ///<summary>
         ///The customer to whom an update payment method email was sent.
@@ -9775,7 +9814,7 @@ namespace shopify
     ///<summary>
     ///Represents an error in the input of a mutation.
     ///</summary>
-    public class CustomerPaymentMethodUserError : IGraphQLObject, IDisplayableError
+    public class CustomerPaymentMethodUserError : GraphQLObject<CustomerPaymentMethodUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -9813,7 +9852,7 @@ namespace shopify
     ///<summary>
     ///Represents a PayPal instrument for customer payment method.
     ///</summary>
-    public class CustomerPaypalBillingAgreement : IGraphQLObject, ICustomerPaymentInstrument
+    public class CustomerPaypalBillingAgreement : GraphQLObject<CustomerPaypalBillingAgreement>, ICustomerPaymentInstrument
     {
         ///<summary>
         ///The billing address of this payment method.
@@ -9836,7 +9875,7 @@ namespace shopify
     ///<summary>
     ///A phone number.
     ///</summary>
-    public class CustomerPhoneNumber : IGraphQLObject
+    public class CustomerPhoneNumber : GraphQLObject<CustomerPhoneNumber>
     {
         ///<summary>
         ///Whether the customer has subscribed to SMS marketing material.
@@ -9905,7 +9944,7 @@ namespace shopify
     ///<summary>
     ///Return type for `customerRemoveTaxExemptions` mutation.
     ///</summary>
-    public class CustomerRemoveTaxExemptionsPayload : IGraphQLObject
+    public class CustomerRemoveTaxExemptionsPayload : GraphQLObject<CustomerRemoveTaxExemptionsPayload>
     {
         ///<summary>
         ///The updated customer.
@@ -9920,7 +9959,7 @@ namespace shopify
     ///<summary>
     ///Return type for `customerReplaceTaxExemptions` mutation.
     ///</summary>
-    public class CustomerReplaceTaxExemptionsPayload : IGraphQLObject
+    public class CustomerReplaceTaxExemptionsPayload : GraphQLObject<CustomerReplaceTaxExemptionsPayload>
     {
         ///<summary>
         ///The updated customer.
@@ -9955,7 +9994,7 @@ namespace shopify
     ///<summary>
     ///The member of a segment.
     ///</summary>
-    public class CustomerSegmentMember : IGraphQLObject, IHasMetafields
+    public class CustomerSegmentMember : GraphQLObject<CustomerSegmentMember>, IHasMetafields
     {
         ///<summary>
         ///The total amount of money that the member has spent on orders.
@@ -10030,7 +10069,7 @@ namespace shopify
     ///<summary>
     ///The connection type for the `CustomerSegmentMembers` object.
     ///</summary>
-    public class CustomerSegmentMemberConnection : IGraphQLObject
+    public class CustomerSegmentMemberConnection : GraphQLObject<CustomerSegmentMemberConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -10053,7 +10092,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one CustomerSegmentMember and a cursor during pagination.
     ///</summary>
-    public class CustomerSegmentMemberEdge : IGraphQLObject
+    public class CustomerSegmentMemberEdge : GraphQLObject<CustomerSegmentMemberEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -10068,7 +10107,7 @@ namespace shopify
     ///<summary>
     ///A job to determine a list of members, such as customers, that are associated with an individual segment.
     ///</summary>
-    public class CustomerSegmentMembersQuery : IGraphQLObject, IJobResult, INode
+    public class CustomerSegmentMembersQuery : GraphQLObject<CustomerSegmentMembersQuery>, IJobResult, INode
     {
         ///<summary>
         ///The current total number of members in a given segment.
@@ -10087,7 +10126,7 @@ namespace shopify
     ///<summary>
     ///Return type for `customerSegmentMembersQueryCreate` mutation.
     ///</summary>
-    public class CustomerSegmentMembersQueryCreatePayload : IGraphQLObject
+    public class CustomerSegmentMembersQueryCreatePayload : GraphQLObject<CustomerSegmentMembersQueryCreatePayload>
     {
         ///<summary>
         ///The newly created customer segment members query.
@@ -10102,7 +10141,7 @@ namespace shopify
     ///<summary>
     ///Represents a customer segment members query custom error.
     ///</summary>
-    public class CustomerSegmentMembersQueryUserError : IGraphQLObject, IDisplayableError
+    public class CustomerSegmentMembersQueryUserError : GraphQLObject<CustomerSegmentMembersQueryUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -10132,7 +10171,7 @@ namespace shopify
     ///<summary>
     ///Represents a Shop Pay card instrument for customer payment method.
     ///</summary>
-    public class CustomerShopPayAgreement : IGraphQLObject, ICustomerPaymentInstrument
+    public class CustomerShopPayAgreement : GraphQLObject<CustomerShopPayAgreement>, ICustomerPaymentInstrument
     {
         ///<summary>
         ///The billing address of the card.
@@ -10175,7 +10214,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during execution of an SMS marketing consent mutation.
     ///</summary>
-    public class CustomerSmsMarketingConsentError : IGraphQLObject, IDisplayableError
+    public class CustomerSmsMarketingConsentError : GraphQLObject<CustomerSmsMarketingConsentError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -10219,7 +10258,7 @@ namespace shopify
     ///
     ///The customer's consent state reflects the record with the most recent date when consent was updated.
     ///</summary>
-    public class CustomerSmsMarketingConsentState : IGraphQLObject
+    public class CustomerSmsMarketingConsentState : GraphQLObject<CustomerSmsMarketingConsentState>
     {
         ///<summary>
         ///The source from which the SMS marketing information for the customer was collected.
@@ -10243,7 +10282,7 @@ namespace shopify
     ///<summary>
     ///Return type for `customerSmsMarketingConsentUpdate` mutation.
     ///</summary>
-    public class CustomerSmsMarketingConsentUpdatePayload : IGraphQLObject
+    public class CustomerSmsMarketingConsentUpdatePayload : GraphQLObject<CustomerSmsMarketingConsentUpdatePayload>
     {
         ///<summary>
         ///The updated customer.
@@ -10352,7 +10391,7 @@ namespace shopify
     ///<summary>
     ///A customer's computed statistics.
     ///</summary>
-    public class CustomerStatistics : IGraphQLObject
+    public class CustomerStatistics : GraphQLObject<CustomerStatistics>
     {
         ///<summary>
         ///The predicted spend tier of a customer with a shop.
@@ -10363,7 +10402,7 @@ namespace shopify
     ///<summary>
     ///Return type for `customerUpdateDefaultAddress` mutation.
     ///</summary>
-    public class CustomerUpdateDefaultAddressPayload : IGraphQLObject
+    public class CustomerUpdateDefaultAddressPayload : GraphQLObject<CustomerUpdateDefaultAddressPayload>
     {
         ///<summary>
         ///The customer whose address was updated.
@@ -10378,7 +10417,7 @@ namespace shopify
     ///<summary>
     ///Return type for `customerUpdate` mutation.
     ///</summary>
-    public class CustomerUpdatePayload : IGraphQLObject
+    public class CustomerUpdatePayload : GraphQLObject<CustomerUpdatePayload>
     {
         ///<summary>
         ///The updated customer.
@@ -10393,7 +10432,7 @@ namespace shopify
     ///<summary>
     ///Represents a customer's session visiting a shop's online store, including information about the marketing activity attributed to starting the session.
     ///</summary>
-    public class CustomerVisit : IGraphQLObject, ICustomerMoment, INode
+    public class CustomerVisit : GraphQLObject<CustomerVisit>, ICustomerMoment, INode
     {
         ///<summary>
         ///A globally-unique ID.
@@ -10453,7 +10492,7 @@ namespace shopify
     ///<summary>
     ///This type returns the information about the product and product variant from a customer visit.
     ///</summary>
-    public class CustomerVisitProductInfo : IGraphQLObject
+    public class CustomerVisitProductInfo : GraphQLObject<CustomerVisitProductInfo>
     {
         ///<summary>
         ///The product information. If `null`, then the product was deleted from the store.
@@ -10472,7 +10511,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple CustomerVisitProductInfos.
     ///</summary>
-    public class CustomerVisitProductInfoConnection : IGraphQLObject
+    public class CustomerVisitProductInfoConnection : GraphQLObject<CustomerVisitProductInfoConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -10491,7 +10530,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one CustomerVisitProductInfo and a cursor during pagination.
     ///</summary>
-    public class CustomerVisitProductInfoEdge : IGraphQLObject
+    public class CustomerVisitProductInfoEdge : GraphQLObject<CustomerVisitProductInfoEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -10545,7 +10584,7 @@ namespace shopify
     ///[Delegate OAuth access tokens to subsystems]
     ///(https://shopify.dev/apps/auth/oauth/delegate-access-tokens).
     ///</summary>
-    public class DelegateAccessToken : IGraphQLObject
+    public class DelegateAccessToken : GraphQLObject<DelegateAccessToken>
     {
         ///<summary>
         ///The list of permissions associated with the token.
@@ -10564,7 +10603,7 @@ namespace shopify
     ///<summary>
     ///Return type for `delegateAccessTokenCreate` mutation.
     ///</summary>
-    public class DelegateAccessTokenCreatePayload : IGraphQLObject
+    public class DelegateAccessTokenCreatePayload : GraphQLObject<DelegateAccessTokenCreatePayload>
     {
         ///<summary>
         ///The delegate access token.
@@ -10583,7 +10622,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `DelegateAccessTokenCreate`.
     ///</summary>
-    public class DelegateAccessTokenCreateUserError : IGraphQLObject, IDisplayableError
+    public class DelegateAccessTokenCreateUserError : GraphQLObject<DelegateAccessTokenCreateUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -10637,7 +10676,7 @@ namespace shopify
     ///<summary>
     ///Return type for `delegateAccessTokenDestroy` mutation.
     ///</summary>
-    public class DelegateAccessTokenDestroyPayload : IGraphQLObject
+    public class DelegateAccessTokenDestroyPayload : GraphQLObject<DelegateAccessTokenDestroyPayload>
     {
         ///<summary>
         ///The user's shop.
@@ -10656,7 +10695,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `DelegateAccessTokenDestroy`.
     ///</summary>
-    public class DelegateAccessTokenDestroyUserError : IGraphQLObject, IDisplayableError
+    public class DelegateAccessTokenDestroyUserError : GraphQLObject<DelegateAccessTokenDestroyUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -10700,7 +10739,7 @@ namespace shopify
     ///Once deleted, the deletion event is the only trace of the original's existence,
     ///as the resource itself has been removed and can no longer be accessed.
     ///</summary>
-    public class DeletionEvent : IGraphQLObject
+    public class DeletionEvent : GraphQLObject<DeletionEvent>
     {
         ///<summary>
         ///The date and time when the deletion event for the related resource was generated.
@@ -10719,7 +10758,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple DeletionEvents.
     ///</summary>
-    public class DeletionEventConnection : IGraphQLObject
+    public class DeletionEventConnection : GraphQLObject<DeletionEventConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -10738,7 +10777,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one DeletionEvent and a cursor during pagination.
     ///</summary>
-    public class DeletionEventEdge : IGraphQLObject
+    public class DeletionEventEdge : GraphQLObject<DeletionEventEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -10782,7 +10821,7 @@ namespace shopify
     ///<summary>
     ///A shipping service and a list of countries that the service is available for.
     ///</summary>
-    public class DeliveryAvailableService : IGraphQLObject
+    public class DeliveryAvailableService : GraphQLObject<DeliveryAvailableService>
     {
         ///<summary>
         ///The countries the service provider ships to.
@@ -10797,7 +10836,7 @@ namespace shopify
     ///<summary>
     ///Represents a branded promise presented to buyers.
     ///</summary>
-    public class DeliveryBrandedPromise : IGraphQLObject
+    public class DeliveryBrandedPromise : GraphQLObject<DeliveryBrandedPromise>
     {
         ///<summary>
         ///The handle of the branded promise.  For example: `shop_promise`.
@@ -10812,7 +10851,7 @@ namespace shopify
     ///<summary>
     ///A shipping service provider or a carrier account.
     ///</summary>
-    public class DeliveryCarrierService : IGraphQLObject, INode
+    public class DeliveryCarrierService : GraphQLObject<DeliveryCarrierService>, INode
     {
         ///<summary>
         ///The list of services offered for given destinations.
@@ -10839,7 +10878,7 @@ namespace shopify
     ///<summary>
     ///A carrier service and the associated list of shop locations.
     ///</summary>
-    public class DeliveryCarrierServiceAndLocations : IGraphQLObject
+    public class DeliveryCarrierServiceAndLocations : GraphQLObject<DeliveryCarrierServiceAndLocations>
     {
         ///<summary>
         ///The carrier service.
@@ -10854,7 +10893,7 @@ namespace shopify
     ///<summary>
     ///A condition that must pass for a delivery method definition to be applied to an order.
     ///</summary>
-    public class DeliveryCondition : IGraphQLObject, INode
+    public class DeliveryCondition : GraphQLObject<DeliveryCondition>, INode
     {
         ///<summary>
         ///The value (weight or price) that the condition field is compared to.
@@ -10919,7 +10958,7 @@ namespace shopify
     ///<summary>
     ///A country that is used to define a shipping zone.
     ///</summary>
-    public class DeliveryCountry : IGraphQLObject, INode
+    public class DeliveryCountry : GraphQLObject<DeliveryCountry>, INode
     {
         ///<summary>
         ///A two-letter country code in ISO 3166-1 alpha-2 standard.
@@ -10948,7 +10987,7 @@ namespace shopify
     ///<summary>
     ///The country details and the associated shipping zone.
     ///</summary>
-    public class DeliveryCountryAndZone : IGraphQLObject
+    public class DeliveryCountryAndZone : GraphQLObject<DeliveryCountryAndZone>
     {
         ///<summary>
         ///The country details.
@@ -10963,7 +11002,7 @@ namespace shopify
     ///<summary>
     ///The country code and whether the country is a part of the 'Rest Of World' shipping zone.
     ///</summary>
-    public class DeliveryCountryCodeOrRestOfWorld : IGraphQLObject
+    public class DeliveryCountryCodeOrRestOfWorld : GraphQLObject<DeliveryCountryCodeOrRestOfWorld>
     {
         ///<summary>
         ///The country code in the ISO 3166-1 alpha-2 format.
@@ -10979,7 +11018,7 @@ namespace shopify
     ///The list of country codes and information whether the countries
     ///are a part of the 'Rest Of World' shipping zone.
     ///</summary>
-    public class DeliveryCountryCodesOrRestOfWorld : IGraphQLObject
+    public class DeliveryCountryCodesOrRestOfWorld : GraphQLObject<DeliveryCountryCodesOrRestOfWorld>
     {
         ///<summary>
         ///List of applicable country codes in the ISO 3166-1 alpha-2 format.
@@ -10994,7 +11033,7 @@ namespace shopify
     ///<summary>
     ///A delivery customization.
     ///</summary>
-    public class DeliveryCustomization : IGraphQLObject, IHasMetafieldDefinitions, IHasMetafields, INode, IMetafieldReferencer
+    public class DeliveryCustomization : GraphQLObject<DeliveryCustomization>, IHasMetafieldDefinitions, IHasMetafields, INode, IMetafieldReferencer
     {
         ///<summary>
         ///The enabled status of the delivery customization.
@@ -11049,7 +11088,7 @@ namespace shopify
     ///<summary>
     ///Return type for `deliveryCustomizationActivation` mutation.
     ///</summary>
-    public class DeliveryCustomizationActivationPayload : IGraphQLObject
+    public class DeliveryCustomizationActivationPayload : GraphQLObject<DeliveryCustomizationActivationPayload>
     {
         ///<summary>
         ///The IDs of the updated delivery customizations.
@@ -11064,7 +11103,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple DeliveryCustomizations.
     ///</summary>
-    public class DeliveryCustomizationConnection : IGraphQLObject
+    public class DeliveryCustomizationConnection : GraphQLObject<DeliveryCustomizationConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -11083,7 +11122,7 @@ namespace shopify
     ///<summary>
     ///Return type for `deliveryCustomizationCreate` mutation.
     ///</summary>
-    public class DeliveryCustomizationCreatePayload : IGraphQLObject
+    public class DeliveryCustomizationCreatePayload : GraphQLObject<DeliveryCustomizationCreatePayload>
     {
         ///<summary>
         ///Returns the created delivery customization.
@@ -11098,7 +11137,7 @@ namespace shopify
     ///<summary>
     ///Return type for `deliveryCustomizationDelete` mutation.
     ///</summary>
-    public class DeliveryCustomizationDeletePayload : IGraphQLObject
+    public class DeliveryCustomizationDeletePayload : GraphQLObject<DeliveryCustomizationDeletePayload>
     {
         ///<summary>
         ///Returns the deleted delivery customization ID.
@@ -11113,7 +11152,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one DeliveryCustomization and a cursor during pagination.
     ///</summary>
-    public class DeliveryCustomizationEdge : IGraphQLObject
+    public class DeliveryCustomizationEdge : GraphQLObject<DeliveryCustomizationEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -11128,7 +11167,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of a delivery customization mutation.
     ///</summary>
-    public class DeliveryCustomizationError : IGraphQLObject, IDisplayableError
+    public class DeliveryCustomizationError : GraphQLObject<DeliveryCustomizationError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -11202,7 +11241,7 @@ namespace shopify
     ///<summary>
     ///Return type for `deliveryCustomizationUpdate` mutation.
     ///</summary>
-    public class DeliveryCustomizationUpdatePayload : IGraphQLObject
+    public class DeliveryCustomizationUpdatePayload : GraphQLObject<DeliveryCustomizationUpdatePayload>
     {
         ///<summary>
         ///Returns the updated delivery customization.
@@ -11217,7 +11256,7 @@ namespace shopify
     ///<summary>
     ///Whether the shop is blocked from converting to full multi-location delivery profiles mode. If the shop is blocked, then the blocking reasons are also returned.
     ///</summary>
-    public class DeliveryLegacyModeBlocked : IGraphQLObject
+    public class DeliveryLegacyModeBlocked : GraphQLObject<DeliveryLegacyModeBlocked>
     {
         ///<summary>
         ///Whether the shop can convert to full multi-location delivery profiles mode.
@@ -11248,7 +11287,7 @@ namespace shopify
     ///<summary>
     ///Local pickup settings associated with a location.
     ///</summary>
-    public class DeliveryLocalPickupSettings : IGraphQLObject
+    public class DeliveryLocalPickupSettings : GraphQLObject<DeliveryLocalPickupSettings>
     {
         ///<summary>
         ///Additional instructions or information related to the local pickup.
@@ -11295,7 +11334,7 @@ namespace shopify
     ///A location group is a collection of locations. They share zones and delivery methods across delivery
     ///profiles.
     ///</summary>
-    public class DeliveryLocationGroup : IGraphQLObject, INode
+    public class DeliveryLocationGroup : GraphQLObject<DeliveryLocationGroup>, INode
     {
         ///<summary>
         ///A globally-unique ID.
@@ -11314,7 +11353,7 @@ namespace shopify
     ///<summary>
     ///Links a location group with a zone and the associated method definitions.
     ///</summary>
-    public class DeliveryLocationGroupZone : IGraphQLObject
+    public class DeliveryLocationGroupZone : GraphQLObject<DeliveryLocationGroupZone>
     {
         ///<summary>
         ///The number of method definitions for the zone.
@@ -11333,7 +11372,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple DeliveryLocationGroupZones.
     ///</summary>
-    public class DeliveryLocationGroupZoneConnection : IGraphQLObject
+    public class DeliveryLocationGroupZoneConnection : GraphQLObject<DeliveryLocationGroupZoneConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -11352,7 +11391,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one DeliveryLocationGroupZone and a cursor during pagination.
     ///</summary>
-    public class DeliveryLocationGroupZoneEdge : IGraphQLObject
+    public class DeliveryLocationGroupZoneEdge : GraphQLObject<DeliveryLocationGroupZoneEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -11367,7 +11406,7 @@ namespace shopify
     ///<summary>
     ///Represents an error that happened when changing local pickup settings for a location.
     ///</summary>
-    public class DeliveryLocationLocalPickupSettingsError : IGraphQLObject, IDisplayableError
+    public class DeliveryLocationLocalPickupSettingsError : GraphQLObject<DeliveryLocationLocalPickupSettingsError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -11401,7 +11440,7 @@ namespace shopify
     ///<summary>
     ///The delivery method used by a fulfillment order.
     ///</summary>
-    public class DeliveryMethod : IGraphQLObject, INode
+    public class DeliveryMethod : GraphQLObject<DeliveryMethod>, INode
     {
         ///<summary>
         ///The branded promise that was presented to the buyer during checkout.  For example: Shop Promise.
@@ -11429,7 +11468,7 @@ namespace shopify
     ///A method definition contains the delivery rate and the conditions that must be met for the method to be
     ///applied.
     ///</summary>
-    public class DeliveryMethodDefinition : IGraphQLObject, INode
+    public class DeliveryMethodDefinition : GraphQLObject<DeliveryMethodDefinition>, INode
     {
         ///<summary>
         ///Whether this method definition is active.
@@ -11460,7 +11499,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple DeliveryMethodDefinitions.
     ///</summary>
-    public class DeliveryMethodDefinitionConnection : IGraphQLObject
+    public class DeliveryMethodDefinitionConnection : GraphQLObject<DeliveryMethodDefinitionConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -11479,7 +11518,7 @@ namespace shopify
     ///<summary>
     ///The number of method definitions for a zone, separated into merchant-owned and participant definitions.
     ///</summary>
-    public class DeliveryMethodDefinitionCounts : IGraphQLObject
+    public class DeliveryMethodDefinitionCounts : GraphQLObject<DeliveryMethodDefinitionCounts>
     {
         ///<summary>
         ///The number of participant method definitions for the specified zone.
@@ -11494,7 +11533,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one DeliveryMethodDefinition and a cursor during pagination.
     ///</summary>
-    public class DeliveryMethodDefinitionEdge : IGraphQLObject
+    public class DeliveryMethodDefinitionEdge : GraphQLObject<DeliveryMethodDefinitionEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -11552,7 +11591,7 @@ namespace shopify
     ///A participant defines carrier-calculated rates for shipping services
     ///with a possible merchant-defined fixed fee or a percentage-of-rate fee.
     ///</summary>
-    public class DeliveryParticipant : IGraphQLObject, INode, IDeliveryRateProvider
+    public class DeliveryParticipant : GraphQLObject<DeliveryParticipant>, INode, IDeliveryRateProvider
     {
         ///<summary>
         ///Whether to display new shipping services automatically to the customer when the service becomes available.
@@ -11583,7 +11622,7 @@ namespace shopify
     ///<summary>
     ///A mail service provided by the participant.
     ///</summary>
-    public class DeliveryParticipantService : IGraphQLObject
+    public class DeliveryParticipantService : GraphQLObject<DeliveryParticipantService>
     {
         ///<summary>
         ///Whether the service is active.
@@ -11598,7 +11637,7 @@ namespace shopify
     ///<summary>
     ///How many product variants are in a profile. This count is capped at 500.
     ///</summary>
-    public class DeliveryProductVariantsCount : IGraphQLObject
+    public class DeliveryProductVariantsCount : GraphQLObject<DeliveryProductVariantsCount>
     {
         ///<summary>
         ///Whether the count has reached the cap of 500.
@@ -11613,7 +11652,7 @@ namespace shopify
     ///<summary>
     ///A shipping profile. In Shopify, a shipping profile is a set of shipping rates scoped to a set of products or variants that can be shipped from selected locations to zones.
     ///</summary>
-    public class DeliveryProfile : IGraphQLObject, INode
+    public class DeliveryProfile : GraphQLObject<DeliveryProfile>, INode
     {
         ///<summary>
         ///The number of active shipping rates for the profile.
@@ -11682,7 +11721,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple DeliveryProfiles.
     ///</summary>
-    public class DeliveryProfileConnection : IGraphQLObject
+    public class DeliveryProfileConnection : GraphQLObject<DeliveryProfileConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -11701,7 +11740,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one DeliveryProfile and a cursor during pagination.
     ///</summary>
-    public class DeliveryProfileEdge : IGraphQLObject
+    public class DeliveryProfileEdge : GraphQLObject<DeliveryProfileEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -11716,7 +11755,7 @@ namespace shopify
     ///<summary>
     ///A product and the subset of associated variants that are part of this delivery profile.
     ///</summary>
-    public class DeliveryProfileItem : IGraphQLObject, INode
+    public class DeliveryProfileItem : GraphQLObject<DeliveryProfileItem>, INode
     {
         ///<summary>
         ///A globally-unique ID.
@@ -11735,7 +11774,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple DeliveryProfileItems.
     ///</summary>
-    public class DeliveryProfileItemConnection : IGraphQLObject
+    public class DeliveryProfileItemConnection : GraphQLObject<DeliveryProfileItemConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -11754,7 +11793,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one DeliveryProfileItem and a cursor during pagination.
     ///</summary>
-    public class DeliveryProfileItemEdge : IGraphQLObject
+    public class DeliveryProfileItemEdge : GraphQLObject<DeliveryProfileItemEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -11769,7 +11808,7 @@ namespace shopify
     ///<summary>
     ///Links a location group with zones. Both are associated to a delivery profile.
     ///</summary>
-    public class DeliveryProfileLocationGroup : IGraphQLObject
+    public class DeliveryProfileLocationGroup : GraphQLObject<DeliveryProfileLocationGroup>
     {
         ///<summary>
         ///The countries already selected in any zone for the specified location group.
@@ -11788,7 +11827,7 @@ namespace shopify
     ///<summary>
     ///A region that is used to define a shipping zone.
     ///</summary>
-    public class DeliveryProvince : IGraphQLObject, INode
+    public class DeliveryProvince : GraphQLObject<DeliveryProvince>, INode
     {
         ///<summary>
         ///The code of the region.
@@ -11811,7 +11850,7 @@ namespace shopify
     ///<summary>
     ///The merchant-defined rate of the [DeliveryMethodDefinition](https://shopify.dev/api/admin-graphql/latest/objects/DeliveryMethodDefinition).
     ///</summary>
-    public class DeliveryRateDefinition : IGraphQLObject, INode, IDeliveryRateProvider
+    public class DeliveryRateDefinition : GraphQLObject<DeliveryRateDefinition>, INode, IDeliveryRateProvider
     {
         ///<summary>
         ///A globally-unique ID.
@@ -11844,7 +11883,7 @@ namespace shopify
     ///You can enable legacy compatibility mode for the multi-location delivery profiles feature
     ///if the legacy mode isn't blocked.
     ///</summary>
-    public class DeliverySetting : IGraphQLObject
+    public class DeliverySetting : GraphQLObject<DeliverySetting>
     {
         ///<summary>
         ///Whether the shop is blocked from converting to full multi-location delivery profiles mode. If the shop is blocked, then the blocking reasons are also returned.
@@ -11859,7 +11898,7 @@ namespace shopify
     ///<summary>
     ///Return type for `deliverySettingUpdate` mutation.
     ///</summary>
-    public class DeliverySettingUpdatePayload : IGraphQLObject
+    public class DeliverySettingUpdatePayload : GraphQLObject<DeliverySettingUpdatePayload>
     {
         ///<summary>
         ///The updated delivery shop level settings.
@@ -11874,7 +11913,7 @@ namespace shopify
     ///<summary>
     ///Return type for `deliveryShippingOriginAssign` mutation.
     ///</summary>
-    public class DeliveryShippingOriginAssignPayload : IGraphQLObject
+    public class DeliveryShippingOriginAssignPayload : GraphQLObject<DeliveryShippingOriginAssignPayload>
     {
         ///<summary>
         ///The list of errors that occurred from executing the mutation.
@@ -11885,7 +11924,7 @@ namespace shopify
     ///<summary>
     ///A zone is a group of countries that have the same shipping rates. Customers can order products from a store only if they choose a shipping destination that's included in one of the store's zones.
     ///</summary>
-    public class DeliveryZone : IGraphQLObject, INode
+    public class DeliveryZone : GraphQLObject<DeliveryZone>, INode
     {
         ///<summary>
         ///The list of countries within the zone.
@@ -11981,7 +12020,7 @@ namespace shopify
     ///<summary>
     ///An amount that's allocated to a line based on an associated discount application.
     ///</summary>
-    public class DiscountAllocation : IGraphQLObject
+    public class DiscountAllocation : GraphQLObject<DiscountAllocation>
     {
         ///<summary>
         ///The money amount that's allocated to a line based on the associated discount application.
@@ -12001,7 +12040,7 @@ namespace shopify
     ///<summary>
     ///The fixed amount value of a discount, and whether the amount is applied to each entitled item or spread evenly across the entitled items.
     ///</summary>
-    public class DiscountAmount : IGraphQLObject, IDiscountCustomerGetsValue
+    public class DiscountAmount : GraphQLObject<DiscountAmount>, IDiscountCustomerGetsValue
     {
         ///<summary>
         ///The value of the discount.
@@ -12076,7 +12115,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple DiscountApplications.
     ///</summary>
-    public class DiscountApplicationConnection : IGraphQLObject
+    public class DiscountApplicationConnection : GraphQLObject<DiscountApplicationConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -12095,7 +12134,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one DiscountApplication and a cursor during pagination.
     ///</summary>
-    public class DiscountApplicationEdge : IGraphQLObject
+    public class DiscountApplicationEdge : GraphQLObject<DiscountApplicationEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -12210,7 +12249,7 @@ namespace shopify
     ///<summary>
     ///Return type for `discountAutomaticActivate` mutation.
     ///</summary>
-    public class DiscountAutomaticActivatePayload : IGraphQLObject
+    public class DiscountAutomaticActivatePayload : GraphQLObject<DiscountAutomaticActivatePayload>
     {
         ///<summary>
         ///The activated automatic discount.
@@ -12225,7 +12264,7 @@ namespace shopify
     ///<summary>
     ///An automatic app discount.
     ///</summary>
-    public class DiscountAutomaticApp : IGraphQLObject, IDiscount, IDiscountAutomatic
+    public class DiscountAutomaticApp : GraphQLObject<DiscountAutomaticApp>, IDiscount, IDiscountAutomatic
     {
         ///<summary>
         ///The app discount type providing the discount type.
@@ -12280,7 +12319,7 @@ namespace shopify
     ///<summary>
     ///Return type for `discountAutomaticAppCreate` mutation.
     ///</summary>
-    public class DiscountAutomaticAppCreatePayload : IGraphQLObject
+    public class DiscountAutomaticAppCreatePayload : GraphQLObject<DiscountAutomaticAppCreatePayload>
     {
         ///<summary>
         ///The created app discount.
@@ -12295,7 +12334,7 @@ namespace shopify
     ///<summary>
     ///Return type for `discountAutomaticAppUpdate` mutation.
     ///</summary>
-    public class DiscountAutomaticAppUpdatePayload : IGraphQLObject
+    public class DiscountAutomaticAppUpdatePayload : GraphQLObject<DiscountAutomaticAppUpdatePayload>
     {
         ///<summary>
         ///The updated automatic app discount.
@@ -12310,7 +12349,7 @@ namespace shopify
     ///<summary>
     ///An automatic discount that offers customers a percentage discount, or fixed amount discount, on specific products, collections, or the entire order.
     ///</summary>
-    public class DiscountAutomaticBasic : IGraphQLObject, IDiscount, IDiscountAutomatic
+    public class DiscountAutomaticBasic : GraphQLObject<DiscountAutomaticBasic>, IDiscount, IDiscountAutomatic
     {
         ///<summary>
         ///The number of times the discount has been used. This value is updated asynchronously and can be different than the actual usage count.
@@ -12375,7 +12414,7 @@ namespace shopify
     ///<summary>
     ///Return type for `discountAutomaticBasicCreate` mutation.
     ///</summary>
-    public class DiscountAutomaticBasicCreatePayload : IGraphQLObject
+    public class DiscountAutomaticBasicCreatePayload : GraphQLObject<DiscountAutomaticBasicCreatePayload>
     {
         ///<summary>
         ///The created automatic discount.
@@ -12390,7 +12429,7 @@ namespace shopify
     ///<summary>
     ///Return type for `discountAutomaticBasicUpdate` mutation.
     ///</summary>
-    public class DiscountAutomaticBasicUpdatePayload : IGraphQLObject
+    public class DiscountAutomaticBasicUpdatePayload : GraphQLObject<DiscountAutomaticBasicUpdatePayload>
     {
         ///<summary>
         ///The updated automatic discount.
@@ -12405,7 +12444,7 @@ namespace shopify
     ///<summary>
     ///Return type for `discountAutomaticBulkDelete` mutation.
     ///</summary>
-    public class DiscountAutomaticBulkDeletePayload : IGraphQLObject
+    public class DiscountAutomaticBulkDeletePayload : GraphQLObject<DiscountAutomaticBulkDeletePayload>
     {
         ///<summary>
         ///The asynchronous job removing the automatic discounts.
@@ -12420,7 +12459,7 @@ namespace shopify
     ///<summary>
     ///An automatic discount that offers customers a Buy X, Get Y (BXGY) discount.
     ///</summary>
-    public class DiscountAutomaticBxgy : IGraphQLObject, IHasEvents, INode, IDiscount, IDiscountAutomatic
+    public class DiscountAutomaticBxgy : GraphQLObject<DiscountAutomaticBxgy>, IHasEvents, INode, IDiscount, IDiscountAutomatic
     {
         ///<summary>
         ///The number of times the discount has been used. This value is updated asynchronously and can be different than the actual usage count.
@@ -12495,7 +12534,7 @@ namespace shopify
     ///<summary>
     ///Return type for `discountAutomaticBxgyCreate` mutation.
     ///</summary>
-    public class DiscountAutomaticBxgyCreatePayload : IGraphQLObject
+    public class DiscountAutomaticBxgyCreatePayload : GraphQLObject<DiscountAutomaticBxgyCreatePayload>
     {
         ///<summary>
         ///The created automatic discount.
@@ -12510,7 +12549,7 @@ namespace shopify
     ///<summary>
     ///Return type for `discountAutomaticBxgyUpdate` mutation.
     ///</summary>
-    public class DiscountAutomaticBxgyUpdatePayload : IGraphQLObject
+    public class DiscountAutomaticBxgyUpdatePayload : GraphQLObject<DiscountAutomaticBxgyUpdatePayload>
     {
         ///<summary>
         ///The updated automatic discount.
@@ -12525,7 +12564,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple DiscountAutomatics.
     ///</summary>
-    public class DiscountAutomaticConnection : IGraphQLObject
+    public class DiscountAutomaticConnection : GraphQLObject<DiscountAutomaticConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -12544,7 +12583,7 @@ namespace shopify
     ///<summary>
     ///Return type for `discountAutomaticDeactivate` mutation.
     ///</summary>
-    public class DiscountAutomaticDeactivatePayload : IGraphQLObject
+    public class DiscountAutomaticDeactivatePayload : GraphQLObject<DiscountAutomaticDeactivatePayload>
     {
         ///<summary>
         ///The deactivated automatic discount.
@@ -12559,7 +12598,7 @@ namespace shopify
     ///<summary>
     ///Return type for `discountAutomaticDelete` mutation.
     ///</summary>
-    public class DiscountAutomaticDeletePayload : IGraphQLObject
+    public class DiscountAutomaticDeletePayload : GraphQLObject<DiscountAutomaticDeletePayload>
     {
         ///<summary>
         ///The deleted automatic discount ID.
@@ -12574,7 +12613,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one DiscountAutomatic and a cursor during pagination.
     ///</summary>
-    public class DiscountAutomaticEdge : IGraphQLObject
+    public class DiscountAutomaticEdge : GraphQLObject<DiscountAutomaticEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -12589,7 +12628,7 @@ namespace shopify
     ///<summary>
     ///A node containing an automatic discount and its related events.
     ///</summary>
-    public class DiscountAutomaticNode : IGraphQLObject, IHasEvents, IHasMetafieldDefinitions, IHasMetafields, INode, IMetafieldReferencer
+    public class DiscountAutomaticNode : GraphQLObject<DiscountAutomaticNode>, IHasEvents, IHasMetafieldDefinitions, IHasMetafields, INode, IMetafieldReferencer
     {
         ///<summary>
         ///The automatic discount object.
@@ -12632,7 +12671,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple DiscountAutomaticNodes.
     ///</summary>
-    public class DiscountAutomaticNodeConnection : IGraphQLObject
+    public class DiscountAutomaticNodeConnection : GraphQLObject<DiscountAutomaticNodeConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -12651,7 +12690,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one DiscountAutomaticNode and a cursor during pagination.
     ///</summary>
-    public class DiscountAutomaticNodeEdge : IGraphQLObject
+    public class DiscountAutomaticNodeEdge : GraphQLObject<DiscountAutomaticNodeEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -12765,7 +12804,7 @@ namespace shopify
     ///<summary>
     ///Return type for `discountCodeActivate` mutation.
     ///</summary>
-    public class DiscountCodeActivatePayload : IGraphQLObject
+    public class DiscountCodeActivatePayload : GraphQLObject<DiscountCodeActivatePayload>
     {
         ///<summary>
         ///The activated code discount.
@@ -12780,7 +12819,7 @@ namespace shopify
     ///<summary>
     ///A code app discount.
     ///</summary>
-    public class DiscountCodeApp : IGraphQLObject, IDiscount, IDiscountCode
+    public class DiscountCodeApp : GraphQLObject<DiscountCodeApp>, IDiscount, IDiscountCode
     {
         ///<summary>
         ///The app discount type providing the discount type.
@@ -12871,7 +12910,7 @@ namespace shopify
     ///<summary>
     ///Return type for `discountCodeAppCreate` mutation.
     ///</summary>
-    public class DiscountCodeAppCreatePayload : IGraphQLObject
+    public class DiscountCodeAppCreatePayload : GraphQLObject<DiscountCodeAppCreatePayload>
     {
         ///<summary>
         ///The created code app discount.
@@ -12886,7 +12925,7 @@ namespace shopify
     ///<summary>
     ///Return type for `discountCodeAppUpdate` mutation.
     ///</summary>
-    public class DiscountCodeAppUpdatePayload : IGraphQLObject
+    public class DiscountCodeAppUpdatePayload : GraphQLObject<DiscountCodeAppUpdatePayload>
     {
         ///<summary>
         ///The updated code app discount.
@@ -12904,7 +12943,7 @@ namespace shopify
     ///
     ///Discount applications don't represent the actual final amount discounted on a line (line item or shipping line). The actual amount discounted on a line is represented by the [DiscountAllocation](https://shopify.dev/api/admin-graphql/latest/objects/discountallocation) object.
     ///</summary>
-    public class DiscountCodeApplication : IGraphQLObject, IDiscountApplication
+    public class DiscountCodeApplication : GraphQLObject<DiscountCodeApplication>, IDiscountApplication
     {
         ///<summary>
         ///The method by which the discount's value is applied to its entitled items.
@@ -12936,7 +12975,7 @@ namespace shopify
     ///<summary>
     ///A code discount that offers customers a percentage or fixed amount discount on specific products, collections, or the entire order.
     ///</summary>
-    public class DiscountCodeBasic : IGraphQLObject, IDiscount, IDiscountCode
+    public class DiscountCodeBasic : GraphQLObject<DiscountCodeBasic>, IDiscount, IDiscountCode
     {
         ///<summary>
         ///Whether the discount can be applied only once per customer.
@@ -13031,7 +13070,7 @@ namespace shopify
     ///<summary>
     ///Return type for `discountCodeBasicCreate` mutation.
     ///</summary>
-    public class DiscountCodeBasicCreatePayload : IGraphQLObject
+    public class DiscountCodeBasicCreatePayload : GraphQLObject<DiscountCodeBasicCreatePayload>
     {
         ///<summary>
         ///The created code discount.
@@ -13046,7 +13085,7 @@ namespace shopify
     ///<summary>
     ///Return type for `discountCodeBasicUpdate` mutation.
     ///</summary>
-    public class DiscountCodeBasicUpdatePayload : IGraphQLObject
+    public class DiscountCodeBasicUpdatePayload : GraphQLObject<DiscountCodeBasicUpdatePayload>
     {
         ///<summary>
         ///The updated code discount.
@@ -13061,7 +13100,7 @@ namespace shopify
     ///<summary>
     ///Return type for `discountCodeBulkActivate` mutation.
     ///</summary>
-    public class DiscountCodeBulkActivatePayload : IGraphQLObject
+    public class DiscountCodeBulkActivatePayload : GraphQLObject<DiscountCodeBulkActivatePayload>
     {
         ///<summary>
         ///The asynchronous job that activates the code discounts.
@@ -13076,7 +13115,7 @@ namespace shopify
     ///<summary>
     ///Return type for `discountCodeBulkDeactivate` mutation.
     ///</summary>
-    public class DiscountCodeBulkDeactivatePayload : IGraphQLObject
+    public class DiscountCodeBulkDeactivatePayload : GraphQLObject<DiscountCodeBulkDeactivatePayload>
     {
         ///<summary>
         ///The asynchronous job that deactivates the code discounts.
@@ -13091,7 +13130,7 @@ namespace shopify
     ///<summary>
     ///Return type for `discountCodeBulkDelete` mutation.
     ///</summary>
-    public class DiscountCodeBulkDeletePayload : IGraphQLObject
+    public class DiscountCodeBulkDeletePayload : GraphQLObject<DiscountCodeBulkDeletePayload>
     {
         ///<summary>
         ///The asynchronous job that deletes the code discounts.
@@ -13106,7 +13145,7 @@ namespace shopify
     ///<summary>
     ///A code discount that offers customers a Buy X, Get Y (BXGY) discount.
     ///</summary>
-    public class DiscountCodeBxgy : IGraphQLObject, IDiscount, IDiscountCode
+    public class DiscountCodeBxgy : GraphQLObject<DiscountCodeBxgy>, IDiscount, IDiscountCode
     {
         ///<summary>
         ///Whether the discount can be applied only once per customer.
@@ -13197,7 +13236,7 @@ namespace shopify
     ///<summary>
     ///Return type for `discountCodeBxgyCreate` mutation.
     ///</summary>
-    public class DiscountCodeBxgyCreatePayload : IGraphQLObject
+    public class DiscountCodeBxgyCreatePayload : GraphQLObject<DiscountCodeBxgyCreatePayload>
     {
         ///<summary>
         ///The created code discount.
@@ -13212,7 +13251,7 @@ namespace shopify
     ///<summary>
     ///Return type for `discountCodeBxgyUpdate` mutation.
     ///</summary>
-    public class DiscountCodeBxgyUpdatePayload : IGraphQLObject
+    public class DiscountCodeBxgyUpdatePayload : GraphQLObject<DiscountCodeBxgyUpdatePayload>
     {
         ///<summary>
         ///The updated code discount.
@@ -13227,7 +13266,7 @@ namespace shopify
     ///<summary>
     ///Return type for `discountCodeDeactivate` mutation.
     ///</summary>
-    public class DiscountCodeDeactivatePayload : IGraphQLObject
+    public class DiscountCodeDeactivatePayload : GraphQLObject<DiscountCodeDeactivatePayload>
     {
         ///<summary>
         ///The deactivated code discount.
@@ -13242,7 +13281,7 @@ namespace shopify
     ///<summary>
     ///Return type for `discountCodeDelete` mutation.
     ///</summary>
-    public class DiscountCodeDeletePayload : IGraphQLObject
+    public class DiscountCodeDeletePayload : GraphQLObject<DiscountCodeDeletePayload>
     {
         ///<summary>
         ///The deleted code discount ID.
@@ -13257,7 +13296,7 @@ namespace shopify
     ///<summary>
     ///A code discount that offers customers free shipping on their order.
     ///</summary>
-    public class DiscountCodeFreeShipping : IGraphQLObject, IDiscount, IDiscountCode
+    public class DiscountCodeFreeShipping : GraphQLObject<DiscountCodeFreeShipping>, IDiscount, IDiscountCode
     {
         ///<summary>
         ///Whether the discount applies on regular one-time-purchase shipping lines.
@@ -13364,7 +13403,7 @@ namespace shopify
     ///<summary>
     ///Return type for `discountCodeFreeShippingCreate` mutation.
     ///</summary>
-    public class DiscountCodeFreeShippingCreatePayload : IGraphQLObject
+    public class DiscountCodeFreeShippingCreatePayload : GraphQLObject<DiscountCodeFreeShippingCreatePayload>
     {
         ///<summary>
         ///The created code discount.
@@ -13379,7 +13418,7 @@ namespace shopify
     ///<summary>
     ///Return type for `discountCodeFreeShippingUpdate` mutation.
     ///</summary>
-    public class DiscountCodeFreeShippingUpdatePayload : IGraphQLObject
+    public class DiscountCodeFreeShippingUpdatePayload : GraphQLObject<DiscountCodeFreeShippingUpdatePayload>
     {
         ///<summary>
         ///The updated code discount.
@@ -13394,7 +13433,7 @@ namespace shopify
     ///<summary>
     ///A node containing a code discount and its related events.
     ///</summary>
-    public class DiscountCodeNode : IGraphQLObject, IHasEvents, IHasMetafieldDefinitions, IHasMetafields, INode, IMetafieldReferencer
+    public class DiscountCodeNode : GraphQLObject<DiscountCodeNode>, IHasEvents, IHasMetafieldDefinitions, IHasMetafields, INode, IMetafieldReferencer
     {
         ///<summary>
         ///The underlying code discount object.
@@ -13437,7 +13476,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple DiscountCodeNodes.
     ///</summary>
-    public class DiscountCodeNodeConnection : IGraphQLObject
+    public class DiscountCodeNodeConnection : GraphQLObject<DiscountCodeNodeConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -13456,7 +13495,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one DiscountCodeNode and a cursor during pagination.
     ///</summary>
-    public class DiscountCodeNodeEdge : IGraphQLObject
+    public class DiscountCodeNodeEdge : GraphQLObject<DiscountCodeNodeEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -13471,7 +13510,7 @@ namespace shopify
     ///<summary>
     ///Return type for `discountCodeRedeemCodeBulkDelete` mutation.
     ///</summary>
-    public class DiscountCodeRedeemCodeBulkDeletePayload : IGraphQLObject
+    public class DiscountCodeRedeemCodeBulkDeletePayload : GraphQLObject<DiscountCodeRedeemCodeBulkDeletePayload>
     {
         ///<summary>
         ///The asynchronous job that deletes the discount redeem codes.
@@ -13510,7 +13549,7 @@ namespace shopify
     ///<summary>
     ///A list of collections that the discount can have as a prerequisite or a list of collections to which the discount can be applied.
     ///</summary>
-    public class DiscountCollections : IGraphQLObject, IDiscountItems
+    public class DiscountCollections : GraphQLObject<DiscountCollections>, IDiscountItems
     {
         ///<summary>
         ///The list of collections that the discount can have as a prerequisite or the list of collections to which the discount can be applied.
@@ -13521,7 +13560,7 @@ namespace shopify
     ///<summary>
     ///Determines which discount classes the discount can combine with.
     ///</summary>
-    public class DiscountCombinesWith : IGraphQLObject
+    public class DiscountCombinesWith : GraphQLObject<DiscountCombinesWith>
     {
         ///<summary>
         ///Combines with order discounts.
@@ -13540,7 +13579,7 @@ namespace shopify
     ///<summary>
     ///The shipping destinations where the discount can be applied.
     ///</summary>
-    public class DiscountCountries : IGraphQLObject, IDiscountShippingDestinationSelection
+    public class DiscountCountries : GraphQLObject<DiscountCountries>, IDiscountShippingDestinationSelection
     {
         ///<summary>
         ///The codes for the countries where the discount can be applied.
@@ -13555,7 +13594,7 @@ namespace shopify
     ///<summary>
     ///The `DiscountCountryAll` object lets you target all countries as shipping destination for discount eligibility.
     ///</summary>
-    public class DiscountCountryAll : IGraphQLObject, IDiscountShippingDestinationSelection
+    public class DiscountCountryAll : GraphQLObject<DiscountCountryAll>, IDiscountShippingDestinationSelection
     {
         ///<summary>
         ///Whether the discount can be applied to all countries as shipping destination. This value is always `true`.
@@ -13566,7 +13605,7 @@ namespace shopify
     ///<summary>
     ///The `DiscountCustomerAll` object lets you target all customers for discount eligibility.
     ///</summary>
-    public class DiscountCustomerAll : IGraphQLObject, IDiscountCustomerSelection
+    public class DiscountCustomerAll : GraphQLObject<DiscountCustomerAll>, IDiscountCustomerSelection
     {
         ///<summary>
         ///Whether the discount can be applied by all customers. This value is always `true`.
@@ -13577,7 +13616,7 @@ namespace shopify
     ///<summary>
     ///The prerequisite items and prerequisite value that a customer must have on the order for the discount to be applicable.
     ///</summary>
-    public class DiscountCustomerBuys : IGraphQLObject
+    public class DiscountCustomerBuys : GraphQLObject<DiscountCustomerBuys>
     {
         ///<summary>
         ///The items required for the discount to be applicable.
@@ -13604,7 +13643,7 @@ namespace shopify
     ///<summary>
     ///The qualifying items in an order, the quantity of each one, and the total value of the discount.
     ///</summary>
-    public class DiscountCustomerGets : IGraphQLObject
+    public class DiscountCustomerGets : GraphQLObject<DiscountCustomerGets>
     {
         ///<summary>
         ///Whether the discount applies on regular one-time-purchase items.
@@ -13641,7 +13680,7 @@ namespace shopify
     ///<summary>
     ///A list of customer segments that contain the customers that the discount applies to.
     ///</summary>
-    public class DiscountCustomerSegments : IGraphQLObject, IDiscountCustomerSelection
+    public class DiscountCustomerSegments : GraphQLObject<DiscountCustomerSegments>, IDiscountCustomerSelection
     {
         ///<summary>
         ///A list of customer segments that contain the customers who can use the discount.
@@ -13666,7 +13705,7 @@ namespace shopify
     ///<summary>
     ///A list of customers eligible for the discount.
     ///</summary>
-    public class DiscountCustomers : IGraphQLObject, IDiscountCustomerSelection
+    public class DiscountCustomers : GraphQLObject<DiscountCustomers>, IDiscountCustomerSelection
     {
         ///<summary>
         ///The list of customers eligible for the discount.
@@ -13812,7 +13851,7 @@ namespace shopify
     ///<summary>
     ///The minimum quantity of items required for the discount to apply.
     ///</summary>
-    public class DiscountMinimumQuantity : IGraphQLObject, IDiscountMinimumRequirement
+    public class DiscountMinimumQuantity : GraphQLObject<DiscountMinimumQuantity>, IDiscountMinimumRequirement
     {
         ///<summary>
         ///The minimum quantity of items that's required for the discount to be applied.
@@ -13835,7 +13874,7 @@ namespace shopify
     ///<summary>
     ///The minimum subtotal required for the discount to apply.
     ///</summary>
-    public class DiscountMinimumSubtotal : IGraphQLObject, IDiscountMinimumRequirement
+    public class DiscountMinimumSubtotal : GraphQLObject<DiscountMinimumSubtotal>, IDiscountMinimumRequirement
     {
         ///<summary>
         ///The minimum subtotal that's required for the discount to be applied.
@@ -13846,7 +13885,7 @@ namespace shopify
     ///<summary>
     ///A discount wrapper node.
     ///</summary>
-    public class DiscountNode : IGraphQLObject, IHasEvents, IHasMetafieldDefinitions, IHasMetafields, INode, IMetafieldReferencer
+    public class DiscountNode : GraphQLObject<DiscountNode>, IHasEvents, IHasMetafieldDefinitions, IHasMetafields, INode, IMetafieldReferencer
     {
         ///<summary>
         ///A discount.
@@ -13889,7 +13928,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple DiscountNodes.
     ///</summary>
-    public class DiscountNodeConnection : IGraphQLObject
+    public class DiscountNodeConnection : GraphQLObject<DiscountNodeConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -13908,7 +13947,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one DiscountNode and a cursor during pagination.
     ///</summary>
-    public class DiscountNodeEdge : IGraphQLObject
+    public class DiscountNodeEdge : GraphQLObject<DiscountNodeEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -13923,7 +13962,7 @@ namespace shopify
     ///<summary>
     ///The quantity of items discounted, the discount value, and how the discount will be applied.
     ///</summary>
-    public class DiscountOnQuantity : IGraphQLObject, IDiscountCustomerGetsValue
+    public class DiscountOnQuantity : GraphQLObject<DiscountOnQuantity>, IDiscountCustomerGetsValue
     {
         ///<summary>
         ///The discount's effect on qualifying items.
@@ -13938,7 +13977,7 @@ namespace shopify
     ///<summary>
     ///A discount effect that gives customers a percentage off of specified items on their order.
     ///</summary>
-    public class DiscountPercentage : IGraphQLObject, IDiscountCustomerGetsValue, IDiscountEffect
+    public class DiscountPercentage : GraphQLObject<DiscountPercentage>, IDiscountCustomerGetsValue, IDiscountEffect
     {
         ///<summary>
         ///The percentage value of the discount.
@@ -13949,7 +13988,7 @@ namespace shopify
     ///<summary>
     ///A list of products and product variants that the discount can have as a prerequisite or a list of products and product variants to which the discount can be applied.
     ///</summary>
-    public class DiscountProducts : IGraphQLObject, IDiscountItems
+    public class DiscountProducts : GraphQLObject<DiscountProducts>, IDiscountItems
     {
         ///<summary>
         ///The list of product variants that the discount can have as a prerequisite or the list of product variants to which the discount can be applied.
@@ -13964,7 +14003,7 @@ namespace shopify
     ///<summary>
     ///A purchase amount in the context of a discount. This object can be used to define the minimum purchase amount required for a discount to be applicable.
     ///</summary>
-    public class DiscountPurchaseAmount : IGraphQLObject, IDiscountCustomerBuysValue
+    public class DiscountPurchaseAmount : GraphQLObject<DiscountPurchaseAmount>, IDiscountCustomerBuysValue
     {
         ///<summary>
         ///The purchase amount in decimal format.
@@ -13975,7 +14014,7 @@ namespace shopify
     ///<summary>
     ///A quantity of items in the context of a discount. This object can be used to define the minimum quantity of items required to apply a discount. Alternatively, it can be used to define the quantity of items that can be discounted.
     ///</summary>
-    public class DiscountQuantity : IGraphQLObject, IDiscountCustomerBuysValue
+    public class DiscountQuantity : GraphQLObject<DiscountQuantity>, IDiscountCustomerBuysValue
     {
         ///<summary>
         ///The quantity of items.
@@ -13986,7 +14025,7 @@ namespace shopify
     ///<summary>
     ///A code that a customer can use at checkout to receive a discount. For example, a customer can use the redeem code 'SUMMER20' at checkout to receive a 20% discount on their entire order.
     ///</summary>
-    public class DiscountRedeemCode : IGraphQLObject
+    public class DiscountRedeemCode : GraphQLObject<DiscountRedeemCode>
     {
         ///<summary>
         ///The number of times that the discount redeem code has been used. This value is updated asynchronously and can be different than the actual usage count.
@@ -14009,7 +14048,7 @@ namespace shopify
     ///<summary>
     ///Return type for `discountRedeemCodeBulkAdd` mutation.
     ///</summary>
-    public class DiscountRedeemCodeBulkAddPayload : IGraphQLObject
+    public class DiscountRedeemCodeBulkAddPayload : GraphQLObject<DiscountRedeemCodeBulkAddPayload>
     {
         ///<summary>
         ///The ID of the discount redeem code bulk creation operation. The properties and status of the operation can be tracked using the [`DiscountRedeemCodeBulkCreation` query](https://shopify.dev/api/admin-graphql/2022-04/queries/discountRedeemCodeBulkCreation).
@@ -14024,7 +14063,7 @@ namespace shopify
     ///<summary>
     ///The properties and status of a bulk discount redeem code creation operation.
     ///</summary>
-    public class DiscountRedeemCodeBulkCreation : IGraphQLObject, INode
+    public class DiscountRedeemCodeBulkCreation : GraphQLObject<DiscountRedeemCodeBulkCreation>, INode
     {
         ///<summary>
         ///The result of each code creation operation associated with the bulk creation operation including any errors that might have occurred during the operation.
@@ -14063,7 +14102,7 @@ namespace shopify
     ///<summary>
     ///A result of a discount redeem code creation operation created by a bulk creation.
     ///</summary>
-    public class DiscountRedeemCodeBulkCreationCode : IGraphQLObject
+    public class DiscountRedeemCodeBulkCreationCode : GraphQLObject<DiscountRedeemCodeBulkCreationCode>
     {
         ///<summary>
         ///The code to use in the discount redeem code creation operation.
@@ -14084,7 +14123,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple DiscountRedeemCodeBulkCreationCodes.
     ///</summary>
-    public class DiscountRedeemCodeBulkCreationCodeConnection : IGraphQLObject
+    public class DiscountRedeemCodeBulkCreationCodeConnection : GraphQLObject<DiscountRedeemCodeBulkCreationCodeConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -14103,7 +14142,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one DiscountRedeemCodeBulkCreationCode and a cursor during pagination.
     ///</summary>
-    public class DiscountRedeemCodeBulkCreationCodeEdge : IGraphQLObject
+    public class DiscountRedeemCodeBulkCreationCodeEdge : GraphQLObject<DiscountRedeemCodeBulkCreationCodeEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -14118,7 +14157,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple DiscountRedeemCodes.
     ///</summary>
-    public class DiscountRedeemCodeConnection : IGraphQLObject
+    public class DiscountRedeemCodeConnection : GraphQLObject<DiscountRedeemCodeConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -14137,7 +14176,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one DiscountRedeemCode and a cursor during pagination.
     ///</summary>
-    public class DiscountRedeemCodeEdge : IGraphQLObject
+    public class DiscountRedeemCodeEdge : GraphQLObject<DiscountRedeemCodeEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -14152,7 +14191,7 @@ namespace shopify
     ///<summary>
     ///A shareable URL for a discount code.
     ///</summary>
-    public class DiscountShareableUrl : IGraphQLObject
+    public class DiscountShareableUrl : GraphQLObject<DiscountShareableUrl>
     {
         ///<summary>
         ///The image URL of the item (product or collection) to which the discount applies.
@@ -14291,7 +14330,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of a discount mutation.
     ///</summary>
-    public class DiscountUserError : IGraphQLObject, IDisplayableError
+    public class DiscountUserError : GraphQLObject<DiscountUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -14535,7 +14574,7 @@ namespace shopify
     ///<summary>
     ///Return type for `disputeEvidenceUpdate` mutation.
     ///</summary>
-    public class DisputeEvidenceUpdatePayload : IGraphQLObject
+    public class DisputeEvidenceUpdatePayload : GraphQLObject<DisputeEvidenceUpdatePayload>
     {
         ///<summary>
         ///The updated dispute evidence.
@@ -14550,7 +14589,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `DisputeEvidenceUpdate`.
     ///</summary>
-    public class DisputeEvidenceUpdateUserError : IGraphQLObject, IDisplayableError
+    public class DisputeEvidenceUpdateUserError : GraphQLObject<DisputeEvidenceUpdateUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -14628,7 +14667,7 @@ namespace shopify
     ///<summary>
     ///A unique string that represents the address of a Shopify store on the Internet.
     ///</summary>
-    public class Domain : IGraphQLObject, INode
+    public class Domain : GraphQLObject<Domain>, INode
     {
         ///<summary>
         ///The host name of the domain. For example, `example.com`.
@@ -14659,7 +14698,7 @@ namespace shopify
     ///<summary>
     ///The country and language settings assigned to a domain.
     ///</summary>
-    public class DomainLocalization : IGraphQLObject
+    public class DomainLocalization : GraphQLObject<DomainLocalization>
     {
         ///<summary>
         ///The ISO codes for the domain’s alternate locales. For example, `["en"]`.
@@ -14690,7 +14729,7 @@ namespace shopify
     ///
     ///**Caution:** Only use this data if it's required for your app's functionality. Shopify will restrict [access to scopes](https://shopify.dev/api/usage/access-scopes) for apps that don't have a legitimate use for the associated data.
     ///</summary>
-    public class DraftOrder : IGraphQLObject, ICommentEventSubject, IHasEvents, IHasLocalizationExtensions, IHasMetafields, ILegacyInteroperability, INavigable, INode, ICommentEventEmbed, IMetafieldReferencer
+    public class DraftOrder : GraphQLObject<DraftOrder>, ICommentEventSubject, IHasEvents, IHasLocalizationExtensions, IHasMetafields, ILegacyInteroperability, INavigable, INode, ICommentEventEmbed, IMetafieldReferencer
     {
         ///<summary>
         ///The order-level discount applied to the draft order.
@@ -14930,7 +14969,7 @@ namespace shopify
     ///<summary>
     ///The order-level discount applied to a draft order.
     ///</summary>
-    public class DraftOrderAppliedDiscount : IGraphQLObject
+    public class DraftOrderAppliedDiscount : GraphQLObject<DraftOrderAppliedDiscount>
     {
         ///<summary>
         ///Amount of the order-level discount that's applied to the draft order.
@@ -14982,7 +15021,7 @@ namespace shopify
     ///<summary>
     ///Return type for `draftOrderBulkAddTags` mutation.
     ///</summary>
-    public class DraftOrderBulkAddTagsPayload : IGraphQLObject
+    public class DraftOrderBulkAddTagsPayload : GraphQLObject<DraftOrderBulkAddTagsPayload>
     {
         ///<summary>
         ///The asynchronous job for adding tags to the draft orders.
@@ -14997,7 +15036,7 @@ namespace shopify
     ///<summary>
     ///Return type for `draftOrderBulkDelete` mutation.
     ///</summary>
-    public class DraftOrderBulkDeletePayload : IGraphQLObject
+    public class DraftOrderBulkDeletePayload : GraphQLObject<DraftOrderBulkDeletePayload>
     {
         ///<summary>
         ///The asynchronous job for deleting the draft orders.
@@ -15012,7 +15051,7 @@ namespace shopify
     ///<summary>
     ///Return type for `draftOrderBulkRemoveTags` mutation.
     ///</summary>
-    public class DraftOrderBulkRemoveTagsPayload : IGraphQLObject
+    public class DraftOrderBulkRemoveTagsPayload : GraphQLObject<DraftOrderBulkRemoveTagsPayload>
     {
         ///<summary>
         ///The asynchronous job for removing tags from the draft orders.
@@ -15027,7 +15066,7 @@ namespace shopify
     ///<summary>
     ///Return type for `draftOrderCalculate` mutation.
     ///</summary>
-    public class DraftOrderCalculatePayload : IGraphQLObject
+    public class DraftOrderCalculatePayload : GraphQLObject<DraftOrderCalculatePayload>
     {
         ///<summary>
         ///The calculated properties for a draft order.
@@ -15042,7 +15081,7 @@ namespace shopify
     ///<summary>
     ///Return type for `draftOrderComplete` mutation.
     ///</summary>
-    public class DraftOrderCompletePayload : IGraphQLObject
+    public class DraftOrderCompletePayload : GraphQLObject<DraftOrderCompletePayload>
     {
         ///<summary>
         ///The completed draft order.
@@ -15057,7 +15096,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple DraftOrders.
     ///</summary>
-    public class DraftOrderConnection : IGraphQLObject
+    public class DraftOrderConnection : GraphQLObject<DraftOrderConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -15076,7 +15115,7 @@ namespace shopify
     ///<summary>
     ///Return type for `draftOrderCreateFromOrder` mutation.
     ///</summary>
-    public class DraftOrderCreateFromOrderPayload : IGraphQLObject
+    public class DraftOrderCreateFromOrderPayload : GraphQLObject<DraftOrderCreateFromOrderPayload>
     {
         ///<summary>
         ///The created Draft Order.
@@ -15091,7 +15130,7 @@ namespace shopify
     ///<summary>
     ///Return type for `draftOrderCreateMerchantCheckout` mutation.
     ///</summary>
-    public class DraftOrderCreateMerchantCheckoutPayload : IGraphQLObject
+    public class DraftOrderCreateMerchantCheckoutPayload : GraphQLObject<DraftOrderCreateMerchantCheckoutPayload>
     {
         ///<summary>
         ///The list of errors that occurred from executing the mutation.
@@ -15102,7 +15141,7 @@ namespace shopify
     ///<summary>
     ///Return type for `draftOrderCreate` mutation.
     ///</summary>
-    public class DraftOrderCreatePayload : IGraphQLObject
+    public class DraftOrderCreatePayload : GraphQLObject<DraftOrderCreatePayload>
     {
         ///<summary>
         ///The created draft order.
@@ -15117,7 +15156,7 @@ namespace shopify
     ///<summary>
     ///Return type for `draftOrderDelete` mutation.
     ///</summary>
-    public class DraftOrderDeletePayload : IGraphQLObject
+    public class DraftOrderDeletePayload : GraphQLObject<DraftOrderDeletePayload>
     {
         ///<summary>
         ///The ID of the deleted draft order.
@@ -15132,7 +15171,7 @@ namespace shopify
     ///<summary>
     ///Return type for `draftOrderDuplicate` mutation.
     ///</summary>
-    public class DraftOrderDuplicatePayload : IGraphQLObject
+    public class DraftOrderDuplicatePayload : GraphQLObject<DraftOrderDuplicatePayload>
     {
         ///<summary>
         ///The newly duplicated draft order.
@@ -15147,7 +15186,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one DraftOrder and a cursor during pagination.
     ///</summary>
-    public class DraftOrderEdge : IGraphQLObject
+    public class DraftOrderEdge : GraphQLObject<DraftOrderEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -15162,7 +15201,7 @@ namespace shopify
     ///<summary>
     ///Return type for `draftOrderInvoicePreview` mutation.
     ///</summary>
-    public class DraftOrderInvoicePreviewPayload : IGraphQLObject
+    public class DraftOrderInvoicePreviewPayload : GraphQLObject<DraftOrderInvoicePreviewPayload>
     {
         ///<summary>
         ///The draft order invoice email rendered as HTML to allow previewing.
@@ -15181,7 +15220,7 @@ namespace shopify
     ///<summary>
     ///Return type for `draftOrderInvoiceSend` mutation.
     ///</summary>
-    public class DraftOrderInvoiceSendPayload : IGraphQLObject
+    public class DraftOrderInvoiceSendPayload : GraphQLObject<DraftOrderInvoiceSendPayload>
     {
         ///<summary>
         ///The draft order an invoice email is sent for.
@@ -15196,7 +15235,7 @@ namespace shopify
     ///<summary>
     ///A line item included in a draft order.
     ///</summary>
-    public class DraftOrderLineItem : IGraphQLObject, INode
+    public class DraftOrderLineItem : GraphQLObject<DraftOrderLineItem>, INode
     {
         ///<summary>
         ///The discount that will be applied to the line item or the overall order.
@@ -15335,7 +15374,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple DraftOrderLineItems.
     ///</summary>
-    public class DraftOrderLineItemConnection : IGraphQLObject
+    public class DraftOrderLineItemConnection : GraphQLObject<DraftOrderLineItemConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -15354,7 +15393,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one DraftOrderLineItem and a cursor during pagination.
     ///</summary>
-    public class DraftOrderLineItemEdge : IGraphQLObject
+    public class DraftOrderLineItemEdge : GraphQLObject<DraftOrderLineItemEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -15424,7 +15463,7 @@ namespace shopify
     ///<summary>
     ///Represents a draft order tag.
     ///</summary>
-    public class DraftOrderTag : IGraphQLObject, INode
+    public class DraftOrderTag : GraphQLObject<DraftOrderTag>, INode
     {
         ///<summary>
         ///Handle of draft order tag.
@@ -15443,7 +15482,7 @@ namespace shopify
     ///<summary>
     ///Return type for `draftOrderUpdate` mutation.
     ///</summary>
-    public class DraftOrderUpdatePayload : IGraphQLObject
+    public class DraftOrderUpdatePayload : GraphQLObject<DraftOrderUpdatePayload>
     {
         ///<summary>
         ///The updated draft order.
@@ -15458,7 +15497,7 @@ namespace shopify
     ///<summary>
     ///The duty details for a line item.
     ///</summary>
-    public class Duty : IGraphQLObject, INode
+    public class Duty : GraphQLObject<Duty>, INode
     {
         ///<summary>
         ///The ISO 3166-1 alpha-2 country code of the country of origin used in calculating the duty.
@@ -15485,7 +15524,7 @@ namespace shopify
     ///<summary>
     ///A sale associated with a duty charge.
     ///</summary>
-    public class DutySale : IGraphQLObject, ISale
+    public class DutySale : GraphQLObject<DutySale>, ISale
     {
         ///<summary>
         ///The type of order action that the sale represents.
@@ -15532,7 +15571,7 @@ namespace shopify
     ///<summary>
     ///The attribute editable information.
     ///</summary>
-    public class EditableProperty : IGraphQLObject
+    public class EditableProperty : GraphQLObject<EditableProperty>
     {
         ///<summary>
         ///Whether the attribute is locked for editing.
@@ -15547,7 +15586,7 @@ namespace shopify
     ///<summary>
     ///Error position information in a ShopifyQL parsing error.
     ///</summary>
-    public class ErrorPosition : IGraphQLObject
+    public class ErrorPosition : GraphQLObject<ErrorPosition>
     {
         ///<summary>
         ///The character position of the error in the line.
@@ -15562,7 +15601,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of a server pixel mutation.
     ///</summary>
-    public class ErrorsServerPixelUserError : IGraphQLObject, IDisplayableError
+    public class ErrorsServerPixelUserError : GraphQLObject<ErrorsServerPixelUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -15604,7 +15643,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of a web pixel mutation.
     ///</summary>
-    public class ErrorsWebPixelUserError : IGraphQLObject, IDisplayableError
+    public class ErrorsWebPixelUserError : GraphQLObject<ErrorsWebPixelUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -15691,7 +15730,7 @@ namespace shopify
     ///<summary>
     ///Return type for `eventBridgeServerPixelUpdate` mutation.
     ///</summary>
-    public class EventBridgeServerPixelUpdatePayload : IGraphQLObject
+    public class EventBridgeServerPixelUpdatePayload : GraphQLObject<EventBridgeServerPixelUpdatePayload>
     {
         ///<summary>
         ///The server pixel as configured by the mutation.
@@ -15706,7 +15745,7 @@ namespace shopify
     ///<summary>
     ///Return type for `eventBridgeWebhookSubscriptionCreate` mutation.
     ///</summary>
-    public class EventBridgeWebhookSubscriptionCreatePayload : IGraphQLObject
+    public class EventBridgeWebhookSubscriptionCreatePayload : GraphQLObject<EventBridgeWebhookSubscriptionCreatePayload>
     {
         ///<summary>
         ///The list of errors that occurred from executing the mutation.
@@ -15721,7 +15760,7 @@ namespace shopify
     ///<summary>
     ///Return type for `eventBridgeWebhookSubscriptionUpdate` mutation.
     ///</summary>
-    public class EventBridgeWebhookSubscriptionUpdatePayload : IGraphQLObject
+    public class EventBridgeWebhookSubscriptionUpdatePayload : GraphQLObject<EventBridgeWebhookSubscriptionUpdatePayload>
     {
         ///<summary>
         ///The list of errors that occurred from executing the mutation.
@@ -15736,7 +15775,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Events.
     ///</summary>
-    public class EventConnection : IGraphQLObject
+    public class EventConnection : GraphQLObject<EventConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -15755,7 +15794,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one Event and a cursor during pagination.
     ///</summary>
-    public class EventEdge : IGraphQLObject
+    public class EventEdge : GraphQLObject<EventEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -15790,7 +15829,7 @@ namespace shopify
     ///<summary>
     ///An exchange where existing items on an order are returned and new items are added to the order.
     ///</summary>
-    public class ExchangeV2 : IGraphQLObject, INode
+    public class ExchangeV2 : GraphQLObject<ExchangeV2>, INode
     {
         ///<summary>
         ///The details of the new items in the exchange.
@@ -15845,7 +15884,7 @@ namespace shopify
     ///<summary>
     ///New items associated to the exchange.
     ///</summary>
-    public class ExchangeV2Additions : IGraphQLObject
+    public class ExchangeV2Additions : GraphQLObject<ExchangeV2Additions>
     {
         ///<summary>
         ///The list of new items for the exchange.
@@ -15868,7 +15907,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ExchangeV2s.
     ///</summary>
-    public class ExchangeV2Connection : IGraphQLObject
+    public class ExchangeV2Connection : GraphQLObject<ExchangeV2Connection>
     {
         ///<summary>
         ///A list of edges.
@@ -15887,7 +15926,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one ExchangeV2 and a cursor during pagination.
     ///</summary>
-    public class ExchangeV2Edge : IGraphQLObject
+    public class ExchangeV2Edge : GraphQLObject<ExchangeV2Edge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -15902,7 +15941,7 @@ namespace shopify
     ///<summary>
     ///Contains information about an item in the exchange.
     ///</summary>
-    public class ExchangeV2LineItem : IGraphQLObject
+    public class ExchangeV2LineItem : GraphQLObject<ExchangeV2LineItem>
     {
         ///<summary>
         ///A list of attributes that represent custom features or special requests.
@@ -15992,7 +16031,7 @@ namespace shopify
     ///<summary>
     ///Return items associated to the exchange.
     ///</summary>
-    public class ExchangeV2Returns : IGraphQLObject
+    public class ExchangeV2Returns : GraphQLObject<ExchangeV2Returns>
     {
         ///<summary>
         ///The list of return items for the exchange.
@@ -16027,7 +16066,7 @@ namespace shopify
     ///<summary>
     ///Represents a video hosted outside of Shopify.
     ///</summary>
-    public class ExternalVideo : IGraphQLObject, IMedia, INode
+    public class ExternalVideo : GraphQLObject<ExternalVideo>, IMedia, INode
     {
         ///<summary>
         ///A word or phrase to share the nature or contents of a media.
@@ -16080,7 +16119,7 @@ namespace shopify
     ///<summary>
     ///Requirements that must be met before an app can be installed.
     ///</summary>
-    public class FailedRequirement : IGraphQLObject
+    public class FailedRequirement : GraphQLObject<FailedRequirement>
     {
         ///<summary>
         ///Action to be taken to resolve a failed requirement, including URL link.
@@ -16138,7 +16177,7 @@ namespace shopify
     ///<summary>
     ///Return type for `fileAcknowledgeUpdateFailed` mutation.
     ///</summary>
-    public class FileAcknowledgeUpdateFailedPayload : IGraphQLObject
+    public class FileAcknowledgeUpdateFailedPayload : GraphQLObject<FileAcknowledgeUpdateFailedPayload>
     {
         ///<summary>
         ///The updated file(s).
@@ -16153,7 +16192,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Files.
     ///</summary>
-    public class FileConnection : IGraphQLObject
+    public class FileConnection : GraphQLObject<FileConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -16210,7 +16249,7 @@ namespace shopify
     ///<summary>
     ///Return type for `fileCreate` mutation.
     ///</summary>
-    public class FileCreatePayload : IGraphQLObject
+    public class FileCreatePayload : GraphQLObject<FileCreatePayload>
     {
         ///<summary>
         ///The newly created files.
@@ -16225,7 +16264,7 @@ namespace shopify
     ///<summary>
     ///Return type for `fileDelete` mutation.
     ///</summary>
-    public class FileDeletePayload : IGraphQLObject
+    public class FileDeletePayload : GraphQLObject<FileDeletePayload>
     {
         ///<summary>
         ///The IDs of the deleted files.
@@ -16240,7 +16279,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one File and a cursor during pagination.
     ///</summary>
-    public class FileEdge : IGraphQLObject
+    public class FileEdge : GraphQLObject<FileEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -16256,7 +16295,7 @@ namespace shopify
     ///A file error. This typically occurs when there is an issue with the file itself causing it to fail validation.
     ///Check the file before attempting to upload again.
     ///</summary>
-    public class FileError : IGraphQLObject
+    public class FileError : GraphQLObject<FileError>
     {
         ///<summary>
         ///Code representing the type of error.
@@ -16469,7 +16508,7 @@ namespace shopify
     ///<summary>
     ///Return type for `fileUpdate` mutation.
     ///</summary>
-    public class FileUpdatePayload : IGraphQLObject
+    public class FileUpdatePayload : GraphQLObject<FileUpdatePayload>
     {
         ///<summary>
         ///The list of updated files.
@@ -16575,7 +16614,7 @@ namespace shopify
     ///<summary>
     ///An error that happens during the execution of a Files API query or mutation.
     ///</summary>
-    public class FilesUserError : IGraphQLObject, IDisplayableError
+    public class FilesUserError : GraphQLObject<FilesUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -16594,7 +16633,7 @@ namespace shopify
     ///<summary>
     ///A filter option is one possible value in a search filter.
     ///</summary>
-    public class FilterOption : IGraphQLObject
+    public class FilterOption : GraphQLObject<FilterOption>
     {
         ///<summary>
         ///The filter option's label for display purposes.
@@ -16609,7 +16648,7 @@ namespace shopify
     ///<summary>
     ///Return type for `flowTriggerReceive` mutation.
     ///</summary>
-    public class FlowTriggerReceivePayload : IGraphQLObject
+    public class FlowTriggerReceivePayload : GraphQLObject<FlowTriggerReceivePayload>
     {
         ///<summary>
         ///The list of errors that occurred from executing the mutation.
@@ -16624,7 +16663,7 @@ namespace shopify
     ///in the order have been sent to the customer.
     ///There can be more than one fulfillment for an order.
     ///</summary>
-    public class Fulfillment : IGraphQLObject, ILegacyInteroperability, INode
+    public class Fulfillment : GraphQLObject<Fulfillment>, ILegacyInteroperability, INode
     {
         ///<summary>
         ///The date and time when the fulfillment was created.
@@ -16712,7 +16751,7 @@ namespace shopify
     ///<summary>
     ///Return type for `fulfillmentCancel` mutation.
     ///</summary>
-    public class FulfillmentCancelPayload : IGraphQLObject
+    public class FulfillmentCancelPayload : GraphQLObject<FulfillmentCancelPayload>
     {
         ///<summary>
         ///The canceled fulfillment.
@@ -16727,7 +16766,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Fulfillments.
     ///</summary>
-    public class FulfillmentConnection : IGraphQLObject
+    public class FulfillmentConnection : GraphQLObject<FulfillmentConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -16746,7 +16785,7 @@ namespace shopify
     ///<summary>
     ///Return type for `fulfillmentCreateV2` mutation.
     ///</summary>
-    public class FulfillmentCreateV2Payload : IGraphQLObject
+    public class FulfillmentCreateV2Payload : GraphQLObject<FulfillmentCreateV2Payload>
     {
         ///<summary>
         ///The created fulfillment.
@@ -16832,7 +16871,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one Fulfillment and a cursor during pagination.
     ///</summary>
-    public class FulfillmentEdge : IGraphQLObject
+    public class FulfillmentEdge : GraphQLObject<FulfillmentEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -16847,7 +16886,7 @@ namespace shopify
     ///<summary>
     ///The fulfillment event that describes the fulfilllment status at a particular time.
     ///</summary>
-    public class FulfillmentEvent : IGraphQLObject, INode
+    public class FulfillmentEvent : GraphQLObject<FulfillmentEvent>, INode
     {
         ///<summary>
         ///The street address where this fulfillment event occurred.
@@ -16902,7 +16941,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple FulfillmentEvents.
     ///</summary>
-    public class FulfillmentEventConnection : IGraphQLObject
+    public class FulfillmentEventConnection : GraphQLObject<FulfillmentEventConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -16921,7 +16960,7 @@ namespace shopify
     ///<summary>
     ///Return type for `fulfillmentEventCreate` mutation.
     ///</summary>
-    public class FulfillmentEventCreatePayload : IGraphQLObject
+    public class FulfillmentEventCreatePayload : GraphQLObject<FulfillmentEventCreatePayload>
     {
         ///<summary>
         ///The created fulfillment event.
@@ -16936,7 +16975,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one FulfillmentEvent and a cursor during pagination.
     ///</summary>
-    public class FulfillmentEventEdge : IGraphQLObject
+    public class FulfillmentEventEdge : GraphQLObject<FulfillmentEventEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -17014,7 +17053,7 @@ namespace shopify
     ///<summary>
     ///A fulfillment hold currently applied on a fulfillment order.
     ///</summary>
-    public class FulfillmentHold : IGraphQLObject
+    public class FulfillmentHold : GraphQLObject<FulfillmentHold>
     {
         ///<summary>
         ///The name of the app or service that applied the fulfillment hold.
@@ -17068,7 +17107,7 @@ namespace shopify
     ///<summary>
     ///Represents a line item from an order that's included in a fulfillment.
     ///</summary>
-    public class FulfillmentLineItem : IGraphQLObject, INode
+    public class FulfillmentLineItem : GraphQLObject<FulfillmentLineItem>, INode
     {
         ///<summary>
         ///The total price after discounts are applied.
@@ -17106,7 +17145,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple FulfillmentLineItems.
     ///</summary>
-    public class FulfillmentLineItemConnection : IGraphQLObject
+    public class FulfillmentLineItemConnection : GraphQLObject<FulfillmentLineItemConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -17125,7 +17164,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one FulfillmentLineItem and a cursor during pagination.
     ///</summary>
-    public class FulfillmentLineItemEdge : IGraphQLObject
+    public class FulfillmentLineItemEdge : GraphQLObject<FulfillmentLineItemEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -17300,7 +17339,7 @@ namespace shopify
     ///
     ///[Learn about fulfillment workflows](https://shopify.dev/apps/fulfillment).
     ///</summary>
-    public class FulfillmentOrder : IGraphQLObject, INode, IMetafieldReferencer
+    public class FulfillmentOrder : GraphQLObject<FulfillmentOrder>, INode, IMetafieldReferencer
     {
         ///<summary>
         ///The fulfillment order's assigned location. This is the location where the fulfillment is expected to happen.
@@ -17392,7 +17431,7 @@ namespace shopify
     ///<summary>
     ///Return type for `fulfillmentOrderAcceptCancellationRequest` mutation.
     ///</summary>
-    public class FulfillmentOrderAcceptCancellationRequestPayload : IGraphQLObject
+    public class FulfillmentOrderAcceptCancellationRequestPayload : GraphQLObject<FulfillmentOrderAcceptCancellationRequestPayload>
     {
         ///<summary>
         ///The fulfillment order whose cancellation request was accepted.
@@ -17407,7 +17446,7 @@ namespace shopify
     ///<summary>
     ///Return type for `fulfillmentOrderAcceptFulfillmentRequest` mutation.
     ///</summary>
-    public class FulfillmentOrderAcceptFulfillmentRequestPayload : IGraphQLObject
+    public class FulfillmentOrderAcceptFulfillmentRequestPayload : GraphQLObject<FulfillmentOrderAcceptFulfillmentRequestPayload>
     {
         ///<summary>
         ///The fulfillment order whose fulfillment request was accepted.
@@ -17506,7 +17545,7 @@ namespace shopify
     ///  https://shopify.dev/api/admin-graphql/latest/objects/FulfillmentOrderAssignedLocation#field-fulfillmentorderassignedlocation-location
     ///) connection.
     ///</summary>
-    public class FulfillmentOrderAssignedLocation : IGraphQLObject
+    public class FulfillmentOrderAssignedLocation : GraphQLObject<FulfillmentOrderAssignedLocation>
     {
         ///<summary>
         ///The first line of the address for the location.
@@ -17573,7 +17612,7 @@ namespace shopify
     ///<summary>
     ///Return type for `fulfillmentOrderCancel` mutation.
     ///</summary>
-    public class FulfillmentOrderCancelPayload : IGraphQLObject
+    public class FulfillmentOrderCancelPayload : GraphQLObject<FulfillmentOrderCancelPayload>
     {
         ///<summary>
         ///The fulfillment order that was marked as canceled.
@@ -17592,7 +17631,7 @@ namespace shopify
     ///<summary>
     ///Return type for `fulfillmentOrderClose` mutation.
     ///</summary>
-    public class FulfillmentOrderClosePayload : IGraphQLObject
+    public class FulfillmentOrderClosePayload : GraphQLObject<FulfillmentOrderClosePayload>
     {
         ///<summary>
         ///The fulfillment order that was marked as incomplete.
@@ -17607,7 +17646,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple FulfillmentOrders.
     ///</summary>
-    public class FulfillmentOrderConnection : IGraphQLObject
+    public class FulfillmentOrderConnection : GraphQLObject<FulfillmentOrderConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -17626,7 +17665,7 @@ namespace shopify
     ///<summary>
     ///Represents the destination where the items should be sent upon fulfillment.
     ///</summary>
-    public class FulfillmentOrderDestination : IGraphQLObject, INode
+    public class FulfillmentOrderDestination : GraphQLObject<FulfillmentOrderDestination>, INode
     {
         ///<summary>
         ///The first line of the address of the destination.
@@ -17681,7 +17720,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one FulfillmentOrder and a cursor during pagination.
     ///</summary>
-    public class FulfillmentOrderEdge : IGraphQLObject
+    public class FulfillmentOrderEdge : GraphQLObject<FulfillmentOrderEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -17696,7 +17735,7 @@ namespace shopify
     ///<summary>
     ///Return type for `fulfillmentOrderHold` mutation.
     ///</summary>
-    public class FulfillmentOrderHoldPayload : IGraphQLObject
+    public class FulfillmentOrderHoldPayload : GraphQLObject<FulfillmentOrderHoldPayload>
     {
         ///<summary>
         ///The fulfillment order on which a fulfillment hold was applied.
@@ -17716,7 +17755,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `FulfillmentOrderHold`.
     ///</summary>
-    public class FulfillmentOrderHoldUserError : IGraphQLObject, IDisplayableError
+    public class FulfillmentOrderHoldUserError : GraphQLObject<FulfillmentOrderHoldUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -17758,7 +17797,7 @@ namespace shopify
     ///<summary>
     ///The international duties relevant to a fulfillment order.
     ///</summary>
-    public class FulfillmentOrderInternationalDuties : IGraphQLObject
+    public class FulfillmentOrderInternationalDuties : GraphQLObject<FulfillmentOrderInternationalDuties>
     {
         ///<summary>
         ///The method of duties payment. Example values: `DDP`, `DAP`.
@@ -17769,7 +17808,7 @@ namespace shopify
     ///<summary>
     ///Associates an order line item with quantities requiring fulfillment from the respective fulfillment order.
     ///</summary>
-    public class FulfillmentOrderLineItem : IGraphQLObject, INode
+    public class FulfillmentOrderLineItem : GraphQLObject<FulfillmentOrderLineItem>, INode
     {
         ///<summary>
         ///A globally-unique ID.
@@ -17834,7 +17873,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple FulfillmentOrderLineItems.
     ///</summary>
-    public class FulfillmentOrderLineItemConnection : IGraphQLObject
+    public class FulfillmentOrderLineItemConnection : GraphQLObject<FulfillmentOrderLineItemConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -17853,7 +17892,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one FulfillmentOrderLineItem and a cursor during pagination.
     ///</summary>
-    public class FulfillmentOrderLineItemEdge : IGraphQLObject
+    public class FulfillmentOrderLineItemEdge : GraphQLObject<FulfillmentOrderLineItemEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -17868,7 +17907,7 @@ namespace shopify
     ///<summary>
     ///A fulfillment order line item warning. For example, a warning about why a fulfillment request was rejected.
     ///</summary>
-    public class FulfillmentOrderLineItemWarning : IGraphQLObject
+    public class FulfillmentOrderLineItemWarning : GraphQLObject<FulfillmentOrderLineItemWarning>
     {
         ///<summary>
         ///The description of warning.
@@ -17883,7 +17922,7 @@ namespace shopify
     ///<summary>
     ///Return type for `fulfillmentOrderLineItemsPreparedForPickup` mutation.
     ///</summary>
-    public class FulfillmentOrderLineItemsPreparedForPickupPayload : IGraphQLObject
+    public class FulfillmentOrderLineItemsPreparedForPickupPayload : GraphQLObject<FulfillmentOrderLineItemsPreparedForPickupPayload>
     {
         ///<summary>
         ///The list of errors that occurred from executing the mutation.
@@ -17894,7 +17933,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `FulfillmentOrderLineItemsPreparedForPickup`.
     ///</summary>
-    public class FulfillmentOrderLineItemsPreparedForPickupUserError : IGraphQLObject, IDisplayableError
+    public class FulfillmentOrderLineItemsPreparedForPickupUserError : GraphQLObject<FulfillmentOrderLineItemsPreparedForPickupUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -17932,7 +17971,7 @@ namespace shopify
     ///<summary>
     ///A location that a fulfillment order can potentially move to.
     ///</summary>
-    public class FulfillmentOrderLocationForMove : IGraphQLObject
+    public class FulfillmentOrderLocationForMove : GraphQLObject<FulfillmentOrderLocationForMove>
     {
         ///<summary>
         ///The location being considered as the fulfillment order's new assigned location.
@@ -17952,7 +17991,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple FulfillmentOrderLocationForMoves.
     ///</summary>
-    public class FulfillmentOrderLocationForMoveConnection : IGraphQLObject
+    public class FulfillmentOrderLocationForMoveConnection : GraphQLObject<FulfillmentOrderLocationForMoveConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -17971,7 +18010,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one FulfillmentOrderLocationForMove and a cursor during pagination.
     ///</summary>
-    public class FulfillmentOrderLocationForMoveEdge : IGraphQLObject
+    public class FulfillmentOrderLocationForMoveEdge : GraphQLObject<FulfillmentOrderLocationForMoveEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -17987,7 +18026,7 @@ namespace shopify
     ///A request made by the merchant or an order management app to a fulfillment service
     ///for a fulfillment order.
     ///</summary>
-    public class FulfillmentOrderMerchantRequest : IGraphQLObject, INode
+    public class FulfillmentOrderMerchantRequest : GraphQLObject<FulfillmentOrderMerchantRequest>, INode
     {
         ///<summary>
         ///The fulfillment order associated with the merchant request.
@@ -18025,7 +18064,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple FulfillmentOrderMerchantRequests.
     ///</summary>
-    public class FulfillmentOrderMerchantRequestConnection : IGraphQLObject
+    public class FulfillmentOrderMerchantRequestConnection : GraphQLObject<FulfillmentOrderMerchantRequestConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -18044,7 +18083,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one FulfillmentOrderMerchantRequest and a cursor during pagination.
     ///</summary>
-    public class FulfillmentOrderMerchantRequestEdge : IGraphQLObject
+    public class FulfillmentOrderMerchantRequestEdge : GraphQLObject<FulfillmentOrderMerchantRequestEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -18074,7 +18113,7 @@ namespace shopify
     ///<summary>
     ///Return type for `fulfillmentOrderMerge` mutation.
     ///</summary>
-    public class FulfillmentOrderMergePayload : IGraphQLObject
+    public class FulfillmentOrderMergePayload : GraphQLObject<FulfillmentOrderMergePayload>
     {
         ///<summary>
         ///The result of the fulfillment order merges.
@@ -18089,7 +18128,7 @@ namespace shopify
     ///<summary>
     ///The result of merging a set of fulfillment orders.
     ///</summary>
-    public class FulfillmentOrderMergeResult : IGraphQLObject
+    public class FulfillmentOrderMergeResult : GraphQLObject<FulfillmentOrderMergeResult>
     {
         ///<summary>
         ///The new fulfillment order as a result of the merge.
@@ -18100,7 +18139,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `FulfillmentOrderMerge`.
     ///</summary>
-    public class FulfillmentOrderMergeUserError : IGraphQLObject, IDisplayableError
+    public class FulfillmentOrderMergeUserError : GraphQLObject<FulfillmentOrderMergeUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -18138,7 +18177,7 @@ namespace shopify
     ///<summary>
     ///Return type for `fulfillmentOrderMove` mutation.
     ///</summary>
-    public class FulfillmentOrderMovePayload : IGraphQLObject
+    public class FulfillmentOrderMovePayload : GraphQLObject<FulfillmentOrderMovePayload>
     {
         ///<summary>
         ///The fulfillment order which now contains the moved line items and is assigned to the destination location.
@@ -18174,7 +18213,7 @@ namespace shopify
     ///<summary>
     ///Return type for `fulfillmentOrderOpen` mutation.
     ///</summary>
-    public class FulfillmentOrderOpenPayload : IGraphQLObject
+    public class FulfillmentOrderOpenPayload : GraphQLObject<FulfillmentOrderOpenPayload>
     {
         ///<summary>
         ///The fulfillment order that was transitioned to open and is fulfillable.
@@ -18189,7 +18228,7 @@ namespace shopify
     ///<summary>
     ///Return type for `fulfillmentOrderRejectCancellationRequest` mutation.
     ///</summary>
-    public class FulfillmentOrderRejectCancellationRequestPayload : IGraphQLObject
+    public class FulfillmentOrderRejectCancellationRequestPayload : GraphQLObject<FulfillmentOrderRejectCancellationRequestPayload>
     {
         ///<summary>
         ///The fulfillment order whose cancellation request was rejected.
@@ -18204,7 +18243,7 @@ namespace shopify
     ///<summary>
     ///Return type for `fulfillmentOrderRejectFulfillmentRequest` mutation.
     ///</summary>
-    public class FulfillmentOrderRejectFulfillmentRequestPayload : IGraphQLObject
+    public class FulfillmentOrderRejectFulfillmentRequestPayload : GraphQLObject<FulfillmentOrderRejectFulfillmentRequestPayload>
     {
         ///<summary>
         ///The fulfillment order whose fulfillment request was rejected.
@@ -18246,7 +18285,7 @@ namespace shopify
     ///<summary>
     ///Return type for `fulfillmentOrderReleaseHold` mutation.
     ///</summary>
-    public class FulfillmentOrderReleaseHoldPayload : IGraphQLObject
+    public class FulfillmentOrderReleaseHoldPayload : GraphQLObject<FulfillmentOrderReleaseHoldPayload>
     {
         ///<summary>
         ///The fulfillment order on which the hold was released.
@@ -18261,7 +18300,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `FulfillmentOrderReleaseHold`.
     ///</summary>
-    public class FulfillmentOrderReleaseHoldUserError : IGraphQLObject, IDisplayableError
+    public class FulfillmentOrderReleaseHoldUserError : GraphQLObject<FulfillmentOrderReleaseHoldUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -18339,7 +18378,7 @@ namespace shopify
     ///<summary>
     ///Return type for `fulfillmentOrderReschedule` mutation.
     ///</summary>
-    public class FulfillmentOrderReschedulePayload : IGraphQLObject
+    public class FulfillmentOrderReschedulePayload : GraphQLObject<FulfillmentOrderReschedulePayload>
     {
         ///<summary>
         ///The fulfillment order that was rescheduled.
@@ -18354,7 +18393,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `FulfillmentOrderReschedule`.
     ///</summary>
-    public class FulfillmentOrderRescheduleUserError : IGraphQLObject, IDisplayableError
+    public class FulfillmentOrderRescheduleUserError : GraphQLObject<FulfillmentOrderRescheduleUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -18400,7 +18439,7 @@ namespace shopify
     ///<summary>
     ///Return type for `fulfillmentOrderSplit` mutation.
     ///</summary>
-    public class FulfillmentOrderSplitPayload : IGraphQLObject
+    public class FulfillmentOrderSplitPayload : GraphQLObject<FulfillmentOrderSplitPayload>
     {
         ///<summary>
         ///The result of the fulfillment order splits.
@@ -18415,7 +18454,7 @@ namespace shopify
     ///<summary>
     ///The result of splitting a fulfillment order.
     ///</summary>
-    public class FulfillmentOrderSplitResult : IGraphQLObject
+    public class FulfillmentOrderSplitResult : GraphQLObject<FulfillmentOrderSplitResult>
     {
         ///<summary>
         ///The original fulfillment order as a result of the split.
@@ -18434,7 +18473,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `FulfillmentOrderSplit`.
     ///</summary>
-    public class FulfillmentOrderSplitUserError : IGraphQLObject, IDisplayableError
+    public class FulfillmentOrderSplitUserError : GraphQLObject<FulfillmentOrderSplitUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -18507,7 +18546,7 @@ namespace shopify
     ///<summary>
     ///Return type for `fulfillmentOrderSubmitCancellationRequest` mutation.
     ///</summary>
-    public class FulfillmentOrderSubmitCancellationRequestPayload : IGraphQLObject
+    public class FulfillmentOrderSubmitCancellationRequestPayload : GraphQLObject<FulfillmentOrderSubmitCancellationRequestPayload>
     {
         ///<summary>
         ///The fulfillment order specified in the cancelation request.
@@ -18522,7 +18561,7 @@ namespace shopify
     ///<summary>
     ///Return type for `fulfillmentOrderSubmitFulfillmentRequest` mutation.
     ///</summary>
-    public class FulfillmentOrderSubmitFulfillmentRequestPayload : IGraphQLObject
+    public class FulfillmentOrderSubmitFulfillmentRequestPayload : GraphQLObject<FulfillmentOrderSubmitFulfillmentRequestPayload>
     {
         ///<summary>
         ///The original fulfillment order intended to request fulfillment for.
@@ -18548,7 +18587,7 @@ namespace shopify
     ///<summary>
     ///One of the actions that the fulfillment order supports in its current state.
     ///</summary>
-    public class FulfillmentOrderSupportedAction : IGraphQLObject
+    public class FulfillmentOrderSupportedAction : GraphQLObject<FulfillmentOrderSupportedAction>
     {
         ///<summary>
         ///The action value.
@@ -18564,7 +18603,7 @@ namespace shopify
     ///<summary>
     ///Return type for `fulfillmentOrdersReleaseHolds` mutation.
     ///</summary>
-    public class FulfillmentOrdersReleaseHoldsPayload : IGraphQLObject
+    public class FulfillmentOrdersReleaseHoldsPayload : GraphQLObject<FulfillmentOrdersReleaseHoldsPayload>
     {
         ///<summary>
         ///The asynchronous job that will release the fulfillment holds.
@@ -18579,7 +18618,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `FulfillmentOrdersReleaseHolds`.
     ///</summary>
-    public class FulfillmentOrdersReleaseHoldsUserError : IGraphQLObject, IDisplayableError
+    public class FulfillmentOrdersReleaseHoldsUserError : GraphQLObject<FulfillmentOrdersReleaseHoldsUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -18609,7 +18648,7 @@ namespace shopify
     ///<summary>
     ///Return type for `fulfillmentOrdersSetFulfillmentDeadline` mutation.
     ///</summary>
-    public class FulfillmentOrdersSetFulfillmentDeadlinePayload : IGraphQLObject
+    public class FulfillmentOrdersSetFulfillmentDeadlinePayload : GraphQLObject<FulfillmentOrdersSetFulfillmentDeadlinePayload>
     {
         ///<summary>
         ///Whether the fulfillment deadline was successfully set.
@@ -18624,7 +18663,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `FulfillmentOrdersSetFulfillmentDeadline`.
     ///</summary>
-    public class FulfillmentOrdersSetFulfillmentDeadlineUserError : IGraphQLObject, IDisplayableError
+    public class FulfillmentOrdersSetFulfillmentDeadlineUserError : GraphQLObject<FulfillmentOrdersSetFulfillmentDeadlineUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -18654,7 +18693,7 @@ namespace shopify
     ///<summary>
     ///The address at which the fulfillment occurred. Typically this is the address of the warehouse or fulfillment center.
     ///</summary>
-    public class FulfillmentOriginAddress : IGraphQLObject
+    public class FulfillmentOriginAddress : GraphQLObject<FulfillmentOriginAddress>
     {
         ///<summary>
         ///The street address of the fulfillment location.
@@ -18752,7 +18791,7 @@ namespace shopify
     ///and [order](https://shopify.dev/api/admin-rest/latest/resources/webhook)
     ///webhooks.
     ///</summary>
-    public class FulfillmentService : IGraphQLObject
+    public class FulfillmentService : GraphQLObject<FulfillmentService>
     {
         ///<summary>
         ///The callback URL that the fulfillment service has registered for requests. The following considerations apply:
@@ -18814,7 +18853,7 @@ namespace shopify
     ///<summary>
     ///Return type for `fulfillmentServiceCreate` mutation.
     ///</summary>
-    public class FulfillmentServiceCreatePayload : IGraphQLObject
+    public class FulfillmentServiceCreatePayload : GraphQLObject<FulfillmentServiceCreatePayload>
     {
         ///<summary>
         ///The created fulfillment service.
@@ -18829,7 +18868,7 @@ namespace shopify
     ///<summary>
     ///Return type for `fulfillmentServiceDelete` mutation.
     ///</summary>
-    public class FulfillmentServiceDeletePayload : IGraphQLObject
+    public class FulfillmentServiceDeletePayload : GraphQLObject<FulfillmentServiceDeletePayload>
     {
         ///<summary>
         ///The ID of the deleted fulfillment service.
@@ -18863,7 +18902,7 @@ namespace shopify
     ///<summary>
     ///Return type for `fulfillmentServiceUpdate` mutation.
     ///</summary>
-    public class FulfillmentServiceUpdatePayload : IGraphQLObject
+    public class FulfillmentServiceUpdatePayload : GraphQLObject<FulfillmentServiceUpdatePayload>
     {
         ///<summary>
         ///The updated fulfillment service.
@@ -18911,7 +18950,7 @@ namespace shopify
     ///<summary>
     ///Represents the tracking information for a fulfillment.
     ///</summary>
-    public class FulfillmentTrackingInfo : IGraphQLObject
+    public class FulfillmentTrackingInfo : GraphQLObject<FulfillmentTrackingInfo>
     {
         ///<summary>
         ///The name of the tracking company.
@@ -19094,7 +19133,7 @@ namespace shopify
     ///<summary>
     ///Return type for `fulfillmentTrackingInfoUpdateV2` mutation.
     ///</summary>
-    public class FulfillmentTrackingInfoUpdateV2Payload : IGraphQLObject
+    public class FulfillmentTrackingInfoUpdateV2Payload : GraphQLObject<FulfillmentTrackingInfoUpdateV2Payload>
     {
         ///<summary>
         ///The updated fulfillment with tracking information.
@@ -19109,7 +19148,7 @@ namespace shopify
     ///<summary>
     ///The App Bridge information for a Shopify Function.
     ///</summary>
-    public class FunctionsAppBridge : IGraphQLObject
+    public class FunctionsAppBridge : GraphQLObject<FunctionsAppBridge>
     {
         ///<summary>
         ///The relative path for creating a customization.
@@ -19124,7 +19163,7 @@ namespace shopify
     ///<summary>
     ///The error history from running a Shopify Function.
     ///</summary>
-    public class FunctionsErrorHistory : IGraphQLObject
+    public class FunctionsErrorHistory : GraphQLObject<FunctionsErrorHistory>
     {
         ///<summary>
         ///The date and time that the first error occurred.
@@ -19147,7 +19186,7 @@ namespace shopify
     ///<summary>
     ///Represents any file other than HTML.
     ///</summary>
-    public class GenericFile : IGraphQLObject, IFile, INode, IMetafieldReference
+    public class GenericFile : GraphQLObject<GenericFile>, IFile, INode, IMetafieldReference
     {
         ///<summary>
         ///A word or phrase to describe the contents or the function of a file.
@@ -19194,7 +19233,7 @@ namespace shopify
     ///<summary>
     ///Represents an issued gift card.
     ///</summary>
-    public class GiftCard : IGraphQLObject, INode
+    public class GiftCard : GraphQLObject<GiftCard>, INode
     {
         ///<summary>
         ///The gift card's remaining balance.
@@ -19249,7 +19288,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple GiftCards.
     ///</summary>
-    public class GiftCardConnection : IGraphQLObject
+    public class GiftCardConnection : GraphQLObject<GiftCardConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -19268,7 +19307,7 @@ namespace shopify
     ///<summary>
     ///Return type for `giftCardCreate` mutation.
     ///</summary>
-    public class GiftCardCreatePayload : IGraphQLObject
+    public class GiftCardCreatePayload : GraphQLObject<GiftCardCreatePayload>
     {
         ///<summary>
         ///The created gift card.
@@ -19287,7 +19326,7 @@ namespace shopify
     ///<summary>
     ///Return type for `giftCardDisable` mutation.
     ///</summary>
-    public class GiftCardDisablePayload : IGraphQLObject
+    public class GiftCardDisablePayload : GraphQLObject<GiftCardDisablePayload>
     {
         ///<summary>
         ///The disabled gift card.
@@ -19302,7 +19341,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one GiftCard and a cursor during pagination.
     ///</summary>
-    public class GiftCardEdge : IGraphQLObject
+    public class GiftCardEdge : GraphQLObject<GiftCardEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -19352,7 +19391,7 @@ namespace shopify
     ///<summary>
     ///A sale associated with a gift card.
     ///</summary>
-    public class GiftCardSale : IGraphQLObject, ISale
+    public class GiftCardSale : GraphQLObject<GiftCardSale>, ISale
     {
         ///<summary>
         ///The type of order action that the sale represents.
@@ -19451,7 +19490,7 @@ namespace shopify
     ///<summary>
     ///Return type for `giftCardUpdate` mutation.
     ///</summary>
-    public class GiftCardUpdatePayload : IGraphQLObject
+    public class GiftCardUpdatePayload : GraphQLObject<GiftCardUpdatePayload>
     {
         ///<summary>
         ///The updated gift card.
@@ -19466,7 +19505,7 @@ namespace shopify
     ///<summary>
     ///Represents an error that happens during the execution of a gift card mutation.
     ///</summary>
-    public class GiftCardUserError : IGraphQLObject, IDisplayableError
+    public class GiftCardUserError : GraphQLObject<GiftCardUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -19679,7 +19718,7 @@ namespace shopify
     ///<summary>
     ///Represents an image resource.
     ///</summary>
-    public class Image : IGraphQLObject, IHasMetafields
+    public class Image : GraphQLObject<Image>, IHasMetafields
     {
         ///<summary>
         ///A word or phrase to share the nature or contents of an image.
@@ -19755,7 +19794,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Images.
     ///</summary>
-    public class ImageConnection : IGraphQLObject
+    public class ImageConnection : GraphQLObject<ImageConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -19793,7 +19832,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one Image and a cursor during pagination.
     ///</summary>
-    public class ImageEdge : IGraphQLObject
+    public class ImageEdge : GraphQLObject<ImageEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -19815,7 +19854,7 @@ namespace shopify
     ///and returned by the
     ///[stagedUploadsCreate mutation](https://shopify.dev/api/admin-graphql/latest/mutations/stagedUploadsCreate).
     ///</summary>
-    public class ImageUploadParameter : IGraphQLObject
+    public class ImageUploadParameter : GraphQLObject<ImageUploadParameter>
     {
         ///<summary>
         ///The parameter name.
@@ -19830,7 +19869,7 @@ namespace shopify
     ///<summary>
     ///Return type for `inventoryActivate` mutation.
     ///</summary>
-    public class InventoryActivatePayload : IGraphQLObject
+    public class InventoryActivatePayload : GraphQLObject<InventoryActivatePayload>
     {
         ///<summary>
         ///The inventory level that was activated.
@@ -19845,7 +19884,7 @@ namespace shopify
     ///<summary>
     ///Return type for `inventoryAdjustQuantities` mutation.
     ///</summary>
-    public class InventoryAdjustQuantitiesPayload : IGraphQLObject
+    public class InventoryAdjustQuantitiesPayload : GraphQLObject<InventoryAdjustQuantitiesPayload>
     {
         ///<summary>
         ///The group of changes made by the operation.
@@ -19860,7 +19899,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `InventoryAdjustQuantities`.
     ///</summary>
-    public class InventoryAdjustQuantitiesUserError : IGraphQLObject, IDisplayableError
+    public class InventoryAdjustQuantitiesUserError : GraphQLObject<InventoryAdjustQuantitiesUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -19946,7 +19985,7 @@ namespace shopify
     ///<summary>
     ///Return type for `inventoryAdjustQuantity` mutation.
     ///</summary>
-    public class InventoryAdjustQuantityPayload : IGraphQLObject
+    public class InventoryAdjustQuantityPayload : GraphQLObject<InventoryAdjustQuantityPayload>
     {
         ///<summary>
         ///Represents the updated inventory quantity of an inventory item at a specific location.
@@ -19961,7 +20000,7 @@ namespace shopify
     ///<summary>
     ///Represents a group of adjustments made as part of the same operation.
     ///</summary>
-    public class InventoryAdjustmentGroup : IGraphQLObject, INode
+    public class InventoryAdjustmentGroup : GraphQLObject<InventoryAdjustmentGroup>, INode
     {
         ///<summary>
         ///The app that triggered the inventory event, if one exists.
@@ -19996,7 +20035,7 @@ namespace shopify
     ///<summary>
     ///Return type for `inventoryBulkAdjustQuantityAtLocation` mutation.
     ///</summary>
-    public class InventoryBulkAdjustQuantityAtLocationPayload : IGraphQLObject
+    public class InventoryBulkAdjustQuantityAtLocationPayload : GraphQLObject<InventoryBulkAdjustQuantityAtLocationPayload>
     {
         ///<summary>
         ///Represents the updated inventory quantities of an inventory item at the location.
@@ -20011,7 +20050,7 @@ namespace shopify
     ///<summary>
     ///Return type for `inventoryBulkToggleActivation` mutation.
     ///</summary>
-    public class InventoryBulkToggleActivationPayload : IGraphQLObject
+    public class InventoryBulkToggleActivationPayload : GraphQLObject<InventoryBulkToggleActivationPayload>
     {
         ///<summary>
         ///The inventory item that was updated.
@@ -20030,7 +20069,7 @@ namespace shopify
     ///<summary>
     ///An error that occurred while setting the activation status of an inventory item.
     ///</summary>
-    public class InventoryBulkToggleActivationUserError : IGraphQLObject, IDisplayableError
+    public class InventoryBulkToggleActivationUserError : GraphQLObject<InventoryBulkToggleActivationUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -20109,7 +20148,7 @@ namespace shopify
     ///<summary>
     ///Represents a change in an inventory quantity of an inventory item at a location.
     ///</summary>
-    public class InventoryChange : IGraphQLObject
+    public class InventoryChange : GraphQLObject<InventoryChange>
     {
         ///<summary>
         ///The amount by which the inventory quantity was changed.
@@ -20141,7 +20180,7 @@ namespace shopify
     ///<summary>
     ///Return type for `inventoryDeactivate` mutation.
     ///</summary>
-    public class InventoryDeactivatePayload : IGraphQLObject
+    public class InventoryDeactivatePayload : GraphQLObject<InventoryDeactivatePayload>
     {
         ///<summary>
         ///The list of errors that occurred from executing the mutation.
@@ -20153,7 +20192,7 @@ namespace shopify
     ///Represents the goods available to be shipped to a customer.
     ///It holds essential information about the goods, including SKU and whether it is tracked.
     ///</summary>
-    public class InventoryItem : IGraphQLObject, ILegacyInteroperability, INode
+    public class InventoryItem : GraphQLObject<InventoryItem>, ILegacyInteroperability, INode
     {
         ///<summary>
         ///The ISO 3166-1 alpha-2 country code of where the item originated from.
@@ -20236,7 +20275,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple InventoryItems.
     ///</summary>
-    public class InventoryItemConnection : IGraphQLObject
+    public class InventoryItemConnection : GraphQLObject<InventoryItemConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -20255,7 +20294,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one InventoryItem and a cursor during pagination.
     ///</summary>
-    public class InventoryItemEdge : IGraphQLObject
+    public class InventoryItemEdge : GraphQLObject<InventoryItemEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -20270,7 +20309,7 @@ namespace shopify
     ///<summary>
     ///Return type for `inventoryItemUpdate` mutation.
     ///</summary>
-    public class InventoryItemUpdatePayload : IGraphQLObject
+    public class InventoryItemUpdatePayload : GraphQLObject<InventoryItemUpdatePayload>
     {
         ///<summary>
         ///The inventory item that was updated.
@@ -20285,7 +20324,7 @@ namespace shopify
     ///<summary>
     ///The quantities of an inventory item that are related to a specific location.
     ///</summary>
-    public class InventoryLevel : IGraphQLObject, INode
+    public class InventoryLevel : GraphQLObject<InventoryLevel>, INode
     {
         ///<summary>
         ///The quantity of inventory items that are available at the inventory level's associated location.
@@ -20341,7 +20380,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple InventoryLevels.
     ///</summary>
-    public class InventoryLevelConnection : IGraphQLObject
+    public class InventoryLevelConnection : GraphQLObject<InventoryLevelConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -20360,7 +20399,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one InventoryLevel and a cursor during pagination.
     ///</summary>
-    public class InventoryLevelEdge : IGraphQLObject
+    public class InventoryLevelEdge : GraphQLObject<InventoryLevelEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -20375,7 +20414,7 @@ namespace shopify
     ///<summary>
     ///Return type for `inventoryMoveQuantities` mutation.
     ///</summary>
-    public class InventoryMoveQuantitiesPayload : IGraphQLObject
+    public class InventoryMoveQuantitiesPayload : GraphQLObject<InventoryMoveQuantitiesPayload>
     {
         ///<summary>
         ///The group of changes made by the operation.
@@ -20390,7 +20429,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `InventoryMoveQuantities`.
     ///</summary>
-    public class InventoryMoveQuantitiesUserError : IGraphQLObject, IDisplayableError
+    public class InventoryMoveQuantitiesUserError : GraphQLObject<InventoryMoveQuantitiesUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -20484,7 +20523,7 @@ namespace shopify
     ///<summary>
     ///General inventory properties for the shop.
     ///</summary>
-    public class InventoryProperties : IGraphQLObject
+    public class InventoryProperties : GraphQLObject<InventoryProperties>
     {
         ///<summary>
         ///All the quantity names.
@@ -20495,7 +20534,7 @@ namespace shopify
     ///<summary>
     ///Represents a quantity of an inventory item at a specific location, for a specific name.
     ///</summary>
-    public class InventoryQuantity : IGraphQLObject
+    public class InventoryQuantity : GraphQLObject<InventoryQuantity>
     {
         ///<summary>
         ///The [name](https://shopify.dev/docs/apps/fulfillment/inventory-management-apps#inventory-states)
@@ -20515,7 +20554,7 @@ namespace shopify
     ///<summary>
     ///Details about an individual quantity name.
     ///</summary>
-    public class InventoryQuantityName : IGraphQLObject
+    public class InventoryQuantityName : GraphQLObject<InventoryQuantityName>
     {
         ///<summary>
         ///List of quantity names that this quantity name belongs to.
@@ -20544,7 +20583,7 @@ namespace shopify
     ///<summary>
     ///Return type for `inventorySetOnHandQuantities` mutation.
     ///</summary>
-    public class InventorySetOnHandQuantitiesPayload : IGraphQLObject
+    public class InventorySetOnHandQuantitiesPayload : GraphQLObject<InventorySetOnHandQuantitiesPayload>
     {
         ///<summary>
         ///The group of changes made by the operation.
@@ -20559,7 +20598,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `InventorySetOnHandQuantities`.
     ///</summary>
-    public class InventorySetOnHandQuantitiesUserError : IGraphQLObject, IDisplayableError
+    public class InventorySetOnHandQuantitiesUserError : GraphQLObject<InventorySetOnHandQuantitiesUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -20621,7 +20660,7 @@ namespace shopify
     ///<summary>
     ///A job corresponds to some long running task that the client should poll for status.
     ///</summary>
-    public class Job : IGraphQLObject
+    public class Job : GraphQLObject<Job>
     {
         ///<summary>
         ///This indicates if the job is still queued or has been run.
@@ -21294,7 +21333,7 @@ namespace shopify
     ///The total number of pending orders on a shop if less then a maximum, or that maximum.
     ///The atMax field indicates when this maximum has been reached.
     ///</summary>
-    public class LimitedPendingOrderCount : IGraphQLObject
+    public class LimitedPendingOrderCount : GraphQLObject<LimitedPendingOrderCount>
     {
         ///<summary>
         ///This is set when the number of pending orders has reached the maximum.
@@ -21310,7 +21349,7 @@ namespace shopify
     ///<summary>
     ///Represents individual products and quantities purchased in the associated order.
     ///</summary>
-    public class LineItem : IGraphQLObject, INode
+    public class LineItem : GraphQLObject<LineItem>, INode
     {
         ///<summary>
         ///Whether the line item can be restocked.
@@ -21528,7 +21567,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple LineItems.
     ///</summary>
-    public class LineItemConnection : IGraphQLObject
+    public class LineItemConnection : GraphQLObject<LineItemConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -21547,7 +21586,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one LineItem and a cursor during pagination.
     ///</summary>
-    public class LineItemEdge : IGraphQLObject
+    public class LineItemEdge : GraphQLObject<LineItemEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -21562,7 +21601,7 @@ namespace shopify
     ///<summary>
     ///A line item group (bundle) to which a line item belongs to.
     ///</summary>
-    public class LineItemGroup : IGraphQLObject
+    public class LineItemGroup : GraphQLObject<LineItemGroup>
     {
         ///<summary>
         ///A globally-unique ID.
@@ -21581,7 +21620,7 @@ namespace shopify
     ///<summary>
     ///Represents a single line item on an order.
     ///</summary>
-    public class LineItemMutable : IGraphQLObject, INode
+    public class LineItemMutable : GraphQLObject<LineItemMutable>, INode
     {
         ///<summary>
         ///Whether the line item can be restocked.
@@ -21762,7 +21801,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple LineItemMutables.
     ///</summary>
-    public class LineItemMutableConnection : IGraphQLObject
+    public class LineItemMutableConnection : GraphQLObject<LineItemMutableConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -21781,7 +21820,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one LineItemMutable and a cursor during pagination.
     ///</summary>
-    public class LineItemMutableEdge : IGraphQLObject
+    public class LineItemMutableEdge : GraphQLObject<LineItemMutableEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -21796,7 +21835,7 @@ namespace shopify
     ///<summary>
     ///Represents the selling plan for a line item.
     ///</summary>
-    public class LineItemSellingPlan : IGraphQLObject
+    public class LineItemSellingPlan : GraphQLObject<LineItemSellingPlan>
     {
         ///<summary>
         ///The name of the selling plan for display purposes.
@@ -21811,7 +21850,7 @@ namespace shopify
     ///<summary>
     ///A link to direct users to.
     ///</summary>
-    public class Link : IGraphQLObject, IHasPublishedTranslations
+    public class Link : GraphQLObject<Link>, IHasPublishedTranslations
     {
         ///<summary>
         ///A context-sensitive label for the link.
@@ -21830,7 +21869,7 @@ namespace shopify
     ///<summary>
     ///A locale.
     ///</summary>
-    public class Locale : IGraphQLObject
+    public class Locale : GraphQLObject<Locale>
     {
         ///<summary>
         ///Locale ISO code.
@@ -21912,7 +21951,7 @@ namespace shopify
     ///<summary>
     ///Represents the value captured by a localization extension. Localization extensions are additional fields required by certain countries on international orders. For example, some countries require additional fields for customs information or tax identification numbers.
     ///</summary>
-    public class LocalizationExtension : IGraphQLObject
+    public class LocalizationExtension : GraphQLObject<LocalizationExtension>
     {
         ///<summary>
         ///Country ISO 3166-1 alpha-2 code.
@@ -21939,7 +21978,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple LocalizationExtensions.
     ///</summary>
-    public class LocalizationExtensionConnection : IGraphQLObject
+    public class LocalizationExtensionConnection : GraphQLObject<LocalizationExtensionConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -21958,7 +21997,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one LocalizationExtension and a cursor during pagination.
     ///</summary>
-    public class LocalizationExtensionEdge : IGraphQLObject
+    public class LocalizationExtensionEdge : GraphQLObject<LocalizationExtensionEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -22019,7 +22058,7 @@ namespace shopify
     ///<summary>
     ///Represents the location where the physical good resides.
     ///</summary>
-    public class Location : IGraphQLObject, IHasMetafieldDefinitions, IHasMetafields, ILegacyInteroperability, INode, IMetafieldReferencer
+    public class Location : GraphQLObject<Location>, IHasMetafieldDefinitions, IHasMetafields, ILegacyInteroperability, INode, IMetafieldReferencer
     {
         ///<summary>
         ///Whether this location can be reactivated.
@@ -22132,7 +22171,7 @@ namespace shopify
     ///<summary>
     ///Return type for `locationActivate` mutation.
     ///</summary>
-    public class LocationActivatePayload : IGraphQLObject
+    public class LocationActivatePayload : GraphQLObject<LocationActivatePayload>
     {
         ///<summary>
         ///The location that was activated.
@@ -22147,7 +22186,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs while activating a location.
     ///</summary>
-    public class LocationActivateUserError : IGraphQLObject, IDisplayableError
+    public class LocationActivateUserError : GraphQLObject<LocationActivateUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -22193,7 +22232,7 @@ namespace shopify
     ///<summary>
     ///Return type for `locationAdd` mutation.
     ///</summary>
-    public class LocationAddPayload : IGraphQLObject
+    public class LocationAddPayload : GraphQLObject<LocationAddPayload>
     {
         ///<summary>
         ///The location that was added.
@@ -22208,7 +22247,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs while adding a location.
     ///</summary>
-    public class LocationAddUserError : IGraphQLObject, IDisplayableError
+    public class LocationAddUserError : GraphQLObject<LocationAddUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -22290,7 +22329,7 @@ namespace shopify
     ///<summary>
     ///Represents the address of a location.
     ///</summary>
-    public class LocationAddress : IGraphQLObject
+    public class LocationAddress : GraphQLObject<LocationAddress>
     {
         ///<summary>
         ///The first line of the address for the location.
@@ -22345,7 +22384,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Locations.
     ///</summary>
-    public class LocationConnection : IGraphQLObject
+    public class LocationConnection : GraphQLObject<LocationConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -22364,7 +22403,7 @@ namespace shopify
     ///<summary>
     ///Return type for `locationDeactivate` mutation.
     ///</summary>
-    public class LocationDeactivatePayload : IGraphQLObject
+    public class LocationDeactivatePayload : GraphQLObject<LocationDeactivatePayload>
     {
         ///<summary>
         ///The location that was deactivated.
@@ -22379,7 +22418,7 @@ namespace shopify
     ///<summary>
     ///The possible errors that can be returned when executing the `locationDeactivate` mutation.
     ///</summary>
-    public class LocationDeactivateUserError : IGraphQLObject, IDisplayableError
+    public class LocationDeactivateUserError : GraphQLObject<LocationDeactivateUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -22469,7 +22508,7 @@ namespace shopify
     ///<summary>
     ///Return type for `locationDelete` mutation.
     ///</summary>
-    public class LocationDeletePayload : IGraphQLObject
+    public class LocationDeletePayload : GraphQLObject<LocationDeletePayload>
     {
         ///<summary>
         ///The ID of the location that was deleted.
@@ -22484,7 +22523,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs while deleting a location.
     ///</summary>
-    public class LocationDeleteUserError : IGraphQLObject, IDisplayableError
+    public class LocationDeleteUserError : GraphQLObject<LocationDeleteUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -22534,7 +22573,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one Location and a cursor during pagination.
     ///</summary>
-    public class LocationEdge : IGraphQLObject
+    public class LocationEdge : GraphQLObject<LocationEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -22549,7 +22588,7 @@ namespace shopify
     ///<summary>
     ///Return type for `locationEdit` mutation.
     ///</summary>
-    public class LocationEditPayload : IGraphQLObject
+    public class LocationEditPayload : GraphQLObject<LocationEditPayload>
     {
         ///<summary>
         ///The location that was edited.
@@ -22564,7 +22603,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs while editing a location.
     ///</summary>
-    public class LocationEditUserError : IGraphQLObject, IDisplayableError
+    public class LocationEditUserError : GraphQLObject<LocationEditUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -22654,7 +22693,7 @@ namespace shopify
     ///<summary>
     ///Return type for `locationLocalPickupDisable` mutation.
     ///</summary>
-    public class LocationLocalPickupDisablePayload : IGraphQLObject
+    public class LocationLocalPickupDisablePayload : GraphQLObject<LocationLocalPickupDisablePayload>
     {
         ///<summary>
         ///The ID of the location for which local pickup was disabled.
@@ -22669,7 +22708,7 @@ namespace shopify
     ///<summary>
     ///Return type for `locationLocalPickupEnable` mutation.
     ///</summary>
-    public class LocationLocalPickupEnablePayload : IGraphQLObject
+    public class LocationLocalPickupEnablePayload : GraphQLObject<LocationLocalPickupEnablePayload>
     {
         ///<summary>
         ///The local pickup settings that were enabled.
@@ -22704,7 +22743,7 @@ namespace shopify
     ///<summary>
     ///Represents a suggested address for a location.
     ///</summary>
-    public class LocationSuggestedAddress : IGraphQLObject
+    public class LocationSuggestedAddress : GraphQLObject<LocationSuggestedAddress>
     {
         ///<summary>
         ///The first line of the suggested address.
@@ -22749,7 +22788,7 @@ namespace shopify
     ///
     ///For example, a customer's default address and an order's billing address are both mailling addresses.
     ///</summary>
-    public class MailingAddress : IGraphQLObject, INode
+    public class MailingAddress : GraphQLObject<MailingAddress>, INode
     {
         ///<summary>
         ///The first line of the address. Typically the street address or PO Box number.
@@ -22850,7 +22889,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple MailingAddresses.
     ///</summary>
-    public class MailingAddressConnection : IGraphQLObject
+    public class MailingAddressConnection : GraphQLObject<MailingAddressConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -22869,7 +22908,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one MailingAddress and a cursor during pagination.
     ///</summary>
-    public class MailingAddressEdge : IGraphQLObject
+    public class MailingAddressEdge : GraphQLObject<MailingAddressEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -22886,7 +22925,7 @@ namespace shopify
     ///
     ///Discount applications don't represent the actual final amount discounted on a line (line item or shipping line). The actual amount discounted on a line is represented by the [DiscountAllocation](https://shopify.dev/api/admin-graphql/latest/objects/discountallocation) object.
     ///</summary>
-    public class ManualDiscountApplication : IGraphQLObject, IDiscountApplication
+    public class ManualDiscountApplication : GraphQLObject<ManualDiscountApplication>, IDiscountApplication
     {
         ///<summary>
         ///The method by which the discount's value is applied to its entitled items.
@@ -22927,7 +22966,7 @@ namespace shopify
     ///[configure international pricing](https://shopify.dev/apps/internationalization/product-price-lists),
     ///or [add market-specific domains or subfolders](https://shopify.dev/api/admin-graphql/current/objects/MarketWebPresence).
     ///</summary>
-    public class Market : IGraphQLObject, IHasMetafieldDefinitions, IHasMetafields, INode, IMetafieldReferencer
+    public class Market : GraphQLObject<Market>, IHasMetafieldDefinitions, IHasMetafields, INode, IMetafieldReferencer
     {
         ///<summary>
         ///The catalogs that belong to the market.
@@ -23005,7 +23044,7 @@ namespace shopify
     ///<summary>
     ///A list of products with publishing and pricing information associated with markets.
     ///</summary>
-    public class MarketCatalog : IGraphQLObject, ICatalog, INode
+    public class MarketCatalog : GraphQLObject<MarketCatalog>, ICatalog, INode
     {
         ///<summary>
         ///A globally-unique ID.
@@ -23040,7 +23079,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple MarketCatalogs.
     ///</summary>
-    public class MarketCatalogConnection : IGraphQLObject
+    public class MarketCatalogConnection : GraphQLObject<MarketCatalogConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -23059,7 +23098,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one MarketCatalog and a cursor during pagination.
     ///</summary>
-    public class MarketCatalogEdge : IGraphQLObject
+    public class MarketCatalogEdge : GraphQLObject<MarketCatalogEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -23074,7 +23113,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Markets.
     ///</summary>
-    public class MarketConnection : IGraphQLObject
+    public class MarketConnection : GraphQLObject<MarketConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -23093,7 +23132,7 @@ namespace shopify
     ///<summary>
     ///Return type for `marketCreate` mutation.
     ///</summary>
-    public class MarketCreatePayload : IGraphQLObject
+    public class MarketCreatePayload : GraphQLObject<MarketCreatePayload>
     {
         ///<summary>
         ///The market object.
@@ -23108,7 +23147,7 @@ namespace shopify
     ///<summary>
     ///A market's currency settings.
     ///</summary>
-    public class MarketCurrencySettings : IGraphQLObject
+    public class MarketCurrencySettings : GraphQLObject<MarketCurrencySettings>
     {
         ///<summary>
         ///The currency which this market's prices are defined in, and the
@@ -23127,7 +23166,7 @@ namespace shopify
     ///<summary>
     ///Return type for `marketCurrencySettingsUpdate` mutation.
     ///</summary>
-    public class MarketCurrencySettingsUpdatePayload : IGraphQLObject
+    public class MarketCurrencySettingsUpdatePayload : GraphQLObject<MarketCurrencySettingsUpdatePayload>
     {
         ///<summary>
         ///The market object.
@@ -23142,7 +23181,7 @@ namespace shopify
     ///<summary>
     ///Error codes for failed market multi-currency operations.
     ///</summary>
-    public class MarketCurrencySettingsUserError : IGraphQLObject, IDisplayableError
+    public class MarketCurrencySettingsUserError : GraphQLObject<MarketCurrencySettingsUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -23192,7 +23231,7 @@ namespace shopify
     ///<summary>
     ///Return type for `marketDelete` mutation.
     ///</summary>
-    public class MarketDeletePayload : IGraphQLObject
+    public class MarketDeletePayload : GraphQLObject<MarketDeletePayload>
     {
         ///<summary>
         ///The ID of the deleted market.
@@ -23207,7 +23246,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one Market and a cursor during pagination.
     ///</summary>
-    public class MarketEdge : IGraphQLObject
+    public class MarketEdge : GraphQLObject<MarketEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -23222,7 +23261,7 @@ namespace shopify
     ///<summary>
     ///The market localizable content of a resource's field.
     ///</summary>
-    public class MarketLocalizableContent : IGraphQLObject
+    public class MarketLocalizableContent : GraphQLObject<MarketLocalizableContent>
     {
         ///<summary>
         ///The hash digest representation of the content value.
@@ -23241,7 +23280,7 @@ namespace shopify
     ///<summary>
     ///A resource that has market localizable fields.
     ///</summary>
-    public class MarketLocalizableResource : IGraphQLObject
+    public class MarketLocalizableResource : GraphQLObject<MarketLocalizableResource>
     {
         ///<summary>
         ///The market localizable content.
@@ -23260,7 +23299,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple MarketLocalizableResources.
     ///</summary>
-    public class MarketLocalizableResourceConnection : IGraphQLObject
+    public class MarketLocalizableResourceConnection : GraphQLObject<MarketLocalizableResourceConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -23279,7 +23318,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one MarketLocalizableResource and a cursor during pagination.
     ///</summary>
-    public class MarketLocalizableResourceEdge : IGraphQLObject
+    public class MarketLocalizableResourceEdge : GraphQLObject<MarketLocalizableResourceEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -23305,7 +23344,7 @@ namespace shopify
     ///<summary>
     ///The market localization of a field within a resource, which is determined by the market ID.
     ///</summary>
-    public class MarketLocalization : IGraphQLObject
+    public class MarketLocalization : GraphQLObject<MarketLocalization>
     {
         ///<summary>
         ///A reference to the value being localized on the resource that this market localization belongs to.
@@ -23332,7 +23371,7 @@ namespace shopify
     ///<summary>
     ///Return type for `marketLocalizationsRegister` mutation.
     ///</summary>
-    public class MarketLocalizationsRegisterPayload : IGraphQLObject
+    public class MarketLocalizationsRegisterPayload : GraphQLObject<MarketLocalizationsRegisterPayload>
     {
         ///<summary>
         ///The market localizations that were created or updated.
@@ -23347,7 +23386,7 @@ namespace shopify
     ///<summary>
     ///Return type for `marketLocalizationsRemove` mutation.
     ///</summary>
-    public class MarketLocalizationsRemovePayload : IGraphQLObject
+    public class MarketLocalizationsRemovePayload : GraphQLObject<MarketLocalizationsRemovePayload>
     {
         ///<summary>
         ///The market localizations that were deleted.
@@ -23380,7 +23419,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple MarketRegions.
     ///</summary>
-    public class MarketRegionConnection : IGraphQLObject
+    public class MarketRegionConnection : GraphQLObject<MarketRegionConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -23399,7 +23438,7 @@ namespace shopify
     ///<summary>
     ///A country which comprises a market.
     ///</summary>
-    public class MarketRegionCountry : IGraphQLObject, IMarketRegion, INode
+    public class MarketRegionCountry : GraphQLObject<MarketRegionCountry>, IMarketRegion, INode
     {
         ///<summary>
         ///The ISO code identifying the country.
@@ -23422,7 +23461,7 @@ namespace shopify
     ///<summary>
     ///Return type for `marketRegionDelete` mutation.
     ///</summary>
-    public class MarketRegionDeletePayload : IGraphQLObject
+    public class MarketRegionDeletePayload : GraphQLObject<MarketRegionDeletePayload>
     {
         ///<summary>
         ///The ID of the deleted market region.
@@ -23441,7 +23480,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one MarketRegion and a cursor during pagination.
     ///</summary>
-    public class MarketRegionEdge : IGraphQLObject
+    public class MarketRegionEdge : GraphQLObject<MarketRegionEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -23456,7 +23495,7 @@ namespace shopify
     ///<summary>
     ///Return type for `marketRegionsCreate` mutation.
     ///</summary>
-    public class MarketRegionsCreatePayload : IGraphQLObject
+    public class MarketRegionsCreatePayload : GraphQLObject<MarketRegionsCreatePayload>
     {
         ///<summary>
         ///The market object.
@@ -23471,7 +23510,7 @@ namespace shopify
     ///<summary>
     ///Return type for `marketUpdate` mutation.
     ///</summary>
-    public class MarketUpdatePayload : IGraphQLObject
+    public class MarketUpdatePayload : GraphQLObject<MarketUpdatePayload>
     {
         ///<summary>
         ///The market object.
@@ -23486,7 +23525,7 @@ namespace shopify
     ///<summary>
     ///Defines errors encountered while managing a Market.
     ///</summary>
-    public class MarketUserError : IGraphQLObject, IDisplayableError
+    public class MarketUserError : GraphQLObject<MarketUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -23643,7 +23682,7 @@ namespace shopify
     ///API](https://shopify.dev/custom-storefronts/internationalization/multiple-languages) for the countries in
     ///this market.
     ///</summary>
-    public class MarketWebPresence : IGraphQLObject, INode
+    public class MarketWebPresence : GraphQLObject<MarketWebPresence>, INode
     {
         ///<summary>
         ///The ISO codes for the alternate locales. When a domain is used, these locales will be
@@ -23684,7 +23723,7 @@ namespace shopify
     ///<summary>
     ///Return type for `marketWebPresenceCreate` mutation.
     ///</summary>
-    public class MarketWebPresenceCreatePayload : IGraphQLObject
+    public class MarketWebPresenceCreatePayload : GraphQLObject<MarketWebPresenceCreatePayload>
     {
         ///<summary>
         ///The market object.
@@ -23699,7 +23738,7 @@ namespace shopify
     ///<summary>
     ///Return type for `marketWebPresenceDelete` mutation.
     ///</summary>
-    public class MarketWebPresenceDeletePayload : IGraphQLObject
+    public class MarketWebPresenceDeletePayload : GraphQLObject<MarketWebPresenceDeletePayload>
     {
         ///<summary>
         ///The ID of the deleted web presence.
@@ -23719,7 +23758,7 @@ namespace shopify
     ///The URL for the homepage of the online store in the context of a particular market and a
     ///particular locale.
     ///</summary>
-    public class MarketWebPresenceRootUrl : IGraphQLObject
+    public class MarketWebPresenceRootUrl : GraphQLObject<MarketWebPresenceRootUrl>
     {
         ///<summary>
         ///The locale that the storefront loads in.
@@ -23734,7 +23773,7 @@ namespace shopify
     ///<summary>
     ///Return type for `marketWebPresenceUpdate` mutation.
     ///</summary>
-    public class MarketWebPresenceUpdatePayload : IGraphQLObject
+    public class MarketWebPresenceUpdatePayload : GraphQLObject<MarketWebPresenceUpdatePayload>
     {
         ///<summary>
         ///The market object.
@@ -23750,7 +23789,7 @@ namespace shopify
     ///The marketing activity resource represents marketing that a
     ///        merchant created through an app.
     ///</summary>
-    public class MarketingActivity : IGraphQLObject, INode
+    public class MarketingActivity : GraphQLObject<MarketingActivity>, INode
     {
         ///<summary>
         ///The URL of the marketing activity listing page in the marketing section.
@@ -23852,7 +23891,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple MarketingActivities.
     ///</summary>
-    public class MarketingActivityConnection : IGraphQLObject
+    public class MarketingActivityConnection : GraphQLObject<MarketingActivityConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -23871,7 +23910,7 @@ namespace shopify
     ///<summary>
     ///Return type for `marketingActivityCreateExternal` mutation.
     ///</summary>
-    public class MarketingActivityCreateExternalPayload : IGraphQLObject
+    public class MarketingActivityCreateExternalPayload : GraphQLObject<MarketingActivityCreateExternalPayload>
     {
         ///<summary>
         ///The external marketing activity that was created.
@@ -23886,7 +23925,7 @@ namespace shopify
     ///<summary>
     ///Return type for `marketingActivityCreate` mutation.
     ///</summary>
-    public class MarketingActivityCreatePayload : IGraphQLObject
+    public class MarketingActivityCreatePayload : GraphQLObject<MarketingActivityCreatePayload>
     {
         ///<summary>
         ///The created marketing activity.
@@ -23905,7 +23944,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one MarketingActivity and a cursor during pagination.
     ///</summary>
-    public class MarketingActivityEdge : IGraphQLObject
+    public class MarketingActivityEdge : GraphQLObject<MarketingActivityEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -23947,7 +23986,7 @@ namespace shopify
     ///<summary>
     ///Represents errors returned from apps when using the marketing activity extension.
     ///</summary>
-    public class MarketingActivityExtensionAppErrors : IGraphQLObject
+    public class MarketingActivityExtensionAppErrors : GraphQLObject<MarketingActivityExtensionAppErrors>
     {
         ///<summary>
         ///The app error type.
@@ -24064,7 +24103,7 @@ namespace shopify
     ///<summary>
     ///Return type for `marketingActivityUpdateExternal` mutation.
     ///</summary>
-    public class MarketingActivityUpdateExternalPayload : IGraphQLObject
+    public class MarketingActivityUpdateExternalPayload : GraphQLObject<MarketingActivityUpdateExternalPayload>
     {
         ///<summary>
         ///The updated marketing activity.
@@ -24079,7 +24118,7 @@ namespace shopify
     ///<summary>
     ///Return type for `marketingActivityUpdate` mutation.
     ///</summary>
-    public class MarketingActivityUpdatePayload : IGraphQLObject
+    public class MarketingActivityUpdatePayload : GraphQLObject<MarketingActivityUpdatePayload>
     {
         ///<summary>
         ///The updated marketing activity.
@@ -24098,7 +24137,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of a Shopify Marketing mutation.
     ///</summary>
-    public class MarketingActivityUserError : IGraphQLObject, IDisplayableError
+    public class MarketingActivityUserError : GraphQLObject<MarketingActivityUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -24132,7 +24171,7 @@ namespace shopify
     ///<summary>
     ///This type combines budget amount and its marketing budget type.
     ///</summary>
-    public class MarketingBudget : IGraphQLObject
+    public class MarketingBudget : GraphQLObject<MarketingBudget>
     {
         ///<summary>
         ///The budget type for a marketing activity.
@@ -24189,7 +24228,7 @@ namespace shopify
     ///<summary>
     ///Marketing engagement represents customer activity taken on a marketing activity or a marketing channel.
     ///</summary>
-    public class MarketingEngagement : IGraphQLObject
+    public class MarketingEngagement : GraphQLObject<MarketingEngagement>
     {
         ///<summary>
         ///The total ad spend for the day, if the marketing event is a paid ad with a daily spend.
@@ -24268,7 +24307,7 @@ namespace shopify
     ///<summary>
     ///Return type for `marketingEngagementCreate` mutation.
     ///</summary>
-    public class MarketingEngagementCreatePayload : IGraphQLObject
+    public class MarketingEngagementCreatePayload : GraphQLObject<MarketingEngagementCreatePayload>
     {
         ///<summary>
         ///The marketing engagement that was created.
@@ -24283,7 +24322,7 @@ namespace shopify
     ///<summary>
     ///Represents actions that market a merchant's store or products.
     ///</summary>
-    public class MarketingEvent : IGraphQLObject, ILegacyInteroperability, INode
+    public class MarketingEvent : GraphQLObject<MarketingEvent>, ILegacyInteroperability, INode
     {
         ///<summary>
         ///The app that the marketing event is attributed to.
@@ -24364,7 +24403,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple MarketingEvents.
     ///</summary>
-    public class MarketingEventConnection : IGraphQLObject
+    public class MarketingEventConnection : GraphQLObject<MarketingEventConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -24383,7 +24422,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one MarketingEvent and a cursor during pagination.
     ///</summary>
-    public class MarketingEventEdge : IGraphQLObject
+    public class MarketingEventEdge : GraphQLObject<MarketingEventEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -24545,7 +24584,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Media.
     ///</summary>
-    public class MediaConnection : IGraphQLObject
+    public class MediaConnection : GraphQLObject<MediaConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -24587,7 +24626,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one Media and a cursor during pagination.
     ///</summary>
-    public class MediaEdge : IGraphQLObject
+    public class MediaEdge : GraphQLObject<MediaEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -24603,7 +24642,7 @@ namespace shopify
     ///Represents a media error. This typically occurs when there is an issue with the media itself causing it to fail validation.
     ///Check the media before attempting to upload again.
     ///</summary>
-    public class MediaError : IGraphQLObject
+    public class MediaError : GraphQLObject<MediaError>
     {
         ///<summary>
         ///Code representing the type of error.
@@ -24776,7 +24815,7 @@ namespace shopify
     ///<summary>
     ///An image hosted on Shopify.
     ///</summary>
-    public class MediaImage : IGraphQLObject, IFile, IHasMetafields, IMedia, INode, IMetafieldReference
+    public class MediaImage : GraphQLObject<MediaImage>, IFile, IHasMetafields, IMedia, INode, IMetafieldReference
     {
         ///<summary>
         ///A word or phrase to share the nature or contents of a media.
@@ -24859,7 +24898,7 @@ namespace shopify
     ///<summary>
     ///The original source for an image.
     ///</summary>
-    public class MediaImageOriginalSource : IGraphQLObject
+    public class MediaImageOriginalSource : GraphQLObject<MediaImageOriginalSource>
     {
         ///<summary>
         ///The size of the original file in bytes.
@@ -24870,7 +24909,7 @@ namespace shopify
     ///<summary>
     ///Represents the preview image for a media.
     ///</summary>
-    public class MediaPreviewImage : IGraphQLObject
+    public class MediaPreviewImage : GraphQLObject<MediaPreviewImage>
     {
         ///<summary>
         ///The preview image for the media. Returns `null` until `status` is `READY`.
@@ -24931,7 +24970,7 @@ namespace shopify
     ///<summary>
     ///Represents an error that happens during execution of a Media query or mutation.
     ///</summary>
-    public class MediaUserError : IGraphQLObject, IDisplayableError
+    public class MediaUserError : GraphQLObject<MediaUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -25038,7 +25077,7 @@ namespace shopify
     ///Represents a media warning. This occurs when there is a non-blocking concern regarding your media.
     ///Consider reviewing your media to ensure it is correct and its parameters are as expected.
     ///</summary>
-    public class MediaWarning : IGraphQLObject
+    public class MediaWarning : GraphQLObject<MediaWarning>
     {
         ///<summary>
         ///The code representing the type of warning.
@@ -25083,7 +25122,7 @@ namespace shopify
     ///<summary>
     ///Merchant approval for accelerated onboarding to channel integration apps.
     ///</summary>
-    public class MerchantApprovalSignals : IGraphQLObject
+    public class MerchantApprovalSignals : GraphQLObject<MerchantApprovalSignals>
     {
         ///<summary>
         ///Whether the shop's Shopify Payments account identity is verified. Returns `false` if the identity is unverified or if the shop doesn't have a Shopify Payments account.
@@ -25105,7 +25144,7 @@ namespace shopify
     ///Some examples of the data that metafields enable you to store are specifications, size charts, downloadable documents, release dates, images, or part numbers.
     ///Metafields are identified by an owner resource, namespace, and key. and store a value along with type information for that value.
     ///</summary>
-    public class Metafield : IGraphQLObject, ILegacyInteroperability, INode
+    public class Metafield : GraphQLObject<Metafield>, ILegacyInteroperability, INode
     {
         ///<summary>
         ///The date and time when the metafield was created.
@@ -25169,7 +25208,7 @@ namespace shopify
     ///<summary>
     ///The access settings for this metafield definition.
     ///</summary>
-    public class MetafieldAccess : IGraphQLObject
+    public class MetafieldAccess : GraphQLObject<MetafieldAccess>
     {
         ///<summary>
         ///The default admin access setting used for the metafields under this definition.
@@ -25203,7 +25242,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Metafields.
     ///</summary>
-    public class MetafieldConnection : IGraphQLObject
+    public class MetafieldConnection : GraphQLObject<MetafieldConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -25223,7 +25262,7 @@ namespace shopify
     ///Metafield definitions enable you to define additional validation constraints for metafields, and enable the
     ///merchant to edit metafield values in context.
     ///</summary>
-    public class MetafieldDefinition : IGraphQLObject, INode
+    public class MetafieldDefinition : GraphQLObject<MetafieldDefinition>, INode
     {
         ///<summary>
         ///The access settings associated with the metafield definition.
@@ -25298,7 +25337,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple MetafieldDefinitions.
     ///</summary>
-    public class MetafieldDefinitionConnection : IGraphQLObject
+    public class MetafieldDefinitionConnection : GraphQLObject<MetafieldDefinitionConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -25317,7 +25356,7 @@ namespace shopify
     ///<summary>
     ///Return type for `metafieldDefinitionCreate` mutation.
     ///</summary>
-    public class MetafieldDefinitionCreatePayload : IGraphQLObject
+    public class MetafieldDefinitionCreatePayload : GraphQLObject<MetafieldDefinitionCreatePayload>
     {
         ///<summary>
         ///The metafield definition that was created.
@@ -25332,7 +25371,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `MetafieldDefinitionCreate`.
     ///</summary>
-    public class MetafieldDefinitionCreateUserError : IGraphQLObject, IDisplayableError
+    public class MetafieldDefinitionCreateUserError : GraphQLObject<MetafieldDefinitionCreateUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -25422,7 +25461,7 @@ namespace shopify
     ///<summary>
     ///Return type for `metafieldDefinitionDelete` mutation.
     ///</summary>
-    public class MetafieldDefinitionDeletePayload : IGraphQLObject
+    public class MetafieldDefinitionDeletePayload : GraphQLObject<MetafieldDefinitionDeletePayload>
     {
         ///<summary>
         ///The ID of the deleted metafield definition.
@@ -25437,7 +25476,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `MetafieldDefinitionDelete`.
     ///</summary>
-    public class MetafieldDefinitionDeleteUserError : IGraphQLObject, IDisplayableError
+    public class MetafieldDefinitionDeleteUserError : GraphQLObject<MetafieldDefinitionDeleteUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -25487,7 +25526,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one MetafieldDefinition and a cursor during pagination.
     ///</summary>
-    public class MetafieldDefinitionEdge : IGraphQLObject
+    public class MetafieldDefinitionEdge : GraphQLObject<MetafieldDefinitionEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -25502,7 +25541,7 @@ namespace shopify
     ///<summary>
     ///Return type for `metafieldDefinitionPin` mutation.
     ///</summary>
-    public class MetafieldDefinitionPinPayload : IGraphQLObject
+    public class MetafieldDefinitionPinPayload : GraphQLObject<MetafieldDefinitionPinPayload>
     {
         ///<summary>
         ///The metafield definition that was pinned.
@@ -25517,7 +25556,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `MetafieldDefinitionPin`.
     ///</summary>
-    public class MetafieldDefinitionPinUserError : IGraphQLObject, IDisplayableError
+    public class MetafieldDefinitionPinUserError : GraphQLObject<MetafieldDefinitionPinUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -25609,7 +25648,7 @@ namespace shopify
     ///For example, a supported validation might consist of a `max` name and a `number_integer` type.
     ///This validation can then be used to enforce a maximum character length for a `single_line_text_field` metafield.
     ///</summary>
-    public class MetafieldDefinitionSupportedValidation : IGraphQLObject
+    public class MetafieldDefinitionSupportedValidation : GraphQLObject<MetafieldDefinitionSupportedValidation>
     {
         ///<summary>
         ///The name of the metafield definition validation.
@@ -25624,7 +25663,7 @@ namespace shopify
     ///<summary>
     ///A metafield definition type provides basic foundation and validation for a metafield.
     ///</summary>
-    public class MetafieldDefinitionType : IGraphQLObject
+    public class MetafieldDefinitionType : GraphQLObject<MetafieldDefinitionType>
     {
         ///<summary>
         ///The category associated with the metafield definition type.
@@ -25654,7 +25693,7 @@ namespace shopify
     ///<summary>
     ///Return type for `metafieldDefinitionUnpin` mutation.
     ///</summary>
-    public class MetafieldDefinitionUnpinPayload : IGraphQLObject
+    public class MetafieldDefinitionUnpinPayload : GraphQLObject<MetafieldDefinitionUnpinPayload>
     {
         ///<summary>
         ///The metafield definition that was unpinned.
@@ -25669,7 +25708,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `MetafieldDefinitionUnpin`.
     ///</summary>
-    public class MetafieldDefinitionUnpinUserError : IGraphQLObject, IDisplayableError
+    public class MetafieldDefinitionUnpinUserError : GraphQLObject<MetafieldDefinitionUnpinUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -25711,7 +25750,7 @@ namespace shopify
     ///<summary>
     ///Return type for `metafieldDefinitionUpdate` mutation.
     ///</summary>
-    public class MetafieldDefinitionUpdatePayload : IGraphQLObject
+    public class MetafieldDefinitionUpdatePayload : GraphQLObject<MetafieldDefinitionUpdatePayload>
     {
         ///<summary>
         ///The metafield definition that was updated.
@@ -25730,7 +25769,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `MetafieldDefinitionUpdate`.
     ///</summary>
-    public class MetafieldDefinitionUpdateUserError : IGraphQLObject, IDisplayableError
+    public class MetafieldDefinitionUpdateUserError : GraphQLObject<MetafieldDefinitionUpdateUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -25797,7 +25836,7 @@ namespace shopify
     ///
     ///Refer to the [list of supported validations](https://shopify.dev/api/admin/graphql/reference/common-objects/metafieldDefinitionTypes#examples-Fetch_all_metafield_definition_types).
     ///</summary>
-    public class MetafieldDefinitionValidation : IGraphQLObject
+    public class MetafieldDefinitionValidation : GraphQLObject<MetafieldDefinitionValidation>
     {
         ///<summary>
         ///The validation name.
@@ -25835,7 +25874,7 @@ namespace shopify
     ///<summary>
     ///Return type for `metafieldDelete` mutation.
     ///</summary>
-    public class MetafieldDeletePayload : IGraphQLObject
+    public class MetafieldDeletePayload : GraphQLObject<MetafieldDeletePayload>
     {
         ///<summary>
         ///The ID of the deleted metafield.
@@ -25850,7 +25889,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one Metafield and a cursor during pagination.
     ///</summary>
-    public class MetafieldEdge : IGraphQLObject
+    public class MetafieldEdge : GraphQLObject<MetafieldEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -25981,7 +26020,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple MetafieldReferences.
     ///</summary>
-    public class MetafieldReferenceConnection : IGraphQLObject
+    public class MetafieldReferenceConnection : GraphQLObject<MetafieldReferenceConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -26000,7 +26039,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one MetafieldReference and a cursor during pagination.
     ///</summary>
-    public class MetafieldReferenceEdge : IGraphQLObject
+    public class MetafieldReferenceEdge : GraphQLObject<MetafieldReferenceEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -26069,7 +26108,7 @@ namespace shopify
     ///The referencer owns the joining field with a given namespace and key,
     ///while the target is referenced by the field.
     ///</summary>
-    public class MetafieldRelation : IGraphQLObject
+    public class MetafieldRelation : GraphQLObject<MetafieldRelation>
     {
         ///<summary>
         ///The key of the field making the reference.
@@ -26096,7 +26135,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple MetafieldRelations.
     ///</summary>
-    public class MetafieldRelationConnection : IGraphQLObject
+    public class MetafieldRelationConnection : GraphQLObject<MetafieldRelationConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -26115,7 +26154,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one MetafieldRelation and a cursor during pagination.
     ///</summary>
-    public class MetafieldRelationEdge : IGraphQLObject
+    public class MetafieldRelationEdge : GraphQLObject<MetafieldRelationEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -26136,7 +26175,7 @@ namespace shopify
     ///(https://shopify.dev/custom-storefronts/products-collections/metafields)
     ///for more details.
     ///</summary>
-    public class MetafieldStorefrontVisibility : IGraphQLObject, ILegacyInteroperability, INode
+    public class MetafieldStorefrontVisibility : GraphQLObject<MetafieldStorefrontVisibility>, ILegacyInteroperability, INode
     {
         ///<summary>
         ///The date and time when the metafield was set to visible in the Storefront API.
@@ -26171,7 +26210,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple MetafieldStorefrontVisibilities.
     ///</summary>
-    public class MetafieldStorefrontVisibilityConnection : IGraphQLObject
+    public class MetafieldStorefrontVisibilityConnection : GraphQLObject<MetafieldStorefrontVisibilityConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -26190,7 +26229,7 @@ namespace shopify
     ///<summary>
     ///Return type for `metafieldStorefrontVisibilityCreate` mutation.
     ///</summary>
-    public class MetafieldStorefrontVisibilityCreatePayload : IGraphQLObject
+    public class MetafieldStorefrontVisibilityCreatePayload : GraphQLObject<MetafieldStorefrontVisibilityCreatePayload>
     {
         ///<summary>
         ///The `MetafieldStorefrontVisibility` that was created.
@@ -26205,7 +26244,7 @@ namespace shopify
     ///<summary>
     ///Return type for `metafieldStorefrontVisibilityDelete` mutation.
     ///</summary>
-    public class MetafieldStorefrontVisibilityDeletePayload : IGraphQLObject
+    public class MetafieldStorefrontVisibilityDeletePayload : GraphQLObject<MetafieldStorefrontVisibilityDeletePayload>
     {
         ///<summary>
         ///The ID of the deleted `MetafieldStorefrontVisibility` record.
@@ -26220,7 +26259,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one MetafieldStorefrontVisibility and a cursor during pagination.
     ///</summary>
-    public class MetafieldStorefrontVisibilityEdge : IGraphQLObject
+    public class MetafieldStorefrontVisibilityEdge : GraphQLObject<MetafieldStorefrontVisibilityEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -26278,7 +26317,7 @@ namespace shopify
     ///<summary>
     ///Return type for `metafieldsSet` mutation.
     ///</summary>
-    public class MetafieldsSetPayload : IGraphQLObject
+    public class MetafieldsSetPayload : GraphQLObject<MetafieldsSetPayload>
     {
         ///<summary>
         ///The list of metafields that were set.
@@ -26293,7 +26332,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `MetafieldsSet`.
     ///</summary>
-    public class MetafieldsSetUserError : IGraphQLObject, IDisplayableError
+    public class MetafieldsSetUserError : GraphQLObject<MetafieldsSetUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -26359,7 +26398,7 @@ namespace shopify
     ///<summary>
     ///Provides an object instance represented by a MetaobjectDefinition.
     ///</summary>
-    public class Metaobject : IGraphQLObject, INode, IMetafieldReference, IMetafieldReferencer
+    public class Metaobject : GraphQLObject<Metaobject>, INode, IMetafieldReference, IMetafieldReferencer
     {
         ///<summary>
         ///Metaobject capabilities for this Metaobject.
@@ -26414,7 +26453,7 @@ namespace shopify
     ///<summary>
     ///Provides metaobject definition's access configuration.
     ///</summary>
-    public class MetaobjectAccess : IGraphQLObject
+    public class MetaobjectAccess : GraphQLObject<MetaobjectAccess>
     {
         ///<summary>
         ///Access configuration for Admin API surface areas, including the GraphQL Admin API.
@@ -26459,7 +26498,7 @@ namespace shopify
     ///<summary>
     ///Return type for `metaobjectBulkDelete` mutation.
     ///</summary>
-    public class MetaobjectBulkDeletePayload : IGraphQLObject
+    public class MetaobjectBulkDeletePayload : GraphQLObject<MetaobjectBulkDeletePayload>
     {
         ///<summary>
         ///The asynchronous job that deletes the metaobjects.
@@ -26474,7 +26513,7 @@ namespace shopify
     ///<summary>
     ///Provides the capabilities of a metaobject definition.
     ///</summary>
-    public class MetaobjectCapabilities : IGraphQLObject
+    public class MetaobjectCapabilities : GraphQLObject<MetaobjectCapabilities>
     {
         ///<summary>
         ///Indicate whether a metaobject definition is publishable.
@@ -26489,7 +26528,7 @@ namespace shopify
     ///<summary>
     ///The publishable capability of a metaobject definition.
     ///</summary>
-    public class MetaobjectCapabilitiesPublishable : IGraphQLObject
+    public class MetaobjectCapabilitiesPublishable : GraphQLObject<MetaobjectCapabilitiesPublishable>
     {
         ///<summary>
         ///Indicates if the capability is enabled.
@@ -26500,7 +26539,7 @@ namespace shopify
     ///<summary>
     ///The translatable capability of a metaobject definition.
     ///</summary>
-    public class MetaobjectCapabilitiesTranslatable : IGraphQLObject
+    public class MetaobjectCapabilitiesTranslatable : GraphQLObject<MetaobjectCapabilitiesTranslatable>
     {
         ///<summary>
         ///Indicates if the capability is enabled.
@@ -26511,7 +26550,7 @@ namespace shopify
     ///<summary>
     ///Provides the capabilities of a metaobject.
     ///</summary>
-    public class MetaobjectCapabilityData : IGraphQLObject
+    public class MetaobjectCapabilityData : GraphQLObject<MetaobjectCapabilityData>
     {
         ///<summary>
         ///The publishable capability for this metaobject.
@@ -26522,7 +26561,7 @@ namespace shopify
     ///<summary>
     ///The publishable capability for the parent metaobject.
     ///</summary>
-    public class MetaobjectCapabilityDataPublishable : IGraphQLObject
+    public class MetaobjectCapabilityDataPublishable : GraphQLObject<MetaobjectCapabilityDataPublishable>
     {
         ///<summary>
         ///The visibility status of this metaobject across all channels.
@@ -26533,7 +26572,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Metaobjects.
     ///</summary>
-    public class MetaobjectConnection : IGraphQLObject
+    public class MetaobjectConnection : GraphQLObject<MetaobjectConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -26552,7 +26591,7 @@ namespace shopify
     ///<summary>
     ///Return type for `metaobjectCreate` mutation.
     ///</summary>
-    public class MetaobjectCreatePayload : IGraphQLObject
+    public class MetaobjectCreatePayload : GraphQLObject<MetaobjectCreatePayload>
     {
         ///<summary>
         ///The created metaobject.
@@ -26567,7 +26606,7 @@ namespace shopify
     ///<summary>
     ///Provides the definition of a generic object structure composed of metafields.
     ///</summary>
-    public class MetaobjectDefinition : IGraphQLObject, INode
+    public class MetaobjectDefinition : GraphQLObject<MetaobjectDefinition>, INode
     {
         ///<summary>
         ///Access configuration for the metaobject definition.
@@ -26614,7 +26653,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple MetaobjectDefinitions.
     ///</summary>
-    public class MetaobjectDefinitionConnection : IGraphQLObject
+    public class MetaobjectDefinitionConnection : GraphQLObject<MetaobjectDefinitionConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -26633,7 +26672,7 @@ namespace shopify
     ///<summary>
     ///Return type for `metaobjectDefinitionCreate` mutation.
     ///</summary>
-    public class MetaobjectDefinitionCreatePayload : IGraphQLObject
+    public class MetaobjectDefinitionCreatePayload : GraphQLObject<MetaobjectDefinitionCreatePayload>
     {
         ///<summary>
         ///The created metaobject definition.
@@ -26648,7 +26687,7 @@ namespace shopify
     ///<summary>
     ///Return type for `metaobjectDefinitionDelete` mutation.
     ///</summary>
-    public class MetaobjectDefinitionDeletePayload : IGraphQLObject
+    public class MetaobjectDefinitionDeletePayload : GraphQLObject<MetaobjectDefinitionDeletePayload>
     {
         ///<summary>
         ///The ID of the deleted metaobjects definition.
@@ -26663,7 +26702,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one MetaobjectDefinition and a cursor during pagination.
     ///</summary>
-    public class MetaobjectDefinitionEdge : IGraphQLObject
+    public class MetaobjectDefinitionEdge : GraphQLObject<MetaobjectDefinitionEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -26678,7 +26717,7 @@ namespace shopify
     ///<summary>
     ///Return type for `metaobjectDefinitionUpdate` mutation.
     ///</summary>
-    public class MetaobjectDefinitionUpdatePayload : IGraphQLObject
+    public class MetaobjectDefinitionUpdatePayload : GraphQLObject<MetaobjectDefinitionUpdatePayload>
     {
         ///<summary>
         ///The updated metaobject definition.
@@ -26693,7 +26732,7 @@ namespace shopify
     ///<summary>
     ///Return type for `metaobjectDelete` mutation.
     ///</summary>
-    public class MetaobjectDeletePayload : IGraphQLObject
+    public class MetaobjectDeletePayload : GraphQLObject<MetaobjectDeletePayload>
     {
         ///<summary>
         ///The ID of the deleted metaobject.
@@ -26708,7 +26747,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one Metaobject and a cursor during pagination.
     ///</summary>
-    public class MetaobjectEdge : IGraphQLObject
+    public class MetaobjectEdge : GraphQLObject<MetaobjectEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -26723,7 +26762,7 @@ namespace shopify
     ///<summary>
     ///Provides a field definition and the data value assigned to it.
     ///</summary>
-    public class MetaobjectField : IGraphQLObject
+    public class MetaobjectField : GraphQLObject<MetaobjectField>
     {
         ///<summary>
         ///The field definition for this object key.
@@ -26755,7 +26794,7 @@ namespace shopify
     ///Defines a field for a MetaobjectDefinition with properties
     ///such as the field's data type and validations.
     ///</summary>
-    public class MetaobjectFieldDefinition : IGraphQLObject
+    public class MetaobjectFieldDefinition : GraphQLObject<MetaobjectFieldDefinition>
     {
         ///<summary>
         ///The administrative description.
@@ -26818,7 +26857,7 @@ namespace shopify
     ///<summary>
     ///Return type for `metaobjectUpdate` mutation.
     ///</summary>
-    public class MetaobjectUpdatePayload : IGraphQLObject
+    public class MetaobjectUpdatePayload : GraphQLObject<MetaobjectUpdatePayload>
     {
         ///<summary>
         ///The updated metaobject.
@@ -26833,7 +26872,7 @@ namespace shopify
     ///<summary>
     ///Return type for `metaobjectUpsert` mutation.
     ///</summary>
-    public class MetaobjectUpsertPayload : IGraphQLObject
+    public class MetaobjectUpsertPayload : GraphQLObject<MetaobjectUpsertPayload>
     {
         ///<summary>
         ///The created or updated metaobject.
@@ -26848,7 +26887,7 @@ namespace shopify
     ///<summary>
     ///Defines errors encountered while managing metaobject resources.
     ///</summary>
-    public class MetaobjectUserError : IGraphQLObject, IDisplayableError
+    public class MetaobjectUserError : GraphQLObject<MetaobjectUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -26994,7 +27033,7 @@ namespace shopify
     ///<summary>
     ///Represents a Shopify hosted 3D model.
     ///</summary>
-    public class Model3d : IGraphQLObject, IMedia, INode
+    public class Model3d : GraphQLObject<Model3d>, IMedia, INode
     {
         ///<summary>
         ///A word or phrase to share the nature or contents of a media.
@@ -27045,7 +27084,7 @@ namespace shopify
     ///<summary>
     ///Bounding box information of a 3d model.
     ///</summary>
-    public class Model3dBoundingBox : IGraphQLObject
+    public class Model3dBoundingBox : GraphQLObject<Model3dBoundingBox>
     {
         ///<summary>
         ///Size in meters of the smallest volume which contains the 3d model.
@@ -27062,7 +27101,7 @@ namespace shopify
     ///If the original source is in GLB format and over 15 MBs in size, then both the
     ///original and the USDZ formatted source are optimized to reduce the file size.
     ///</summary>
-    public class Model3dSource : IGraphQLObject
+    public class Model3dSource : GraphQLObject<Model3dSource>
     {
         ///<summary>
         ///The 3d model source's filesize.
@@ -27086,7 +27125,7 @@ namespace shopify
     ///A collection of monetary values in their respective currencies. Typically used in the context of multi-currency pricing and transactions,
     ///when an amount in the shop's currency is converted to the customer's currency of choice (the presentment currency).
     ///</summary>
-    public class MoneyBag : IGraphQLObject
+    public class MoneyBag : GraphQLObject<MoneyBag>
     {
         ///<summary>
         ///Amount in presentment currency.
@@ -27101,7 +27140,7 @@ namespace shopify
     ///<summary>
     ///A monetary value with currency.
     ///</summary>
-    public class MoneyV2 : IGraphQLObject, IDeliveryConditionCriteria, IPricingValue, ISellingPlanCheckoutChargeValue, ISellingPlanPricingPolicyAdjustmentValue
+    public class MoneyV2 : GraphQLObject<MoneyV2>, IDeliveryConditionCriteria, IPricingValue, ISellingPlanCheckoutChargeValue, ISellingPlanPricingPolicyAdjustmentValue
     {
         ///<summary>
         ///Decimal money amount.
@@ -27116,7 +27155,7 @@ namespace shopify
     ///<summary>
     ///The schema's entry point for all mutation operations.
     ///</summary>
-    public class Mutation : IGraphQLObject
+    public class Mutation : GraphQLObject<Mutation>
     {
         ///<summary>
         ///Updates the email state value for an abandonment.
@@ -28976,7 +29015,7 @@ namespace shopify
     ///and returned by the
     ///[stagedUploadsCreate mutation](https://shopify.dev/api/admin-graphql/latest/mutations/stagedUploadsCreate).
     ///</summary>
-    public class MutationsStagedUploadTargetGenerateUploadParameter : IGraphQLObject
+    public class MutationsStagedUploadTargetGenerateUploadParameter : GraphQLObject<MutationsStagedUploadTargetGenerateUploadParameter>
     {
         ///<summary>
         ///The upload parameter name.
@@ -29024,7 +29063,7 @@ namespace shopify
     ///<summary>
     ///A navigation item, holding basic link attributes.
     ///</summary>
-    public class NavigationItem : IGraphQLObject
+    public class NavigationItem : GraphQLObject<NavigationItem>
     {
         ///<summary>
         ///The unique identifier of the navigation item.
@@ -29364,7 +29403,7 @@ namespace shopify
     ///only useful to pass an article `id` to the `tagsAdd` mutation. For more information, refer to
     ///the [tagsAdd](https://shopify.dev/api/admin-graphql/latest/mutations/tagsadd) mutation.
     ///</summary>
-    public class OnlineStoreArticle : IGraphQLObject, IHasPublishedTranslations, INavigable, INode, IMetafieldReferencer
+    public class OnlineStoreArticle : GraphQLObject<OnlineStoreArticle>, IHasPublishedTranslations, INavigable, INode, IMetafieldReferencer
     {
         ///<summary>
         ///A default cursor that returns the single next record, sorted ascending by ID.
@@ -29384,7 +29423,7 @@ namespace shopify
     ///Shopify stores come with a built-in blogging engine, allowing a shop to have one or more blogs.  Blogs are meant
     ///to be used as a type of magazine or newsletter for the shop, with content that changes over time.
     ///</summary>
-    public class OnlineStoreBlog : IGraphQLObject, IHasPublishedTranslations, INode, IMetafieldReferencer
+    public class OnlineStoreBlog : GraphQLObject<OnlineStoreBlog>, IHasPublishedTranslations, INode, IMetafieldReferencer
     {
         ///<summary>
         ///A globally-unique ID.
@@ -29399,7 +29438,7 @@ namespace shopify
     ///<summary>
     ///A custom page on the Online Store.
     ///</summary>
-    public class OnlineStorePage : IGraphQLObject, IHasPublishedTranslations, INavigable, INode, IMetafieldReference, IMetafieldReferencer
+    public class OnlineStorePage : GraphQLObject<OnlineStorePage>, IHasPublishedTranslations, INavigable, INode, IMetafieldReference, IMetafieldReferencer
     {
         ///<summary>
         ///A default cursor that returns the single next record, sorted ascending by ID.
@@ -29441,7 +29480,7 @@ namespace shopify
     ///
     ///**Caution:** Only use this data if it's required for your app's functionality. Shopify will restrict [access to scopes](https://shopify.dev/api/usage/access-scopes) for apps that don't have a legitimate use for the associated data.
     ///</summary>
-    public class Order : IGraphQLObject, ICommentEventSubject, IHasEvents, IHasLocalizationExtensions, IHasMetafieldDefinitions, IHasMetafields, ILegacyInteroperability, INode, ICommentEventEmbed, IMetafieldReferencer
+    public class Order : GraphQLObject<Order>, ICommentEventSubject, IHasEvents, IHasLocalizationExtensions, IHasMetafieldDefinitions, IHasMetafields, ILegacyInteroperability, INode, ICommentEventEmbed, IMetafieldReferencer
     {
         ///<summary>
         ///A list of addtional fees applied to the order.
@@ -30121,7 +30160,7 @@ namespace shopify
     ///<summary>
     ///An agreement associated with an order placement.
     ///</summary>
-    public class OrderAgreement : IGraphQLObject, ISalesAgreement
+    public class OrderAgreement : GraphQLObject<OrderAgreement>, ISalesAgreement
     {
         ///<summary>
         ///The application that created the agreement.
@@ -30156,7 +30195,7 @@ namespace shopify
     ///<summary>
     ///The [application](https://shopify.dev/apps) that created the order.
     ///</summary>
-    public class OrderApp : IGraphQLObject
+    public class OrderApp : GraphQLObject<OrderApp>
     {
         ///<summary>
         ///The application icon.
@@ -30202,7 +30241,7 @@ namespace shopify
     ///<summary>
     ///Return type for `orderCapture` mutation.
     ///</summary>
-    public class OrderCapturePayload : IGraphQLObject
+    public class OrderCapturePayload : GraphQLObject<OrderCapturePayload>
     {
         ///<summary>
         ///The created capture transaction.
@@ -30217,7 +30256,7 @@ namespace shopify
     ///<summary>
     ///Return type for `orderClose` mutation.
     ///</summary>
-    public class OrderClosePayload : IGraphQLObject
+    public class OrderClosePayload : GraphQLObject<OrderClosePayload>
     {
         ///<summary>
         ///The closed order.
@@ -30232,7 +30271,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Orders.
     ///</summary>
-    public class OrderConnection : IGraphQLObject
+    public class OrderConnection : GraphQLObject<OrderConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -30251,7 +30290,7 @@ namespace shopify
     ///<summary>
     ///Return type for `orderCreateMandatePayment` mutation.
     ///</summary>
-    public class OrderCreateMandatePaymentPayload : IGraphQLObject
+    public class OrderCreateMandatePaymentPayload : GraphQLObject<OrderCreateMandatePaymentPayload>
     {
         ///<summary>
         ///The async job used for charging the payment.
@@ -30270,7 +30309,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `OrderCreateMandatePayment`.
     ///</summary>
-    public class OrderCreateMandatePaymentUserError : IGraphQLObject, IDisplayableError
+    public class OrderCreateMandatePaymentUserError : GraphQLObject<OrderCreateMandatePaymentUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -30382,7 +30421,7 @@ namespace shopify
     ///<summary>
     ///A summary of the important details for a dispute on an order.
     ///</summary>
-    public class OrderDisputeSummary : IGraphQLObject, INode
+    public class OrderDisputeSummary : GraphQLObject<OrderDisputeSummary>, INode
     {
         ///<summary>
         ///A globally-unique ID.
@@ -30401,7 +30440,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one Order and a cursor during pagination.
     ///</summary>
-    public class OrderEdge : IGraphQLObject
+    public class OrderEdge : GraphQLObject<OrderEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -30416,7 +30455,7 @@ namespace shopify
     ///<summary>
     ///Return type for `orderEditAddCustomItem` mutation.
     ///</summary>
-    public class OrderEditAddCustomItemPayload : IGraphQLObject
+    public class OrderEditAddCustomItemPayload : GraphQLObject<OrderEditAddCustomItemPayload>
     {
         ///<summary>
         ///The custom line item that will be added to the order based on the current edits.
@@ -30435,7 +30474,7 @@ namespace shopify
     ///<summary>
     ///Return type for `orderEditAddLineItemDiscount` mutation.
     ///</summary>
-    public class OrderEditAddLineItemDiscountPayload : IGraphQLObject
+    public class OrderEditAddLineItemDiscountPayload : GraphQLObject<OrderEditAddLineItemDiscountPayload>
     {
         ///<summary>
         ///The discount applied to a line item during this order edit.
@@ -30458,7 +30497,7 @@ namespace shopify
     ///<summary>
     ///Return type for `orderEditAddVariant` mutation.
     ///</summary>
-    public class OrderEditAddVariantPayload : IGraphQLObject
+    public class OrderEditAddVariantPayload : GraphQLObject<OrderEditAddVariantPayload>
     {
         ///<summary>
         ///The [calculated line item](https://shopify.dev/api/admin-graphql/latest/objects/calculatedlineitem)
@@ -30479,7 +30518,7 @@ namespace shopify
     ///<summary>
     ///An agreement associated with an edit to the order.
     ///</summary>
-    public class OrderEditAgreement : IGraphQLObject, ISalesAgreement
+    public class OrderEditAgreement : GraphQLObject<OrderEditAgreement>, ISalesAgreement
     {
         ///<summary>
         ///The application that created the agreement.
@@ -30510,7 +30549,7 @@ namespace shopify
     ///<summary>
     ///Return type for `orderEditBegin` mutation.
     ///</summary>
-    public class OrderEditBeginPayload : IGraphQLObject
+    public class OrderEditBeginPayload : GraphQLObject<OrderEditBeginPayload>
     {
         ///<summary>
         ///The order that will be edited.
@@ -30525,7 +30564,7 @@ namespace shopify
     ///<summary>
     ///Return type for `orderEditCommit` mutation.
     ///</summary>
-    public class OrderEditCommitPayload : IGraphQLObject
+    public class OrderEditCommitPayload : GraphQLObject<OrderEditCommitPayload>
     {
         ///<summary>
         ///The order with changes applied.
@@ -30540,7 +30579,7 @@ namespace shopify
     ///<summary>
     ///Return type for `orderEditRemoveLineItemDiscount` mutation.
     ///</summary>
-    public class OrderEditRemoveLineItemDiscountPayload : IGraphQLObject
+    public class OrderEditRemoveLineItemDiscountPayload : GraphQLObject<OrderEditRemoveLineItemDiscountPayload>
     {
         ///<summary>
         ///The calculated line item after removal of the discount.
@@ -30559,7 +30598,7 @@ namespace shopify
     ///<summary>
     ///Return type for `orderEditSetQuantity` mutation.
     ///</summary>
-    public class OrderEditSetQuantityPayload : IGraphQLObject
+    public class OrderEditSetQuantityPayload : GraphQLObject<OrderEditSetQuantityPayload>
     {
         ///<summary>
         ///The calculated line item with the edits applied but not saved.
@@ -30578,7 +30617,7 @@ namespace shopify
     ///<summary>
     ///Return type for `orderInvoiceSend` mutation.
     ///</summary>
-    public class OrderInvoiceSendPayload : IGraphQLObject
+    public class OrderInvoiceSendPayload : GraphQLObject<OrderInvoiceSendPayload>
     {
         ///<summary>
         ///The order associated with the invoice email.
@@ -30593,7 +30632,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `OrderInvoiceSend`.
     ///</summary>
-    public class OrderInvoiceSendUserError : IGraphQLObject, IDisplayableError
+    public class OrderInvoiceSendUserError : GraphQLObject<OrderInvoiceSendUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -30623,7 +30662,7 @@ namespace shopify
     ///<summary>
     ///Return type for `orderMarkAsPaid` mutation.
     ///</summary>
-    public class OrderMarkAsPaidPayload : IGraphQLObject
+    public class OrderMarkAsPaidPayload : GraphQLObject<OrderMarkAsPaidPayload>
     {
         ///<summary>
         ///The order marked as paid.
@@ -30638,7 +30677,7 @@ namespace shopify
     ///<summary>
     ///Return type for `orderOpen` mutation.
     ///</summary>
-    public class OrderOpenPayload : IGraphQLObject
+    public class OrderOpenPayload : GraphQLObject<OrderOpenPayload>
     {
         ///<summary>
         ///The opened order.
@@ -30653,7 +30692,7 @@ namespace shopify
     ///<summary>
     ///The payment collection details for an order that requires additional payment following an edit to the order.
     ///</summary>
-    public class OrderPaymentCollectionDetails : IGraphQLObject
+    public class OrderPaymentCollectionDetails : GraphQLObject<OrderPaymentCollectionDetails>
     {
         ///<summary>
         ///The URL to use for collecting an additional payment on the order.
@@ -30668,7 +30707,7 @@ namespace shopify
     ///<summary>
     ///The status of a customer's payment for an order.
     ///</summary>
-    public class OrderPaymentStatus : IGraphQLObject
+    public class OrderPaymentStatus : GraphQLObject<OrderPaymentStatus>
     {
         ///<summary>
         ///A message describing an error during the asynchronous processing of a payment.
@@ -30775,7 +30814,7 @@ namespace shopify
     ///<summary>
     ///Represents a fraud check on an order.
     ///</summary>
-    public class OrderRisk : IGraphQLObject
+    public class OrderRisk : GraphQLObject<OrderRisk>
     {
         ///<summary>
         ///Whether the risk level is shown in the Shopify admin. If false, then this order risk is ignored when Shopify determines the overall risk level for the order.
@@ -30897,7 +30936,7 @@ namespace shopify
     ///custom line item. For example, you might want to add gift wrapping service
     ///as a custom line item.
     ///</summary>
-    public class OrderStagedChangeAddCustomItem : IGraphQLObject, IOrderStagedChange
+    public class OrderStagedChangeAddCustomItem : GraphQLObject<OrderStagedChangeAddCustomItem>, IOrderStagedChange
     {
         ///<summary>
         ///The price of an individual item without any discounts applied. This value can't be negative.
@@ -30916,7 +30955,7 @@ namespace shopify
     ///<summary>
     ///The discount applied to an item that was added during the current order edit.
     ///</summary>
-    public class OrderStagedChangeAddLineItemDiscount : IGraphQLObject, IOrderStagedChange
+    public class OrderStagedChangeAddLineItemDiscount : GraphQLObject<OrderStagedChangeAddLineItemDiscount>, IOrderStagedChange
     {
         ///<summary>
         ///The description of the discount.
@@ -30936,7 +30975,7 @@ namespace shopify
     ///A new [shipping line](https://shopify.dev/api/admin-graphql/latest/objects/shippingline)
     ///added as part of an order edit.
     ///</summary>
-    public class OrderStagedChangeAddShippingLine : IGraphQLObject, IOrderStagedChange
+    public class OrderStagedChangeAddShippingLine : GraphQLObject<OrderStagedChangeAddShippingLine>, IOrderStagedChange
     {
         ///<summary>
         ///The phone number at the shipping address.
@@ -30959,7 +30998,7 @@ namespace shopify
     ///<summary>
     ///A change to the order representing the addition of an existing product variant.
     ///</summary>
-    public class OrderStagedChangeAddVariant : IGraphQLObject, IOrderStagedChange
+    public class OrderStagedChangeAddVariant : GraphQLObject<OrderStagedChangeAddVariant>, IOrderStagedChange
     {
         ///<summary>
         ///The quantity of the product variant that was added.
@@ -30974,7 +31013,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple OrderStagedChanges.
     ///</summary>
-    public class OrderStagedChangeConnection : IGraphQLObject
+    public class OrderStagedChangeConnection : GraphQLObject<OrderStagedChangeConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -30993,7 +31032,7 @@ namespace shopify
     ///<summary>
     ///An removal of items from an existing line item on the order.
     ///</summary>
-    public class OrderStagedChangeDecrementItem : IGraphQLObject, IOrderStagedChange
+    public class OrderStagedChangeDecrementItem : GraphQLObject<OrderStagedChangeDecrementItem>, IOrderStagedChange
     {
         ///<summary>
         ///The number of items removed.
@@ -31012,7 +31051,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one OrderStagedChange and a cursor during pagination.
     ///</summary>
-    public class OrderStagedChangeEdge : IGraphQLObject
+    public class OrderStagedChangeEdge : GraphQLObject<OrderStagedChangeEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -31027,7 +31066,7 @@ namespace shopify
     ///<summary>
     ///An addition of items to an existing line item on the order.
     ///</summary>
-    public class OrderStagedChangeIncrementItem : IGraphQLObject, IOrderStagedChange
+    public class OrderStagedChangeIncrementItem : GraphQLObject<OrderStagedChangeIncrementItem>, IOrderStagedChange
     {
         ///<summary>
         ///The number of items added.
@@ -31042,7 +31081,7 @@ namespace shopify
     ///<summary>
     ///A payment transaction in the context of an order.
     ///</summary>
-    public class OrderTransaction : IGraphQLObject, INode
+    public class OrderTransaction : GraphQLObject<OrderTransaction>, INode
     {
         ///<summary>
         ///The masked account number associated with the payment method.
@@ -31206,7 +31245,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple OrderTransactions.
     ///</summary>
-    public class OrderTransactionConnection : IGraphQLObject
+    public class OrderTransactionConnection : GraphQLObject<OrderTransactionConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -31225,7 +31264,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one OrderTransaction and a cursor during pagination.
     ///</summary>
-    public class OrderTransactionEdge : IGraphQLObject
+    public class OrderTransactionEdge : GraphQLObject<OrderTransactionEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -31427,7 +31466,7 @@ namespace shopify
     ///<summary>
     ///Return type for `orderUpdate` mutation.
     ///</summary>
-    public class OrderUpdatePayload : IGraphQLObject
+    public class OrderUpdatePayload : GraphQLObject<OrderUpdatePayload>
     {
         ///<summary>
         ///The updated order.
@@ -31444,7 +31483,7 @@ namespace shopify
     ///[Relay specification](https://relay.dev/graphql/connections.htm#sec-undefined.PageInfo).
     ///For more information, please read our [GraphQL Pagination Usage Guide](https://shopify.dev/api/usage/pagination-graphql).
     ///</summary>
-    public class PageInfo : IGraphQLObject
+    public class PageInfo : GraphQLObject<PageInfo>
     {
         ///<summary>
         ///The cursor corresponding to the last node in edges.
@@ -31467,7 +31506,7 @@ namespace shopify
     ///<summary>
     ///A ShopifyQL parsing error.
     ///</summary>
-    public class ParseError : IGraphQLObject
+    public class ParseError : GraphQLObject<ParseError>
     {
         ///<summary>
         ///An error code for the error.
@@ -31682,7 +31721,7 @@ namespace shopify
     ///<summary>
     ///A range of ShopifyQL parsing errors.
     ///</summary>
-    public class ParseErrorRange : IGraphQLObject
+    public class ParseErrorRange : GraphQLObject<ParseErrorRange>
     {
         ///<summary>
         ///The ending position of the error.
@@ -31697,7 +31736,7 @@ namespace shopify
     ///<summary>
     ///A payment customization.
     ///</summary>
-    public class PaymentCustomization : IGraphQLObject, IHasMetafieldDefinitions, IHasMetafields, INode, IMetafieldReferencer
+    public class PaymentCustomization : GraphQLObject<PaymentCustomization>, IHasMetafieldDefinitions, IHasMetafields, INode, IMetafieldReferencer
     {
         ///<summary>
         ///The enabled status of the payment customization.
@@ -31752,7 +31791,7 @@ namespace shopify
     ///<summary>
     ///Return type for `paymentCustomizationActivation` mutation.
     ///</summary>
-    public class PaymentCustomizationActivationPayload : IGraphQLObject
+    public class PaymentCustomizationActivationPayload : GraphQLObject<PaymentCustomizationActivationPayload>
     {
         ///<summary>
         ///The IDs of the updated payment customizations.
@@ -31767,7 +31806,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple PaymentCustomizations.
     ///</summary>
-    public class PaymentCustomizationConnection : IGraphQLObject
+    public class PaymentCustomizationConnection : GraphQLObject<PaymentCustomizationConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -31786,7 +31825,7 @@ namespace shopify
     ///<summary>
     ///Return type for `paymentCustomizationCreate` mutation.
     ///</summary>
-    public class PaymentCustomizationCreatePayload : IGraphQLObject
+    public class PaymentCustomizationCreatePayload : GraphQLObject<PaymentCustomizationCreatePayload>
     {
         ///<summary>
         ///Returns the created payment customization.
@@ -31801,7 +31840,7 @@ namespace shopify
     ///<summary>
     ///Return type for `paymentCustomizationDelete` mutation.
     ///</summary>
-    public class PaymentCustomizationDeletePayload : IGraphQLObject
+    public class PaymentCustomizationDeletePayload : GraphQLObject<PaymentCustomizationDeletePayload>
     {
         ///<summary>
         ///Returns the deleted payment customization ID.
@@ -31816,7 +31855,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one PaymentCustomization and a cursor during pagination.
     ///</summary>
-    public class PaymentCustomizationEdge : IGraphQLObject
+    public class PaymentCustomizationEdge : GraphQLObject<PaymentCustomizationEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -31831,7 +31870,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of a payment customization mutation.
     ///</summary>
-    public class PaymentCustomizationError : IGraphQLObject, IDisplayableError
+    public class PaymentCustomizationError : GraphQLObject<PaymentCustomizationError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -31901,7 +31940,7 @@ namespace shopify
     ///<summary>
     ///Return type for `paymentCustomizationUpdate` mutation.
     ///</summary>
-    public class PaymentCustomizationUpdatePayload : IGraphQLObject
+    public class PaymentCustomizationUpdatePayload : GraphQLObject<PaymentCustomizationUpdatePayload>
     {
         ///<summary>
         ///Returns the updated payment customization.
@@ -31979,7 +32018,7 @@ namespace shopify
     ///A payment instrument and the permission
     ///the owner of the instrument gives to the merchant to debit it.
     ///</summary>
-    public class PaymentMandate : IGraphQLObject, INode
+    public class PaymentMandate : GraphQLObject<PaymentMandate>, INode
     {
         ///<summary>
         ///The unique ID of a payment mandate.
@@ -32031,7 +32070,7 @@ namespace shopify
     ///<summary>
     ///Return type for `paymentReminderSend` mutation.
     ///</summary>
-    public class PaymentReminderSendPayload : IGraphQLObject
+    public class PaymentReminderSendPayload : GraphQLObject<PaymentReminderSendPayload>
     {
         ///<summary>
         ///Whether the payment reminder email was successfully sent.
@@ -32046,7 +32085,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `PaymentReminderSend`.
     ///</summary>
-    public class PaymentReminderSendUserError : IGraphQLObject, IDisplayableError
+    public class PaymentReminderSendUserError : GraphQLObject<PaymentReminderSendUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -32076,7 +32115,7 @@ namespace shopify
     ///<summary>
     ///Represents the payment schedule for a single payment defined in the payment terms.
     ///</summary>
-    public class PaymentSchedule : IGraphQLObject, INode
+    public class PaymentSchedule : GraphQLObject<PaymentSchedule>, INode
     {
         ///<summary>
         ///Amount owed for this payment schedule.
@@ -32107,7 +32146,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple PaymentSchedules.
     ///</summary>
-    public class PaymentScheduleConnection : IGraphQLObject
+    public class PaymentScheduleConnection : GraphQLObject<PaymentScheduleConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -32126,7 +32165,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one PaymentSchedule and a cursor during pagination.
     ///</summary>
-    public class PaymentScheduleEdge : IGraphQLObject
+    public class PaymentScheduleEdge : GraphQLObject<PaymentScheduleEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -32141,7 +32180,7 @@ namespace shopify
     ///<summary>
     ///Settings related to payments.
     ///</summary>
-    public class PaymentSettings : IGraphQLObject
+    public class PaymentSettings : GraphQLObject<PaymentSettings>
     {
         ///<summary>
         ///List of the digital wallets which the shop supports.
@@ -32152,7 +32191,7 @@ namespace shopify
     ///<summary>
     ///Represents the payment terms for an order or draft order.
     ///</summary>
-    public class PaymentTerms : IGraphQLObject, INode
+    public class PaymentTerms : GraphQLObject<PaymentTerms>, INode
     {
         ///<summary>
         ///The draft order associated with the payment terms.
@@ -32195,7 +32234,7 @@ namespace shopify
     ///<summary>
     ///Return type for `paymentTermsCreate` mutation.
     ///</summary>
-    public class PaymentTermsCreatePayload : IGraphQLObject
+    public class PaymentTermsCreatePayload : GraphQLObject<PaymentTermsCreatePayload>
     {
         ///<summary>
         ///The created payment terms.
@@ -32210,7 +32249,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `PaymentTermsCreate`.
     ///</summary>
-    public class PaymentTermsCreateUserError : IGraphQLObject, IDisplayableError
+    public class PaymentTermsCreateUserError : GraphQLObject<PaymentTermsCreateUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -32240,7 +32279,7 @@ namespace shopify
     ///<summary>
     ///Return type for `paymentTermsDelete` mutation.
     ///</summary>
-    public class PaymentTermsDeletePayload : IGraphQLObject
+    public class PaymentTermsDeletePayload : GraphQLObject<PaymentTermsDeletePayload>
     {
         ///<summary>
         ///The deleted payment terms ID.
@@ -32255,7 +32294,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `PaymentTermsDelete`.
     ///</summary>
-    public class PaymentTermsDeleteUserError : IGraphQLObject, IDisplayableError
+    public class PaymentTermsDeleteUserError : GraphQLObject<PaymentTermsDeleteUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -32285,7 +32324,7 @@ namespace shopify
     ///<summary>
     ///Represents the payment terms template object.
     ///</summary>
-    public class PaymentTermsTemplate : IGraphQLObject, INode
+    public class PaymentTermsTemplate : GraphQLObject<PaymentTermsTemplate>, INode
     {
         ///<summary>
         ///The description of the payment terms template.
@@ -32343,7 +32382,7 @@ namespace shopify
     ///<summary>
     ///Return type for `paymentTermsUpdate` mutation.
     ///</summary>
-    public class PaymentTermsUpdatePayload : IGraphQLObject
+    public class PaymentTermsUpdatePayload : GraphQLObject<PaymentTermsUpdatePayload>
     {
         ///<summary>
         ///The updated payment terms.
@@ -32358,7 +32397,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `PaymentTermsUpdate`.
     ///</summary>
-    public class PaymentTermsUpdateUserError : IGraphQLObject, IDisplayableError
+    public class PaymentTermsUpdateUserError : GraphQLObject<PaymentTermsUpdateUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -32407,7 +32446,7 @@ namespace shopify
     ///<summary>
     ///A PolarisViz data point structure for ShopifyQL query.
     ///</summary>
-    public class PolarisVizDataPoint : IGraphQLObject
+    public class PolarisVizDataPoint : GraphQLObject<PolarisVizDataPoint>
     {
         ///<summary>
         ///The data key. Typically a category, dimension, or other qualitative data.
@@ -32422,7 +32461,7 @@ namespace shopify
     ///<summary>
     ///The data series used for PolarisViz visualization.
     ///</summary>
-    public class PolarisVizDataSeries : IGraphQLObject
+    public class PolarisVizDataSeries : GraphQLObject<PolarisVizDataSeries>
     {
         ///<summary>
         ///An array of data points.
@@ -32441,7 +32480,7 @@ namespace shopify
     ///<summary>
     ///A PolarisViz response to a ShopifyQL query.
     ///</summary>
-    public class PolarisVizResponse : IGraphQLObject, IShopifyqlResponse
+    public class PolarisVizResponse : GraphQLObject<PolarisVizResponse>, IShopifyqlResponse
     {
         ///<summary>
         ///The PolarisViz visualization of data.
@@ -32490,7 +32529,7 @@ namespace shopify
     ///  For more information on price lists, refer to
     ///  [Support different pricing models](https://shopify.dev/apps/internationalization/product-price-lists).
     ///</summary>
-    public class PriceList : IGraphQLObject, INode
+    public class PriceList : GraphQLObject<PriceList>, INode
     {
         ///<summary>
         ///The catalog that the price list is associated with.
@@ -32532,7 +32571,7 @@ namespace shopify
     ///For more information on price lists, refer to
     ///[Support different pricing models](https://shopify.dev/apps/internationalization/product-price-lists).
     ///</summary>
-    public class PriceListAdjustment : IGraphQLObject
+    public class PriceListAdjustment : GraphQLObject<PriceListAdjustment>
     {
         ///<summary>
         ///The type of price adjustment, such as percentage increase or decrease.
@@ -32548,7 +32587,7 @@ namespace shopify
     ///<summary>
     ///Represents the settings of price list adjustments.
     ///</summary>
-    public class PriceListAdjustmentSettings : IGraphQLObject
+    public class PriceListAdjustmentSettings : GraphQLObject<PriceListAdjustmentSettings>
     {
         ///<summary>
         ///The type of price list adjustment setting for compare at price.
@@ -32589,7 +32628,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple PriceLists.
     ///</summary>
-    public class PriceListConnection : IGraphQLObject
+    public class PriceListConnection : GraphQLObject<PriceListConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -32608,7 +32647,7 @@ namespace shopify
     ///<summary>
     ///Return type for `priceListCreate` mutation.
     ///</summary>
-    public class PriceListCreatePayload : IGraphQLObject
+    public class PriceListCreatePayload : GraphQLObject<PriceListCreatePayload>
     {
         ///<summary>
         ///The newly created price list.
@@ -32623,7 +32662,7 @@ namespace shopify
     ///<summary>
     ///Return type for `priceListDelete` mutation.
     ///</summary>
-    public class PriceListDeletePayload : IGraphQLObject
+    public class PriceListDeletePayload : GraphQLObject<PriceListDeletePayload>
     {
         ///<summary>
         ///The ID of the deleted price list.
@@ -32638,7 +32677,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one PriceList and a cursor during pagination.
     ///</summary>
-    public class PriceListEdge : IGraphQLObject
+    public class PriceListEdge : GraphQLObject<PriceListEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -32653,7 +32692,7 @@ namespace shopify
     ///<summary>
     ///Return type for `priceListFixedPricesAdd` mutation.
     ///</summary>
-    public class PriceListFixedPricesAddPayload : IGraphQLObject
+    public class PriceListFixedPricesAddPayload : GraphQLObject<PriceListFixedPricesAddPayload>
     {
         ///<summary>
         ///The list of fixed prices that were added to or updated in the price list.
@@ -32668,7 +32707,7 @@ namespace shopify
     ///<summary>
     ///Error codes for failed price list fixed prices by product bulk update operations.
     ///</summary>
-    public class PriceListFixedPricesByProductBulkUpdateUserError : IGraphQLObject, IDisplayableError
+    public class PriceListFixedPricesByProductBulkUpdateUserError : GraphQLObject<PriceListFixedPricesByProductBulkUpdateUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -32722,7 +32761,7 @@ namespace shopify
     ///<summary>
     ///Return type for `priceListFixedPricesByProductUpdate` mutation.
     ///</summary>
-    public class PriceListFixedPricesByProductUpdatePayload : IGraphQLObject
+    public class PriceListFixedPricesByProductUpdatePayload : GraphQLObject<PriceListFixedPricesByProductUpdatePayload>
     {
         ///<summary>
         ///The price list for which the fixed prices were modified.
@@ -32745,7 +32784,7 @@ namespace shopify
     ///<summary>
     ///Return type for `priceListFixedPricesDelete` mutation.
     ///</summary>
-    public class PriceListFixedPricesDeletePayload : IGraphQLObject
+    public class PriceListFixedPricesDeletePayload : GraphQLObject<PriceListFixedPricesDeletePayload>
     {
         ///<summary>
         ///A list of product variant IDs whose fixed prices were removed from the price list.
@@ -32760,7 +32799,7 @@ namespace shopify
     ///<summary>
     ///Return type for `priceListFixedPricesUpdate` mutation.
     ///</summary>
-    public class PriceListFixedPricesUpdatePayload : IGraphQLObject
+    public class PriceListFixedPricesUpdatePayload : GraphQLObject<PriceListFixedPricesUpdatePayload>
     {
         ///<summary>
         ///A list of deleted variant IDs for prices.
@@ -32788,7 +32827,7 @@ namespace shopify
     ///  [Adjustment types](https://shopify.dev/api/admin-graphql/latest/enums/pricelistadjustmenttype)
     ///  support both percentage increases and decreases.
     ///</summary>
-    public class PriceListParent : IGraphQLObject
+    public class PriceListParent : GraphQLObject<PriceListParent>
     {
         ///<summary>
         ///A price list adjustment.
@@ -32804,7 +32843,7 @@ namespace shopify
     ///Represents information about pricing for a product variant
     ///        as defined on a price list, such as the price, compare at price, and origin type. You can use a PriceListPrice to specify a fixed price for a specific product variant.
     ///</summary>
-    public class PriceListPrice : IGraphQLObject
+    public class PriceListPrice : GraphQLObject<PriceListPrice>
     {
         ///<summary>
         ///The compare-at price of the product variant on this price list.
@@ -32827,7 +32866,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple PriceListPrices.
     ///</summary>
-    public class PriceListPriceConnection : IGraphQLObject
+    public class PriceListPriceConnection : GraphQLObject<PriceListPriceConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -32846,7 +32885,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one PriceListPrice and a cursor during pagination.
     ///</summary>
-    public class PriceListPriceEdge : IGraphQLObject
+    public class PriceListPriceEdge : GraphQLObject<PriceListPriceEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -32876,7 +32915,7 @@ namespace shopify
     ///<summary>
     ///An error for a failed price list price operation.
     ///</summary>
-    public class PriceListPriceUserError : IGraphQLObject, IDisplayableError
+    public class PriceListPriceUserError : GraphQLObject<PriceListPriceUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -32942,7 +32981,7 @@ namespace shopify
     ///<summary>
     ///Return type for `priceListUpdate` mutation.
     ///</summary>
-    public class PriceListUpdatePayload : IGraphQLObject
+    public class PriceListUpdatePayload : GraphQLObject<PriceListUpdatePayload>
     {
         ///<summary>
         ///The updated price list.
@@ -32957,7 +32996,7 @@ namespace shopify
     ///<summary>
     ///Error codes for failed contextual pricing operations.
     ///</summary>
-    public class PriceListUserError : IGraphQLObject, IDisplayableError
+    public class PriceListUserError : GraphQLObject<PriceListUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -33106,7 +33145,7 @@ namespace shopify
     ///
     ///We recommend using the types and queries detailed at [Getting started with discounts](https://shopify.dev/docs/apps/selling-strategies/discounts/getting-started) instead. These will replace the GraphQL `PriceRule` object and REST Admin `PriceRule` and `DiscountCode` resources.
     ///</summary>
-    public class PriceRule : IGraphQLObject, ICommentEventSubject, IHasEvents, ILegacyInteroperability, INode
+    public class PriceRule : GraphQLObject<PriceRule>, ICommentEventSubject, IHasEvents, ILegacyInteroperability, INode
     {
         ///<summary>
         ///The maximum number of times that the price rule can be allocated onto an order.
@@ -33267,7 +33306,7 @@ namespace shopify
     ///<summary>
     ///Return type for `priceRuleActivate` mutation.
     ///</summary>
-    public class PriceRuleActivatePayload : IGraphQLObject
+    public class PriceRuleActivatePayload : GraphQLObject<PriceRuleActivatePayload>
     {
         ///<summary>
         ///The activated price rule.
@@ -33303,7 +33342,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple PriceRules.
     ///</summary>
-    public class PriceRuleConnection : IGraphQLObject
+    public class PriceRuleConnection : GraphQLObject<PriceRuleConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -33322,7 +33361,7 @@ namespace shopify
     ///<summary>
     ///Return type for `priceRuleCreate` mutation.
     ///</summary>
-    public class PriceRuleCreatePayload : IGraphQLObject
+    public class PriceRuleCreatePayload : GraphQLObject<PriceRuleCreatePayload>
     {
         ///<summary>
         ///The newly created price rule.
@@ -33347,7 +33386,7 @@ namespace shopify
     ///<summary>
     ///A selection of customers for whom the price rule applies.
     ///</summary>
-    public class PriceRuleCustomerSelection : IGraphQLObject
+    public class PriceRuleCustomerSelection : GraphQLObject<PriceRuleCustomerSelection>
     {
         ///<summary>
         ///List of customers to whom the price rule applies.
@@ -33366,7 +33405,7 @@ namespace shopify
     ///<summary>
     ///Return type for `priceRuleDeactivate` mutation.
     ///</summary>
-    public class PriceRuleDeactivatePayload : IGraphQLObject
+    public class PriceRuleDeactivatePayload : GraphQLObject<PriceRuleDeactivatePayload>
     {
         ///<summary>
         ///The deactivated price rule.
@@ -33387,7 +33426,7 @@ namespace shopify
     ///<summary>
     ///Return type for `priceRuleDelete` mutation.
     ///</summary>
-    public class PriceRuleDeletePayload : IGraphQLObject
+    public class PriceRuleDeletePayload : GraphQLObject<PriceRuleDeletePayload>
     {
         ///<summary>
         ///The ID price of the deleted price rule.
@@ -33412,7 +33451,7 @@ namespace shopify
     ///<summary>
     ///A discount code of a price rule.
     ///</summary>
-    public class PriceRuleDiscountCode : IGraphQLObject, INode
+    public class PriceRuleDiscountCode : GraphQLObject<PriceRuleDiscountCode>, INode
     {
         ///<summary>
         ///The application that created the discount code.
@@ -33435,7 +33474,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple PriceRuleDiscountCodes.
     ///</summary>
-    public class PriceRuleDiscountCodeConnection : IGraphQLObject
+    public class PriceRuleDiscountCodeConnection : GraphQLObject<PriceRuleDiscountCodeConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -33454,7 +33493,7 @@ namespace shopify
     ///<summary>
     ///Return type for `priceRuleDiscountCodeCreate` mutation.
     ///</summary>
-    public class PriceRuleDiscountCodeCreatePayload : IGraphQLObject
+    public class PriceRuleDiscountCodeCreatePayload : GraphQLObject<PriceRuleDiscountCodeCreatePayload>
     {
         ///<summary>
         ///The updated price rule.
@@ -33479,7 +33518,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one PriceRuleDiscountCode and a cursor during pagination.
     ///</summary>
-    public class PriceRuleDiscountCodeEdge : IGraphQLObject
+    public class PriceRuleDiscountCodeEdge : GraphQLObject<PriceRuleDiscountCodeEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -33494,7 +33533,7 @@ namespace shopify
     ///<summary>
     ///Return type for `priceRuleDiscountCodeUpdate` mutation.
     ///</summary>
-    public class PriceRuleDiscountCodeUpdatePayload : IGraphQLObject
+    public class PriceRuleDiscountCodeUpdatePayload : GraphQLObject<PriceRuleDiscountCodeUpdatePayload>
     {
         ///<summary>
         ///The updated price rule.
@@ -33519,7 +33558,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one PriceRule and a cursor during pagination.
     ///</summary>
-    public class PriceRuleEdge : IGraphQLObject
+    public class PriceRuleEdge : GraphQLObject<PriceRuleEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -33534,7 +33573,7 @@ namespace shopify
     ///<summary>
     ///Quantity of prerequisite items required for the price rule to be applicable, compared to quantity of entitled items.
     ///</summary>
-    public class PriceRuleEntitlementToPrerequisiteQuantityRatio : IGraphQLObject
+    public class PriceRuleEntitlementToPrerequisiteQuantityRatio : GraphQLObject<PriceRuleEntitlementToPrerequisiteQuantityRatio>
     {
         ///<summary>
         ///The quantity of entitled items in the ratio.
@@ -33883,7 +33922,7 @@ namespace shopify
     ///<summary>
     ///The value of a fixed amount price rule.
     ///</summary>
-    public class PriceRuleFixedAmountValue : IGraphQLObject, IPriceRuleValue
+    public class PriceRuleFixedAmountValue : GraphQLObject<PriceRuleFixedAmountValue>, IPriceRuleValue
     {
         ///<summary>
         ///The monetary value of the price rule.
@@ -33894,7 +33933,7 @@ namespace shopify
     ///<summary>
     ///The items to which this price rule applies. This may be multiple products, product variants, collections or combinations of the aforementioned.
     ///</summary>
-    public class PriceRuleItemEntitlements : IGraphQLObject
+    public class PriceRuleItemEntitlements : GraphQLObject<PriceRuleItemEntitlements>
     {
         ///<summary>
         ///The collections to which the price rule applies.
@@ -33917,7 +33956,7 @@ namespace shopify
     ///<summary>
     ///Single or multiple line item products, product variants or collections required for the price rule to be applicable, can also be provided in combination.
     ///</summary>
-    public class PriceRuleLineItemPrerequisites : IGraphQLObject
+    public class PriceRuleLineItemPrerequisites : GraphQLObject<PriceRuleLineItemPrerequisites>
     {
         ///<summary>
         ///The collections required for the price rule to be applicable.
@@ -33936,7 +33975,7 @@ namespace shopify
     ///<summary>
     ///A money range within which the price rule is applicable.
     ///</summary>
-    public class PriceRuleMoneyRange : IGraphQLObject
+    public class PriceRuleMoneyRange : GraphQLObject<PriceRuleMoneyRange>
     {
         ///<summary>
         ///The lower bound of the money range.
@@ -33959,7 +33998,7 @@ namespace shopify
     ///<summary>
     ///The value of a percent price rule.
     ///</summary>
-    public class PriceRulePercentValue : IGraphQLObject, IPriceRuleValue
+    public class PriceRulePercentValue : GraphQLObject<PriceRulePercentValue>, IPriceRuleValue
     {
         ///<summary>
         ///The percent value of the price rule.
@@ -33970,7 +34009,7 @@ namespace shopify
     ///<summary>
     ///Quantity of prerequisite items required for the price rule to be applicable, compared to quantity of entitled items.
     ///</summary>
-    public class PriceRulePrerequisiteToEntitlementQuantityRatio : IGraphQLObject
+    public class PriceRulePrerequisiteToEntitlementQuantityRatio : GraphQLObject<PriceRulePrerequisiteToEntitlementQuantityRatio>
     {
         ///<summary>
         ///The quantity of entitled items in the ratio.
@@ -33985,7 +34024,7 @@ namespace shopify
     ///<summary>
     ///A quantity range within which the price rule is applicable.
     ///</summary>
-    public class PriceRuleQuantityRange : IGraphQLObject
+    public class PriceRuleQuantityRange : GraphQLObject<PriceRuleQuantityRange>
     {
         ///<summary>
         ///The lower bound of the quantity range.
@@ -34008,7 +34047,7 @@ namespace shopify
     ///<summary>
     ///Shareable URL for the discount code associated with the price rule.
     ///</summary>
-    public class PriceRuleShareableUrl : IGraphQLObject
+    public class PriceRuleShareableUrl : GraphQLObject<PriceRuleShareableUrl>
     {
         ///<summary>
         ///The image URL of the item (product or collection) to which the discount applies.
@@ -34050,7 +34089,7 @@ namespace shopify
     ///<summary>
     ///The shipping lines to which the price rule applies to.
     ///</summary>
-    public class PriceRuleShippingLineEntitlements : IGraphQLObject
+    public class PriceRuleShippingLineEntitlements : GraphQLObject<PriceRuleShippingLineEntitlements>
     {
         ///<summary>
         ///The codes for the countries to which the price rule applies to.
@@ -34166,7 +34205,7 @@ namespace shopify
     ///<summary>
     ///Return type for `priceRuleUpdate` mutation.
     ///</summary>
-    public class PriceRuleUpdatePayload : IGraphQLObject
+    public class PriceRuleUpdatePayload : GraphQLObject<PriceRuleUpdatePayload>
     {
         ///<summary>
         ///The updated price rule.
@@ -34191,7 +34230,7 @@ namespace shopify
     ///<summary>
     ///Represents an error that happens during execution of a price rule mutation.
     ///</summary>
-    public class PriceRuleUserError : IGraphQLObject, IDisplayableError
+    public class PriceRuleUserError : GraphQLObject<PriceRuleUserError>, IDisplayableError
     {
         ///<summary>
         ///Error code to uniquely identify the error.
@@ -34210,7 +34249,7 @@ namespace shopify
     ///<summary>
     ///A time period during which a price rule is applicable.
     ///</summary>
-    public class PriceRuleValidityPeriod : IGraphQLObject
+    public class PriceRuleValidityPeriod : GraphQLObject<PriceRuleValidityPeriod>
     {
         ///<summary>
         ///The time after which the price rule becomes invalid.
@@ -34238,7 +34277,7 @@ namespace shopify
     ///One type of value given to a customer when a discount is applied to an order.
     ///The application of a discount with this value gives the customer the specified percentage off a specified item.
     ///</summary>
-    public class PricingPercentageValue : IGraphQLObject, IPricingValue
+    public class PricingPercentageValue : GraphQLObject<PricingPercentageValue>, IPricingValue
     {
         ///<summary>
         ///The percentage value of the object. This is a number between -100 (free) and 0 (no discount).
@@ -34264,7 +34303,7 @@ namespace shopify
     ///
     ///An application can create a maximum of 10 private metafields per shop resource.
     ///</summary>
-    public class PrivateMetafield : IGraphQLObject, INode
+    public class PrivateMetafield : GraphQLObject<PrivateMetafield>, INode
     {
         ///<summary>
         ///The date and time when the private metafield was created.
@@ -34299,7 +34338,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple PrivateMetafields.
     ///</summary>
-    public class PrivateMetafieldConnection : IGraphQLObject
+    public class PrivateMetafieldConnection : GraphQLObject<PrivateMetafieldConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -34318,7 +34357,7 @@ namespace shopify
     ///<summary>
     ///Return type for `privateMetafieldDelete` mutation.
     ///</summary>
-    public class PrivateMetafieldDeletePayload : IGraphQLObject
+    public class PrivateMetafieldDeletePayload : GraphQLObject<PrivateMetafieldDeletePayload>
     {
         ///<summary>
         ///The ID of private metafield that was deleted.
@@ -34333,7 +34372,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one PrivateMetafield and a cursor during pagination.
     ///</summary>
-    public class PrivateMetafieldEdge : IGraphQLObject
+    public class PrivateMetafieldEdge : GraphQLObject<PrivateMetafieldEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -34348,7 +34387,7 @@ namespace shopify
     ///<summary>
     ///Return type for `privateMetafieldUpsert` mutation.
     ///</summary>
-    public class PrivateMetafieldUpsertPayload : IGraphQLObject
+    public class PrivateMetafieldUpsertPayload : GraphQLObject<PrivateMetafieldUpsertPayload>
     {
         ///<summary>
         ///The private metafield that was created or updated.
@@ -34382,7 +34421,7 @@ namespace shopify
     ///<summary>
     ///The Product resource lets you manage products in a merchant’s store. You can use [ProductVariants](https://shopify.dev/api/admin-graphql/latest/objects/productvariant) to create or update different versions of the same product. You can also add or update product [Media](https://shopify.dev/api/admin-graphql/latest/interfaces/media). Products can be organized by grouping them into a [Collection](https://shopify.dev/api/admin-graphql/latest/objects/collection).
     ///</summary>
-    public class Product : IGraphQLObject, IHasMetafieldDefinitions, IHasMetafields, IHasPublishedTranslations, ILegacyInteroperability, INavigable, INode, IOnlineStorePreviewable, IPublishable, ICommentEventEmbed, IMetafieldReference, IMetafieldReferencer
+    public class Product : GraphQLObject<Product>, IHasMetafieldDefinitions, IHasMetafields, IHasPublishedTranslations, ILegacyInteroperability, INavigable, INode, IOnlineStorePreviewable, IPublishable, ICommentEventEmbed, IMetafieldReference, IMetafieldReferencer
     {
         ///<summary>
         ///The number of publications a resource is published to without feedback errors.
@@ -34693,7 +34732,7 @@ namespace shopify
     ///<summary>
     ///Return type for `productAppendImages` mutation.
     ///</summary>
-    public class ProductAppendImagesPayload : IGraphQLObject
+    public class ProductAppendImagesPayload : GraphQLObject<ProductAppendImagesPayload>
     {
         ///<summary>
         ///List of new images appended to the product.
@@ -34712,7 +34751,7 @@ namespace shopify
     ///<summary>
     ///The details of a specific product category within the [Shopify product taxonomy](https://help.shopify.com/txt/product_taxonomy/en.txt).
     ///</summary>
-    public class ProductCategory : IGraphQLObject
+    public class ProductCategory : GraphQLObject<ProductCategory>
     {
         ///<summary>
         ///The product taxonomy node associated with the product category.
@@ -34723,7 +34762,7 @@ namespace shopify
     ///<summary>
     ///Return type for `productChangeStatus` mutation.
     ///</summary>
-    public class ProductChangeStatusPayload : IGraphQLObject
+    public class ProductChangeStatusPayload : GraphQLObject<ProductChangeStatusPayload>
     {
         ///<summary>
         ///The product object.
@@ -34738,7 +34777,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `ProductChangeStatus`.
     ///</summary>
-    public class ProductChangeStatusUserError : IGraphQLObject, IDisplayableError
+    public class ProductChangeStatusUserError : GraphQLObject<ProductChangeStatusUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -34808,7 +34847,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Products.
     ///</summary>
-    public class ProductConnection : IGraphQLObject
+    public class ProductConnection : GraphQLObject<ProductConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -34828,7 +34867,7 @@ namespace shopify
     ///The price of a product in a specific country.
     ///Prices vary between countries.
     ///</summary>
-    public class ProductContextualPricing : IGraphQLObject
+    public class ProductContextualPricing : GraphQLObject<ProductContextualPricing>
     {
         ///<summary>
         ///The number of fixed quantity rules for the product's variants on the price list.
@@ -34851,7 +34890,7 @@ namespace shopify
     ///<summary>
     ///Return type for `productCreateMedia` mutation.
     ///</summary>
-    public class ProductCreateMediaPayload : IGraphQLObject
+    public class ProductCreateMediaPayload : GraphQLObject<ProductCreateMediaPayload>
     {
         ///<summary>
         ///The newly created media.
@@ -34876,7 +34915,7 @@ namespace shopify
     ///<summary>
     ///Return type for `productCreate` mutation.
     ///</summary>
-    public class ProductCreatePayload : IGraphQLObject
+    public class ProductCreatePayload : GraphQLObject<ProductCreatePayload>
     {
         ///<summary>
         ///The product object.
@@ -34895,7 +34934,7 @@ namespace shopify
     ///<summary>
     ///Return type for `productDeleteAsync` mutation.
     ///</summary>
-    public class ProductDeleteAsyncPayload : IGraphQLObject
+    public class ProductDeleteAsyncPayload : GraphQLObject<ProductDeleteAsyncPayload>
     {
         ///<summary>
         ///The ID of the product that was requested to be deleted.
@@ -34914,7 +34953,7 @@ namespace shopify
     ///<summary>
     ///Return type for `productDeleteImages` mutation.
     ///</summary>
-    public class ProductDeleteImagesPayload : IGraphQLObject
+    public class ProductDeleteImagesPayload : GraphQLObject<ProductDeleteImagesPayload>
     {
         ///<summary>
         ///The array of image IDs to delete.
@@ -34933,7 +34972,7 @@ namespace shopify
     ///<summary>
     ///Return type for `productDeleteMedia` mutation.
     ///</summary>
-    public class ProductDeleteMediaPayload : IGraphQLObject
+    public class ProductDeleteMediaPayload : GraphQLObject<ProductDeleteMediaPayload>
     {
         ///<summary>
         ///List of media IDs which were deleted.
@@ -34962,7 +35001,7 @@ namespace shopify
     ///<summary>
     ///Return type for `productDelete` mutation.
     ///</summary>
-    public class ProductDeletePayload : IGraphQLObject
+    public class ProductDeletePayload : GraphQLObject<ProductDeletePayload>
     {
         ///<summary>
         ///The ID of the deleted product.
@@ -34981,7 +35020,7 @@ namespace shopify
     ///<summary>
     ///An error that occurred while setting the activation status of an inventory item.
     ///</summary>
-    public class ProductDeleteUserError : IGraphQLObject, IDisplayableError
+    public class ProductDeleteUserError : GraphQLObject<ProductDeleteUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -35015,7 +35054,7 @@ namespace shopify
     ///<summary>
     ///Return type for `productDuplicateAsync` mutation.
     ///</summary>
-    public class ProductDuplicateAsyncPayload : IGraphQLObject
+    public class ProductDuplicateAsyncPayload : GraphQLObject<ProductDuplicateAsyncPayload>
     {
         ///<summary>
         ///The duplicated product ID.
@@ -35034,7 +35073,7 @@ namespace shopify
     ///<summary>
     ///Return type for `productDuplicateAsyncV2` mutation.
     ///</summary>
-    public class ProductDuplicateAsyncV2Payload : IGraphQLObject
+    public class ProductDuplicateAsyncV2Payload : GraphQLObject<ProductDuplicateAsyncV2Payload>
     {
         ///<summary>
         ///The duplicated product ID.
@@ -35053,7 +35092,7 @@ namespace shopify
     ///<summary>
     ///Represents a product duplication job.
     ///</summary>
-    public class ProductDuplicateJob : IGraphQLObject
+    public class ProductDuplicateJob : GraphQLObject<ProductDuplicateJob>
     {
         ///<summary>
         ///This indicates if the job is still queued or has been run.
@@ -35068,7 +35107,7 @@ namespace shopify
     ///<summary>
     ///Return type for `productDuplicate` mutation.
     ///</summary>
-    public class ProductDuplicatePayload : IGraphQLObject
+    public class ProductDuplicatePayload : GraphQLObject<ProductDuplicatePayload>
     {
         ///<summary>
         ///The asynchronous job that duplicates the product images.
@@ -35091,7 +35130,7 @@ namespace shopify
     ///<summary>
     ///An error that occurred while duplicating the product.
     ///</summary>
-    public class ProductDuplicateUserError : IGraphQLObject, IDisplayableError
+    public class ProductDuplicateUserError : GraphQLObject<ProductDuplicateUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -35141,7 +35180,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one Product and a cursor during pagination.
     ///</summary>
-    public class ProductEdge : IGraphQLObject
+    public class ProductEdge : GraphQLObject<ProductEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -35156,7 +35195,7 @@ namespace shopify
     ///<summary>
     ///A product feed.
     ///</summary>
-    public class ProductFeed : IGraphQLObject, INode
+    public class ProductFeed : GraphQLObject<ProductFeed>, INode
     {
         ///<summary>
         ///The country of the product feed.
@@ -35179,7 +35218,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ProductFeeds.
     ///</summary>
-    public class ProductFeedConnection : IGraphQLObject
+    public class ProductFeedConnection : GraphQLObject<ProductFeedConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -35198,7 +35237,7 @@ namespace shopify
     ///<summary>
     ///Return type for `productFeedCreate` mutation.
     ///</summary>
-    public class ProductFeedCreatePayload : IGraphQLObject
+    public class ProductFeedCreatePayload : GraphQLObject<ProductFeedCreatePayload>
     {
         ///<summary>
         ///The newly created product feed.
@@ -35213,7 +35252,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `ProductFeedCreate`.
     ///</summary>
-    public class ProductFeedCreateUserError : IGraphQLObject, IDisplayableError
+    public class ProductFeedCreateUserError : GraphQLObject<ProductFeedCreateUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -35247,7 +35286,7 @@ namespace shopify
     ///<summary>
     ///Return type for `productFeedDelete` mutation.
     ///</summary>
-    public class ProductFeedDeletePayload : IGraphQLObject
+    public class ProductFeedDeletePayload : GraphQLObject<ProductFeedDeletePayload>
     {
         ///<summary>
         ///The ID of the product feed that was deleted.
@@ -35262,7 +35301,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `ProductFeedDelete`.
     ///</summary>
-    public class ProductFeedDeleteUserError : IGraphQLObject, IDisplayableError
+    public class ProductFeedDeleteUserError : GraphQLObject<ProductFeedDeleteUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -35292,7 +35331,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one ProductFeed and a cursor during pagination.
     ///</summary>
-    public class ProductFeedEdge : IGraphQLObject
+    public class ProductFeedEdge : GraphQLObject<ProductFeedEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -35322,7 +35361,7 @@ namespace shopify
     ///<summary>
     ///Return type for `productFullSync` mutation.
     ///</summary>
-    public class ProductFullSyncPayload : IGraphQLObject
+    public class ProductFullSyncPayload : GraphQLObject<ProductFullSyncPayload>
     {
         ///<summary>
         ///The list of errors that occurred from executing the mutation.
@@ -35333,7 +35372,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `ProductFullSync`.
     ///</summary>
-    public class ProductFullSyncUserError : IGraphQLObject, IDisplayableError
+    public class ProductFullSyncUserError : GraphQLObject<ProductFullSyncUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -35387,7 +35426,7 @@ namespace shopify
     ///<summary>
     ///Return type for `productImageUpdate` mutation.
     ///</summary>
-    public class ProductImageUpdatePayload : IGraphQLObject
+    public class ProductImageUpdatePayload : GraphQLObject<ProductImageUpdatePayload>
     {
         ///<summary>
         ///The image that has been updated.
@@ -35402,7 +35441,7 @@ namespace shopify
     ///<summary>
     ///Return type for `productJoinSellingPlanGroups` mutation.
     ///</summary>
-    public class ProductJoinSellingPlanGroupsPayload : IGraphQLObject
+    public class ProductJoinSellingPlanGroupsPayload : GraphQLObject<ProductJoinSellingPlanGroupsPayload>
     {
         ///<summary>
         ///The product object.
@@ -35417,7 +35456,7 @@ namespace shopify
     ///<summary>
     ///Return type for `productLeaveSellingPlanGroups` mutation.
     ///</summary>
-    public class ProductLeaveSellingPlanGroupsPayload : IGraphQLObject
+    public class ProductLeaveSellingPlanGroupsPayload : GraphQLObject<ProductLeaveSellingPlanGroupsPayload>
     {
         ///<summary>
         ///The product object.
@@ -35454,7 +35493,7 @@ namespace shopify
     ///Variants are selected based on permutations of these options.
     ///The limit for each product property name is 255 characters.
     ///</summary>
-    public class ProductOption : IGraphQLObject, IHasPublishedTranslations, INode
+    public class ProductOption : GraphQLObject<ProductOption>, IHasPublishedTranslations, INode
     {
         ///<summary>
         ///A globally-unique ID.
@@ -35481,7 +35520,7 @@ namespace shopify
     ///<summary>
     ///The price range of the product.
     ///</summary>
-    public class ProductPriceRange : IGraphQLObject
+    public class ProductPriceRange : GraphQLObject<ProductPriceRange>
     {
         ///<summary>
         ///The highest variant's price.
@@ -35496,7 +35535,7 @@ namespace shopify
     ///<summary>
     ///The price range of the product.
     ///</summary>
-    public class ProductPriceRangeV2 : IGraphQLObject
+    public class ProductPriceRangeV2 : GraphQLObject<ProductPriceRangeV2>
     {
         ///<summary>
         ///The highest variant's price.
@@ -35511,7 +35550,7 @@ namespace shopify
     ///<summary>
     ///Represents the channels where a product is published.
     ///</summary>
-    public class ProductPublication : IGraphQLObject
+    public class ProductPublication : GraphQLObject<ProductPublication>
     {
         ///<summary>
         ///The channel where the product was or is published.
@@ -35534,7 +35573,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ProductPublications.
     ///</summary>
-    public class ProductPublicationConnection : IGraphQLObject
+    public class ProductPublicationConnection : GraphQLObject<ProductPublicationConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -35553,7 +35592,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one ProductPublication and a cursor during pagination.
     ///</summary>
-    public class ProductPublicationEdge : IGraphQLObject
+    public class ProductPublicationEdge : GraphQLObject<ProductPublicationEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -35568,7 +35607,7 @@ namespace shopify
     ///<summary>
     ///Return type for `productPublish` mutation.
     ///</summary>
-    public class ProductPublishPayload : IGraphQLObject
+    public class ProductPublishPayload : GraphQLObject<ProductPublishPayload>
     {
         ///<summary>
         ///The product that has been published.
@@ -35593,7 +35632,7 @@ namespace shopify
     ///<summary>
     ///Return type for `productReorderImages` mutation.
     ///</summary>
-    public class ProductReorderImagesPayload : IGraphQLObject
+    public class ProductReorderImagesPayload : GraphQLObject<ProductReorderImagesPayload>
     {
         ///<summary>
         ///The asynchronous job which reorders the images.
@@ -35608,7 +35647,7 @@ namespace shopify
     ///<summary>
     ///Return type for `productReorderMedia` mutation.
     ///</summary>
-    public class ProductReorderMediaPayload : IGraphQLObject
+    public class ProductReorderMediaPayload : GraphQLObject<ProductReorderMediaPayload>
     {
         ///<summary>
         ///The asynchronous job which reorders the media.
@@ -35631,7 +35670,7 @@ namespace shopify
     ///This might include why a product is not available in a Sales Channel
     ///and how a merchant might fix this.
     ///</summary>
-    public class ProductResourceFeedback : IGraphQLObject
+    public class ProductResourceFeedback : GraphQLObject<ProductResourceFeedback>
     {
         ///<summary>
         ///The time when the feedback was generated. Used to help determine whether
@@ -35659,7 +35698,7 @@ namespace shopify
     ///<summary>
     ///A sale associated with a product.
     ///</summary>
-    public class ProductSale : IGraphQLObject, ISale
+    public class ProductSale : GraphQLObject<ProductSale>, ISale
     {
         ///<summary>
         ///The type of order action that the sale represents.
@@ -35770,7 +35809,7 @@ namespace shopify
     ///<summary>
     ///Represents a [Shopify product taxonomy](https://help.shopify.com/txt/product_taxonomy/en.txt) node.
     ///</summary>
-    public class ProductTaxonomyNode : IGraphQLObject, INode
+    public class ProductTaxonomyNode : GraphQLObject<ProductTaxonomyNode>, INode
     {
         ///<summary>
         ///The full name of the product taxonomy node. For example,  Animals & Pet Supplies > Pet Supplies > Dog Supplies > Dog Beds.
@@ -35797,7 +35836,7 @@ namespace shopify
     ///<summary>
     ///Return type for `productUnpublish` mutation.
     ///</summary>
-    public class ProductUnpublishPayload : IGraphQLObject
+    public class ProductUnpublishPayload : GraphQLObject<ProductUnpublishPayload>
     {
         ///<summary>
         ///The product that has been unpublished.
@@ -35816,7 +35855,7 @@ namespace shopify
     ///<summary>
     ///Return type for `productUpdateMedia` mutation.
     ///</summary>
-    public class ProductUpdateMediaPayload : IGraphQLObject
+    public class ProductUpdateMediaPayload : GraphQLObject<ProductUpdateMediaPayload>
     {
         ///<summary>
         ///The updated media object.
@@ -35841,7 +35880,7 @@ namespace shopify
     ///<summary>
     ///Return type for `productUpdate` mutation.
     ///</summary>
-    public class ProductUpdatePayload : IGraphQLObject
+    public class ProductUpdatePayload : GraphQLObject<ProductUpdatePayload>
     {
         ///<summary>
         ///The updated product object.
@@ -35856,7 +35895,7 @@ namespace shopify
     ///<summary>
     ///Represents a product variant.
     ///</summary>
-    public class ProductVariant : IGraphQLObject, IHasMetafieldDefinitions, IHasMetafields, IHasPublishedTranslations, ILegacyInteroperability, INavigable, INode, ICommentEventEmbed, IMetafieldReference, IMetafieldReferencer
+    public class ProductVariant : GraphQLObject<ProductVariant>, IHasMetafieldDefinitions, IHasMetafields, IHasPublishedTranslations, ILegacyInteroperability, INavigable, INode, ICommentEventEmbed, IMetafieldReference, IMetafieldReferencer
     {
         ///<summary>
         ///Whether the product variant is available for sale.
@@ -36069,7 +36108,7 @@ namespace shopify
     ///<summary>
     ///Return type for `productVariantAppendMedia` mutation.
     ///</summary>
-    public class ProductVariantAppendMediaPayload : IGraphQLObject
+    public class ProductVariantAppendMediaPayload : GraphQLObject<ProductVariantAppendMediaPayload>
     {
         ///<summary>
         ///The product associated with the variants and media.
@@ -36088,7 +36127,7 @@ namespace shopify
     ///<summary>
     ///A product variant component associated with a product variant.
     ///</summary>
-    public class ProductVariantComponent : IGraphQLObject, INode
+    public class ProductVariantComponent : GraphQLObject<ProductVariantComponent>, INode
     {
         ///<summary>
         ///A globally-unique ID.
@@ -36107,7 +36146,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ProductVariantComponents.
     ///</summary>
-    public class ProductVariantComponentConnection : IGraphQLObject
+    public class ProductVariantComponentConnection : GraphQLObject<ProductVariantComponentConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -36126,7 +36165,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one ProductVariantComponent and a cursor during pagination.
     ///</summary>
-    public class ProductVariantComponentEdge : IGraphQLObject
+    public class ProductVariantComponentEdge : GraphQLObject<ProductVariantComponentEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -36141,7 +36180,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ProductVariants.
     ///</summary>
-    public class ProductVariantConnection : IGraphQLObject
+    public class ProductVariantConnection : GraphQLObject<ProductVariantConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -36161,7 +36200,7 @@ namespace shopify
     ///The price of a product variant in a specific country.
     ///Prices vary between countries.
     ///</summary>
-    public class ProductVariantContextualPricing : IGraphQLObject
+    public class ProductVariantContextualPricing : GraphQLObject<ProductVariantContextualPricing>
     {
         ///<summary>
         ///The final compare-at price after all adjustments are applied.
@@ -36180,7 +36219,7 @@ namespace shopify
     ///<summary>
     ///Return type for `productVariantCreate` mutation.
     ///</summary>
-    public class ProductVariantCreatePayload : IGraphQLObject
+    public class ProductVariantCreatePayload : GraphQLObject<ProductVariantCreatePayload>
     {
         ///<summary>
         ///The product associated with the variant.
@@ -36199,7 +36238,7 @@ namespace shopify
     ///<summary>
     ///Return type for `productVariantDelete` mutation.
     ///</summary>
-    public class ProductVariantDeletePayload : IGraphQLObject
+    public class ProductVariantDeletePayload : GraphQLObject<ProductVariantDeletePayload>
     {
         ///<summary>
         ///The ID of the deleted product variant.
@@ -36218,7 +36257,7 @@ namespace shopify
     ///<summary>
     ///Return type for `productVariantDetachMedia` mutation.
     ///</summary>
-    public class ProductVariantDetachMediaPayload : IGraphQLObject
+    public class ProductVariantDetachMediaPayload : GraphQLObject<ProductVariantDetachMediaPayload>
     {
         ///<summary>
         ///The product associated with the variants and media.
@@ -36237,7 +36276,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one ProductVariant and a cursor during pagination.
     ///</summary>
-    public class ProductVariantEdge : IGraphQLObject
+    public class ProductVariantEdge : GraphQLObject<ProductVariantEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -36286,7 +36325,7 @@ namespace shopify
     ///<summary>
     ///Return type for `productVariantJoinSellingPlanGroups` mutation.
     ///</summary>
-    public class ProductVariantJoinSellingPlanGroupsPayload : IGraphQLObject
+    public class ProductVariantJoinSellingPlanGroupsPayload : GraphQLObject<ProductVariantJoinSellingPlanGroupsPayload>
     {
         ///<summary>
         ///The product variant object.
@@ -36301,7 +36340,7 @@ namespace shopify
     ///<summary>
     ///Return type for `productVariantLeaveSellingPlanGroups` mutation.
     ///</summary>
-    public class ProductVariantLeaveSellingPlanGroupsPayload : IGraphQLObject
+    public class ProductVariantLeaveSellingPlanGroupsPayload : GraphQLObject<ProductVariantLeaveSellingPlanGroupsPayload>
     {
         ///<summary>
         ///The product variant object.
@@ -36316,7 +36355,7 @@ namespace shopify
     ///<summary>
     ///The compare-at price and price of a variant sharing a currency.
     ///</summary>
-    public class ProductVariantPricePair : IGraphQLObject
+    public class ProductVariantPricePair : GraphQLObject<ProductVariantPricePair>
     {
         ///<summary>
         ///The compare-at price of the variant with associated currency.
@@ -36331,7 +36370,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ProductVariantPricePairs.
     ///</summary>
-    public class ProductVariantPricePairConnection : IGraphQLObject
+    public class ProductVariantPricePairConnection : GraphQLObject<ProductVariantPricePairConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -36350,7 +36389,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one ProductVariantPricePair and a cursor during pagination.
     ///</summary>
-    public class ProductVariantPricePairEdge : IGraphQLObject
+    public class ProductVariantPricePairEdge : GraphQLObject<ProductVariantPricePairEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -36365,7 +36404,7 @@ namespace shopify
     ///<summary>
     ///Return type for `productVariantRelationshipBulkUpdate` mutation.
     ///</summary>
-    public class ProductVariantRelationshipBulkUpdatePayload : IGraphQLObject
+    public class ProductVariantRelationshipBulkUpdatePayload : GraphQLObject<ProductVariantRelationshipBulkUpdatePayload>
     {
         ///<summary>
         ///The product variants with successfully updated product variant relationships.
@@ -36380,7 +36419,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `ProductVariantRelationshipBulkUpdate`.
     ///</summary>
-    public class ProductVariantRelationshipBulkUpdateUserError : IGraphQLObject, IDisplayableError
+    public class ProductVariantRelationshipBulkUpdateUserError : GraphQLObject<ProductVariantRelationshipBulkUpdateUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -36543,7 +36582,7 @@ namespace shopify
     ///<summary>
     ///Return type for `productVariantUpdate` mutation.
     ///</summary>
-    public class ProductVariantUpdatePayload : IGraphQLObject
+    public class ProductVariantUpdatePayload : GraphQLObject<ProductVariantUpdatePayload>
     {
         ///<summary>
         ///The product associated with the variant.
@@ -36562,7 +36601,7 @@ namespace shopify
     ///<summary>
     ///Return type for `productVariantsBulkCreate` mutation.
     ///</summary>
-    public class ProductVariantsBulkCreatePayload : IGraphQLObject
+    public class ProductVariantsBulkCreatePayload : GraphQLObject<ProductVariantsBulkCreatePayload>
     {
         ///<summary>
         ///The updated product object.
@@ -36581,7 +36620,7 @@ namespace shopify
     ///<summary>
     ///Error codes for failed product variant bulk create mutations.
     ///</summary>
-    public class ProductVariantsBulkCreateUserError : IGraphQLObject, IDisplayableError
+    public class ProductVariantsBulkCreateUserError : GraphQLObject<ProductVariantsBulkCreateUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -36663,7 +36702,7 @@ namespace shopify
     ///<summary>
     ///Return type for `productVariantsBulkDelete` mutation.
     ///</summary>
-    public class ProductVariantsBulkDeletePayload : IGraphQLObject
+    public class ProductVariantsBulkDeletePayload : GraphQLObject<ProductVariantsBulkDeletePayload>
     {
         ///<summary>
         ///The updated product object.
@@ -36678,7 +36717,7 @@ namespace shopify
     ///<summary>
     ///Error codes for failed bulk variant delete mutations.
     ///</summary>
-    public class ProductVariantsBulkDeleteUserError : IGraphQLObject, IDisplayableError
+    public class ProductVariantsBulkDeleteUserError : GraphQLObject<ProductVariantsBulkDeleteUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -36716,7 +36755,7 @@ namespace shopify
     ///<summary>
     ///Return type for `productVariantsBulkReorder` mutation.
     ///</summary>
-    public class ProductVariantsBulkReorderPayload : IGraphQLObject
+    public class ProductVariantsBulkReorderPayload : GraphQLObject<ProductVariantsBulkReorderPayload>
     {
         ///<summary>
         ///The updated product.
@@ -36731,7 +36770,7 @@ namespace shopify
     ///<summary>
     ///Error codes for failed bulk product variants reorder operation.
     ///</summary>
-    public class ProductVariantsBulkReorderUserError : IGraphQLObject, IDisplayableError
+    public class ProductVariantsBulkReorderUserError : GraphQLObject<ProductVariantsBulkReorderUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -36773,7 +36812,7 @@ namespace shopify
     ///<summary>
     ///Return type for `productVariantsBulkUpdate` mutation.
     ///</summary>
-    public class ProductVariantsBulkUpdatePayload : IGraphQLObject
+    public class ProductVariantsBulkUpdatePayload : GraphQLObject<ProductVariantsBulkUpdatePayload>
     {
         ///<summary>
         ///The updated product object.
@@ -36792,7 +36831,7 @@ namespace shopify
     ///<summary>
     ///Error codes for failed variant bulk update mutations.
     ///</summary>
-    public class ProductVariantsBulkUpdateUserError : IGraphQLObject, IDisplayableError
+    public class ProductVariantsBulkUpdateUserError : GraphQLObject<ProductVariantsBulkUpdateUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -36906,7 +36945,7 @@ namespace shopify
     ///<summary>
     ///Return type for `pubSubServerPixelUpdate` mutation.
     ///</summary>
-    public class PubSubServerPixelUpdatePayload : IGraphQLObject
+    public class PubSubServerPixelUpdatePayload : GraphQLObject<PubSubServerPixelUpdatePayload>
     {
         ///<summary>
         ///The server pixel as configured by the mutation.
@@ -36921,7 +36960,7 @@ namespace shopify
     ///<summary>
     ///Return type for `pubSubWebhookSubscriptionCreate` mutation.
     ///</summary>
-    public class PubSubWebhookSubscriptionCreatePayload : IGraphQLObject
+    public class PubSubWebhookSubscriptionCreatePayload : GraphQLObject<PubSubWebhookSubscriptionCreatePayload>
     {
         ///<summary>
         ///The list of errors that occurred from executing the mutation.
@@ -36936,7 +36975,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `PubSubWebhookSubscriptionCreate`.
     ///</summary>
-    public class PubSubWebhookSubscriptionCreateUserError : IGraphQLObject, IDisplayableError
+    public class PubSubWebhookSubscriptionCreateUserError : GraphQLObject<PubSubWebhookSubscriptionCreateUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -36966,7 +37005,7 @@ namespace shopify
     ///<summary>
     ///Return type for `pubSubWebhookSubscriptionUpdate` mutation.
     ///</summary>
-    public class PubSubWebhookSubscriptionUpdatePayload : IGraphQLObject
+    public class PubSubWebhookSubscriptionUpdatePayload : GraphQLObject<PubSubWebhookSubscriptionUpdatePayload>
     {
         ///<summary>
         ///The list of errors that occurred from executing the mutation.
@@ -36981,7 +37020,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `PubSubWebhookSubscriptionUpdate`.
     ///</summary>
-    public class PubSubWebhookSubscriptionUpdateUserError : IGraphQLObject, IDisplayableError
+    public class PubSubWebhookSubscriptionUpdateUserError : GraphQLObject<PubSubWebhookSubscriptionUpdateUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -37011,7 +37050,7 @@ namespace shopify
     ///<summary>
     ///A publication is a group of products and collections that is published to an app.
     ///</summary>
-    public class Publication : IGraphQLObject, INode
+    public class Publication : GraphQLObject<Publication>, INode
     {
         ///<summary>
         ///The app associated with the publication.
@@ -37069,7 +37108,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Publications.
     ///</summary>
-    public class PublicationConnection : IGraphQLObject
+    public class PublicationConnection : GraphQLObject<PublicationConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -37103,7 +37142,7 @@ namespace shopify
     ///<summary>
     ///Return type for `publicationCreate` mutation.
     ///</summary>
-    public class PublicationCreatePayload : IGraphQLObject
+    public class PublicationCreatePayload : GraphQLObject<PublicationCreatePayload>
     {
         ///<summary>
         ///The publication that's been created.
@@ -37118,7 +37157,7 @@ namespace shopify
     ///<summary>
     ///Return type for `publicationDelete` mutation.
     ///</summary>
-    public class PublicationDeletePayload : IGraphQLObject
+    public class PublicationDeletePayload : GraphQLObject<PublicationDeletePayload>
     {
         ///<summary>
         ///The ID of the publication that was deleted.
@@ -37133,7 +37172,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one Publication and a cursor during pagination.
     ///</summary>
-    public class PublicationEdge : IGraphQLObject
+    public class PublicationEdge : GraphQLObject<PublicationEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -37178,7 +37217,7 @@ namespace shopify
     ///<summary>
     ///A bulk update operation on a publication.
     ///</summary>
-    public class PublicationResourceOperation : IGraphQLObject, INode, IResourceOperation, IPublicationOperation
+    public class PublicationResourceOperation : GraphQLObject<PublicationResourceOperation>, INode, IResourceOperation, IPublicationOperation
     {
         ///<summary>
         ///A globally-unique ID.
@@ -37201,7 +37240,7 @@ namespace shopify
     ///<summary>
     ///Return type for `publicationUpdate` mutation.
     ///</summary>
-    public class PublicationUpdatePayload : IGraphQLObject
+    public class PublicationUpdatePayload : GraphQLObject<PublicationUpdatePayload>
     {
         ///<summary>
         ///The publication that's been updated.
@@ -37216,7 +37255,7 @@ namespace shopify
     ///<summary>
     ///Defines errors encountered while managing a publication.
     ///</summary>
-    public class PublicationUserError : IGraphQLObject, IDisplayableError
+    public class PublicationUserError : GraphQLObject<PublicationUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -37373,7 +37412,7 @@ namespace shopify
     ///<summary>
     ///Return type for `publishablePublish` mutation.
     ///</summary>
-    public class PublishablePublishPayload : IGraphQLObject
+    public class PublishablePublishPayload : GraphQLObject<PublishablePublishPayload>
     {
         ///<summary>
         ///Resource that has been published.
@@ -37392,7 +37431,7 @@ namespace shopify
     ///<summary>
     ///Return type for `publishablePublishToCurrentChannel` mutation.
     ///</summary>
-    public class PublishablePublishToCurrentChannelPayload : IGraphQLObject
+    public class PublishablePublishToCurrentChannelPayload : GraphQLObject<PublishablePublishToCurrentChannelPayload>
     {
         ///<summary>
         ///Resource that has been published.
@@ -37411,7 +37450,7 @@ namespace shopify
     ///<summary>
     ///Return type for `publishableUnpublish` mutation.
     ///</summary>
-    public class PublishableUnpublishPayload : IGraphQLObject
+    public class PublishableUnpublishPayload : GraphQLObject<PublishableUnpublishPayload>
     {
         ///<summary>
         ///Resource that has been unpublished.
@@ -37430,7 +37469,7 @@ namespace shopify
     ///<summary>
     ///Return type for `publishableUnpublishToCurrentChannel` mutation.
     ///</summary>
-    public class PublishableUnpublishToCurrentChannelPayload : IGraphQLObject
+    public class PublishableUnpublishToCurrentChannelPayload : GraphQLObject<PublishableUnpublishToCurrentChannelPayload>
     {
         ///<summary>
         ///Resource that has been unpublished.
@@ -37449,7 +37488,7 @@ namespace shopify
     ///<summary>
     ///Represents information about the purchasing company for the order or draft order.
     ///</summary>
-    public class PurchasingCompany : IGraphQLObject, IPurchasingEntity
+    public class PurchasingCompany : GraphQLObject<PurchasingCompany>, IPurchasingEntity
     {
         ///<summary>
         ///The company associated to the order or draft order.
@@ -37480,7 +37519,7 @@ namespace shopify
     ///<summary>
     ///The quantity rule for the product variant in a given context.
     ///</summary>
-    public class QuantityRule : IGraphQLObject
+    public class QuantityRule : GraphQLObject<QuantityRule>
     {
         ///<summary>
         ///The value that specifies the quantity increment between minimum and maximum of the rule.
@@ -37517,7 +37556,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple QuantityRules.
     ///</summary>
-    public class QuantityRuleConnection : IGraphQLObject
+    public class QuantityRuleConnection : GraphQLObject<QuantityRuleConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -37540,7 +37579,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one QuantityRule and a cursor during pagination.
     ///</summary>
-    public class QuantityRuleEdge : IGraphQLObject
+    public class QuantityRuleEdge : GraphQLObject<QuantityRuleEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -37570,7 +37609,7 @@ namespace shopify
     ///<summary>
     ///An error for a failed quantity rule operation.
     ///</summary>
-    public class QuantityRuleUserError : IGraphQLObject, IDisplayableError
+    public class QuantityRuleUserError : GraphQLObject<QuantityRuleUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -37640,7 +37679,7 @@ namespace shopify
     ///<summary>
     ///Return type for `quantityRulesAdd` mutation.
     ///</summary>
-    public class QuantityRulesAddPayload : IGraphQLObject
+    public class QuantityRulesAddPayload : GraphQLObject<QuantityRulesAddPayload>
     {
         ///<summary>
         ///The list of quantity rules that were added to or updated in the price list.
@@ -37655,7 +37694,7 @@ namespace shopify
     ///<summary>
     ///Return type for `quantityRulesDelete` mutation.
     ///</summary>
-    public class QuantityRulesDeletePayload : IGraphQLObject
+    public class QuantityRulesDeletePayload : GraphQLObject<QuantityRulesDeletePayload>
     {
         ///<summary>
         ///A list of product variant IDs whose quantity rules were removed from the price list.
@@ -37670,7 +37709,7 @@ namespace shopify
     ///<summary>
     ///The schema's entry-point for queries. This acts as the public, top-level API from which all queries must start.
     ///</summary>
-    public class QueryRoot : IGraphQLObject
+    public class QueryRoot : GraphQLObject<QueryRoot>
     {
         ///<summary>
         ///Returns an abandonment by ID.
@@ -38480,7 +38519,7 @@ namespace shopify
     ///<summary>
     ///The record of the line items and transactions that were refunded to a customer, along with restocking instructions for refunded line items.
     ///</summary>
-    public class Refund : IGraphQLObject, ILegacyInteroperability, INode
+    public class Refund : GraphQLObject<Refund>, ILegacyInteroperability, INode
     {
         ///<summary>
         ///The date and time when the refund was created.
@@ -38541,7 +38580,7 @@ namespace shopify
     ///<summary>
     ///An agreement between the merchant and customer to refund all or a portion of the order.
     ///</summary>
-    public class RefundAgreement : IGraphQLObject, ISalesAgreement
+    public class RefundAgreement : GraphQLObject<RefundAgreement>, ISalesAgreement
     {
         ///<summary>
         ///The application that created the agreement.
@@ -38576,7 +38615,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Refunds.
     ///</summary>
-    public class RefundConnection : IGraphQLObject
+    public class RefundConnection : GraphQLObject<RefundConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -38595,7 +38634,7 @@ namespace shopify
     ///<summary>
     ///Return type for `refundCreate` mutation.
     ///</summary>
-    public class RefundCreatePayload : IGraphQLObject
+    public class RefundCreatePayload : GraphQLObject<RefundCreatePayload>
     {
         ///<summary>
         ///The order associated with the created refund.
@@ -38614,7 +38653,7 @@ namespace shopify
     ///<summary>
     ///Represents a refunded duty.
     ///</summary>
-    public class RefundDuty : IGraphQLObject
+    public class RefundDuty : GraphQLObject<RefundDuty>
     {
         ///<summary>
         ///The amount of a refunded duty in shop and presentment currencies.
@@ -38644,7 +38683,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one Refund and a cursor during pagination.
     ///</summary>
-    public class RefundEdge : IGraphQLObject
+    public class RefundEdge : GraphQLObject<RefundEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -38659,7 +38698,7 @@ namespace shopify
     ///<summary>
     ///A line item that's included in a refund.
     ///</summary>
-    public class RefundLineItem : IGraphQLObject
+    public class RefundLineItem : GraphQLObject<RefundLineItem>
     {
         ///<summary>
         ///The `LineItem` resource associated to the refunded line item.
@@ -38716,7 +38755,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple RefundLineItems.
     ///</summary>
-    public class RefundLineItemConnection : IGraphQLObject
+    public class RefundLineItemConnection : GraphQLObject<RefundLineItemConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -38735,7 +38774,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one RefundLineItem and a cursor during pagination.
     ///</summary>
-    public class RefundLineItemEdge : IGraphQLObject
+    public class RefundLineItemEdge : GraphQLObject<RefundLineItemEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -38774,7 +38813,7 @@ namespace shopify
     ///An alert message that appears in the Shopify admin about a problem with a store resource, with 1 or more actions to take. For example, you could use an alert to indicate that you're not charging taxes on some product variants.
     ///They can optionally have a specific icon and be dismissed by merchants.
     ///</summary>
-    public class ResourceAlert : IGraphQLObject
+    public class ResourceAlert : GraphQLObject<ResourceAlert>
     {
         ///<summary>
         ///Buttons in the alert that link to related information.
@@ -38807,7 +38846,7 @@ namespace shopify
     ///<summary>
     ///An action associated to a resource alert, such as editing variants.
     ///</summary>
-    public class ResourceAlertAction : IGraphQLObject
+    public class ResourceAlertAction : GraphQLObject<ResourceAlertAction>
     {
         ///<summary>
         ///Whether the action appears as a button or as a link.
@@ -38874,7 +38913,7 @@ namespace shopify
     ///<summary>
     ///Represents feedback from apps about a resource, and the steps required to set up the apps on the shop.
     ///</summary>
-    public class ResourceFeedback : IGraphQLObject
+    public class ResourceFeedback : GraphQLObject<ResourceFeedback>
     {
         ///<summary>
         ///Feedback from an app about the steps a merchant needs to take to set up the app on their store.
@@ -38909,7 +38948,7 @@ namespace shopify
     ///<summary>
     ///A resource limit represents the limits that the resource has.
     ///</summary>
-    public class ResourceLimit : IGraphQLObject
+    public class ResourceLimit : GraphQLObject<ResourceLimit>
     {
         ///<summary>
         ///Whether the resource is available.
@@ -38984,7 +39023,7 @@ namespace shopify
     ///
     ///See [ResourcePublicationV2](/api/admin-graphql/latest/objects/ResourcePublicationV2) for more context.
     ///</summary>
-    public class ResourcePublication : IGraphQLObject
+    public class ResourcePublication : GraphQLObject<ResourcePublication>
     {
         ///<summary>
         ///The channel the resource publication is published to.
@@ -39014,7 +39053,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ResourcePublications.
     ///</summary>
-    public class ResourcePublicationConnection : IGraphQLObject
+    public class ResourcePublicationConnection : GraphQLObject<ResourcePublicationConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -39033,7 +39072,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one ResourcePublication and a cursor during pagination.
     ///</summary>
-    public class ResourcePublicationEdge : IGraphQLObject
+    public class ResourcePublicationEdge : GraphQLObject<ResourcePublicationEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -39051,7 +39090,7 @@ namespace shopify
     ///
     ///See [ResourcePublication](/api/admin-graphql/latest/objects/ResourcePublication) for more context.
     ///</summary>
-    public class ResourcePublicationV2 : IGraphQLObject
+    public class ResourcePublicationV2 : GraphQLObject<ResourcePublicationV2>
     {
         ///<summary>
         ///Whether the resource publication is published. If true, then the resource publication is published to the publication.
@@ -39075,7 +39114,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ResourcePublicationV2s.
     ///</summary>
-    public class ResourcePublicationV2Connection : IGraphQLObject
+    public class ResourcePublicationV2Connection : GraphQLObject<ResourcePublicationV2Connection>
     {
         ///<summary>
         ///A list of edges.
@@ -39094,7 +39133,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one ResourcePublicationV2 and a cursor during pagination.
     ///</summary>
-    public class ResourcePublicationV2Edge : IGraphQLObject
+    public class ResourcePublicationV2Edge : GraphQLObject<ResourcePublicationV2Edge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -39109,7 +39148,7 @@ namespace shopify
     ///<summary>
     ///Represents a return.
     ///</summary>
-    public class Return : IGraphQLObject, INode
+    public class Return : GraphQLObject<Return>, INode
     {
         ///<summary>
         ///Additional information about the declined return.
@@ -39156,7 +39195,7 @@ namespace shopify
     ///<summary>
     ///Return type for `returnApproveRequest` mutation.
     ///</summary>
-    public class ReturnApproveRequestPayload : IGraphQLObject
+    public class ReturnApproveRequestPayload : GraphQLObject<ReturnApproveRequestPayload>
     {
         ///<summary>
         ///The approved return.
@@ -39171,7 +39210,7 @@ namespace shopify
     ///<summary>
     ///Return type for `returnCancel` mutation.
     ///</summary>
-    public class ReturnCancelPayload : IGraphQLObject
+    public class ReturnCancelPayload : GraphQLObject<ReturnCancelPayload>
     {
         ///<summary>
         ///The canceled return.
@@ -39186,7 +39225,7 @@ namespace shopify
     ///<summary>
     ///Return type for `returnClose` mutation.
     ///</summary>
-    public class ReturnClosePayload : IGraphQLObject
+    public class ReturnClosePayload : GraphQLObject<ReturnClosePayload>
     {
         ///<summary>
         ///The closed return.
@@ -39201,7 +39240,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Returns.
     ///</summary>
-    public class ReturnConnection : IGraphQLObject
+    public class ReturnConnection : GraphQLObject<ReturnConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -39220,7 +39259,7 @@ namespace shopify
     ///<summary>
     ///Return type for `returnCreate` mutation.
     ///</summary>
-    public class ReturnCreatePayload : IGraphQLObject
+    public class ReturnCreatePayload : GraphQLObject<ReturnCreatePayload>
     {
         ///<summary>
         ///The created return.
@@ -39235,7 +39274,7 @@ namespace shopify
     ///<summary>
     ///Additional information about why a merchant declined the customer's return request.
     ///</summary>
-    public class ReturnDecline : IGraphQLObject
+    public class ReturnDecline : GraphQLObject<ReturnDecline>
     {
         ///<summary>
         ///The notification message sent to the customer about their declined return request.
@@ -39270,7 +39309,7 @@ namespace shopify
     ///<summary>
     ///Return type for `returnDeclineRequest` mutation.
     ///</summary>
-    public class ReturnDeclineRequestPayload : IGraphQLObject
+    public class ReturnDeclineRequestPayload : GraphQLObject<ReturnDeclineRequestPayload>
     {
         ///<summary>
         ///The declined return.
@@ -39285,7 +39324,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one Return and a cursor during pagination.
     ///</summary>
-    public class ReturnEdge : IGraphQLObject
+    public class ReturnEdge : GraphQLObject<ReturnEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -39403,7 +39442,7 @@ namespace shopify
     ///<summary>
     ///A return line item.
     ///</summary>
-    public class ReturnLineItem : IGraphQLObject, INode
+    public class ReturnLineItem : GraphQLObject<ReturnLineItem>, INode
     {
         ///<summary>
         ///A note from the customer that describes the item to be returned. Maximum length: 300 characters.
@@ -39450,7 +39489,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ReturnLineItems.
     ///</summary>
-    public class ReturnLineItemConnection : IGraphQLObject
+    public class ReturnLineItemConnection : GraphQLObject<ReturnLineItemConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -39469,7 +39508,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one ReturnLineItem and a cursor during pagination.
     ///</summary>
-    public class ReturnLineItemEdge : IGraphQLObject
+    public class ReturnLineItemEdge : GraphQLObject<ReturnLineItemEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -39531,7 +39570,7 @@ namespace shopify
     ///<summary>
     ///Return type for `returnRefund` mutation.
     ///</summary>
-    public class ReturnRefundPayload : IGraphQLObject
+    public class ReturnRefundPayload : GraphQLObject<ReturnRefundPayload>
     {
         ///<summary>
         ///The created refund.
@@ -39546,7 +39585,7 @@ namespace shopify
     ///<summary>
     ///Return type for `returnReopen` mutation.
     ///</summary>
-    public class ReturnReopenPayload : IGraphQLObject
+    public class ReturnReopenPayload : GraphQLObject<ReturnReopenPayload>
     {
         ///<summary>
         ///The reopened return.
@@ -39561,7 +39600,7 @@ namespace shopify
     ///<summary>
     ///Return type for `returnRequest` mutation.
     ///</summary>
-    public class ReturnRequestPayload : IGraphQLObject
+    public class ReturnRequestPayload : GraphQLObject<ReturnRequestPayload>
     {
         ///<summary>
         ///The requested return.
@@ -39603,7 +39642,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of a return mutation.
     ///</summary>
-    public class ReturnUserError : IGraphQLObject, IDisplayableError
+    public class ReturnUserError : GraphQLObject<ReturnUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -39623,7 +39662,7 @@ namespace shopify
     ///A returnable fulfillment, which is an order that has been delivered
     ///and is eligible to be returned to the merchant.
     ///</summary>
-    public class ReturnableFulfillment : IGraphQLObject, INode
+    public class ReturnableFulfillment : GraphQLObject<ReturnableFulfillment>, INode
     {
         ///<summary>
         ///The fulfillment that the returnable fulfillment refers to.
@@ -39642,7 +39681,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ReturnableFulfillments.
     ///</summary>
-    public class ReturnableFulfillmentConnection : IGraphQLObject
+    public class ReturnableFulfillmentConnection : GraphQLObject<ReturnableFulfillmentConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -39661,7 +39700,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one ReturnableFulfillment and a cursor during pagination.
     ///</summary>
-    public class ReturnableFulfillmentEdge : IGraphQLObject
+    public class ReturnableFulfillmentEdge : GraphQLObject<ReturnableFulfillmentEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -39676,7 +39715,7 @@ namespace shopify
     ///<summary>
     ///A returnable fulfillment line item.
     ///</summary>
-    public class ReturnableFulfillmentLineItem : IGraphQLObject
+    public class ReturnableFulfillmentLineItem : GraphQLObject<ReturnableFulfillmentLineItem>
     {
         ///<summary>
         ///The fulfillment line item that can be returned.
@@ -39691,7 +39730,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ReturnableFulfillmentLineItems.
     ///</summary>
-    public class ReturnableFulfillmentLineItemConnection : IGraphQLObject
+    public class ReturnableFulfillmentLineItemConnection : GraphQLObject<ReturnableFulfillmentLineItemConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -39710,7 +39749,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one ReturnableFulfillmentLineItem and a cursor during pagination.
     ///</summary>
-    public class ReturnableFulfillmentLineItemEdge : IGraphQLObject
+    public class ReturnableFulfillmentLineItemEdge : GraphQLObject<ReturnableFulfillmentLineItemEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -39728,7 +39767,7 @@ namespace shopify
     ///The reverse delivery contains the context of the items sent back, how they're being sent back
     ///(for example, a shipping label), and the current state of the delivery (tracking information).
     ///</summary>
-    public class ReverseDelivery : IGraphQLObject, INode
+    public class ReverseDelivery : GraphQLObject<ReverseDelivery>, INode
     {
         ///<summary>
         ///The deliverable associated with the reverse delivery.
@@ -39751,7 +39790,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ReverseDeliveries.
     ///</summary>
-    public class ReverseDeliveryConnection : IGraphQLObject
+    public class ReverseDeliveryConnection : GraphQLObject<ReverseDeliveryConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -39770,7 +39809,7 @@ namespace shopify
     ///<summary>
     ///Return type for `reverseDeliveryCreateWithShipping` mutation.
     ///</summary>
-    public class ReverseDeliveryCreateWithShippingPayload : IGraphQLObject
+    public class ReverseDeliveryCreateWithShippingPayload : GraphQLObject<ReverseDeliveryCreateWithShippingPayload>
     {
         ///<summary>
         ///The created reverse delivery.
@@ -39803,7 +39842,7 @@ namespace shopify
     ///<summary>
     ///Return type for `reverseDeliveryDispose` mutation.
     ///</summary>
-    public class ReverseDeliveryDisposePayload : IGraphQLObject
+    public class ReverseDeliveryDisposePayload : GraphQLObject<ReverseDeliveryDisposePayload>
     {
         ///<summary>
         ///The disposed reverse delivery line items.
@@ -39818,7 +39857,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one ReverseDelivery and a cursor during pagination.
     ///</summary>
-    public class ReverseDeliveryEdge : IGraphQLObject
+    public class ReverseDeliveryEdge : GraphQLObject<ReverseDeliveryEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -39833,7 +39872,7 @@ namespace shopify
     ///<summary>
     ///The return label file information for a reverse delivery.
     ///</summary>
-    public class ReverseDeliveryLabelV2 : IGraphQLObject
+    public class ReverseDeliveryLabelV2 : GraphQLObject<ReverseDeliveryLabelV2>
     {
         ///<summary>
         ///The date and time when the reverse delivery label was created.
@@ -39852,7 +39891,7 @@ namespace shopify
     ///<summary>
     ///The details about a reverse delivery line item.
     ///</summary>
-    public class ReverseDeliveryLineItem : IGraphQLObject, INode
+    public class ReverseDeliveryLineItem : GraphQLObject<ReverseDeliveryLineItem>, INode
     {
         ///<summary>
         ///The dispositions of the item.
@@ -39875,7 +39914,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ReverseDeliveryLineItems.
     ///</summary>
-    public class ReverseDeliveryLineItemConnection : IGraphQLObject
+    public class ReverseDeliveryLineItemConnection : GraphQLObject<ReverseDeliveryLineItemConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -39894,7 +39933,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one ReverseDeliveryLineItem and a cursor during pagination.
     ///</summary>
-    public class ReverseDeliveryLineItemEdge : IGraphQLObject
+    public class ReverseDeliveryLineItemEdge : GraphQLObject<ReverseDeliveryLineItemEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -39909,7 +39948,7 @@ namespace shopify
     ///<summary>
     ///A reverse shipping deliverable that may include a label and tracking information.
     ///</summary>
-    public class ReverseDeliveryShippingDeliverable : IGraphQLObject, IReverseDeliveryDeliverable
+    public class ReverseDeliveryShippingDeliverable : GraphQLObject<ReverseDeliveryShippingDeliverable>, IReverseDeliveryDeliverable
     {
         ///<summary>
         ///The return label attached to the reverse delivery.
@@ -39924,7 +39963,7 @@ namespace shopify
     ///<summary>
     ///Return type for `reverseDeliveryShippingUpdate` mutation.
     ///</summary>
-    public class ReverseDeliveryShippingUpdatePayload : IGraphQLObject
+    public class ReverseDeliveryShippingUpdatePayload : GraphQLObject<ReverseDeliveryShippingUpdatePayload>
     {
         ///<summary>
         ///The updated reverse delivery.
@@ -39939,7 +39978,7 @@ namespace shopify
     ///<summary>
     ///Represents the information used to track a reverse delivery.
     ///</summary>
-    public class ReverseDeliveryTrackingV2 : IGraphQLObject
+    public class ReverseDeliveryTrackingV2 : GraphQLObject<ReverseDeliveryTrackingV2>
     {
         ///<summary>
         ///The provider of the tracking information, in a human-readable format for display purposes.
@@ -39959,7 +39998,7 @@ namespace shopify
     ///A group of one or more items in a return that will be processed at a fulfillment service.
     ///There can be more than one reverse fulfillment order for a return at a given location.
     ///</summary>
-    public class ReverseFulfillmentOrder : IGraphQLObject, INode
+    public class ReverseFulfillmentOrder : GraphQLObject<ReverseFulfillmentOrder>, INode
     {
         ///<summary>
         ///A globally-unique ID.
@@ -39991,7 +40030,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ReverseFulfillmentOrders.
     ///</summary>
-    public class ReverseFulfillmentOrderConnection : IGraphQLObject
+    public class ReverseFulfillmentOrderConnection : GraphQLObject<ReverseFulfillmentOrderConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -40010,7 +40049,7 @@ namespace shopify
     ///<summary>
     ///Return type for `reverseFulfillmentOrderDispose` mutation.
     ///</summary>
-    public class ReverseFulfillmentOrderDisposePayload : IGraphQLObject
+    public class ReverseFulfillmentOrderDisposePayload : GraphQLObject<ReverseFulfillmentOrderDisposePayload>
     {
         ///<summary>
         ///The disposed reverse fulfillment order line items.
@@ -40025,7 +40064,7 @@ namespace shopify
     ///<summary>
     ///The details of the arrangement of an item.
     ///</summary>
-    public class ReverseFulfillmentOrderDisposition : IGraphQLObject, INode
+    public class ReverseFulfillmentOrderDisposition : GraphQLObject<ReverseFulfillmentOrderDisposition>, INode
     {
         ///<summary>
         ///A globally-unique ID.
@@ -40071,7 +40110,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one ReverseFulfillmentOrder and a cursor during pagination.
     ///</summary>
-    public class ReverseFulfillmentOrderEdge : IGraphQLObject
+    public class ReverseFulfillmentOrderEdge : GraphQLObject<ReverseFulfillmentOrderEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -40086,7 +40125,7 @@ namespace shopify
     ///<summary>
     ///The details about a reverse fulfillment order line item.
     ///</summary>
-    public class ReverseFulfillmentOrderLineItem : IGraphQLObject, INode
+    public class ReverseFulfillmentOrderLineItem : GraphQLObject<ReverseFulfillmentOrderLineItem>, INode
     {
         ///<summary>
         ///The dispositions of the item.
@@ -40109,7 +40148,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ReverseFulfillmentOrderLineItems.
     ///</summary>
-    public class ReverseFulfillmentOrderLineItemConnection : IGraphQLObject
+    public class ReverseFulfillmentOrderLineItemConnection : GraphQLObject<ReverseFulfillmentOrderLineItemConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -40128,7 +40167,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one ReverseFulfillmentOrderLineItem and a cursor during pagination.
     ///</summary>
-    public class ReverseFulfillmentOrderLineItemEdge : IGraphQLObject
+    public class ReverseFulfillmentOrderLineItemEdge : GraphQLObject<ReverseFulfillmentOrderLineItemEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -40162,7 +40201,7 @@ namespace shopify
     ///<summary>
     ///The third-party confirmation of a reverse fulfillment order.
     ///</summary>
-    public class ReverseFulfillmentOrderThirdPartyConfirmation : IGraphQLObject
+    public class ReverseFulfillmentOrderThirdPartyConfirmation : GraphQLObject<ReverseFulfillmentOrderThirdPartyConfirmation>
     {
         ///<summary>
         ///The status of the reverse fulfillment order third-party confirmation.
@@ -40204,7 +40243,7 @@ namespace shopify
     ///<summary>
     ///A row count represents rows on background operation.
     ///</summary>
-    public class RowCount : IGraphQLObject
+    public class RowCount : GraphQLObject<RowCount>
     {
         ///<summary>
         ///Estimated number of rows contained within this background operation.
@@ -40219,7 +40258,7 @@ namespace shopify
     ///<summary>
     ///SEO information.
     ///</summary>
-    public class SEO : IGraphQLObject
+    public class SEO : GraphQLObject<SEO>
     {
         ///<summary>
         ///SEO Description.
@@ -40317,7 +40356,7 @@ namespace shopify
     ///<summary>
     ///The additional fee details for a line item.
     ///</summary>
-    public class SaleAdditionalFee : IGraphQLObject, INode
+    public class SaleAdditionalFee : GraphQLObject<SaleAdditionalFee>, INode
     {
         ///<summary>
         ///A globally-unique ID.
@@ -40340,7 +40379,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Sales.
     ///</summary>
-    public class SaleConnection : IGraphQLObject
+    public class SaleConnection : GraphQLObject<SaleConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -40359,7 +40398,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one Sale and a cursor during pagination.
     ///</summary>
-    public class SaleEdge : IGraphQLObject
+    public class SaleEdge : GraphQLObject<SaleEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -40413,7 +40452,7 @@ namespace shopify
     ///<summary>
     ///The tax allocated to a sale from a single tax line.
     ///</summary>
-    public class SaleTax : IGraphQLObject
+    public class SaleTax : GraphQLObject<SaleTax>
     {
         ///<summary>
         ///The portion of the total tax amount on the related sale that comes from the associated tax line.
@@ -40470,7 +40509,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple SalesAgreements.
     ///</summary>
-    public class SalesAgreementConnection : IGraphQLObject
+    public class SalesAgreementConnection : GraphQLObject<SalesAgreementConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -40489,7 +40528,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one SalesAgreement and a cursor during pagination.
     ///</summary>
-    public class SalesAgreementEdge : IGraphQLObject
+    public class SalesAgreementEdge : GraphQLObject<SalesAgreementEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -40504,7 +40543,7 @@ namespace shopify
     ///<summary>
     ///A saved search is a representation of a search query saved in the admin.
     ///</summary>
-    public class SavedSearch : IGraphQLObject, ILegacyInteroperability, INode
+    public class SavedSearch : GraphQLObject<SavedSearch>, ILegacyInteroperability, INode
     {
         ///<summary>
         ///The filters of a saved search.
@@ -40539,7 +40578,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple SavedSearches.
     ///</summary>
-    public class SavedSearchConnection : IGraphQLObject
+    public class SavedSearchConnection : GraphQLObject<SavedSearchConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -40558,7 +40597,7 @@ namespace shopify
     ///<summary>
     ///Return type for `savedSearchCreate` mutation.
     ///</summary>
-    public class SavedSearchCreatePayload : IGraphQLObject
+    public class SavedSearchCreatePayload : GraphQLObject<SavedSearchCreatePayload>
     {
         ///<summary>
         ///The saved search that was created.
@@ -40573,7 +40612,7 @@ namespace shopify
     ///<summary>
     ///Return type for `savedSearchDelete` mutation.
     ///</summary>
-    public class SavedSearchDeletePayload : IGraphQLObject
+    public class SavedSearchDeletePayload : GraphQLObject<SavedSearchDeletePayload>
     {
         ///<summary>
         ///The ID of the saved search that was deleted.
@@ -40592,7 +40631,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one SavedSearch and a cursor during pagination.
     ///</summary>
-    public class SavedSearchEdge : IGraphQLObject
+    public class SavedSearchEdge : GraphQLObject<SavedSearchEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -40607,7 +40646,7 @@ namespace shopify
     ///<summary>
     ///Return type for `savedSearchUpdate` mutation.
     ///</summary>
-    public class SavedSearchUpdatePayload : IGraphQLObject
+    public class SavedSearchUpdatePayload : GraphQLObject<SavedSearchUpdatePayload>
     {
         ///<summary>
         ///The saved search that was updated.
@@ -40625,7 +40664,7 @@ namespace shopify
     ///
     ///Discount applications don't represent the actual final amount discounted on a line (line item or shipping line). The actual amount discounted on a line is represented by the [DiscountAllocation](https://shopify.dev/api/admin-graphql/latest/objects/discountallocation) object.
     ///</summary>
-    public class ScriptDiscountApplication : IGraphQLObject, IDiscountApplication
+    public class ScriptDiscountApplication : GraphQLObject<ScriptDiscountApplication>, IDiscountApplication
     {
         ///<summary>
         ///The method by which the discount's value is applied to its entitled items.
@@ -40667,7 +40706,7 @@ namespace shopify
     ///
     ///A script tag represents remote JavaScript code that is loaded into the pages of a shop's storefront or the order status page of checkout.
     ///</summary>
-    public class ScriptTag : IGraphQLObject, ILegacyInteroperability, INode
+    public class ScriptTag : GraphQLObject<ScriptTag>, ILegacyInteroperability, INode
     {
         ///<summary>
         ///Whether the Shopify CDN can cache and serve the script tag.
@@ -40705,7 +40744,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ScriptTags.
     ///</summary>
-    public class ScriptTagConnection : IGraphQLObject
+    public class ScriptTagConnection : GraphQLObject<ScriptTagConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -40724,7 +40763,7 @@ namespace shopify
     ///<summary>
     ///Return type for `scriptTagCreate` mutation.
     ///</summary>
-    public class ScriptTagCreatePayload : IGraphQLObject
+    public class ScriptTagCreatePayload : GraphQLObject<ScriptTagCreatePayload>
     {
         ///<summary>
         ///The script tag that was created.
@@ -40739,7 +40778,7 @@ namespace shopify
     ///<summary>
     ///Return type for `scriptTagDelete` mutation.
     ///</summary>
-    public class ScriptTagDeletePayload : IGraphQLObject
+    public class ScriptTagDeletePayload : GraphQLObject<ScriptTagDeletePayload>
     {
         ///<summary>
         ///The ID of the deleted script tag.
@@ -40773,7 +40812,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one ScriptTag and a cursor during pagination.
     ///</summary>
-    public class ScriptTagEdge : IGraphQLObject
+    public class ScriptTagEdge : GraphQLObject<ScriptTagEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -40788,7 +40827,7 @@ namespace shopify
     ///<summary>
     ///Return type for `scriptTagUpdate` mutation.
     ///</summary>
-    public class ScriptTagUpdatePayload : IGraphQLObject
+    public class ScriptTagUpdatePayload : GraphQLObject<ScriptTagUpdatePayload>
     {
         ///<summary>
         ///The script tag that was updated.
@@ -40803,7 +40842,7 @@ namespace shopify
     ///<summary>
     ///A filter in a search query represented by a key value pair.
     ///</summary>
-    public class SearchFilter : IGraphQLObject
+    public class SearchFilter : GraphQLObject<SearchFilter>
     {
         ///<summary>
         ///The key of the search filter.
@@ -40818,7 +40857,7 @@ namespace shopify
     ///<summary>
     ///A list of search filters along with their specific options in value and label pair for filtering.
     ///</summary>
-    public class SearchFilterOptions : IGraphQLObject
+    public class SearchFilterOptions : GraphQLObject<SearchFilterOptions>
     {
         ///<summary>
         ///A list of options that can be use to filter product availability.
@@ -40829,7 +40868,7 @@ namespace shopify
     ///<summary>
     ///Represents an individual result returned from a search.
     ///</summary>
-    public class SearchResult : IGraphQLObject
+    public class SearchResult : GraphQLObject<SearchResult>
     {
         ///<summary>
         ///Returns the search result description text.
@@ -40856,7 +40895,7 @@ namespace shopify
     ///<summary>
     ///The connection type for SearchResult.
     ///</summary>
-    public class SearchResultConnection : IGraphQLObject
+    public class SearchResultConnection : GraphQLObject<SearchResultConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -40877,7 +40916,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one SearchResult and a cursor during pagination.
     ///</summary>
-    public class SearchResultEdge : IGraphQLObject
+    public class SearchResultEdge : GraphQLObject<SearchResultEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -40920,7 +40959,7 @@ namespace shopify
     ///<summary>
     ///A dynamic collection of customers based on specific criteria.
     ///</summary>
-    public class Segment : IGraphQLObject, INode
+    public class Segment : GraphQLObject<Segment>, INode
     {
         ///<summary>
         ///The date and time when the segment was added to the store.
@@ -40947,7 +40986,7 @@ namespace shopify
     ///<summary>
     ///A filter that takes a value that's associated with an object. For example, the `tags` field is associated with the [`Customer`](/api/admin-graphql/latest/objects/Customer) object.
     ///</summary>
-    public class SegmentAssociationFilter : IGraphQLObject, ISegmentFilter
+    public class SegmentAssociationFilter : GraphQLObject<SegmentAssociationFilter>, ISegmentFilter
     {
         ///<summary>
         ///The localized name of the filter.
@@ -40966,7 +41005,7 @@ namespace shopify
     ///<summary>
     ///The statistics of a given attribute.
     ///</summary>
-    public class SegmentAttributeStatistics : IGraphQLObject
+    public class SegmentAttributeStatistics : GraphQLObject<SegmentAttributeStatistics>
     {
         ///<summary>
         ///The average of a given attribute.
@@ -40981,7 +41020,7 @@ namespace shopify
     ///<summary>
     ///A filter with a Boolean value that's been added to a segment query.
     ///</summary>
-    public class SegmentBooleanFilter : IGraphQLObject, ISegmentFilter
+    public class SegmentBooleanFilter : GraphQLObject<SegmentBooleanFilter>, ISegmentFilter
     {
         ///<summary>
         ///The localized name of the filter.
@@ -41000,7 +41039,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Segments.
     ///</summary>
-    public class SegmentConnection : IGraphQLObject
+    public class SegmentConnection : GraphQLObject<SegmentConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -41019,7 +41058,7 @@ namespace shopify
     ///<summary>
     ///Return type for `segmentCreate` mutation.
     ///</summary>
-    public class SegmentCreatePayload : IGraphQLObject
+    public class SegmentCreatePayload : GraphQLObject<SegmentCreatePayload>
     {
         ///<summary>
         ///The newly created segment.
@@ -41034,7 +41073,7 @@ namespace shopify
     ///<summary>
     ///A filter with a date value that's been added to a segment query.
     ///</summary>
-    public class SegmentDateFilter : IGraphQLObject, ISegmentFilter
+    public class SegmentDateFilter : GraphQLObject<SegmentDateFilter>, ISegmentFilter
     {
         ///<summary>
         ///The localized name of the filter.
@@ -41053,7 +41092,7 @@ namespace shopify
     ///<summary>
     ///Return type for `segmentDelete` mutation.
     ///</summary>
-    public class SegmentDeletePayload : IGraphQLObject
+    public class SegmentDeletePayload : GraphQLObject<SegmentDeletePayload>
     {
         ///<summary>
         ///ID of the deleted segment.
@@ -41068,7 +41107,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one Segment and a cursor during pagination.
     ///</summary>
-    public class SegmentEdge : IGraphQLObject
+    public class SegmentEdge : GraphQLObject<SegmentEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -41083,7 +41122,7 @@ namespace shopify
     ///<summary>
     ///A filter with a set of possible values that's been added to a segment query.
     ///</summary>
-    public class SegmentEnumFilter : IGraphQLObject, ISegmentFilter
+    public class SegmentEnumFilter : GraphQLObject<SegmentEnumFilter>, ISegmentFilter
     {
         ///<summary>
         ///The localized name of the filter.
@@ -41102,7 +41141,7 @@ namespace shopify
     ///<summary>
     ///A filter that's used to segment customers based on the date that an event occured. For example, the `product_bought` event filter allows you to segment customers based on what products they've bought.
     ///</summary>
-    public class SegmentEventFilter : IGraphQLObject, ISegmentFilter
+    public class SegmentEventFilter : GraphQLObject<SegmentEventFilter>, ISegmentFilter
     {
         ///<summary>
         ///The localized name of the filter.
@@ -41129,7 +41168,7 @@ namespace shopify
     ///<summary>
     ///The parameters for an event segment filter.
     ///</summary>
-    public class SegmentEventFilterParameter : IGraphQLObject
+    public class SegmentEventFilterParameter : GraphQLObject<SegmentEventFilterParameter>
     {
         ///<summary>
         ///Whether the parameter accepts a list of values.
@@ -41196,7 +41235,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple SegmentFilters.
     ///</summary>
-    public class SegmentFilterConnection : IGraphQLObject
+    public class SegmentFilterConnection : GraphQLObject<SegmentFilterConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -41215,7 +41254,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one SegmentFilter and a cursor during pagination.
     ///</summary>
-    public class SegmentFilterEdge : IGraphQLObject
+    public class SegmentFilterEdge : GraphQLObject<SegmentFilterEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -41230,7 +41269,7 @@ namespace shopify
     ///<summary>
     ///A filter with a double-precision, floating-point value that's been added to a segment query.
     ///</summary>
-    public class SegmentFloatFilter : IGraphQLObject, ISegmentFilter
+    public class SegmentFloatFilter : GraphQLObject<SegmentFloatFilter>, ISegmentFilter
     {
         ///<summary>
         ///The localized name of the filter.
@@ -41249,7 +41288,7 @@ namespace shopify
     ///<summary>
     ///A filter with an integer that's been added to a segment query.
     ///</summary>
-    public class SegmentIntegerFilter : IGraphQLObject, ISegmentFilter
+    public class SegmentIntegerFilter : GraphQLObject<SegmentIntegerFilter>, ISegmentFilter
     {
         ///<summary>
         ///The localized name of the filter.
@@ -41268,7 +41307,7 @@ namespace shopify
     ///<summary>
     ///The response type for the `segmentMembership` object.
     ///</summary>
-    public class SegmentMembership : IGraphQLObject
+    public class SegmentMembership : GraphQLObject<SegmentMembership>
     {
         ///<summary>
         ///A Boolean that indicates whether or not the customer in the query is a member of the segment, which is identified using the `segmentId`.
@@ -41283,7 +41322,7 @@ namespace shopify
     ///<summary>
     ///A list of maps that contain `segmentId` IDs and `isMember` Booleans. The maps represent segment memberships.
     ///</summary>
-    public class SegmentMembershipResponse : IGraphQLObject
+    public class SegmentMembershipResponse : GraphQLObject<SegmentMembershipResponse>
     {
         ///<summary>
         ///The membership status for the given list of segments.
@@ -41295,7 +41334,7 @@ namespace shopify
     ///A segment and its corresponding saved search. 
     ///For example, you can use `SegmentMigration` to retrieve the segment ID that corresponds to a saved search ID.
     ///</summary>
-    public class SegmentMigration : IGraphQLObject
+    public class SegmentMigration : GraphQLObject<SegmentMigration>
     {
         ///<summary>
         ///A globally-unique ID.
@@ -41314,7 +41353,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple SegmentMigrations.
     ///</summary>
-    public class SegmentMigrationConnection : IGraphQLObject
+    public class SegmentMigrationConnection : GraphQLObject<SegmentMigrationConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -41333,7 +41372,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one SegmentMigration and a cursor during pagination.
     ///</summary>
-    public class SegmentMigrationEdge : IGraphQLObject
+    public class SegmentMigrationEdge : GraphQLObject<SegmentMigrationEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -41372,7 +41411,7 @@ namespace shopify
     ///<summary>
     ///The statistics of a given segment.
     ///</summary>
-    public class SegmentStatistics : IGraphQLObject
+    public class SegmentStatistics : GraphQLObject<SegmentStatistics>
     {
         ///<summary>
         ///The statistics of a given attribute.
@@ -41383,7 +41422,7 @@ namespace shopify
     ///<summary>
     ///A filter with a string that's been added to a segment query.
     ///</summary>
-    public class SegmentStringFilter : IGraphQLObject, ISegmentFilter
+    public class SegmentStringFilter : GraphQLObject<SegmentStringFilter>, ISegmentFilter
     {
         ///<summary>
         ///The localized name of the filter.
@@ -41402,7 +41441,7 @@ namespace shopify
     ///<summary>
     ///Return type for `segmentUpdate` mutation.
     ///</summary>
-    public class SegmentUpdatePayload : IGraphQLObject
+    public class SegmentUpdatePayload : GraphQLObject<SegmentUpdatePayload>
     {
         ///<summary>
         ///The updated segment.
@@ -41419,7 +41458,7 @@ namespace shopify
     ///segment is a group of members, such as customers, that meet specific
     ///criteria.
     ///</summary>
-    public class SegmentValue : IGraphQLObject
+    public class SegmentValue : GraphQLObject<SegmentValue>
     {
         ///<summary>
         ///The localized version of the value's name. This name is displayed to the merchant.
@@ -41434,7 +41473,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple SegmentValues.
     ///</summary>
-    public class SegmentValueConnection : IGraphQLObject
+    public class SegmentValueConnection : GraphQLObject<SegmentValueConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -41453,7 +41492,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one SegmentValue and a cursor during pagination.
     ///</summary>
-    public class SegmentValueEdge : IGraphQLObject
+    public class SegmentValueEdge : GraphQLObject<SegmentValueEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -41469,7 +41508,7 @@ namespace shopify
     ///Properties used by customers to select a product variant.
     ///Products can have multiple options, like different sizes or colors.
     ///</summary>
-    public class SelectedOption : IGraphQLObject
+    public class SelectedOption : GraphQLObject<SelectedOption>
     {
         ///<summary>
         ///The product option’s name.
@@ -41489,7 +41528,7 @@ namespace shopify
     ///For more information on selling plans, refer to
     ///[*Creating and managing selling plans*](https://shopify.dev/docs/apps/selling-strategies/subscriptions/selling-plans).
     ///</summary>
-    public class SellingPlan : IGraphQLObject, IHasPublishedTranslations, INode
+    public class SellingPlan : GraphQLObject<SellingPlan>, IHasPublishedTranslations, INode
     {
         ///<summary>
         ///A selling plan policy which describes the recurring billing details.
@@ -41546,7 +41585,7 @@ namespace shopify
     ///<summary>
     ///Represents a selling plan policy anchor.
     ///</summary>
-    public class SellingPlanAnchor : IGraphQLObject
+    public class SellingPlanAnchor : GraphQLObject<SellingPlanAnchor>
     {
         ///<summary>
         ///The cutoff day for the anchor.
@@ -41641,7 +41680,7 @@ namespace shopify
     ///<summary>
     ///The amount charged at checkout when the full amount isn't charged at checkout.
     ///</summary>
-    public class SellingPlanCheckoutCharge : IGraphQLObject
+    public class SellingPlanCheckoutCharge : GraphQLObject<SellingPlanCheckoutCharge>
     {
         ///<summary>
         ///The charge type for the checkout charge.
@@ -41656,7 +41695,7 @@ namespace shopify
     ///<summary>
     ///The percentage value of the price used for checkout charge.
     ///</summary>
-    public class SellingPlanCheckoutChargePercentageValue : IGraphQLObject, ISellingPlanCheckoutChargeValue
+    public class SellingPlanCheckoutChargePercentageValue : GraphQLObject<SellingPlanCheckoutChargePercentageValue>, ISellingPlanCheckoutChargeValue
     {
         ///<summary>
         ///The percentage value of the price used for checkout charge.
@@ -41694,7 +41733,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple SellingPlans.
     ///</summary>
-    public class SellingPlanConnection : IGraphQLObject
+    public class SellingPlanConnection : GraphQLObject<SellingPlanConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -41736,7 +41775,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one SellingPlan and a cursor during pagination.
     ///</summary>
-    public class SellingPlanEdge : IGraphQLObject
+    public class SellingPlanEdge : GraphQLObject<SellingPlanEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -41752,7 +41791,7 @@ namespace shopify
     ///The fixed selling plan billing policy defines how much of the price of the product will be billed to customer
     ///at checkout. If there is an outstanding balance, it determines when it will be paid.
     ///</summary>
-    public class SellingPlanFixedBillingPolicy : IGraphQLObject, ISellingPlanBillingPolicy
+    public class SellingPlanFixedBillingPolicy : GraphQLObject<SellingPlanFixedBillingPolicy>, ISellingPlanBillingPolicy
     {
         ///<summary>
         ///The checkout charge when the full amount isn't charged at checkout.
@@ -41775,7 +41814,7 @@ namespace shopify
     ///<summary>
     ///Represents a fixed selling plan delivery policy.
     ///</summary>
-    public class SellingPlanFixedDeliveryPolicy : IGraphQLObject, ISellingPlanDeliveryPolicy
+    public class SellingPlanFixedDeliveryPolicy : GraphQLObject<SellingPlanFixedDeliveryPolicy>, ISellingPlanDeliveryPolicy
     {
         ///<summary>
         ///The specific anchor dates upon which the delivery interval calculations should be made.
@@ -41841,7 +41880,7 @@ namespace shopify
     ///For example, a subscription with a $10 discount and two deliveries will have a $5
     ///discount applied to each delivery.
     ///</summary>
-    public class SellingPlanFixedPricingPolicy : IGraphQLObject, ISellingPlanPricingPolicyBase, ISellingPlanPricingPolicy
+    public class SellingPlanFixedPricingPolicy : GraphQLObject<SellingPlanFixedPricingPolicy>, ISellingPlanPricingPolicyBase, ISellingPlanPricingPolicy
     {
         ///<summary>
         ///The price adjustment type.
@@ -41885,7 +41924,7 @@ namespace shopify
     ///and associated records (selling plans and policies) are deleted 48 hours after a merchant
     ///uninstalls their subscriptions app. We recommend backing up these records if you need to restore them later.
     ///</summary>
-    public class SellingPlanGroup : IGraphQLObject, IHasPublishedTranslations, INode
+    public class SellingPlanGroup : GraphQLObject<SellingPlanGroup>, IHasPublishedTranslations, INode
     {
         ///<summary>
         ///The ID for app, exposed in Liquid and product JSON.
@@ -41964,7 +42003,7 @@ namespace shopify
     ///<summary>
     ///Return type for `sellingPlanGroupAddProductVariants` mutation.
     ///</summary>
-    public class SellingPlanGroupAddProductVariantsPayload : IGraphQLObject
+    public class SellingPlanGroupAddProductVariantsPayload : GraphQLObject<SellingPlanGroupAddProductVariantsPayload>
     {
         ///<summary>
         ///The updated selling plan group.
@@ -41979,7 +42018,7 @@ namespace shopify
     ///<summary>
     ///Return type for `sellingPlanGroupAddProducts` mutation.
     ///</summary>
-    public class SellingPlanGroupAddProductsPayload : IGraphQLObject
+    public class SellingPlanGroupAddProductsPayload : GraphQLObject<SellingPlanGroupAddProductsPayload>
     {
         ///<summary>
         ///The updated selling plan group.
@@ -41994,7 +42033,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple SellingPlanGroups.
     ///</summary>
-    public class SellingPlanGroupConnection : IGraphQLObject
+    public class SellingPlanGroupConnection : GraphQLObject<SellingPlanGroupConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -42013,7 +42052,7 @@ namespace shopify
     ///<summary>
     ///Return type for `sellingPlanGroupCreate` mutation.
     ///</summary>
-    public class SellingPlanGroupCreatePayload : IGraphQLObject
+    public class SellingPlanGroupCreatePayload : GraphQLObject<SellingPlanGroupCreatePayload>
     {
         ///<summary>
         ///The created selling plan group object.
@@ -42028,7 +42067,7 @@ namespace shopify
     ///<summary>
     ///Return type for `sellingPlanGroupDelete` mutation.
     ///</summary>
-    public class SellingPlanGroupDeletePayload : IGraphQLObject
+    public class SellingPlanGroupDeletePayload : GraphQLObject<SellingPlanGroupDeletePayload>
     {
         ///<summary>
         ///The ID of the deleted selling plan group object.
@@ -42043,7 +42082,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one SellingPlanGroup and a cursor during pagination.
     ///</summary>
-    public class SellingPlanGroupEdge : IGraphQLObject
+    public class SellingPlanGroupEdge : GraphQLObject<SellingPlanGroupEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -42058,7 +42097,7 @@ namespace shopify
     ///<summary>
     ///Return type for `sellingPlanGroupRemoveProductVariants` mutation.
     ///</summary>
-    public class SellingPlanGroupRemoveProductVariantsPayload : IGraphQLObject
+    public class SellingPlanGroupRemoveProductVariantsPayload : GraphQLObject<SellingPlanGroupRemoveProductVariantsPayload>
     {
         ///<summary>
         ///The removed product variant ids.
@@ -42073,7 +42112,7 @@ namespace shopify
     ///<summary>
     ///Return type for `sellingPlanGroupRemoveProducts` mutation.
     ///</summary>
-    public class SellingPlanGroupRemoveProductsPayload : IGraphQLObject
+    public class SellingPlanGroupRemoveProductsPayload : GraphQLObject<SellingPlanGroupRemoveProductsPayload>
     {
         ///<summary>
         ///The removed product ids.
@@ -42116,7 +42155,7 @@ namespace shopify
     ///<summary>
     ///Return type for `sellingPlanGroupUpdate` mutation.
     ///</summary>
-    public class SellingPlanGroupUpdatePayload : IGraphQLObject
+    public class SellingPlanGroupUpdatePayload : GraphQLObject<SellingPlanGroupUpdatePayload>
     {
         ///<summary>
         ///The IDs of the deleted Subscription Plans.
@@ -42135,7 +42174,7 @@ namespace shopify
     ///<summary>
     ///Represents a selling plan group custom error.
     ///</summary>
-    public class SellingPlanGroupUserError : IGraphQLObject, IDisplayableError
+    public class SellingPlanGroupUserError : GraphQLObject<SellingPlanGroupUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -42424,7 +42463,7 @@ namespace shopify
     ///<summary>
     ///The selling plan inventory policy.
     ///</summary>
-    public class SellingPlanInventoryPolicy : IGraphQLObject
+    public class SellingPlanInventoryPolicy : GraphQLObject<SellingPlanInventoryPolicy>
     {
         ///<summary>
         ///When to reserve inventory for the order.
@@ -42514,7 +42553,7 @@ namespace shopify
     ///<summary>
     ///The percentage value of a selling plan pricing policy percentage type.
     ///</summary>
-    public class SellingPlanPricingPolicyPercentageValue : IGraphQLObject, ISellingPlanPricingPolicyAdjustmentValue
+    public class SellingPlanPricingPolicyPercentageValue : GraphQLObject<SellingPlanPricingPolicyPercentageValue>, ISellingPlanPricingPolicyAdjustmentValue
     {
         ///<summary>
         ///The percentage value.
@@ -42525,7 +42564,7 @@ namespace shopify
     ///<summary>
     ///Represents a recurring selling plan billing policy.
     ///</summary>
-    public class SellingPlanRecurringBillingPolicy : IGraphQLObject, ISellingPlanBillingPolicy
+    public class SellingPlanRecurringBillingPolicy : GraphQLObject<SellingPlanRecurringBillingPolicy>, ISellingPlanBillingPolicy
     {
         ///<summary>
         ///Specific anchor dates upon which the billing interval calculations should be made.
@@ -42556,7 +42595,7 @@ namespace shopify
     ///<summary>
     ///Represents a recurring selling plan delivery policy.
     ///</summary>
-    public class SellingPlanRecurringDeliveryPolicy : IGraphQLObject, ISellingPlanDeliveryPolicy
+    public class SellingPlanRecurringDeliveryPolicy : GraphQLObject<SellingPlanRecurringDeliveryPolicy>, ISellingPlanDeliveryPolicy
     {
         ///<summary>
         ///The specific anchor dates upon which the delivery interval calculations should be made.
@@ -42622,7 +42661,7 @@ namespace shopify
     ///<summary>
     ///Represents a recurring selling plan pricing policy.
     ///</summary>
-    public class SellingPlanRecurringPricingPolicy : IGraphQLObject, ISellingPlanPricingPolicyBase, ISellingPlanPricingPolicy
+    public class SellingPlanRecurringPricingPolicy : GraphQLObject<SellingPlanRecurringPricingPolicy>, ISellingPlanPricingPolicyBase, ISellingPlanPricingPolicy
     {
         ///<summary>
         ///The price adjustment type.
@@ -42679,7 +42718,7 @@ namespace shopify
     ///<summary>
     ///A server pixel stores configuration for streaming customer interactions to an EventBridge or PubSub endpoint.
     ///</summary>
-    public class ServerPixel : IGraphQLObject, INode
+    public class ServerPixel : GraphQLObject<ServerPixel>, INode
     {
         ///<summary>
         ///A globally-unique ID.
@@ -42698,7 +42737,7 @@ namespace shopify
     ///<summary>
     ///Return type for `serverPixelCreate` mutation.
     ///</summary>
-    public class ServerPixelCreatePayload : IGraphQLObject
+    public class ServerPixelCreatePayload : GraphQLObject<ServerPixelCreatePayload>
     {
         ///<summary>
         ///The new server pixel.
@@ -42713,7 +42752,7 @@ namespace shopify
     ///<summary>
     ///Return type for `serverPixelDelete` mutation.
     ///</summary>
-    public class ServerPixelDeletePayload : IGraphQLObject
+    public class ServerPixelDeletePayload : GraphQLObject<ServerPixelDeletePayload>
     {
         ///<summary>
         ///The ID of the server pixel that was deleted, if one was deleted.
@@ -42758,7 +42797,7 @@ namespace shopify
     ///<summary>
     ///Represents the shipping details that the customer chose for their order.
     ///</summary>
-    public class ShippingLine : IGraphQLObject
+    public class ShippingLine : GraphQLObject<ShippingLine>
     {
         ///<summary>
         ///A reference to the carrier service that provided the rate.
@@ -42841,7 +42880,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ShippingLines.
     ///</summary>
-    public class ShippingLineConnection : IGraphQLObject
+    public class ShippingLineConnection : GraphQLObject<ShippingLineConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -42860,7 +42899,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one ShippingLine and a cursor during pagination.
     ///</summary>
-    public class ShippingLineEdge : IGraphQLObject
+    public class ShippingLineEdge : GraphQLObject<ShippingLineEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -42875,7 +42914,7 @@ namespace shopify
     ///<summary>
     ///A sale associated with a shipping charge.
     ///</summary>
-    public class ShippingLineSale : IGraphQLObject, ISale
+    public class ShippingLineSale : GraphQLObject<ShippingLineSale>, ISale
     {
         ///<summary>
         ///The type of order action that the sale represents.
@@ -42922,7 +42961,7 @@ namespace shopify
     ///<summary>
     ///The shipping method for the delivery. Customers will see applicable shipping methods in the shipping section of checkout.
     ///</summary>
-    public class ShippingMethod : IGraphQLObject
+    public class ShippingMethod : GraphQLObject<ShippingMethod>
     {
         ///<summary>
         ///A unique code associated with the rate. For example: `expedited_mail`
@@ -42938,7 +42977,7 @@ namespace shopify
     ///<summary>
     ///Return type for `shippingPackageDelete` mutation.
     ///</summary>
-    public class ShippingPackageDeletePayload : IGraphQLObject
+    public class ShippingPackageDeletePayload : GraphQLObject<ShippingPackageDeletePayload>
     {
         ///<summary>
         ///The ID of the deleted shipping package.
@@ -42953,7 +42992,7 @@ namespace shopify
     ///<summary>
     ///Return type for `shippingPackageMakeDefault` mutation.
     ///</summary>
-    public class ShippingPackageMakeDefaultPayload : IGraphQLObject
+    public class ShippingPackageMakeDefaultPayload : GraphQLObject<ShippingPackageMakeDefaultPayload>
     {
         ///<summary>
         ///The list of errors that occurred from executing the mutation.
@@ -42987,7 +43026,7 @@ namespace shopify
     ///<summary>
     ///Return type for `shippingPackageUpdate` mutation.
     ///</summary>
-    public class ShippingPackageUpdatePayload : IGraphQLObject
+    public class ShippingPackageUpdatePayload : GraphQLObject<ShippingPackageUpdatePayload>
     {
         ///<summary>
         ///The list of errors that occurred from executing the mutation.
@@ -42998,7 +43037,7 @@ namespace shopify
     ///<summary>
     ///A shipping rate is an additional cost added to the cost of the products that were ordered.
     ///</summary>
-    public class ShippingRate : IGraphQLObject
+    public class ShippingRate : GraphQLObject<ShippingRate>
     {
         ///<summary>
         ///Human-readable unique identifier for this shipping rate.
@@ -43017,7 +43056,7 @@ namespace shopify
     ///<summary>
     ///Represents the shipping costs refunded on the Refund.
     ///</summary>
-    public class ShippingRefund : IGraphQLObject
+    public class ShippingRefund : GraphQLObject<ShippingRefund>
     {
         ///<summary>
         ///The monetary value of the shipping fees to be refunded.
@@ -43053,7 +43092,7 @@ namespace shopify
     ///<summary>
     ///Represents a collection of general settings and information about the shop.
     ///</summary>
-    public class Shop : IGraphQLObject, IHasMetafields, IHasPublishedTranslations, INode, IMetafieldReferencer
+    public class Shop : GraphQLObject<Shop>, IHasMetafields, IHasPublishedTranslations, INode, IMetafieldReferencer
     {
         ///<summary>
         ///A list of the shop's active alert messages that appear in the Shopify admin.
@@ -43489,7 +43528,7 @@ namespace shopify
     ///<summary>
     ///The shop's billing address.
     ///</summary>
-    public class ShopAddress : IGraphQLObject, INode
+    public class ShopAddress : GraphQLObject<ShopAddress>, INode
     {
         ///<summary>
         ///The first line of the address. Typically the street address or PO Box number.
@@ -43592,7 +43631,7 @@ namespace shopify
     ///<summary>
     ///An alert message that appears in the Shopify admin about a problem with a store setting, with an action to take. For example, you could show an alert to ask the merchant to enter their billing information to activate Shopify Plus.
     ///</summary>
-    public class ShopAlert : IGraphQLObject
+    public class ShopAlert : GraphQLObject<ShopAlert>
     {
         ///<summary>
         ///The text for the button in the alert that links to related information. For example, _Add credit card_.
@@ -43607,7 +43646,7 @@ namespace shopify
     ///<summary>
     ///An action associated to a shop alert, such as adding a credit card.
     ///</summary>
-    public class ShopAlertAction : IGraphQLObject
+    public class ShopAlertAction : GraphQLObject<ShopAlertAction>
     {
         ///<summary>
         ///The text for the button in the alert. For example, _Add credit card_.
@@ -43622,7 +43661,7 @@ namespace shopify
     ///<summary>
     ///Billing preferences for the shop.
     ///</summary>
-    public class ShopBillingPreferences : IGraphQLObject
+    public class ShopBillingPreferences : GraphQLObject<ShopBillingPreferences>
     {
         ///<summary>
         ///The currency the shop uses to pay for apps and services.
@@ -43669,7 +43708,7 @@ namespace shopify
     ///Most fields specify whether a feature is enabled for a shop, and some fields return information
     ///related to specific features.
     ///</summary>
-    public class ShopFeatures : IGraphQLObject
+    public class ShopFeatures : GraphQLObject<ShopFeatures>
     {
         ///<summary>
         ///Whether a shop has access to Avalara AvaTax.
@@ -43784,7 +43823,7 @@ namespace shopify
     ///<summary>
     ///A locale that's been enabled on a shop.
     ///</summary>
-    public class ShopLocale : IGraphQLObject
+    public class ShopLocale : GraphQLObject<ShopLocale>
     {
         ///<summary>
         ///The locale ISO code.
@@ -43811,7 +43850,7 @@ namespace shopify
     ///<summary>
     ///Return type for `shopLocaleDisable` mutation.
     ///</summary>
-    public class ShopLocaleDisablePayload : IGraphQLObject
+    public class ShopLocaleDisablePayload : GraphQLObject<ShopLocaleDisablePayload>
     {
         ///<summary>
         ///ISO code of the locale that was deleted.
@@ -43826,7 +43865,7 @@ namespace shopify
     ///<summary>
     ///Return type for `shopLocaleEnable` mutation.
     ///</summary>
-    public class ShopLocaleEnablePayload : IGraphQLObject
+    public class ShopLocaleEnablePayload : GraphQLObject<ShopLocaleEnablePayload>
     {
         ///<summary>
         ///ISO code of the locale that was enabled.
@@ -43841,7 +43880,7 @@ namespace shopify
     ///<summary>
     ///Return type for `shopLocaleUpdate` mutation.
     ///</summary>
-    public class ShopLocaleUpdatePayload : IGraphQLObject
+    public class ShopLocaleUpdatePayload : GraphQLObject<ShopLocaleUpdatePayload>
     {
         ///<summary>
         ///The locale that was updated.
@@ -43856,7 +43895,7 @@ namespace shopify
     ///<summary>
     ///The billing plan of the shop.
     ///</summary>
-    public class ShopPlan : IGraphQLObject
+    public class ShopPlan : GraphQLObject<ShopPlan>
     {
         ///<summary>
         ///The name of the shop's billing plan.
@@ -43875,7 +43914,7 @@ namespace shopify
     ///<summary>
     ///Policy that a merchant has configured for their store, such as their refund or privacy policy.
     ///</summary>
-    public class ShopPolicy : IGraphQLObject, IHasPublishedTranslations, INode
+    public class ShopPolicy : GraphQLObject<ShopPolicy>, IHasPublishedTranslations, INode
     {
         ///<summary>
         ///The text of the policy. The maximum size is 512kb.
@@ -43952,7 +43991,7 @@ namespace shopify
     ///<summary>
     ///Return type for `shopPolicyUpdate` mutation.
     ///</summary>
-    public class ShopPolicyUpdatePayload : IGraphQLObject
+    public class ShopPolicyUpdatePayload : GraphQLObject<ShopPolicyUpdatePayload>
     {
         ///<summary>
         ///The shop policy that has been updated.
@@ -43967,7 +44006,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of a shop policy mutation.
     ///</summary>
-    public class ShopPolicyUserError : IGraphQLObject, IDisplayableError
+    public class ShopPolicyUserError : GraphQLObject<ShopPolicyUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -43986,7 +44025,7 @@ namespace shopify
     ///<summary>
     ///Return type for `shopResourceFeedbackCreate` mutation.
     ///</summary>
-    public class ShopResourceFeedbackCreatePayload : IGraphQLObject
+    public class ShopResourceFeedbackCreatePayload : GraphQLObject<ShopResourceFeedbackCreatePayload>
     {
         ///<summary>
         ///The shop feedback that's created.
@@ -44001,7 +44040,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `ShopResourceFeedbackCreate`.
     ///</summary>
-    public class ShopResourceFeedbackCreateUserError : IGraphQLObject, IDisplayableError
+    public class ShopResourceFeedbackCreateUserError : GraphQLObject<ShopResourceFeedbackCreateUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -44043,7 +44082,7 @@ namespace shopify
     ///<summary>
     ///Resource limits of a shop.
     ///</summary>
-    public class ShopResourceLimits : IGraphQLObject
+    public class ShopResourceLimits : GraphQLObject<ShopResourceLimits>
     {
         ///<summary>
         ///Maximum number of locations allowed.
@@ -44087,7 +44126,7 @@ namespace shopify
     ///<summary>
     ///A Shopify Function.
     ///</summary>
-    public class ShopifyFunction : IGraphQLObject
+    public class ShopifyFunction : GraphQLObject<ShopifyFunction>
     {
         ///<summary>
         ///The API type of the Shopify Function.
@@ -44134,7 +44173,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ShopifyFunctions.
     ///</summary>
-    public class ShopifyFunctionConnection : IGraphQLObject
+    public class ShopifyFunctionConnection : GraphQLObject<ShopifyFunctionConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -44153,7 +44192,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one ShopifyFunction and a cursor during pagination.
     ///</summary>
-    public class ShopifyFunctionEdge : IGraphQLObject
+    public class ShopifyFunctionEdge : GraphQLObject<ShopifyFunctionEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -44171,7 +44210,7 @@ namespace shopify
     ///account. Balance includes all balances for the currencies supported by the shop.
     ///You can also query for a list of payouts, where each payout includes the corresponding currencyCode field.
     ///</summary>
-    public class ShopifyPaymentsAccount : IGraphQLObject, INode
+    public class ShopifyPaymentsAccount : GraphQLObject<ShopifyPaymentsAccount>, INode
     {
         ///<summary>
         ///Whether the Shopify Payments setup is completed.
@@ -44254,7 +44293,7 @@ namespace shopify
     ///<summary>
     ///A bank account that can receive payouts.
     ///</summary>
-    public class ShopifyPaymentsBankAccount : IGraphQLObject, INode
+    public class ShopifyPaymentsBankAccount : GraphQLObject<ShopifyPaymentsBankAccount>, INode
     {
         ///<summary>
         ///The account number of the bank account.
@@ -44301,7 +44340,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ShopifyPaymentsBankAccounts.
     ///</summary>
-    public class ShopifyPaymentsBankAccountConnection : IGraphQLObject
+    public class ShopifyPaymentsBankAccountConnection : GraphQLObject<ShopifyPaymentsBankAccountConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -44320,7 +44359,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one ShopifyPaymentsBankAccount and a cursor during pagination.
     ///</summary>
-    public class ShopifyPaymentsBankAccountEdge : IGraphQLObject
+    public class ShopifyPaymentsBankAccountEdge : GraphQLObject<ShopifyPaymentsBankAccountEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -44378,7 +44417,7 @@ namespace shopify
     ///<summary>
     ///The charge descriptors for a payments account.
     ///</summary>
-    public class ShopifyPaymentsDefaultChargeStatementDescriptor : IGraphQLObject, IShopifyPaymentsChargeStatementDescriptor
+    public class ShopifyPaymentsDefaultChargeStatementDescriptor : GraphQLObject<ShopifyPaymentsDefaultChargeStatementDescriptor>, IShopifyPaymentsChargeStatementDescriptor
     {
         ///<summary>
         ///The default charge statement descriptor.
@@ -44393,7 +44432,7 @@ namespace shopify
     ///<summary>
     ///A dispute occurs when a buyer questions the legitimacy of a charge with their financial institution.
     ///</summary>
-    public class ShopifyPaymentsDispute : IGraphQLObject, ILegacyInteroperability, INode
+    public class ShopifyPaymentsDispute : GraphQLObject<ShopifyPaymentsDispute>, ILegacyInteroperability, INode
     {
         ///<summary>
         ///The total amount disputed by the cardholder.
@@ -44444,7 +44483,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ShopifyPaymentsDisputes.
     ///</summary>
-    public class ShopifyPaymentsDisputeConnection : IGraphQLObject
+    public class ShopifyPaymentsDisputeConnection : GraphQLObject<ShopifyPaymentsDisputeConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -44463,7 +44502,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one ShopifyPaymentsDispute and a cursor during pagination.
     ///</summary>
-    public class ShopifyPaymentsDisputeEdge : IGraphQLObject
+    public class ShopifyPaymentsDisputeEdge : GraphQLObject<ShopifyPaymentsDisputeEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -44478,7 +44517,7 @@ namespace shopify
     ///<summary>
     ///The evidence associated with the dispute.
     ///</summary>
-    public class ShopifyPaymentsDisputeEvidence : IGraphQLObject, INode
+    public class ShopifyPaymentsDisputeEvidence : GraphQLObject<ShopifyPaymentsDisputeEvidence>, INode
     {
         ///<summary>
         ///The activity logs associated with the dispute evidence.
@@ -44612,7 +44651,7 @@ namespace shopify
     ///<summary>
     ///The file upload associated with the dispute evidence.
     ///</summary>
-    public class ShopifyPaymentsDisputeFileUpload : IGraphQLObject, INode
+    public class ShopifyPaymentsDisputeFileUpload : GraphQLObject<ShopifyPaymentsDisputeFileUpload>, INode
     {
         ///<summary>
         ///The type of the file for the dispute evidence.
@@ -44643,7 +44682,7 @@ namespace shopify
     ///<summary>
     ///The fulfillment associated with dispute evidence.
     ///</summary>
-    public class ShopifyPaymentsDisputeFulfillment : IGraphQLObject, INode
+    public class ShopifyPaymentsDisputeFulfillment : GraphQLObject<ShopifyPaymentsDisputeFulfillment>, INode
     {
         ///<summary>
         ///A globally-unique ID.
@@ -44725,7 +44764,7 @@ namespace shopify
     ///<summary>
     ///Details regarding a dispute reason.
     ///</summary>
-    public class ShopifyPaymentsDisputeReasonDetails : IGraphQLObject
+    public class ShopifyPaymentsDisputeReasonDetails : GraphQLObject<ShopifyPaymentsDisputeReasonDetails>
     {
         ///<summary>
         ///The raw code provided by the payment network.
@@ -44740,7 +44779,7 @@ namespace shopify
     ///<summary>
     ///Presents all Shopify Payments information related to an extended authorization.
     ///</summary>
-    public class ShopifyPaymentsExtendedAuthorization : IGraphQLObject
+    public class ShopifyPaymentsExtendedAuthorization : GraphQLObject<ShopifyPaymentsExtendedAuthorization>
     {
         ///<summary>
         ///The time after which the extended authorization expires. After the expiry, the merchant is unable to capture the payment.
@@ -44755,7 +44794,7 @@ namespace shopify
     ///<summary>
     ///The fraud settings of a payments account.
     ///</summary>
-    public class ShopifyPaymentsFraudSettings : IGraphQLObject
+    public class ShopifyPaymentsFraudSettings : GraphQLObject<ShopifyPaymentsFraudSettings>
     {
         ///<summary>
         ///Decline a charge if there's an AVS failure.
@@ -44770,7 +44809,7 @@ namespace shopify
     ///<summary>
     ///The charge descriptors for a Japanese payments account.
     ///</summary>
-    public class ShopifyPaymentsJpChargeStatementDescriptor : IGraphQLObject, IShopifyPaymentsChargeStatementDescriptor
+    public class ShopifyPaymentsJpChargeStatementDescriptor : GraphQLObject<ShopifyPaymentsJpChargeStatementDescriptor>, IShopifyPaymentsChargeStatementDescriptor
     {
         ///<summary>
         ///The default charge statement descriptor.
@@ -44793,7 +44832,7 @@ namespace shopify
     ///<summary>
     ///The notification settings for the account.
     ///</summary>
-    public class ShopifyPaymentsNotificationSettings : IGraphQLObject
+    public class ShopifyPaymentsNotificationSettings : GraphQLObject<ShopifyPaymentsNotificationSettings>
     {
         ///<summary>
         ///Receive email notifications when new payouts are sent or payouts fail.
@@ -44805,7 +44844,7 @@ namespace shopify
     ///Payouts represent the movement of money between a merchant's Shopify
     ///Payments balance and their bank account.
     ///</summary>
-    public class ShopifyPaymentsPayout : IGraphQLObject, ILegacyInteroperability, INode
+    public class ShopifyPaymentsPayout : GraphQLObject<ShopifyPaymentsPayout>, ILegacyInteroperability, INode
     {
         ///<summary>
         ///The bank account for the payout.
@@ -44851,7 +44890,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ShopifyPaymentsPayouts.
     ///</summary>
-    public class ShopifyPaymentsPayoutConnection : IGraphQLObject
+    public class ShopifyPaymentsPayoutConnection : GraphQLObject<ShopifyPaymentsPayoutConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -44870,7 +44909,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one ShopifyPaymentsPayout and a cursor during pagination.
     ///</summary>
-    public class ShopifyPaymentsPayoutEdge : IGraphQLObject
+    public class ShopifyPaymentsPayoutEdge : GraphQLObject<ShopifyPaymentsPayoutEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -44908,7 +44947,7 @@ namespace shopify
     ///<summary>
     ///The payment schedule for a payments account.
     ///</summary>
-    public class ShopifyPaymentsPayoutSchedule : IGraphQLObject
+    public class ShopifyPaymentsPayoutSchedule : GraphQLObject<ShopifyPaymentsPayoutSchedule>
     {
         ///<summary>
         ///The interval at which payouts are sent to the connected bank account.
@@ -44963,7 +45002,7 @@ namespace shopify
     ///Breakdown of the total fees and gross of each of the different types of transactions associated
     ///with the payout.
     ///</summary>
-    public class ShopifyPaymentsPayoutSummary : IGraphQLObject
+    public class ShopifyPaymentsPayoutSummary : GraphQLObject<ShopifyPaymentsPayoutSummary>
     {
         ///<summary>
         ///Total fees for all adjustments including disputes.
@@ -45025,7 +45064,7 @@ namespace shopify
     ///<summary>
     ///Presents all Shopify Payments specific information related to an order refund.
     ///</summary>
-    public class ShopifyPaymentsRefundSet : IGraphQLObject
+    public class ShopifyPaymentsRefundSet : GraphQLObject<ShopifyPaymentsRefundSet>
     {
         ///<summary>
         ///The acquirer reference number (ARN) code generated for Visa/Mastercard transactions.
@@ -45036,7 +45075,7 @@ namespace shopify
     ///<summary>
     ///Presents all Shopify Payments specific information related to an order transaction.
     ///</summary>
-    public class ShopifyPaymentsTransactionSet : IGraphQLObject
+    public class ShopifyPaymentsTransactionSet : GraphQLObject<ShopifyPaymentsTransactionSet>
     {
         ///<summary>
         ///Contains all fields related to an extended authorization.
@@ -45052,7 +45091,7 @@ namespace shopify
     ///Each subject (individual) of an account has a verification object giving
     /// information about the verification state.
     ///</summary>
-    public class ShopifyPaymentsVerification : IGraphQLObject, INode
+    public class ShopifyPaymentsVerification : GraphQLObject<ShopifyPaymentsVerification>, INode
     {
         ///<summary>
         ///A globally-unique ID.
@@ -45071,7 +45110,7 @@ namespace shopify
     ///<summary>
     ///A document which can be used to verify an individual.
     ///</summary>
-    public class ShopifyPaymentsVerificationDocument : IGraphQLObject
+    public class ShopifyPaymentsVerificationDocument : GraphQLObject<ShopifyPaymentsVerificationDocument>
     {
         ///<summary>
         ///True if the back side of the document is required.
@@ -45128,7 +45167,7 @@ namespace shopify
     ///<summary>
     ///The verification subject represents an individual that has to be verified.
     ///</summary>
-    public class ShopifyPaymentsVerificationSubject : IGraphQLObject
+    public class ShopifyPaymentsVerificationSubject : GraphQLObject<ShopifyPaymentsVerificationSubject>
     {
         ///<summary>
         ///The family name of the individual to verify.
@@ -45165,7 +45204,7 @@ namespace shopify
     ///<summary>
     ///Represents the data about a staff member's Shopify account. Merchants can use staff member data to get more information about the staff members in their store.
     ///</summary>
-    public class StaffMember : IGraphQLObject, INode
+    public class StaffMember : GraphQLObject<StaffMember>, INode
     {
         ///<summary>
         ///Whether the staff member is active.
@@ -45224,7 +45263,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple StaffMembers.
     ///</summary>
-    public class StaffMemberConnection : IGraphQLObject
+    public class StaffMemberConnection : GraphQLObject<StaffMemberConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -45262,7 +45301,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one StaffMember and a cursor during pagination.
     ///</summary>
-    public class StaffMemberEdge : IGraphQLObject
+    public class StaffMemberEdge : GraphQLObject<StaffMemberEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -45374,7 +45413,7 @@ namespace shopify
     ///<summary>
     ///Represents the data used to customize the Shopify admin experience for a logged-in staff member.
     ///</summary>
-    public class StaffMemberPrivateData : IGraphQLObject
+    public class StaffMemberPrivateData : GraphQLObject<StaffMemberPrivateData>
     {
         ///<summary>
         ///The URL to the staff member's account settings page.
@@ -45399,7 +45438,7 @@ namespace shopify
     ///For more information on the upload process, refer to
     ///[Upload media to Shopify](https://shopify.dev/apps/online-store/media/products#step-1-upload-media-to-shopify).
     ///</summary>
-    public class StagedMediaUploadTarget : IGraphQLObject
+    public class StagedMediaUploadTarget : GraphQLObject<StagedMediaUploadTarget>
     {
         ///<summary>
         ///Parameters needed to authenticate a request to upload the file.
@@ -45444,7 +45483,7 @@ namespace shopify
     ///For more information on the upload process, refer to
     ///[Upload media to Shopify](https://shopify.dev/apps/online-store/media/products#step-1-upload-media-to-shopify).
     ///</summary>
-    public class StagedUploadParameter : IGraphQLObject
+    public class StagedUploadParameter : GraphQLObject<StagedUploadParameter>
     {
         ///<summary>
         ///The parameter's name.
@@ -45464,7 +45503,7 @@ namespace shopify
     ///which is returned by the
     ///[stagedUploadsCreate mutation](https://shopify.dev/api/admin-graphql/latest/mutations/stagedUploadsCreate).
     ///</summary>
-    public class StagedUploadTarget : IGraphQLObject
+    public class StagedUploadTarget : GraphQLObject<StagedUploadTarget>
     {
         ///<summary>
         ///The parameters of an image to be uploaded.
@@ -45479,7 +45518,7 @@ namespace shopify
     ///<summary>
     ///Return type for `stagedUploadTargetGenerate` mutation.
     ///</summary>
-    public class StagedUploadTargetGeneratePayload : IGraphQLObject
+    public class StagedUploadTargetGeneratePayload : GraphQLObject<StagedUploadTargetGeneratePayload>
     {
         ///<summary>
         ///The signed parameters that can be used to upload the asset.
@@ -45584,7 +45623,7 @@ namespace shopify
     ///<summary>
     ///Return type for `stagedUploadTargetsGenerate` mutation.
     ///</summary>
-    public class StagedUploadTargetsGeneratePayload : IGraphQLObject
+    public class StagedUploadTargetsGeneratePayload : GraphQLObject<StagedUploadTargetsGeneratePayload>
     {
         ///<summary>
         ///The staged upload targets that were generated.
@@ -45599,7 +45638,7 @@ namespace shopify
     ///<summary>
     ///Return type for `stagedUploadsCreate` mutation.
     ///</summary>
-    public class StagedUploadsCreatePayload : IGraphQLObject
+    public class StagedUploadsCreatePayload : GraphQLObject<StagedUploadsCreatePayload>
     {
         ///<summary>
         ///The staged upload targets that were generated.
@@ -45614,7 +45653,7 @@ namespace shopify
     ///<summary>
     ///Return type for `standardMetafieldDefinitionEnable` mutation.
     ///</summary>
-    public class StandardMetafieldDefinitionEnablePayload : IGraphQLObject
+    public class StandardMetafieldDefinitionEnablePayload : GraphQLObject<StandardMetafieldDefinitionEnablePayload>
     {
         ///<summary>
         ///The metafield definition that was created.
@@ -45629,7 +45668,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `StandardMetafieldDefinitionEnable`.
     ///</summary>
-    public class StandardMetafieldDefinitionEnableUserError : IGraphQLObject, IDisplayableError
+    public class StandardMetafieldDefinitionEnableUserError : GraphQLObject<StandardMetafieldDefinitionEnableUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -45682,7 +45721,7 @@ namespace shopify
     ///
     ///Refer to the [list of standard metafield definitions](https://shopify.dev/apps/metafields/definitions/standard-definitions).
     ///</summary>
-    public class StandardMetafieldDefinitionTemplate : IGraphQLObject, INode
+    public class StandardMetafieldDefinitionTemplate : GraphQLObject<StandardMetafieldDefinitionTemplate>, INode
     {
         ///<summary>
         ///The description of the standard metafield definition.
@@ -45725,7 +45764,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple StandardMetafieldDefinitionTemplates.
     ///</summary>
-    public class StandardMetafieldDefinitionTemplateConnection : IGraphQLObject
+    public class StandardMetafieldDefinitionTemplateConnection : GraphQLObject<StandardMetafieldDefinitionTemplateConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -45744,7 +45783,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one StandardMetafieldDefinitionTemplate and a cursor during pagination.
     ///</summary>
-    public class StandardMetafieldDefinitionTemplateEdge : IGraphQLObject
+    public class StandardMetafieldDefinitionTemplateEdge : GraphQLObject<StandardMetafieldDefinitionTemplateEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -45759,7 +45798,7 @@ namespace shopify
     ///<summary>
     ///Return type for `standardMetaobjectDefinitionEnable` mutation.
     ///</summary>
-    public class StandardMetaobjectDefinitionEnablePayload : IGraphQLObject
+    public class StandardMetaobjectDefinitionEnablePayload : GraphQLObject<StandardMetaobjectDefinitionEnablePayload>
     {
         ///<summary>
         ///The metaobject definition that was enabled using the standard template.
@@ -45774,7 +45813,7 @@ namespace shopify
     ///<summary>
     ///Represents the details of a specific type of product within the [Shopify product taxonomy](https://help.shopify.com/txt/product_taxonomy/en.txt).
     ///</summary>
-    public class StandardizedProductType : IGraphQLObject
+    public class StandardizedProductType : GraphQLObject<StandardizedProductType>
     {
         ///<summary>
         ///The product taxonomy node associated with the standardized product type.
@@ -45787,7 +45826,7 @@ namespace shopify
     ///the unauthenticated Storefront API. An app can have a maximum of 100 active storefront access
     ///tokens for each shop.
     ///</summary>
-    public class StorefrontAccessToken : IGraphQLObject, INode
+    public class StorefrontAccessToken : GraphQLObject<StorefrontAccessToken>, INode
     {
         ///<summary>
         ///List of permissions associated with the token.
@@ -45818,7 +45857,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple StorefrontAccessTokens.
     ///</summary>
-    public class StorefrontAccessTokenConnection : IGraphQLObject
+    public class StorefrontAccessTokenConnection : GraphQLObject<StorefrontAccessTokenConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -45837,7 +45876,7 @@ namespace shopify
     ///<summary>
     ///Return type for `storefrontAccessTokenCreate` mutation.
     ///</summary>
-    public class StorefrontAccessTokenCreatePayload : IGraphQLObject
+    public class StorefrontAccessTokenCreatePayload : GraphQLObject<StorefrontAccessTokenCreatePayload>
     {
         ///<summary>
         ///The user's shop.
@@ -45856,7 +45895,7 @@ namespace shopify
     ///<summary>
     ///Return type for `storefrontAccessTokenDelete` mutation.
     ///</summary>
-    public class StorefrontAccessTokenDeletePayload : IGraphQLObject
+    public class StorefrontAccessTokenDeletePayload : GraphQLObject<StorefrontAccessTokenDeletePayload>
     {
         ///<summary>
         ///The ID of the deleted storefront access token.
@@ -45871,7 +45910,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one StorefrontAccessToken and a cursor during pagination.
     ///</summary>
-    public class StorefrontAccessTokenEdge : IGraphQLObject
+    public class StorefrontAccessTokenEdge : GraphQLObject<StorefrontAccessTokenEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -45886,7 +45925,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through a list of Strings.
     ///</summary>
-    public class StringConnection : IGraphQLObject
+    public class StringConnection : GraphQLObject<StringConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -45901,7 +45940,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one String and a cursor during pagination.
     ///</summary>
-    public class StringEdge : IGraphQLObject
+    public class StringEdge : GraphQLObject<StringEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -45916,7 +45955,7 @@ namespace shopify
     ///<summary>
     ///Represents an applied code discount.
     ///</summary>
-    public class SubscriptionAppliedCodeDiscount : IGraphQLObject, ISubscriptionDiscount
+    public class SubscriptionAppliedCodeDiscount : GraphQLObject<SubscriptionAppliedCodeDiscount>, ISubscriptionDiscount
     {
         ///<summary>
         ///The unique ID.
@@ -45937,7 +45976,7 @@ namespace shopify
     ///idempotency keys to avoid duplicate order creation. A successful billing attempt
     ///will create an order.
     ///</summary>
-    public class SubscriptionBillingAttempt : IGraphQLObject, INode
+    public class SubscriptionBillingAttempt : GraphQLObject<SubscriptionBillingAttempt>, INode
     {
         ///<summary>
         ///The date and time when the billing attempt was completed.
@@ -45990,7 +46029,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple SubscriptionBillingAttempts.
     ///</summary>
-    public class SubscriptionBillingAttemptConnection : IGraphQLObject
+    public class SubscriptionBillingAttemptConnection : GraphQLObject<SubscriptionBillingAttemptConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -46009,7 +46048,7 @@ namespace shopify
     ///<summary>
     ///Return type for `subscriptionBillingAttemptCreate` mutation.
     ///</summary>
-    public class SubscriptionBillingAttemptCreatePayload : IGraphQLObject
+    public class SubscriptionBillingAttemptCreatePayload : GraphQLObject<SubscriptionBillingAttemptCreatePayload>
     {
         ///<summary>
         ///The subscription billing attempt.
@@ -46024,7 +46063,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one SubscriptionBillingAttempt and a cursor during pagination.
     ///</summary>
-    public class SubscriptionBillingAttemptEdge : IGraphQLObject
+    public class SubscriptionBillingAttemptEdge : GraphQLObject<SubscriptionBillingAttemptEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -46139,7 +46178,7 @@ namespace shopify
     ///<summary>
     ///A subscription billing cycle.
     ///</summary>
-    public class SubscriptionBillingCycle : IGraphQLObject
+    public class SubscriptionBillingCycle : GraphQLObject<SubscriptionBillingCycle>
     {
         ///<summary>
         ///The date on which the billing attempt is expected to be made.
@@ -46201,7 +46240,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple SubscriptionBillingCycles.
     ///</summary>
-    public class SubscriptionBillingCycleConnection : IGraphQLObject
+    public class SubscriptionBillingCycleConnection : GraphQLObject<SubscriptionBillingCycleConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -46220,7 +46259,7 @@ namespace shopify
     ///<summary>
     ///Return type for `subscriptionBillingCycleContractDraftCommit` mutation.
     ///</summary>
-    public class SubscriptionBillingCycleContractDraftCommitPayload : IGraphQLObject
+    public class SubscriptionBillingCycleContractDraftCommitPayload : GraphQLObject<SubscriptionBillingCycleContractDraftCommitPayload>
     {
         ///<summary>
         ///The committed Subscription Billing Cycle Edited Contract object.
@@ -46235,7 +46274,7 @@ namespace shopify
     ///<summary>
     ///Return type for `subscriptionBillingCycleContractDraftConcatenate` mutation.
     ///</summary>
-    public class SubscriptionBillingCycleContractDraftConcatenatePayload : IGraphQLObject
+    public class SubscriptionBillingCycleContractDraftConcatenatePayload : GraphQLObject<SubscriptionBillingCycleContractDraftConcatenatePayload>
     {
         ///<summary>
         ///The Subscription Draft object.
@@ -46250,7 +46289,7 @@ namespace shopify
     ///<summary>
     ///Return type for `subscriptionBillingCycleContractEdit` mutation.
     ///</summary>
-    public class SubscriptionBillingCycleContractEditPayload : IGraphQLObject
+    public class SubscriptionBillingCycleContractEditPayload : GraphQLObject<SubscriptionBillingCycleContractEditPayload>
     {
         ///<summary>
         ///The draft subscription contract object.
@@ -46265,7 +46304,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one SubscriptionBillingCycle and a cursor during pagination.
     ///</summary>
-    public class SubscriptionBillingCycleEdge : IGraphQLObject
+    public class SubscriptionBillingCycleEdge : GraphQLObject<SubscriptionBillingCycleEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -46280,7 +46319,7 @@ namespace shopify
     ///<summary>
     ///Return type for `subscriptionBillingCycleEditDelete` mutation.
     ///</summary>
-    public class SubscriptionBillingCycleEditDeletePayload : IGraphQLObject
+    public class SubscriptionBillingCycleEditDeletePayload : GraphQLObject<SubscriptionBillingCycleEditDeletePayload>
     {
         ///<summary>
         ///The list of updated billing cycles.
@@ -46295,7 +46334,7 @@ namespace shopify
     ///<summary>
     ///Represents a subscription contract with billing cycles.
     ///</summary>
-    public class SubscriptionBillingCycleEditedContract : IGraphQLObject, ISubscriptionContractBase
+    public class SubscriptionBillingCycleEditedContract : GraphQLObject<SubscriptionBillingCycleEditedContract>, ISubscriptionContractBase
     {
         ///<summary>
         ///The subscription app that the subscription contract is registered to.
@@ -46366,7 +46405,7 @@ namespace shopify
     ///<summary>
     ///Return type for `subscriptionBillingCycleEditsDelete` mutation.
     ///</summary>
-    public class SubscriptionBillingCycleEditsDeletePayload : IGraphQLObject
+    public class SubscriptionBillingCycleEditsDeletePayload : GraphQLObject<SubscriptionBillingCycleEditsDeletePayload>
     {
         ///<summary>
         ///The list of updated billing cycles.
@@ -46455,7 +46494,7 @@ namespace shopify
     ///<summary>
     ///Return type for `subscriptionBillingCycleScheduleEdit` mutation.
     ///</summary>
-    public class SubscriptionBillingCycleScheduleEditPayload : IGraphQLObject
+    public class SubscriptionBillingCycleScheduleEditPayload : GraphQLObject<SubscriptionBillingCycleScheduleEditPayload>
     {
         ///<summary>
         ///The updated billing cycle.
@@ -46470,7 +46509,7 @@ namespace shopify
     ///<summary>
     ///The possible errors for a subscription billing cycle.
     ///</summary>
-    public class SubscriptionBillingCycleUserError : IGraphQLObject, IDisplayableError
+    public class SubscriptionBillingCycleUserError : GraphQLObject<SubscriptionBillingCycleUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -46520,7 +46559,7 @@ namespace shopify
     ///<summary>
     ///Represents a Subscription Billing Policy.
     ///</summary>
-    public class SubscriptionBillingPolicy : IGraphQLObject
+    public class SubscriptionBillingPolicy : GraphQLObject<SubscriptionBillingPolicy>
     {
         ///<summary>
         ///Specific anchor dates upon which the billing interval calculations should be made.
@@ -46547,7 +46586,7 @@ namespace shopify
     ///<summary>
     ///Represents a Subscription Contract.
     ///</summary>
-    public class SubscriptionContract : IGraphQLObject, INode, ISubscriptionContractBase
+    public class SubscriptionContract : GraphQLObject<SubscriptionContract>, INode, ISubscriptionContractBase
     {
         ///<summary>
         ///The subscription app that the subscription contract is registered to.
@@ -46650,7 +46689,7 @@ namespace shopify
     ///<summary>
     ///Return type for `subscriptionContractAtomicCreate` mutation.
     ///</summary>
-    public class SubscriptionContractAtomicCreatePayload : IGraphQLObject
+    public class SubscriptionContractAtomicCreatePayload : GraphQLObject<SubscriptionContractAtomicCreatePayload>
     {
         ///<summary>
         ///The new Subscription Contract object.
@@ -46733,7 +46772,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple SubscriptionContracts.
     ///</summary>
-    public class SubscriptionContractConnection : IGraphQLObject
+    public class SubscriptionContractConnection : GraphQLObject<SubscriptionContractConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -46752,7 +46791,7 @@ namespace shopify
     ///<summary>
     ///Return type for `subscriptionContractCreate` mutation.
     ///</summary>
-    public class SubscriptionContractCreatePayload : IGraphQLObject
+    public class SubscriptionContractCreatePayload : GraphQLObject<SubscriptionContractCreatePayload>
     {
         ///<summary>
         ///The Subscription Contract object.
@@ -46767,7 +46806,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one SubscriptionContract and a cursor during pagination.
     ///</summary>
-    public class SubscriptionContractEdge : IGraphQLObject
+    public class SubscriptionContractEdge : GraphQLObject<SubscriptionContractEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -46808,7 +46847,7 @@ namespace shopify
     ///<summary>
     ///Return type for `subscriptionContractProductChange` mutation.
     ///</summary>
-    public class SubscriptionContractProductChangePayload : IGraphQLObject
+    public class SubscriptionContractProductChangePayload : GraphQLObject<SubscriptionContractProductChangePayload>
     {
         ///<summary>
         ///The new Subscription Contract object.
@@ -46827,7 +46866,7 @@ namespace shopify
     ///<summary>
     ///Return type for `subscriptionContractSetNextBillingDate` mutation.
     ///</summary>
-    public class SubscriptionContractSetNextBillingDatePayload : IGraphQLObject
+    public class SubscriptionContractSetNextBillingDatePayload : GraphQLObject<SubscriptionContractSetNextBillingDatePayload>
     {
         ///<summary>
         ///The updated Subscription Contract object.
@@ -46873,7 +46912,7 @@ namespace shopify
     ///<summary>
     ///Return type for `subscriptionContractUpdate` mutation.
     ///</summary>
-    public class SubscriptionContractUpdatePayload : IGraphQLObject
+    public class SubscriptionContractUpdatePayload : GraphQLObject<SubscriptionContractUpdatePayload>
     {
         ///<summary>
         ///The Subscription Contract object.
@@ -46888,7 +46927,7 @@ namespace shopify
     ///<summary>
     ///Represents a Subscription Contract error.
     ///</summary>
-    public class SubscriptionContractUserError : IGraphQLObject, IDisplayableError
+    public class SubscriptionContractUserError : GraphQLObject<SubscriptionContractUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -46907,7 +46946,7 @@ namespace shopify
     ///<summary>
     ///Represents a Subscription Line Pricing Cycle Adjustment.
     ///</summary>
-    public class SubscriptionCyclePriceAdjustment : IGraphQLObject
+    public class SubscriptionCyclePriceAdjustment : GraphQLObject<SubscriptionCyclePriceAdjustment>
     {
         ///<summary>
         ///Price adjustment type.
@@ -46945,7 +46984,7 @@ namespace shopify
     ///A subscription delivery method for local delivery.
     ///The other subscription delivery methods can be found in the `SubscriptionDeliveryMethod` union type.
     ///</summary>
-    public class SubscriptionDeliveryMethodLocalDelivery : IGraphQLObject, ISubscriptionDeliveryMethod
+    public class SubscriptionDeliveryMethodLocalDelivery : GraphQLObject<SubscriptionDeliveryMethodLocalDelivery>, ISubscriptionDeliveryMethod
     {
         ///<summary>
         ///The address to deliver to.
@@ -46960,7 +46999,7 @@ namespace shopify
     ///<summary>
     ///The selected delivery option on a subscription contract.
     ///</summary>
-    public class SubscriptionDeliveryMethodLocalDeliveryOption : IGraphQLObject
+    public class SubscriptionDeliveryMethodLocalDeliveryOption : GraphQLObject<SubscriptionDeliveryMethodLocalDeliveryOption>
     {
         ///<summary>
         ///A custom reference to the delivery method for use with automations.
@@ -46992,7 +47031,7 @@ namespace shopify
     ///<summary>
     ///A delivery method with a pickup option.
     ///</summary>
-    public class SubscriptionDeliveryMethodPickup : IGraphQLObject, ISubscriptionDeliveryMethod
+    public class SubscriptionDeliveryMethodPickup : GraphQLObject<SubscriptionDeliveryMethodPickup>, ISubscriptionDeliveryMethod
     {
         ///<summary>
         ///The details of the pickup delivery method to use.
@@ -47003,7 +47042,7 @@ namespace shopify
     ///<summary>
     ///Represents the selected pickup option on a subscription contract.
     ///</summary>
-    public class SubscriptionDeliveryMethodPickupOption : IGraphQLObject
+    public class SubscriptionDeliveryMethodPickupOption : GraphQLObject<SubscriptionDeliveryMethodPickupOption>
     {
         ///<summary>
         ///A custom reference to the delivery method for use with automations.
@@ -47030,7 +47069,7 @@ namespace shopify
     ///<summary>
     ///Represents a shipping delivery method: a mailing address and a shipping option.
     ///</summary>
-    public class SubscriptionDeliveryMethodShipping : IGraphQLObject, ISubscriptionDeliveryMethod
+    public class SubscriptionDeliveryMethodShipping : GraphQLObject<SubscriptionDeliveryMethodShipping>, ISubscriptionDeliveryMethod
     {
         ///<summary>
         ///The address to ship to.
@@ -47045,7 +47084,7 @@ namespace shopify
     ///<summary>
     ///Represents the selected shipping option on a subscription contract.
     ///</summary>
-    public class SubscriptionDeliveryMethodShippingOption : IGraphQLObject
+    public class SubscriptionDeliveryMethodShippingOption : GraphQLObject<SubscriptionDeliveryMethodShippingOption>
     {
         ///<summary>
         ///The carrier service that's providing this shipping option.
@@ -47124,7 +47163,7 @@ namespace shopify
     ///<summary>
     ///A failure to find the available delivery options for a subscription contract.
     ///</summary>
-    public class SubscriptionDeliveryOptionResultFailure : IGraphQLObject, ISubscriptionDeliveryOptionResult
+    public class SubscriptionDeliveryOptionResultFailure : GraphQLObject<SubscriptionDeliveryOptionResultFailure>, ISubscriptionDeliveryOptionResult
     {
         ///<summary>
         ///The reason for the failure.
@@ -47135,7 +47174,7 @@ namespace shopify
     ///<summary>
     ///The delivery option for a subscription contract.
     ///</summary>
-    public class SubscriptionDeliveryOptionResultSuccess : IGraphQLObject, ISubscriptionDeliveryOptionResult
+    public class SubscriptionDeliveryOptionResultSuccess : GraphQLObject<SubscriptionDeliveryOptionResultSuccess>, ISubscriptionDeliveryOptionResult
     {
         ///<summary>
         ///The available delivery options.
@@ -47146,7 +47185,7 @@ namespace shopify
     ///<summary>
     ///Represents a Subscription Delivery Policy.
     ///</summary>
-    public class SubscriptionDeliveryPolicy : IGraphQLObject
+    public class SubscriptionDeliveryPolicy : GraphQLObject<SubscriptionDeliveryPolicy>
     {
         ///<summary>
         ///The specific anchor dates upon which the delivery interval calculations should be made.
@@ -47185,7 +47224,7 @@ namespace shopify
     ///<summary>
     ///Represents what a particular discount reduces from a line price.
     ///</summary>
-    public class SubscriptionDiscountAllocation : IGraphQLObject
+    public class SubscriptionDiscountAllocation : GraphQLObject<SubscriptionDiscountAllocation>
     {
         ///<summary>
         ///Allocation amount.
@@ -47200,7 +47239,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple SubscriptionDiscounts.
     ///</summary>
-    public class SubscriptionDiscountConnection : IGraphQLObject
+    public class SubscriptionDiscountConnection : GraphQLObject<SubscriptionDiscountConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -47219,7 +47258,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one SubscriptionDiscount and a cursor during pagination.
     ///</summary>
-    public class SubscriptionDiscountEdge : IGraphQLObject
+    public class SubscriptionDiscountEdge : GraphQLObject<SubscriptionDiscountEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -47234,7 +47273,7 @@ namespace shopify
     ///<summary>
     ///Represents the subscription lines the discount applies on.
     ///</summary>
-    public class SubscriptionDiscountEntitledLines : IGraphQLObject
+    public class SubscriptionDiscountEntitledLines : GraphQLObject<SubscriptionDiscountEntitledLines>
     {
         ///<summary>
         ///Specify whether the subscription discount will apply on all subscription lines.
@@ -47249,7 +47288,7 @@ namespace shopify
     ///<summary>
     ///The value of the discount and how it will be applied.
     ///</summary>
-    public class SubscriptionDiscountFixedAmountValue : IGraphQLObject, ISubscriptionDiscountValue
+    public class SubscriptionDiscountFixedAmountValue : GraphQLObject<SubscriptionDiscountFixedAmountValue>, ISubscriptionDiscountValue
     {
         ///<summary>
         ///The fixed amount value of the discount.
@@ -47264,7 +47303,7 @@ namespace shopify
     ///<summary>
     ///The percentage value of the discount.
     ///</summary>
-    public class SubscriptionDiscountPercentageValue : IGraphQLObject, ISubscriptionDiscountValue
+    public class SubscriptionDiscountPercentageValue : GraphQLObject<SubscriptionDiscountPercentageValue>, ISubscriptionDiscountValue
     {
         ///<summary>
         ///The percentage value of the discount.
@@ -47338,7 +47377,7 @@ namespace shopify
     ///<summary>
     ///Represents a Subscription Draft.
     ///</summary>
-    public class SubscriptionDraft : IGraphQLObject, INode
+    public class SubscriptionDraft : GraphQLObject<SubscriptionDraft>, INode
     {
         ///<summary>
         ///The billing cycle that the subscription contract will be associated with.
@@ -47443,7 +47482,7 @@ namespace shopify
     ///<summary>
     ///Return type for `subscriptionDraftCommit` mutation.
     ///</summary>
-    public class SubscriptionDraftCommitPayload : IGraphQLObject
+    public class SubscriptionDraftCommitPayload : GraphQLObject<SubscriptionDraftCommitPayload>
     {
         ///<summary>
         ///The updated Subscription Contract object.
@@ -47458,7 +47497,7 @@ namespace shopify
     ///<summary>
     ///Return type for `subscriptionDraftDiscountAdd` mutation.
     ///</summary>
-    public class SubscriptionDraftDiscountAddPayload : IGraphQLObject
+    public class SubscriptionDraftDiscountAddPayload : GraphQLObject<SubscriptionDraftDiscountAddPayload>
     {
         ///<summary>
         ///The added Subscription Discount.
@@ -47477,7 +47516,7 @@ namespace shopify
     ///<summary>
     ///Return type for `subscriptionDraftDiscountCodeApply` mutation.
     ///</summary>
-    public class SubscriptionDraftDiscountCodeApplyPayload : IGraphQLObject
+    public class SubscriptionDraftDiscountCodeApplyPayload : GraphQLObject<SubscriptionDraftDiscountCodeApplyPayload>
     {
         ///<summary>
         ///The added subscription discount.
@@ -47496,7 +47535,7 @@ namespace shopify
     ///<summary>
     ///Return type for `subscriptionDraftDiscountRemove` mutation.
     ///</summary>
-    public class SubscriptionDraftDiscountRemovePayload : IGraphQLObject
+    public class SubscriptionDraftDiscountRemovePayload : GraphQLObject<SubscriptionDraftDiscountRemovePayload>
     {
         ///<summary>
         ///The removed subscription draft discount.
@@ -47515,7 +47554,7 @@ namespace shopify
     ///<summary>
     ///Return type for `subscriptionDraftDiscountUpdate` mutation.
     ///</summary>
-    public class SubscriptionDraftDiscountUpdatePayload : IGraphQLObject
+    public class SubscriptionDraftDiscountUpdatePayload : GraphQLObject<SubscriptionDraftDiscountUpdatePayload>
     {
         ///<summary>
         ///The updated Subscription Discount.
@@ -47701,7 +47740,7 @@ namespace shopify
     ///<summary>
     ///Return type for `subscriptionDraftFreeShippingDiscountAdd` mutation.
     ///</summary>
-    public class SubscriptionDraftFreeShippingDiscountAddPayload : IGraphQLObject
+    public class SubscriptionDraftFreeShippingDiscountAddPayload : GraphQLObject<SubscriptionDraftFreeShippingDiscountAddPayload>
     {
         ///<summary>
         ///The added subscription free shipping discount.
@@ -47720,7 +47759,7 @@ namespace shopify
     ///<summary>
     ///Return type for `subscriptionDraftFreeShippingDiscountUpdate` mutation.
     ///</summary>
-    public class SubscriptionDraftFreeShippingDiscountUpdatePayload : IGraphQLObject
+    public class SubscriptionDraftFreeShippingDiscountUpdatePayload : GraphQLObject<SubscriptionDraftFreeShippingDiscountUpdatePayload>
     {
         ///<summary>
         ///The updated Subscription Discount.
@@ -47739,7 +47778,7 @@ namespace shopify
     ///<summary>
     ///Return type for `subscriptionDraftLineAdd` mutation.
     ///</summary>
-    public class SubscriptionDraftLineAddPayload : IGraphQLObject
+    public class SubscriptionDraftLineAddPayload : GraphQLObject<SubscriptionDraftLineAddPayload>
     {
         ///<summary>
         ///The Subscription Contract draft object.
@@ -47758,7 +47797,7 @@ namespace shopify
     ///<summary>
     ///Return type for `subscriptionDraftLineRemove` mutation.
     ///</summary>
-    public class SubscriptionDraftLineRemovePayload : IGraphQLObject
+    public class SubscriptionDraftLineRemovePayload : GraphQLObject<SubscriptionDraftLineRemovePayload>
     {
         ///<summary>
         ///The list of updated subscription discounts impacted by the removed line.
@@ -47781,7 +47820,7 @@ namespace shopify
     ///<summary>
     ///Return type for `subscriptionDraftLineUpdate` mutation.
     ///</summary>
-    public class SubscriptionDraftLineUpdatePayload : IGraphQLObject
+    public class SubscriptionDraftLineUpdatePayload : GraphQLObject<SubscriptionDraftLineUpdatePayload>
     {
         ///<summary>
         ///The Subscription Contract draft object.
@@ -47800,7 +47839,7 @@ namespace shopify
     ///<summary>
     ///Return type for `subscriptionDraftUpdate` mutation.
     ///</summary>
-    public class SubscriptionDraftUpdatePayload : IGraphQLObject
+    public class SubscriptionDraftUpdatePayload : GraphQLObject<SubscriptionDraftUpdatePayload>
     {
         ///<summary>
         ///The Subscription Draft object.
@@ -47815,7 +47854,7 @@ namespace shopify
     ///<summary>
     ///Represents a Subscription Draft error.
     ///</summary>
-    public class SubscriptionDraftUserError : IGraphQLObject, IDisplayableError
+    public class SubscriptionDraftUserError : GraphQLObject<SubscriptionDraftUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -47834,7 +47873,7 @@ namespace shopify
     ///<summary>
     ///Represents a Subscription Line.
     ///</summary>
-    public class SubscriptionLine : IGraphQLObject
+    public class SubscriptionLine : GraphQLObject<SubscriptionLine>
     {
         ///<summary>
         ///The price per unit for the subscription line in the contract's currency.
@@ -47923,7 +47962,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple SubscriptionLines.
     ///</summary>
-    public class SubscriptionLineConnection : IGraphQLObject
+    public class SubscriptionLineConnection : GraphQLObject<SubscriptionLineConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -47942,7 +47981,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one SubscriptionLine and a cursor during pagination.
     ///</summary>
-    public class SubscriptionLineEdge : IGraphQLObject
+    public class SubscriptionLineEdge : GraphQLObject<SubscriptionLineEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -47957,7 +47996,7 @@ namespace shopify
     ///<summary>
     ///A local delivery option for a subscription contract.
     ///</summary>
-    public class SubscriptionLocalDeliveryOption : IGraphQLObject, ISubscriptionDeliveryOption
+    public class SubscriptionLocalDeliveryOption : GraphQLObject<SubscriptionLocalDeliveryOption>, ISubscriptionDeliveryOption
     {
         ///<summary>
         ///The code of the local delivery option.
@@ -47988,7 +48027,7 @@ namespace shopify
     ///<summary>
     ///Represents a Mailing Address on a Subscription.
     ///</summary>
-    public class SubscriptionMailingAddress : IGraphQLObject
+    public class SubscriptionMailingAddress : GraphQLObject<SubscriptionMailingAddress>
     {
         ///<summary>
         ///The first line of the address. Typically the street address or PO Box number.
@@ -48051,7 +48090,7 @@ namespace shopify
     ///<summary>
     ///Custom subscription discount.
     ///</summary>
-    public class SubscriptionManualDiscount : IGraphQLObject, ISubscriptionDiscount
+    public class SubscriptionManualDiscount : GraphQLObject<SubscriptionManualDiscount>, ISubscriptionDiscount
     {
         ///<summary>
         ///Entitled line items used to apply the subscription discount on.
@@ -48094,7 +48133,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple SubscriptionManualDiscounts.
     ///</summary>
-    public class SubscriptionManualDiscountConnection : IGraphQLObject
+    public class SubscriptionManualDiscountConnection : GraphQLObject<SubscriptionManualDiscountConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -48113,7 +48152,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one SubscriptionManualDiscount and a cursor during pagination.
     ///</summary>
-    public class SubscriptionManualDiscountEdge : IGraphQLObject
+    public class SubscriptionManualDiscountEdge : GraphQLObject<SubscriptionManualDiscountEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -48128,7 +48167,7 @@ namespace shopify
     ///<summary>
     ///A pickup option to deliver a subscription contract.
     ///</summary>
-    public class SubscriptionPickupOption : IGraphQLObject, ISubscriptionDeliveryOption
+    public class SubscriptionPickupOption : GraphQLObject<SubscriptionPickupOption>, ISubscriptionDeliveryOption
     {
         ///<summary>
         ///The code of the pickup option.
@@ -48167,7 +48206,7 @@ namespace shopify
     ///<summary>
     ///Represents a Subscription Line Pricing Policy.
     ///</summary>
-    public class SubscriptionPricingPolicy : IGraphQLObject
+    public class SubscriptionPricingPolicy : GraphQLObject<SubscriptionPricingPolicy>
     {
         ///<summary>
         ///The base price per unit for the subscription line in the contract's currency.
@@ -48182,7 +48221,7 @@ namespace shopify
     ///<summary>
     ///A shipping option to deliver a subscription contract.
     ///</summary>
-    public class SubscriptionShippingOption : IGraphQLObject, ISubscriptionDeliveryOption
+    public class SubscriptionShippingOption : GraphQLObject<SubscriptionShippingOption>, ISubscriptionDeliveryOption
     {
         ///<summary>
         ///The carrier service that's providing this shipping option.
@@ -48231,7 +48270,7 @@ namespace shopify
     ///<summary>
     ///Failure determining available shipping options for delivery of a subscription contract.
     ///</summary>
-    public class SubscriptionShippingOptionResultFailure : IGraphQLObject, ISubscriptionShippingOptionResult
+    public class SubscriptionShippingOptionResultFailure : GraphQLObject<SubscriptionShippingOptionResultFailure>, ISubscriptionShippingOptionResult
     {
         ///<summary>
         ///Failure reason.
@@ -48242,7 +48281,7 @@ namespace shopify
     ///<summary>
     ///A shipping option for delivery of a subscription contract.
     ///</summary>
-    public class SubscriptionShippingOptionResultSuccess : IGraphQLObject, ISubscriptionShippingOptionResult
+    public class SubscriptionShippingOptionResultSuccess : GraphQLObject<SubscriptionShippingOptionResultSuccess>, ISubscriptionShippingOptionResult
     {
         ///<summary>
         ///Available shipping options.
@@ -48254,7 +48293,7 @@ namespace shopify
     ///A suggested transaction. Suggested transaction are usually used in the context of refunds
     ///and exchanges.
     ///</summary>
-    public class SuggestedOrderTransaction : IGraphQLObject
+    public class SuggestedOrderTransaction : GraphQLObject<SuggestedOrderTransaction>
     {
         ///<summary>
         ///The masked account number associated with the payment method.
@@ -48312,7 +48351,7 @@ namespace shopify
     ///<summary>
     ///Represents a refund suggested by Shopify based on the items being reimbursed. You can then use the suggested refund object to generate an actual refund.
     ///</summary>
-    public class SuggestedRefund : IGraphQLObject
+    public class SuggestedRefund : GraphQLObject<SuggestedRefund>
     {
         ///<summary>
         ///The total monetary value to be refunded.
@@ -48386,7 +48425,7 @@ namespace shopify
     ///<summary>
     ///Represents a return refund suggested by Shopify based on the items being reimbursed. You can then use the suggested refund object to generate an actual refund for the return.
     ///</summary>
-    public class SuggestedReturnRefund : IGraphQLObject
+    public class SuggestedReturnRefund : GraphQLObject<SuggestedReturnRefund>
     {
         ///<summary>
         ///The total monetary value to be refunded in shop and presentment currencies.
@@ -48433,7 +48472,7 @@ namespace shopify
     ///<summary>
     ///The result in a tabular format with schema information and formatted and unformatted row data.
     ///</summary>
-    public class TableData : IGraphQLObject
+    public class TableData : GraphQLObject<TableData>
     {
         ///<summary>
         ///The data table columns.
@@ -48452,7 +48491,7 @@ namespace shopify
     ///<summary>
     ///A nested array representation of the data. An index in an array represents a row number.
     ///</summary>
-    public class TableDataColumn : IGraphQLObject
+    public class TableDataColumn : GraphQLObject<TableDataColumn>
     {
         ///<summary>
         ///For comparison columns, indicates the column to compare to.
@@ -48475,7 +48514,7 @@ namespace shopify
     ///<summary>
     ///The default table response structure for a ShopifyQL query.
     ///</summary>
-    public class TableResponse : IGraphQLObject, IShopifyqlResponse
+    public class TableResponse : GraphQLObject<TableResponse>, IShopifyqlResponse
     {
         ///<summary>
         ///A list of parse errors, if parsing fails.
@@ -48490,7 +48529,7 @@ namespace shopify
     ///<summary>
     ///Return type for `tagsAdd` mutation.
     ///</summary>
-    public class TagsAddPayload : IGraphQLObject
+    public class TagsAddPayload : GraphQLObject<TagsAddPayload>
     {
         ///<summary>
         ///The object that was updated.
@@ -48505,7 +48544,7 @@ namespace shopify
     ///<summary>
     ///Return type for `tagsRemove` mutation.
     ///</summary>
-    public class TagsRemovePayload : IGraphQLObject
+    public class TagsRemovePayload : GraphQLObject<TagsRemovePayload>
     {
         ///<summary>
         ///The object that was updated.
@@ -48520,7 +48559,7 @@ namespace shopify
     ///<summary>
     ///Tax app configuration of a merchant.
     ///</summary>
-    public class TaxAppConfiguration : IGraphQLObject
+    public class TaxAppConfiguration : GraphQLObject<TaxAppConfiguration>
     {
         ///<summary>
         ///State of the tax app configuration.
@@ -48531,7 +48570,7 @@ namespace shopify
     ///<summary>
     ///Return type for `taxAppConfigure` mutation.
     ///</summary>
-    public class TaxAppConfigurePayload : IGraphQLObject
+    public class TaxAppConfigurePayload : GraphQLObject<TaxAppConfigurePayload>
     {
         ///<summary>
         ///The updated tax app configuration.
@@ -48546,7 +48585,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `TaxAppConfigure`.
     ///</summary>
-    public class TaxAppConfigureUserError : IGraphQLObject, IDisplayableError
+    public class TaxAppConfigureUserError : GraphQLObject<TaxAppConfigureUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -48879,7 +48918,7 @@ namespace shopify
     ///<summary>
     ///Represents a single tax applied to the associated line item.
     ///</summary>
-    public class TaxLine : IGraphQLObject
+    public class TaxLine : GraphQLObject<TaxLine>
     {
         ///<summary>
         ///Whether the channel that submitted the tax line is liable for remitting. A value of null indicates unknown liability for this tax line.
@@ -48933,7 +48972,7 @@ namespace shopify
     ///represents actual money movement between a buyer and a shop. TenderTransactions can be used instead of OrderTransactions
     ///for reconciling a shop's cash flow. A TenderTransaction is immutable once created.
     ///</summary>
-    public class TenderTransaction : IGraphQLObject, INode
+    public class TenderTransaction : GraphQLObject<TenderTransaction>, INode
     {
         ///<summary>
         ///The amount and currency of the tender transaction.
@@ -48972,7 +49011,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple TenderTransactions.
     ///</summary>
-    public class TenderTransactionConnection : IGraphQLObject
+    public class TenderTransactionConnection : GraphQLObject<TenderTransactionConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -48991,7 +49030,7 @@ namespace shopify
     ///<summary>
     ///Information about the credit card used for this transaction.
     ///</summary>
-    public class TenderTransactionCreditCardDetails : IGraphQLObject, ITenderTransactionDetails
+    public class TenderTransactionCreditCardDetails : GraphQLObject<TenderTransactionCreditCardDetails>, ITenderTransactionDetails
     {
         ///<summary>
         ///The name of the company that issued the customer's credit card. Example: `Visa`.
@@ -49024,7 +49063,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one TenderTransaction and a cursor during pagination.
     ///</summary>
-    public class TenderTransactionEdge : IGraphQLObject
+    public class TenderTransactionEdge : GraphQLObject<TenderTransactionEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -49039,7 +49078,7 @@ namespace shopify
     ///<summary>
     ///A sale associated with a tip.
     ///</summary>
-    public class TipSale : IGraphQLObject, ISale
+    public class TipSale : GraphQLObject<TipSale>, ISale
     {
         ///<summary>
         ///The type of order action that the sale represents.
@@ -49086,7 +49125,7 @@ namespace shopify
     ///<summary>
     ///Transaction fee related to an order transaction.
     ///</summary>
-    public class TransactionFee : IGraphQLObject, INode
+    public class TransactionFee : GraphQLObject<TransactionFee>, INode
     {
         ///<summary>
         ///Amount of the fee.
@@ -49125,7 +49164,7 @@ namespace shopify
     ///<summary>
     ///Translatable content of a resource's field.
     ///</summary>
-    public class TranslatableContent : IGraphQLObject
+    public class TranslatableContent : GraphQLObject<TranslatableContent>
     {
         ///<summary>
         ///Hash digest representation of the content value.
@@ -49152,7 +49191,7 @@ namespace shopify
     ///<summary>
     ///A resource that has translatable fields.
     ///</summary>
-    public class TranslatableResource : IGraphQLObject
+    public class TranslatableResource : GraphQLObject<TranslatableResource>
     {
         ///<summary>
         ///GID of the resource.
@@ -49171,7 +49210,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple TranslatableResources.
     ///</summary>
-    public class TranslatableResourceConnection : IGraphQLObject
+    public class TranslatableResourceConnection : GraphQLObject<TranslatableResourceConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -49190,7 +49229,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one TranslatableResource and a cursor during pagination.
     ///</summary>
-    public class TranslatableResourceEdge : IGraphQLObject
+    public class TranslatableResourceEdge : GraphQLObject<TranslatableResourceEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -49298,7 +49337,7 @@ namespace shopify
     ///<summary>
     ///Translation of a field of a resource.
     ///</summary>
-    public class Translation : IGraphQLObject
+    public class Translation : GraphQLObject<Translation>
     {
         ///<summary>
         ///On the resource that this translation belongs to, the reference to the value being translated.
@@ -49408,7 +49447,7 @@ namespace shopify
     ///<summary>
     ///Represents an error that happens during the execution of a translation mutation.
     ///</summary>
-    public class TranslationUserError : IGraphQLObject, IDisplayableError
+    public class TranslationUserError : GraphQLObject<TranslationUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -49427,7 +49466,7 @@ namespace shopify
     ///<summary>
     ///Return type for `translationsRegister` mutation.
     ///</summary>
-    public class TranslationsRegisterPayload : IGraphQLObject
+    public class TranslationsRegisterPayload : GraphQLObject<TranslationsRegisterPayload>
     {
         ///<summary>
         ///The translations that were created or updated.
@@ -49442,7 +49481,7 @@ namespace shopify
     ///<summary>
     ///Return type for `translationsRemove` mutation.
     ///</summary>
-    public class TranslationsRemovePayload : IGraphQLObject
+    public class TranslationsRemovePayload : GraphQLObject<TranslationsRemovePayload>
     {
         ///<summary>
         ///The translations that were deleted.
@@ -49457,7 +49496,7 @@ namespace shopify
     ///<summary>
     ///Represents a typed custom attribute.
     ///</summary>
-    public class TypedAttribute : IGraphQLObject
+    public class TypedAttribute : GraphQLObject<TypedAttribute>
     {
         ///<summary>
         ///Key or name of the attribute.
@@ -49472,7 +49511,7 @@ namespace shopify
     ///<summary>
     ///Represents a set of UTM parameters.
     ///</summary>
-    public class UTMParameters : IGraphQLObject
+    public class UTMParameters : GraphQLObject<UTMParameters>
     {
         ///<summary>
         ///The name of a marketing campaign.
@@ -49514,7 +49553,7 @@ namespace shopify
     ///<summary>
     ///This is represents new sale types that have been added in future API versions. You may update to a more recent API version to receive additional details about this sale.
     ///</summary>
-    public class UnknownSale : IGraphQLObject, ISale
+    public class UnknownSale : GraphQLObject<UnknownSale>, ISale
     {
         ///<summary>
         ///The type of order action that the sale represents.
@@ -49557,7 +49596,7 @@ namespace shopify
     ///<summary>
     ///The URL redirect for the online store.
     ///</summary>
-    public class UrlRedirect : IGraphQLObject, INode
+    public class UrlRedirect : GraphQLObject<UrlRedirect>, INode
     {
         ///<summary>
         ///The ID of the URL redirect.
@@ -49576,7 +49615,7 @@ namespace shopify
     ///<summary>
     ///Return type for `urlRedirectBulkDeleteAll` mutation.
     ///</summary>
-    public class UrlRedirectBulkDeleteAllPayload : IGraphQLObject
+    public class UrlRedirectBulkDeleteAllPayload : GraphQLObject<UrlRedirectBulkDeleteAllPayload>
     {
         ///<summary>
         ///The asynchronous job removing the redirects.
@@ -49591,7 +49630,7 @@ namespace shopify
     ///<summary>
     ///Return type for `urlRedirectBulkDeleteByIds` mutation.
     ///</summary>
-    public class UrlRedirectBulkDeleteByIdsPayload : IGraphQLObject
+    public class UrlRedirectBulkDeleteByIdsPayload : GraphQLObject<UrlRedirectBulkDeleteByIdsPayload>
     {
         ///<summary>
         ///The asynchronous job removing the redirects.
@@ -49606,7 +49645,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `UrlRedirectBulkDeleteByIds`.
     ///</summary>
-    public class UrlRedirectBulkDeleteByIdsUserError : IGraphQLObject, IDisplayableError
+    public class UrlRedirectBulkDeleteByIdsUserError : GraphQLObject<UrlRedirectBulkDeleteByIdsUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -49638,7 +49677,7 @@ namespace shopify
     ///<summary>
     ///Return type for `urlRedirectBulkDeleteBySavedSearch` mutation.
     ///</summary>
-    public class UrlRedirectBulkDeleteBySavedSearchPayload : IGraphQLObject
+    public class UrlRedirectBulkDeleteBySavedSearchPayload : GraphQLObject<UrlRedirectBulkDeleteBySavedSearchPayload>
     {
         ///<summary>
         ///The asynchronous job removing the redirects.
@@ -49653,7 +49692,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `UrlRedirectBulkDeleteBySavedSearch`.
     ///</summary>
-    public class UrlRedirectBulkDeleteBySavedSearchUserError : IGraphQLObject, IDisplayableError
+    public class UrlRedirectBulkDeleteBySavedSearchUserError : GraphQLObject<UrlRedirectBulkDeleteBySavedSearchUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -49687,7 +49726,7 @@ namespace shopify
     ///<summary>
     ///Return type for `urlRedirectBulkDeleteBySearch` mutation.
     ///</summary>
-    public class UrlRedirectBulkDeleteBySearchPayload : IGraphQLObject
+    public class UrlRedirectBulkDeleteBySearchPayload : GraphQLObject<UrlRedirectBulkDeleteBySearchPayload>
     {
         ///<summary>
         ///The asynchronous job removing the redirects.
@@ -49702,7 +49741,7 @@ namespace shopify
     ///<summary>
     ///An error that occurs during the execution of `UrlRedirectBulkDeleteBySearch`.
     ///</summary>
-    public class UrlRedirectBulkDeleteBySearchUserError : IGraphQLObject, IDisplayableError
+    public class UrlRedirectBulkDeleteBySearchUserError : GraphQLObject<UrlRedirectBulkDeleteBySearchUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -49732,7 +49771,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple UrlRedirects.
     ///</summary>
-    public class UrlRedirectConnection : IGraphQLObject
+    public class UrlRedirectConnection : GraphQLObject<UrlRedirectConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -49751,7 +49790,7 @@ namespace shopify
     ///<summary>
     ///Return type for `urlRedirectCreate` mutation.
     ///</summary>
-    public class UrlRedirectCreatePayload : IGraphQLObject
+    public class UrlRedirectCreatePayload : GraphQLObject<UrlRedirectCreatePayload>
     {
         ///<summary>
         ///The created redirect.
@@ -49766,7 +49805,7 @@ namespace shopify
     ///<summary>
     ///Return type for `urlRedirectDelete` mutation.
     ///</summary>
-    public class UrlRedirectDeletePayload : IGraphQLObject
+    public class UrlRedirectDeletePayload : GraphQLObject<UrlRedirectDeletePayload>
     {
         ///<summary>
         ///The ID of the deleted redirect.
@@ -49781,7 +49820,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one UrlRedirect and a cursor during pagination.
     ///</summary>
-    public class UrlRedirectEdge : IGraphQLObject
+    public class UrlRedirectEdge : GraphQLObject<UrlRedirectEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -49822,7 +49861,7 @@ namespace shopify
     ///
     ///For more information, see [`url-redirect`](https://help.shopify.com/en/manual/online-store/menus-and-links/url-redirect)s.
     ///</summary>
-    public class UrlRedirectImport : IGraphQLObject, INode
+    public class UrlRedirectImport : GraphQLObject<UrlRedirectImport>, INode
     {
         ///<summary>
         ///The number of rows in the file.
@@ -49861,7 +49900,7 @@ namespace shopify
     ///<summary>
     ///Return type for `urlRedirectImportCreate` mutation.
     ///</summary>
-    public class UrlRedirectImportCreatePayload : IGraphQLObject
+    public class UrlRedirectImportCreatePayload : GraphQLObject<UrlRedirectImportCreatePayload>
     {
         ///<summary>
         ///The created `URLRedirectImport` object.
@@ -49900,7 +49939,7 @@ namespace shopify
     ///<summary>
     ///A preview of a URL redirect import row.
     ///</summary>
-    public class UrlRedirectImportPreview : IGraphQLObject
+    public class UrlRedirectImportPreview : GraphQLObject<UrlRedirectImportPreview>
     {
         ///<summary>
         ///The old path to be redirected from. When the user visits this path, they will be redirected to the target location.
@@ -49915,7 +49954,7 @@ namespace shopify
     ///<summary>
     ///Return type for `urlRedirectImportSubmit` mutation.
     ///</summary>
-    public class UrlRedirectImportSubmitPayload : IGraphQLObject
+    public class UrlRedirectImportSubmitPayload : GraphQLObject<UrlRedirectImportSubmitPayload>
     {
         ///<summary>
         ///The asynchronous job importing the redirects.
@@ -49930,7 +49969,7 @@ namespace shopify
     ///<summary>
     ///Represents an error that happens during execution of a redirect import mutation.
     ///</summary>
-    public class UrlRedirectImportUserError : IGraphQLObject, IDisplayableError
+    public class UrlRedirectImportUserError : GraphQLObject<UrlRedirectImportUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -49969,7 +50008,7 @@ namespace shopify
     ///<summary>
     ///Return type for `urlRedirectUpdate` mutation.
     ///</summary>
-    public class UrlRedirectUpdatePayload : IGraphQLObject
+    public class UrlRedirectUpdatePayload : GraphQLObject<UrlRedirectUpdatePayload>
     {
         ///<summary>
         ///Returns the updated URL redirect.
@@ -49984,7 +50023,7 @@ namespace shopify
     ///<summary>
     ///Represents an error that happens during execution of a redirect mutation.
     ///</summary>
-    public class UrlRedirectUserError : IGraphQLObject, IDisplayableError
+    public class UrlRedirectUserError : GraphQLObject<UrlRedirectUserError>, IDisplayableError
     {
         ///<summary>
         ///The error code.
@@ -50003,7 +50042,7 @@ namespace shopify
     ///<summary>
     ///Represents an error in the input of a mutation.
     ///</summary>
-    public class UserError : IGraphQLObject, IDisplayableError
+    public class UserError : GraphQLObject<UserError>, IDisplayableError
     {
         ///<summary>
         ///The path to the input field that caused the error.
@@ -50018,7 +50057,7 @@ namespace shopify
     ///<summary>
     ///Represents a credit card payment instrument.
     ///</summary>
-    public class VaultCreditCard : IGraphQLObject, IPaymentInstrument
+    public class VaultCreditCard : GraphQLObject<VaultCreditCard>, IPaymentInstrument
     {
         ///<summary>
         ///The billing address of the card.
@@ -50053,7 +50092,7 @@ namespace shopify
     ///<summary>
     ///Represents a paypal billing agreement payment instrument.
     ///</summary>
-    public class VaultPaypalBillingAgreement : IGraphQLObject, IPaymentInstrument
+    public class VaultPaypalBillingAgreement : GraphQLObject<VaultPaypalBillingAgreement>, IPaymentInstrument
     {
         ///<summary>
         ///Whether the paypal billing agreement is inactive.
@@ -50074,7 +50113,7 @@ namespace shopify
     ///either the coordinates of a point in space, a direction, or
     ///size. Presented as an object with three floating-point values.
     ///</summary>
-    public class Vector3 : IGraphQLObject
+    public class Vector3 : GraphQLObject<Vector3>
     {
         ///<summary>
         ///The x coordinate of Vector3.
@@ -50093,7 +50132,7 @@ namespace shopify
     ///<summary>
     ///Represents a Shopify hosted video.
     ///</summary>
-    public class Video : IGraphQLObject, IFile, IMedia, INode, IMetafieldReference
+    public class Video : GraphQLObject<Video>, IFile, IMedia, INode, IMetafieldReference
     {
         ///<summary>
         ///A word or phrase to share the nature or contents of a media.
@@ -50169,7 +50208,7 @@ namespace shopify
     ///Only [videos](https://shopify.dev/api/admin-graphql/latest/objects/video) with a status field
     ///of [READY](https://shopify.dev/api/admin-graphql/latest/enums/MediaStatus#value-ready) have sources.
     ///</summary>
-    public class VideoSource : IGraphQLObject
+    public class VideoSource : GraphQLObject<VideoSource>
     {
         ///<summary>
         ///The video source's file size in bytes.
@@ -50215,7 +50254,7 @@ namespace shopify
     ///<summary>
     ///A web pixel settings.
     ///</summary>
-    public class WebPixel : IGraphQLObject, INode
+    public class WebPixel : GraphQLObject<WebPixel>, INode
     {
         ///<summary>
         ///A globally-unique ID.
@@ -50230,7 +50269,7 @@ namespace shopify
     ///<summary>
     ///Return type for `webPixelCreate` mutation.
     ///</summary>
-    public class WebPixelCreatePayload : IGraphQLObject
+    public class WebPixelCreatePayload : GraphQLObject<WebPixelCreatePayload>
     {
         ///<summary>
         ///The list of errors that occurred from executing the mutation.
@@ -50245,7 +50284,7 @@ namespace shopify
     ///<summary>
     ///Return type for `webPixelDelete` mutation.
     ///</summary>
-    public class WebPixelDeletePayload : IGraphQLObject
+    public class WebPixelDeletePayload : GraphQLObject<WebPixelDeletePayload>
     {
         ///<summary>
         ///The ID of the web pixel settings that was deleted.
@@ -50260,7 +50299,7 @@ namespace shopify
     ///<summary>
     ///Return type for `webPixelUpdate` mutation.
     ///</summary>
-    public class WebPixelUpdatePayload : IGraphQLObject
+    public class WebPixelUpdatePayload : GraphQLObject<WebPixelUpdatePayload>
     {
         ///<summary>
         ///The list of errors that occurred from executing the mutation.
@@ -50275,7 +50314,7 @@ namespace shopify
     ///<summary>
     ///An Amazon EventBridge partner event source to which webhook subscriptions publish events.
     ///</summary>
-    public class WebhookEventBridgeEndpoint : IGraphQLObject, IWebhookSubscriptionEndpoint
+    public class WebhookEventBridgeEndpoint : GraphQLObject<WebhookEventBridgeEndpoint>, IWebhookSubscriptionEndpoint
     {
         ///<summary>
         ///The ARN of this EventBridge partner event source.
@@ -50286,7 +50325,7 @@ namespace shopify
     ///<summary>
     ///An HTTPS endpoint to which webhook subscriptions send POST requests.
     ///</summary>
-    public class WebhookHttpEndpoint : IGraphQLObject, IWebhookSubscriptionEndpoint
+    public class WebhookHttpEndpoint : GraphQLObject<WebhookHttpEndpoint>, IWebhookSubscriptionEndpoint
     {
         ///<summary>
         ///The URL to which the webhooks events are sent.
@@ -50297,7 +50336,7 @@ namespace shopify
     ///<summary>
     ///A Google Cloud Pub/Sub topic to which webhook subscriptions publish events.
     ///</summary>
-    public class WebhookPubSubEndpoint : IGraphQLObject, IWebhookSubscriptionEndpoint
+    public class WebhookPubSubEndpoint : GraphQLObject<WebhookPubSubEndpoint>, IWebhookSubscriptionEndpoint
     {
         ///<summary>
         ///The Google Cloud Pub/Sub project ID.
@@ -50315,7 +50354,7 @@ namespace shopify
     ///When an event for a given topic occurs, the webhook subscription sends a relevant payload to the destination.
     ///Learn more about the [webhooks system](https://shopify.dev/apps/webhooks).
     ///</summary>
-    public class WebhookSubscription : IGraphQLObject, ILegacyInteroperability, INode
+    public class WebhookSubscription : GraphQLObject<WebhookSubscription>, ILegacyInteroperability, INode
     {
         ///<summary>
         ///The Admin API version that Shopify uses to serialize webhook events. This value is inherited from the app that created the webhook subscription.
@@ -50374,7 +50413,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple WebhookSubscriptions.
     ///</summary>
-    public class WebhookSubscriptionConnection : IGraphQLObject
+    public class WebhookSubscriptionConnection : GraphQLObject<WebhookSubscriptionConnection>
     {
         ///<summary>
         ///A list of edges.
@@ -50393,7 +50432,7 @@ namespace shopify
     ///<summary>
     ///Return type for `webhookSubscriptionCreate` mutation.
     ///</summary>
-    public class WebhookSubscriptionCreatePayload : IGraphQLObject
+    public class WebhookSubscriptionCreatePayload : GraphQLObject<WebhookSubscriptionCreatePayload>
     {
         ///<summary>
         ///The list of errors that occurred from executing the mutation.
@@ -50408,7 +50447,7 @@ namespace shopify
     ///<summary>
     ///Return type for `webhookSubscriptionDelete` mutation.
     ///</summary>
-    public class WebhookSubscriptionDeletePayload : IGraphQLObject
+    public class WebhookSubscriptionDeletePayload : GraphQLObject<WebhookSubscriptionDeletePayload>
     {
         ///<summary>
         ///The ID of the deleted webhook subscription.
@@ -50423,7 +50462,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type which holds one WebhookSubscription and a cursor during pagination.
     ///</summary>
-    public class WebhookSubscriptionEdge : IGraphQLObject
+    public class WebhookSubscriptionEdge : GraphQLObject<WebhookSubscriptionEdge>
     {
         ///<summary>
         ///A cursor for use in pagination.
@@ -51158,7 +51197,7 @@ namespace shopify
     ///<summary>
     ///Return type for `webhookSubscriptionUpdate` mutation.
     ///</summary>
-    public class WebhookSubscriptionUpdatePayload : IGraphQLObject
+    public class WebhookSubscriptionUpdatePayload : GraphQLObject<WebhookSubscriptionUpdatePayload>
     {
         ///<summary>
         ///The list of errors that occurred from executing the mutation.
@@ -51173,7 +51212,7 @@ namespace shopify
     ///<summary>
     ///A weight, which includes a numeric value and a unit of measurement.
     ///</summary>
-    public class Weight : IGraphQLObject, IDeliveryConditionCriteria
+    public class Weight : GraphQLObject<Weight>, IDeliveryConditionCriteria
     {
         ///<summary>
         ///The unit of measurement for `value`.
@@ -51213,7 +51252,7 @@ namespace shopify
     ///
     ///In some cases, you need to provide options to alter GraphQL's execution behavior in ways field arguments will not suffice, such as conditionally including or skipping a field. Directives provide this by describing additional information to the executor.
     ///</summary>
-    public class __Directive : IGraphQLObject
+    public class __Directive : GraphQLObject<__Directive>
     {
         public __InputValue[]? args { get; set; }
         public string? description { get; set; }
@@ -51317,7 +51356,7 @@ namespace shopify
     ///<summary>
     ///One possible value for a given Enum. Enum values are unique values, not a placeholder for a string or numeric value. However an Enum value is returned in a JSON response as a string.
     ///</summary>
-    public class __EnumValue : IGraphQLObject
+    public class __EnumValue : GraphQLObject<__EnumValue>
     {
         public string? deprecationReason { get; set; }
         public string? description { get; set; }
@@ -51329,7 +51368,7 @@ namespace shopify
     ///<summary>
     ///Object and Interface types are described by a list of Fields, each of which has a name, potentially a list of arguments, and a return type.
     ///</summary>
-    public class __Field : IGraphQLObject
+    public class __Field : GraphQLObject<__Field>
     {
         public bool? accessRestricted { get; set; }
         public string? accessRestrictedReason { get; set; }
@@ -51349,7 +51388,7 @@ namespace shopify
     ///<summary>
     ///Arguments provided to Fields or Directives and the input fields of an InputObject are represented as Input Values which describe their type and optionally a default value.
     ///</summary>
-    public class __InputValue : IGraphQLObject
+    public class __InputValue : GraphQLObject<__InputValue>
     {
         ///<summary>
         ///A GraphQL-formatted string representing the default value for this input value.
@@ -51366,7 +51405,7 @@ namespace shopify
     ///<summary>
     ///A GraphQL Schema defines the capabilities of a GraphQL server. It exposes all available types and directives on the server, as well as the entry points for query, mutation, and subscription operations.
     ///</summary>
-    public class __Schema : IGraphQLObject
+    public class __Schema : GraphQLObject<__Schema>
     {
         public string? description { get; set; }
         ///<summary>
@@ -51396,7 +51435,7 @@ namespace shopify
     ///
     ///Depending on the kind of a type, certain fields describe information about that type. Scalar types provide no information beyond a name and description, while Enum types provide their values. Object and Interface types provide the fields they describe. Abstract types, Union and Interface, provide the Object types possible at runtime. List and NonNull types compose other types.
     ///</summary>
-    public class __Type : IGraphQLObject
+    public class __Type : GraphQLObject<__Type>
     {
         public bool? accessRestricted { get; set; }
         public string? accessRestrictedReason { get; set; }
@@ -51460,7 +51499,7 @@ namespace shopify
     ///<summary>
     ///Return type for `deliveryProfileCreate` mutation.
     ///</summary>
-    public class deliveryProfileCreatePayload : IGraphQLObject
+    public class deliveryProfileCreatePayload : GraphQLObject<deliveryProfileCreatePayload>
     {
         ///<summary>
         ///The delivery profile that was created.
@@ -51475,7 +51514,7 @@ namespace shopify
     ///<summary>
     ///Return type for `deliveryProfileRemove` mutation.
     ///</summary>
-    public class deliveryProfileRemovePayload : IGraphQLObject
+    public class deliveryProfileRemovePayload : GraphQLObject<deliveryProfileRemovePayload>
     {
         ///<summary>
         ///The delivery profile deletion job triggered by the mutation.
@@ -51490,7 +51529,7 @@ namespace shopify
     ///<summary>
     ///Return type for `deliveryProfileUpdate` mutation.
     ///</summary>
-    public class deliveryProfileUpdatePayload : IGraphQLObject
+    public class deliveryProfileUpdatePayload : GraphQLObject<deliveryProfileUpdatePayload>
     {
         ///<summary>
         ///The delivery profile that was updated.
