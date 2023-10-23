@@ -35,6 +35,33 @@ namespace Wish.GraphQLSchemaGenerator.Tests
         }
 
         [TestMethod]
+        public void GenerateSquareTypes()
+        {
+            var scalarNameToTypeName = new Dictionary<string, string>
+            {
+                { "Decimal", "decimal" },
+                { "DateTime", "DateTime" },
+                { "JsonSafeLong", "long" },
+                //there might be better types for these:
+                { "iCalendarEvent", "string" },
+                { "HexColor", "string" },
+                { "UID", "string" },
+                { "Url", "string" },
+                { "EmailAddress", "string" },
+                { "LanguageCode", "string" },
+                { "PhoneNumber", "string" },
+                { "TimeZone", "string" },
+                { "Duration", "string" },
+                { "Cursor", "string" },
+            };
+
+            var generator = new GraphQLTypeGenerator();
+            var shopifyDoc = JsonDocument.Parse(File.OpenRead(@"./square.json"));
+            var code = generator.GenerateTypes("square", scalarNameToTypeName, shopifyDoc);
+            File.WriteAllText("../../../square.cs", code);
+        }
+
+        [TestMethod]
         public void SerializerMustRoundTrip()
         {
             var order1 = new Order
