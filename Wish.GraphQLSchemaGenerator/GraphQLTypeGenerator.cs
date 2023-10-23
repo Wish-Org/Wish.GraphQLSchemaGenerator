@@ -158,6 +158,7 @@ namespace Wish.GraphQLSchemaGenerator
 
             var str = new StringBuilder()
                             .AppendLine("using System;")
+                            .AppendLine("using System.Collections.Generic;")
                             .AppendLine("using System.Text.Json;")
                             .AppendLine("using System.Text.Json.Serialization;")
                             .AppendLine($"namespace {@namespace} {{");
@@ -305,7 +306,7 @@ namespace Wish.GraphQLSchemaGenerator
                 return GenerateTypeName(type.ofType, scalarNameToTypeName);
 
             if (type.kind == GraphQLTypeKind.LIST)
-                return GenerateTypeName(type.ofType, scalarNameToTypeName) + "[]";
+                return $"IEnumerable<{GenerateTypeName(type.ofType, scalarNameToTypeName)}>";
 
             return (type.kind is GraphQLTypeKind.INTERFACE or GraphQLTypeKind.UNION ? "I" : string.Empty) +
                                                                 (type.kind == GraphQLTypeKind.SCALAR ? this.GetScalarTypeName(type.name, scalarNameToTypeName) : type.name);
