@@ -48,24 +48,30 @@ namespace shopify
         public static string ToJson(this IGraphQLObject o) => Serializer.Serialize(o);
     }
 
-    public interface IConnection<TEdge, TNode>
+    public interface IConnectionWithEdges<TEdge, TNode>
         where TEdge : IEdge<TNode>
     {
-        IEnumerable<TEdge>? edges { get; }
-
         PageInfo? pageInfo { get; }
+
+        IEnumerable<TEdge>? edges { get; }
     }
 
-    public interface IConnectionWithNodes<TEdge, TNode> : IConnection<TEdge, TNode> where TEdge : IEdge<TNode>
+    public interface IConnectionWithNodes<TNode>
     {
+        PageInfo? pageInfo { get; }
+
         IEnumerable<TNode>? nodes { get; }
+    }
+
+    public interface IConnectionWithNodesAndEdges<TEdge, TNode> : IConnectionWithEdges<TEdge, TNode>, IConnectionWithNodes<TNode> where TEdge : IEdge<TNode>
+    {
     }
 
     public interface IEdge<TNode>
     {
         string? cursor { get; }
 
-        TNode node { get; }
+        TNode? node { get; }
     }
 
     ///<summary>
@@ -726,7 +732,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Apps.
     ///</summary>
-    public class AppConnection : GraphQLObject<AppConnection>, IConnectionWithNodes<AppEdge, App>
+    public class AppConnection : GraphQLObject<AppConnection>, IConnectionWithNodesAndEdges<AppEdge, App>
     {
         ///<summary>
         ///A list of edges.
@@ -772,7 +778,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple AppCredits.
     ///</summary>
-    public class AppCreditConnection : GraphQLObject<AppCreditConnection>, IConnectionWithNodes<AppCreditEdge, AppCredit>
+    public class AppCreditConnection : GraphQLObject<AppCreditConnection>, IConnectionWithNodesAndEdges<AppCreditEdge, AppCredit>
     {
         ///<summary>
         ///A list of edges.
@@ -1003,7 +1009,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple AppInstallations.
     ///</summary>
-    public class AppInstallationConnection : GraphQLObject<AppInstallationConnection>, IConnectionWithNodes<AppInstallationEdge, AppInstallation>
+    public class AppInstallationConnection : GraphQLObject<AppInstallationConnection>, IConnectionWithNodesAndEdges<AppInstallationEdge, AppInstallation>
     {
         ///<summary>
         ///A list of edges.
@@ -1197,7 +1203,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple AppPurchaseOneTimes.
     ///</summary>
-    public class AppPurchaseOneTimeConnection : GraphQLObject<AppPurchaseOneTimeConnection>, IConnectionWithNodes<AppPurchaseOneTimeEdge, AppPurchaseOneTime>
+    public class AppPurchaseOneTimeConnection : GraphQLObject<AppPurchaseOneTimeConnection>, IConnectionWithNodesAndEdges<AppPurchaseOneTimeEdge, AppPurchaseOneTime>
     {
         ///<summary>
         ///A list of edges.
@@ -1347,7 +1353,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple AppRevenueAttributionRecords.
     ///</summary>
-    public class AppRevenueAttributionRecordConnection : GraphQLObject<AppRevenueAttributionRecordConnection>, IConnectionWithNodes<AppRevenueAttributionRecordEdge, AppRevenueAttributionRecord>
+    public class AppRevenueAttributionRecordConnection : GraphQLObject<AppRevenueAttributionRecordConnection>, IConnectionWithNodesAndEdges<AppRevenueAttributionRecordEdge, AppRevenueAttributionRecord>
     {
         ///<summary>
         ///A list of edges.
@@ -1576,7 +1582,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple AppSubscriptions.
     ///</summary>
-    public class AppSubscriptionConnection : GraphQLObject<AppSubscriptionConnection>, IConnectionWithNodes<AppSubscriptionEdge, AppSubscription>
+    public class AppSubscriptionConnection : GraphQLObject<AppSubscriptionConnection>, IConnectionWithNodesAndEdges<AppSubscriptionEdge, AppSubscription>
     {
         ///<summary>
         ///A list of edges.
@@ -1936,7 +1942,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple AppUsageRecords.
     ///</summary>
-    public class AppUsageRecordConnection : GraphQLObject<AppUsageRecordConnection>, IConnectionWithNodes<AppUsageRecordEdge, AppUsageRecord>
+    public class AppUsageRecordConnection : GraphQLObject<AppUsageRecordConnection>, IConnectionWithNodesAndEdges<AppUsageRecordEdge, AppUsageRecord>
     {
         ///<summary>
         ///A list of edges.
@@ -2721,7 +2727,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple CalculatedDiscountApplications.
     ///</summary>
-    public class CalculatedDiscountApplicationConnection : GraphQLObject<CalculatedDiscountApplicationConnection>, IConnectionWithNodes<CalculatedDiscountApplicationEdge, ICalculatedDiscountApplication>
+    public class CalculatedDiscountApplicationConnection : GraphQLObject<CalculatedDiscountApplicationConnection>, IConnectionWithNodesAndEdges<CalculatedDiscountApplicationEdge, ICalculatedDiscountApplication>
     {
         ///<summary>
         ///A list of edges.
@@ -3111,7 +3117,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple CalculatedLineItems.
     ///</summary>
-    public class CalculatedLineItemConnection : GraphQLObject<CalculatedLineItemConnection>, IConnectionWithNodes<CalculatedLineItemEdge, CalculatedLineItem>
+    public class CalculatedLineItemConnection : GraphQLObject<CalculatedLineItemConnection>, IConnectionWithNodesAndEdges<CalculatedLineItemEdge, CalculatedLineItem>
     {
         ///<summary>
         ///A list of edges.
@@ -3368,7 +3374,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple CartTransforms.
     ///</summary>
-    public class CartTransformConnection : GraphQLObject<CartTransformConnection>, IConnectionWithNodes<CartTransformEdge, CartTransform>
+    public class CartTransformConnection : GraphQLObject<CartTransformConnection>, IConnectionWithNodesAndEdges<CartTransformEdge, CartTransform>
     {
         ///<summary>
         ///A list of edges.
@@ -3540,7 +3546,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Catalogs.
     ///</summary>
-    public class CatalogConnection : GraphQLObject<CatalogConnection>, IConnectionWithNodes<CatalogEdge, ICatalog>
+    public class CatalogConnection : GraphQLObject<CatalogConnection>, IConnectionWithNodesAndEdges<CatalogEdge, ICatalog>
     {
         ///<summary>
         ///A list of edges.
@@ -3957,7 +3963,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Channels.
     ///</summary>
-    public class ChannelConnection : GraphQLObject<ChannelConnection>, IConnectionWithNodes<ChannelEdge, Channel>
+    public class ChannelConnection : GraphQLObject<ChannelConnection>, IConnectionWithNodesAndEdges<ChannelEdge, Channel>
     {
         ///<summary>
         ///A list of edges.
@@ -4077,7 +4083,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple CheckoutProfiles.
     ///</summary>
-    public class CheckoutProfileConnection : GraphQLObject<CheckoutProfileConnection>, IConnectionWithNodes<CheckoutProfileEdge, CheckoutProfile>
+    public class CheckoutProfileConnection : GraphQLObject<CheckoutProfileConnection>, IConnectionWithNodesAndEdges<CheckoutProfileEdge, CheckoutProfile>
     {
         ///<summary>
         ///A list of edges.
@@ -4410,7 +4416,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Collections.
     ///</summary>
-    public class CollectionConnection : GraphQLObject<CollectionConnection>, IConnectionWithNodes<CollectionEdge, Collection>
+    public class CollectionConnection : GraphQLObject<CollectionConnection>, IConnectionWithNodesAndEdges<CollectionEdge, Collection>
     {
         ///<summary>
         ///A list of edges.
@@ -4506,7 +4512,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple CollectionPublications.
     ///</summary>
-    public class CollectionPublicationConnection : GraphQLObject<CollectionPublicationConnection>, IConnectionWithNodes<CollectionPublicationEdge, CollectionPublication>
+    public class CollectionPublicationConnection : GraphQLObject<CollectionPublicationConnection>, IConnectionWithNodesAndEdges<CollectionPublicationEdge, CollectionPublication>
     {
         ///<summary>
         ///A list of edges.
@@ -5375,7 +5381,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Companies.
     ///</summary>
-    public class CompanyConnection : GraphQLObject<CompanyConnection>, IConnectionWithNodes<CompanyEdge, Company>
+    public class CompanyConnection : GraphQLObject<CompanyConnection>, IConnectionWithNodesAndEdges<CompanyEdge, Company>
     {
         ///<summary>
         ///A list of edges.
@@ -5479,7 +5485,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple CompanyContacts.
     ///</summary>
-    public class CompanyContactConnection : GraphQLObject<CompanyContactConnection>, IConnectionWithNodes<CompanyContactEdge, CompanyContact>
+    public class CompanyContactConnection : GraphQLObject<CompanyContactConnection>, IConnectionWithNodesAndEdges<CompanyContactEdge, CompanyContact>
     {
         ///<summary>
         ///A list of edges.
@@ -5643,7 +5649,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple CompanyContactRoleAssignments.
     ///</summary>
-    public class CompanyContactRoleAssignmentConnection : GraphQLObject<CompanyContactRoleAssignmentConnection>, IConnectionWithNodes<CompanyContactRoleAssignmentEdge, CompanyContactRoleAssignment>
+    public class CompanyContactRoleAssignmentConnection : GraphQLObject<CompanyContactRoleAssignmentConnection>, IConnectionWithNodesAndEdges<CompanyContactRoleAssignmentEdge, CompanyContactRoleAssignment>
     {
         ///<summary>
         ///A list of edges.
@@ -5705,7 +5711,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple CompanyContactRoles.
     ///</summary>
-    public class CompanyContactRoleConnection : GraphQLObject<CompanyContactRoleConnection>, IConnectionWithNodes<CompanyContactRoleEdge, CompanyContactRole>
+    public class CompanyContactRoleConnection : GraphQLObject<CompanyContactRoleConnection>, IConnectionWithNodesAndEdges<CompanyContactRoleEdge, CompanyContactRole>
     {
         ///<summary>
         ///A list of edges.
@@ -6116,7 +6122,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple CompanyLocations.
     ///</summary>
-    public class CompanyLocationConnection : GraphQLObject<CompanyLocationConnection>, IConnectionWithNodes<CompanyLocationEdge, CompanyLocation>
+    public class CompanyLocationConnection : GraphQLObject<CompanyLocationConnection>, IConnectionWithNodesAndEdges<CompanyLocationEdge, CompanyLocation>
     {
         ///<summary>
         ///A list of edges.
@@ -7396,7 +7402,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple CountryHarmonizedSystemCodes.
     ///</summary>
-    public class CountryHarmonizedSystemCodeConnection : GraphQLObject<CountryHarmonizedSystemCodeConnection>, IConnectionWithNodes<CountryHarmonizedSystemCodeEdge, CountryHarmonizedSystemCode>
+    public class CountryHarmonizedSystemCodeConnection : GraphQLObject<CountryHarmonizedSystemCodeConnection>, IConnectionWithNodesAndEdges<CountryHarmonizedSystemCodeEdge, CountryHarmonizedSystemCode>
     {
         ///<summary>
         ///A list of edges.
@@ -8158,7 +8164,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple CurrencySettings.
     ///</summary>
-    public class CurrencySettingConnection : GraphQLObject<CurrencySettingConnection>, IConnectionWithNodes<CurrencySettingEdge, CurrencySetting>
+    public class CurrencySettingConnection : GraphQLObject<CurrencySettingConnection>, IConnectionWithNodesAndEdges<CurrencySettingEdge, CurrencySetting>
     {
         ///<summary>
         ///A list of edges.
@@ -8444,7 +8450,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Customers.
     ///</summary>
-    public class CustomerConnection : GraphQLObject<CustomerConnection>, IConnectionWithNodes<CustomerEdge, Customer>
+    public class CustomerConnection : GraphQLObject<CustomerConnection>, IConnectionWithNodesAndEdges<CustomerEdge, Customer>
     {
         ///<summary>
         ///A list of edges.
@@ -9269,7 +9275,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple CustomerMoments.
     ///</summary>
-    public class CustomerMomentConnection : GraphQLObject<CustomerMomentConnection>, IConnectionWithNodes<CustomerMomentEdge, ICustomerMoment>
+    public class CustomerMomentConnection : GraphQLObject<CustomerMomentConnection>, IConnectionWithNodesAndEdges<CustomerMomentEdge, ICustomerMoment>
     {
         ///<summary>
         ///A list of edges.
@@ -9393,7 +9399,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple CustomerPaymentMethods.
     ///</summary>
-    public class CustomerPaymentMethodConnection : GraphQLObject<CustomerPaymentMethodConnection>, IConnectionWithNodes<CustomerPaymentMethodEdge, CustomerPaymentMethod>
+    public class CustomerPaymentMethodConnection : GraphQLObject<CustomerPaymentMethodConnection>, IConnectionWithNodesAndEdges<CustomerPaymentMethodEdge, CustomerPaymentMethod>
     {
         ///<summary>
         ///A list of edges.
@@ -10090,7 +10096,7 @@ namespace shopify
     ///<summary>
     ///The connection type for the `CustomerSegmentMembers` object.
     ///</summary>
-    public class CustomerSegmentMemberConnection : GraphQLObject<CustomerSegmentMemberConnection>, IConnection<CustomerSegmentMemberEdge, CustomerSegmentMember>
+    public class CustomerSegmentMemberConnection : GraphQLObject<CustomerSegmentMemberConnection>, IConnectionWithEdges<CustomerSegmentMemberEdge, CustomerSegmentMember>
     {
         ///<summary>
         ///A list of edges.
@@ -10532,7 +10538,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple CustomerVisitProductInfos.
     ///</summary>
-    public class CustomerVisitProductInfoConnection : GraphQLObject<CustomerVisitProductInfoConnection>, IConnectionWithNodes<CustomerVisitProductInfoEdge, CustomerVisitProductInfo>
+    public class CustomerVisitProductInfoConnection : GraphQLObject<CustomerVisitProductInfoConnection>, IConnectionWithNodesAndEdges<CustomerVisitProductInfoEdge, CustomerVisitProductInfo>
     {
         ///<summary>
         ///A list of edges.
@@ -10779,7 +10785,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple DeletionEvents.
     ///</summary>
-    public class DeletionEventConnection : GraphQLObject<DeletionEventConnection>, IConnectionWithNodes<DeletionEventEdge, DeletionEvent>
+    public class DeletionEventConnection : GraphQLObject<DeletionEventConnection>, IConnectionWithNodesAndEdges<DeletionEventEdge, DeletionEvent>
     {
         ///<summary>
         ///A list of edges.
@@ -11124,7 +11130,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple DeliveryCustomizations.
     ///</summary>
-    public class DeliveryCustomizationConnection : GraphQLObject<DeliveryCustomizationConnection>, IConnectionWithNodes<DeliveryCustomizationEdge, DeliveryCustomization>
+    public class DeliveryCustomizationConnection : GraphQLObject<DeliveryCustomizationConnection>, IConnectionWithNodesAndEdges<DeliveryCustomizationEdge, DeliveryCustomization>
     {
         ///<summary>
         ///A list of edges.
@@ -11393,7 +11399,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple DeliveryLocationGroupZones.
     ///</summary>
-    public class DeliveryLocationGroupZoneConnection : GraphQLObject<DeliveryLocationGroupZoneConnection>, IConnectionWithNodes<DeliveryLocationGroupZoneEdge, DeliveryLocationGroupZone>
+    public class DeliveryLocationGroupZoneConnection : GraphQLObject<DeliveryLocationGroupZoneConnection>, IConnectionWithNodesAndEdges<DeliveryLocationGroupZoneEdge, DeliveryLocationGroupZone>
     {
         ///<summary>
         ///A list of edges.
@@ -11520,7 +11526,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple DeliveryMethodDefinitions.
     ///</summary>
-    public class DeliveryMethodDefinitionConnection : GraphQLObject<DeliveryMethodDefinitionConnection>, IConnectionWithNodes<DeliveryMethodDefinitionEdge, DeliveryMethodDefinition>
+    public class DeliveryMethodDefinitionConnection : GraphQLObject<DeliveryMethodDefinitionConnection>, IConnectionWithNodesAndEdges<DeliveryMethodDefinitionEdge, DeliveryMethodDefinition>
     {
         ///<summary>
         ///A list of edges.
@@ -11742,7 +11748,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple DeliveryProfiles.
     ///</summary>
-    public class DeliveryProfileConnection : GraphQLObject<DeliveryProfileConnection>, IConnectionWithNodes<DeliveryProfileEdge, DeliveryProfile>
+    public class DeliveryProfileConnection : GraphQLObject<DeliveryProfileConnection>, IConnectionWithNodesAndEdges<DeliveryProfileEdge, DeliveryProfile>
     {
         ///<summary>
         ///A list of edges.
@@ -11795,7 +11801,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple DeliveryProfileItems.
     ///</summary>
-    public class DeliveryProfileItemConnection : GraphQLObject<DeliveryProfileItemConnection>, IConnectionWithNodes<DeliveryProfileItemEdge, DeliveryProfileItem>
+    public class DeliveryProfileItemConnection : GraphQLObject<DeliveryProfileItemConnection>, IConnectionWithNodesAndEdges<DeliveryProfileItemEdge, DeliveryProfileItem>
     {
         ///<summary>
         ///A list of edges.
@@ -12136,7 +12142,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple DiscountApplications.
     ///</summary>
-    public class DiscountApplicationConnection : GraphQLObject<DiscountApplicationConnection>, IConnectionWithNodes<DiscountApplicationEdge, IDiscountApplication>
+    public class DiscountApplicationConnection : GraphQLObject<DiscountApplicationConnection>, IConnectionWithNodesAndEdges<DiscountApplicationEdge, IDiscountApplication>
     {
         ///<summary>
         ///A list of edges.
@@ -12585,7 +12591,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple DiscountAutomatics.
     ///</summary>
-    public class DiscountAutomaticConnection : GraphQLObject<DiscountAutomaticConnection>, IConnectionWithNodes<DiscountAutomaticEdge, IDiscountAutomatic>
+    public class DiscountAutomaticConnection : GraphQLObject<DiscountAutomaticConnection>, IConnectionWithNodesAndEdges<DiscountAutomaticEdge, IDiscountAutomatic>
     {
         ///<summary>
         ///A list of edges.
@@ -12692,7 +12698,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple DiscountAutomaticNodes.
     ///</summary>
-    public class DiscountAutomaticNodeConnection : GraphQLObject<DiscountAutomaticNodeConnection>, IConnectionWithNodes<DiscountAutomaticNodeEdge, DiscountAutomaticNode>
+    public class DiscountAutomaticNodeConnection : GraphQLObject<DiscountAutomaticNodeConnection>, IConnectionWithNodesAndEdges<DiscountAutomaticNodeEdge, DiscountAutomaticNode>
     {
         ///<summary>
         ///A list of edges.
@@ -13497,7 +13503,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple DiscountCodeNodes.
     ///</summary>
-    public class DiscountCodeNodeConnection : GraphQLObject<DiscountCodeNodeConnection>, IConnectionWithNodes<DiscountCodeNodeEdge, DiscountCodeNode>
+    public class DiscountCodeNodeConnection : GraphQLObject<DiscountCodeNodeConnection>, IConnectionWithNodesAndEdges<DiscountCodeNodeEdge, DiscountCodeNode>
     {
         ///<summary>
         ///A list of edges.
@@ -13949,7 +13955,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple DiscountNodes.
     ///</summary>
-    public class DiscountNodeConnection : GraphQLObject<DiscountNodeConnection>, IConnectionWithNodes<DiscountNodeEdge, DiscountNode>
+    public class DiscountNodeConnection : GraphQLObject<DiscountNodeConnection>, IConnectionWithNodesAndEdges<DiscountNodeEdge, DiscountNode>
     {
         ///<summary>
         ///A list of edges.
@@ -14144,7 +14150,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple DiscountRedeemCodeBulkCreationCodes.
     ///</summary>
-    public class DiscountRedeemCodeBulkCreationCodeConnection : GraphQLObject<DiscountRedeemCodeBulkCreationCodeConnection>, IConnectionWithNodes<DiscountRedeemCodeBulkCreationCodeEdge, DiscountRedeemCodeBulkCreationCode>
+    public class DiscountRedeemCodeBulkCreationCodeConnection : GraphQLObject<DiscountRedeemCodeBulkCreationCodeConnection>, IConnectionWithNodesAndEdges<DiscountRedeemCodeBulkCreationCodeEdge, DiscountRedeemCodeBulkCreationCode>
     {
         ///<summary>
         ///A list of edges.
@@ -14178,7 +14184,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple DiscountRedeemCodes.
     ///</summary>
-    public class DiscountRedeemCodeConnection : GraphQLObject<DiscountRedeemCodeConnection>, IConnectionWithNodes<DiscountRedeemCodeEdge, DiscountRedeemCode>
+    public class DiscountRedeemCodeConnection : GraphQLObject<DiscountRedeemCodeConnection>, IConnectionWithNodesAndEdges<DiscountRedeemCodeEdge, DiscountRedeemCode>
     {
         ///<summary>
         ///A list of edges.
@@ -15117,7 +15123,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple DraftOrders.
     ///</summary>
-    public class DraftOrderConnection : GraphQLObject<DraftOrderConnection>, IConnectionWithNodes<DraftOrderEdge, DraftOrder>
+    public class DraftOrderConnection : GraphQLObject<DraftOrderConnection>, IConnectionWithNodesAndEdges<DraftOrderEdge, DraftOrder>
     {
         ///<summary>
         ///A list of edges.
@@ -15395,7 +15401,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple DraftOrderLineItems.
     ///</summary>
-    public class DraftOrderLineItemConnection : GraphQLObject<DraftOrderLineItemConnection>, IConnectionWithNodes<DraftOrderLineItemEdge, DraftOrderLineItem>
+    public class DraftOrderLineItemConnection : GraphQLObject<DraftOrderLineItemConnection>, IConnectionWithNodesAndEdges<DraftOrderLineItemEdge, DraftOrderLineItem>
     {
         ///<summary>
         ///A list of edges.
@@ -15796,7 +15802,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Events.
     ///</summary>
-    public class EventConnection : GraphQLObject<EventConnection>, IConnectionWithNodes<EventEdge, IEvent>
+    public class EventConnection : GraphQLObject<EventConnection>, IConnectionWithNodesAndEdges<EventEdge, IEvent>
     {
         ///<summary>
         ///A list of edges.
@@ -15928,7 +15934,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ExchangeV2s.
     ///</summary>
-    public class ExchangeV2Connection : GraphQLObject<ExchangeV2Connection>, IConnectionWithNodes<ExchangeV2Edge, ExchangeV2>
+    public class ExchangeV2Connection : GraphQLObject<ExchangeV2Connection>, IConnectionWithNodesAndEdges<ExchangeV2Edge, ExchangeV2>
     {
         ///<summary>
         ///A list of edges.
@@ -16213,7 +16219,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Files.
     ///</summary>
-    public class FileConnection : GraphQLObject<FileConnection>, IConnectionWithNodes<FileEdge, IFile>
+    public class FileConnection : GraphQLObject<FileConnection>, IConnectionWithNodesAndEdges<FileEdge, IFile>
     {
         ///<summary>
         ///A list of edges.
@@ -16787,7 +16793,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Fulfillments.
     ///</summary>
-    public class FulfillmentConnection : GraphQLObject<FulfillmentConnection>, IConnectionWithNodes<FulfillmentEdge, Fulfillment>
+    public class FulfillmentConnection : GraphQLObject<FulfillmentConnection>, IConnectionWithNodesAndEdges<FulfillmentEdge, Fulfillment>
     {
         ///<summary>
         ///A list of edges.
@@ -16962,7 +16968,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple FulfillmentEvents.
     ///</summary>
-    public class FulfillmentEventConnection : GraphQLObject<FulfillmentEventConnection>, IConnectionWithNodes<FulfillmentEventEdge, FulfillmentEvent>
+    public class FulfillmentEventConnection : GraphQLObject<FulfillmentEventConnection>, IConnectionWithNodesAndEdges<FulfillmentEventEdge, FulfillmentEvent>
     {
         ///<summary>
         ///A list of edges.
@@ -17166,7 +17172,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple FulfillmentLineItems.
     ///</summary>
-    public class FulfillmentLineItemConnection : GraphQLObject<FulfillmentLineItemConnection>, IConnectionWithNodes<FulfillmentLineItemEdge, FulfillmentLineItem>
+    public class FulfillmentLineItemConnection : GraphQLObject<FulfillmentLineItemConnection>, IConnectionWithNodesAndEdges<FulfillmentLineItemEdge, FulfillmentLineItem>
     {
         ///<summary>
         ///A list of edges.
@@ -17667,7 +17673,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple FulfillmentOrders.
     ///</summary>
-    public class FulfillmentOrderConnection : GraphQLObject<FulfillmentOrderConnection>, IConnectionWithNodes<FulfillmentOrderEdge, FulfillmentOrder>
+    public class FulfillmentOrderConnection : GraphQLObject<FulfillmentOrderConnection>, IConnectionWithNodesAndEdges<FulfillmentOrderEdge, FulfillmentOrder>
     {
         ///<summary>
         ///A list of edges.
@@ -17894,7 +17900,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple FulfillmentOrderLineItems.
     ///</summary>
-    public class FulfillmentOrderLineItemConnection : GraphQLObject<FulfillmentOrderLineItemConnection>, IConnectionWithNodes<FulfillmentOrderLineItemEdge, FulfillmentOrderLineItem>
+    public class FulfillmentOrderLineItemConnection : GraphQLObject<FulfillmentOrderLineItemConnection>, IConnectionWithNodesAndEdges<FulfillmentOrderLineItemEdge, FulfillmentOrderLineItem>
     {
         ///<summary>
         ///A list of edges.
@@ -18012,7 +18018,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple FulfillmentOrderLocationForMoves.
     ///</summary>
-    public class FulfillmentOrderLocationForMoveConnection : GraphQLObject<FulfillmentOrderLocationForMoveConnection>, IConnectionWithNodes<FulfillmentOrderLocationForMoveEdge, FulfillmentOrderLocationForMove>
+    public class FulfillmentOrderLocationForMoveConnection : GraphQLObject<FulfillmentOrderLocationForMoveConnection>, IConnectionWithNodesAndEdges<FulfillmentOrderLocationForMoveEdge, FulfillmentOrderLocationForMove>
     {
         ///<summary>
         ///A list of edges.
@@ -18085,7 +18091,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple FulfillmentOrderMerchantRequests.
     ///</summary>
-    public class FulfillmentOrderMerchantRequestConnection : GraphQLObject<FulfillmentOrderMerchantRequestConnection>, IConnectionWithNodes<FulfillmentOrderMerchantRequestEdge, FulfillmentOrderMerchantRequest>
+    public class FulfillmentOrderMerchantRequestConnection : GraphQLObject<FulfillmentOrderMerchantRequestConnection>, IConnectionWithNodesAndEdges<FulfillmentOrderMerchantRequestEdge, FulfillmentOrderMerchantRequest>
     {
         ///<summary>
         ///A list of edges.
@@ -19309,7 +19315,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple GiftCards.
     ///</summary>
-    public class GiftCardConnection : GraphQLObject<GiftCardConnection>, IConnectionWithNodes<GiftCardEdge, GiftCard>
+    public class GiftCardConnection : GraphQLObject<GiftCardConnection>, IConnectionWithNodesAndEdges<GiftCardEdge, GiftCard>
     {
         ///<summary>
         ///A list of edges.
@@ -19815,7 +19821,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Images.
     ///</summary>
-    public class ImageConnection : GraphQLObject<ImageConnection>, IConnectionWithNodes<ImageEdge, Image>
+    public class ImageConnection : GraphQLObject<ImageConnection>, IConnectionWithNodesAndEdges<ImageEdge, Image>
     {
         ///<summary>
         ///A list of edges.
@@ -20296,7 +20302,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple InventoryItems.
     ///</summary>
-    public class InventoryItemConnection : GraphQLObject<InventoryItemConnection>, IConnectionWithNodes<InventoryItemEdge, InventoryItem>
+    public class InventoryItemConnection : GraphQLObject<InventoryItemConnection>, IConnectionWithNodesAndEdges<InventoryItemEdge, InventoryItem>
     {
         ///<summary>
         ///A list of edges.
@@ -20401,7 +20407,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple InventoryLevels.
     ///</summary>
-    public class InventoryLevelConnection : GraphQLObject<InventoryLevelConnection>, IConnectionWithNodes<InventoryLevelEdge, InventoryLevel>
+    public class InventoryLevelConnection : GraphQLObject<InventoryLevelConnection>, IConnectionWithNodesAndEdges<InventoryLevelEdge, InventoryLevel>
     {
         ///<summary>
         ///A list of edges.
@@ -21588,7 +21594,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple LineItems.
     ///</summary>
-    public class LineItemConnection : GraphQLObject<LineItemConnection>, IConnectionWithNodes<LineItemEdge, LineItem>
+    public class LineItemConnection : GraphQLObject<LineItemConnection>, IConnectionWithNodesAndEdges<LineItemEdge, LineItem>
     {
         ///<summary>
         ///A list of edges.
@@ -21822,7 +21828,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple LineItemMutables.
     ///</summary>
-    public class LineItemMutableConnection : GraphQLObject<LineItemMutableConnection>, IConnectionWithNodes<LineItemMutableEdge, LineItemMutable>
+    public class LineItemMutableConnection : GraphQLObject<LineItemMutableConnection>, IConnectionWithNodesAndEdges<LineItemMutableEdge, LineItemMutable>
     {
         ///<summary>
         ///A list of edges.
@@ -21999,7 +22005,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple LocalizationExtensions.
     ///</summary>
-    public class LocalizationExtensionConnection : GraphQLObject<LocalizationExtensionConnection>, IConnectionWithNodes<LocalizationExtensionEdge, LocalizationExtension>
+    public class LocalizationExtensionConnection : GraphQLObject<LocalizationExtensionConnection>, IConnectionWithNodesAndEdges<LocalizationExtensionEdge, LocalizationExtension>
     {
         ///<summary>
         ///A list of edges.
@@ -22405,7 +22411,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Locations.
     ///</summary>
-    public class LocationConnection : GraphQLObject<LocationConnection>, IConnectionWithNodes<LocationEdge, Location>
+    public class LocationConnection : GraphQLObject<LocationConnection>, IConnectionWithNodesAndEdges<LocationEdge, Location>
     {
         ///<summary>
         ///A list of edges.
@@ -22910,7 +22916,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple MailingAddresses.
     ///</summary>
-    public class MailingAddressConnection : GraphQLObject<MailingAddressConnection>, IConnectionWithNodes<MailingAddressEdge, MailingAddress>
+    public class MailingAddressConnection : GraphQLObject<MailingAddressConnection>, IConnectionWithNodesAndEdges<MailingAddressEdge, MailingAddress>
     {
         ///<summary>
         ///A list of edges.
@@ -23100,7 +23106,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple MarketCatalogs.
     ///</summary>
-    public class MarketCatalogConnection : GraphQLObject<MarketCatalogConnection>, IConnectionWithNodes<MarketCatalogEdge, MarketCatalog>
+    public class MarketCatalogConnection : GraphQLObject<MarketCatalogConnection>, IConnectionWithNodesAndEdges<MarketCatalogEdge, MarketCatalog>
     {
         ///<summary>
         ///A list of edges.
@@ -23134,7 +23140,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Markets.
     ///</summary>
-    public class MarketConnection : GraphQLObject<MarketConnection>, IConnectionWithNodes<MarketEdge, Market>
+    public class MarketConnection : GraphQLObject<MarketConnection>, IConnectionWithNodesAndEdges<MarketEdge, Market>
     {
         ///<summary>
         ///A list of edges.
@@ -23320,7 +23326,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple MarketLocalizableResources.
     ///</summary>
-    public class MarketLocalizableResourceConnection : GraphQLObject<MarketLocalizableResourceConnection>, IConnectionWithNodes<MarketLocalizableResourceEdge, MarketLocalizableResource>
+    public class MarketLocalizableResourceConnection : GraphQLObject<MarketLocalizableResourceConnection>, IConnectionWithNodesAndEdges<MarketLocalizableResourceEdge, MarketLocalizableResource>
     {
         ///<summary>
         ///A list of edges.
@@ -23440,7 +23446,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple MarketRegions.
     ///</summary>
-    public class MarketRegionConnection : GraphQLObject<MarketRegionConnection>, IConnectionWithNodes<MarketRegionEdge, IMarketRegion>
+    public class MarketRegionConnection : GraphQLObject<MarketRegionConnection>, IConnectionWithNodesAndEdges<MarketRegionEdge, IMarketRegion>
     {
         ///<summary>
         ///A list of edges.
@@ -23912,7 +23918,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple MarketingActivities.
     ///</summary>
-    public class MarketingActivityConnection : GraphQLObject<MarketingActivityConnection>, IConnectionWithNodes<MarketingActivityEdge, MarketingActivity>
+    public class MarketingActivityConnection : GraphQLObject<MarketingActivityConnection>, IConnectionWithNodesAndEdges<MarketingActivityEdge, MarketingActivity>
     {
         ///<summary>
         ///A list of edges.
@@ -24424,7 +24430,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple MarketingEvents.
     ///</summary>
-    public class MarketingEventConnection : GraphQLObject<MarketingEventConnection>, IConnectionWithNodes<MarketingEventEdge, MarketingEvent>
+    public class MarketingEventConnection : GraphQLObject<MarketingEventConnection>, IConnectionWithNodesAndEdges<MarketingEventEdge, MarketingEvent>
     {
         ///<summary>
         ///A list of edges.
@@ -24605,7 +24611,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Media.
     ///</summary>
-    public class MediaConnection : GraphQLObject<MediaConnection>, IConnectionWithNodes<MediaEdge, IMedia>
+    public class MediaConnection : GraphQLObject<MediaConnection>, IConnectionWithNodesAndEdges<MediaEdge, IMedia>
     {
         ///<summary>
         ///A list of edges.
@@ -25263,7 +25269,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Metafields.
     ///</summary>
-    public class MetafieldConnection : GraphQLObject<MetafieldConnection>, IConnectionWithNodes<MetafieldEdge, Metafield>
+    public class MetafieldConnection : GraphQLObject<MetafieldConnection>, IConnectionWithNodesAndEdges<MetafieldEdge, Metafield>
     {
         ///<summary>
         ///A list of edges.
@@ -25358,7 +25364,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple MetafieldDefinitions.
     ///</summary>
-    public class MetafieldDefinitionConnection : GraphQLObject<MetafieldDefinitionConnection>, IConnectionWithNodes<MetafieldDefinitionEdge, MetafieldDefinition>
+    public class MetafieldDefinitionConnection : GraphQLObject<MetafieldDefinitionConnection>, IConnectionWithNodesAndEdges<MetafieldDefinitionEdge, MetafieldDefinition>
     {
         ///<summary>
         ///A list of edges.
@@ -26041,7 +26047,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple MetafieldReferences.
     ///</summary>
-    public class MetafieldReferenceConnection : GraphQLObject<MetafieldReferenceConnection>, IConnectionWithNodes<MetafieldReferenceEdge, IMetafieldReference>
+    public class MetafieldReferenceConnection : GraphQLObject<MetafieldReferenceConnection>, IConnectionWithNodesAndEdges<MetafieldReferenceEdge, IMetafieldReference>
     {
         ///<summary>
         ///A list of edges.
@@ -26156,7 +26162,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple MetafieldRelations.
     ///</summary>
-    public class MetafieldRelationConnection : GraphQLObject<MetafieldRelationConnection>, IConnectionWithNodes<MetafieldRelationEdge, MetafieldRelation>
+    public class MetafieldRelationConnection : GraphQLObject<MetafieldRelationConnection>, IConnectionWithNodesAndEdges<MetafieldRelationEdge, MetafieldRelation>
     {
         ///<summary>
         ///A list of edges.
@@ -26231,7 +26237,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple MetafieldStorefrontVisibilities.
     ///</summary>
-    public class MetafieldStorefrontVisibilityConnection : GraphQLObject<MetafieldStorefrontVisibilityConnection>, IConnectionWithNodes<MetafieldStorefrontVisibilityEdge, MetafieldStorefrontVisibility>
+    public class MetafieldStorefrontVisibilityConnection : GraphQLObject<MetafieldStorefrontVisibilityConnection>, IConnectionWithNodesAndEdges<MetafieldStorefrontVisibilityEdge, MetafieldStorefrontVisibility>
     {
         ///<summary>
         ///A list of edges.
@@ -26593,7 +26599,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Metaobjects.
     ///</summary>
-    public class MetaobjectConnection : GraphQLObject<MetaobjectConnection>, IConnectionWithNodes<MetaobjectEdge, Metaobject>
+    public class MetaobjectConnection : GraphQLObject<MetaobjectConnection>, IConnectionWithNodesAndEdges<MetaobjectEdge, Metaobject>
     {
         ///<summary>
         ///A list of edges.
@@ -26674,7 +26680,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple MetaobjectDefinitions.
     ///</summary>
-    public class MetaobjectDefinitionConnection : GraphQLObject<MetaobjectDefinitionConnection>, IConnectionWithNodes<MetaobjectDefinitionEdge, MetaobjectDefinition>
+    public class MetaobjectDefinitionConnection : GraphQLObject<MetaobjectDefinitionConnection>, IConnectionWithNodesAndEdges<MetaobjectDefinitionEdge, MetaobjectDefinition>
     {
         ///<summary>
         ///A list of edges.
@@ -30292,7 +30298,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Orders.
     ///</summary>
-    public class OrderConnection : GraphQLObject<OrderConnection>, IConnectionWithNodes<OrderEdge, Order>
+    public class OrderConnection : GraphQLObject<OrderConnection>, IConnectionWithNodesAndEdges<OrderEdge, Order>
     {
         ///<summary>
         ///A list of edges.
@@ -31034,7 +31040,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple OrderStagedChanges.
     ///</summary>
-    public class OrderStagedChangeConnection : GraphQLObject<OrderStagedChangeConnection>, IConnectionWithNodes<OrderStagedChangeEdge, IOrderStagedChange>
+    public class OrderStagedChangeConnection : GraphQLObject<OrderStagedChangeConnection>, IConnectionWithNodesAndEdges<OrderStagedChangeEdge, IOrderStagedChange>
     {
         ///<summary>
         ///A list of edges.
@@ -31266,7 +31272,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple OrderTransactions.
     ///</summary>
-    public class OrderTransactionConnection : GraphQLObject<OrderTransactionConnection>, IConnectionWithNodes<OrderTransactionEdge, OrderTransaction>
+    public class OrderTransactionConnection : GraphQLObject<OrderTransactionConnection>, IConnectionWithNodesAndEdges<OrderTransactionEdge, OrderTransaction>
     {
         ///<summary>
         ///A list of edges.
@@ -31827,7 +31833,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple PaymentCustomizations.
     ///</summary>
-    public class PaymentCustomizationConnection : GraphQLObject<PaymentCustomizationConnection>, IConnectionWithNodes<PaymentCustomizationEdge, PaymentCustomization>
+    public class PaymentCustomizationConnection : GraphQLObject<PaymentCustomizationConnection>, IConnectionWithNodesAndEdges<PaymentCustomizationEdge, PaymentCustomization>
     {
         ///<summary>
         ///A list of edges.
@@ -32167,7 +32173,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple PaymentSchedules.
     ///</summary>
-    public class PaymentScheduleConnection : GraphQLObject<PaymentScheduleConnection>, IConnectionWithNodes<PaymentScheduleEdge, PaymentSchedule>
+    public class PaymentScheduleConnection : GraphQLObject<PaymentScheduleConnection>, IConnectionWithNodesAndEdges<PaymentScheduleEdge, PaymentSchedule>
     {
         ///<summary>
         ///A list of edges.
@@ -32649,7 +32655,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple PriceLists.
     ///</summary>
-    public class PriceListConnection : GraphQLObject<PriceListConnection>, IConnectionWithNodes<PriceListEdge, PriceList>
+    public class PriceListConnection : GraphQLObject<PriceListConnection>, IConnectionWithNodesAndEdges<PriceListEdge, PriceList>
     {
         ///<summary>
         ///A list of edges.
@@ -32887,7 +32893,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple PriceListPrices.
     ///</summary>
-    public class PriceListPriceConnection : GraphQLObject<PriceListPriceConnection>, IConnectionWithNodes<PriceListPriceEdge, PriceListPrice>
+    public class PriceListPriceConnection : GraphQLObject<PriceListPriceConnection>, IConnectionWithNodesAndEdges<PriceListPriceEdge, PriceListPrice>
     {
         ///<summary>
         ///A list of edges.
@@ -33363,7 +33369,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple PriceRules.
     ///</summary>
-    public class PriceRuleConnection : GraphQLObject<PriceRuleConnection>, IConnectionWithNodes<PriceRuleEdge, PriceRule>
+    public class PriceRuleConnection : GraphQLObject<PriceRuleConnection>, IConnectionWithNodesAndEdges<PriceRuleEdge, PriceRule>
     {
         ///<summary>
         ///A list of edges.
@@ -33495,7 +33501,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple PriceRuleDiscountCodes.
     ///</summary>
-    public class PriceRuleDiscountCodeConnection : GraphQLObject<PriceRuleDiscountCodeConnection>, IConnectionWithNodes<PriceRuleDiscountCodeEdge, PriceRuleDiscountCode>
+    public class PriceRuleDiscountCodeConnection : GraphQLObject<PriceRuleDiscountCodeConnection>, IConnectionWithNodesAndEdges<PriceRuleDiscountCodeEdge, PriceRuleDiscountCode>
     {
         ///<summary>
         ///A list of edges.
@@ -34359,7 +34365,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple PrivateMetafields.
     ///</summary>
-    public class PrivateMetafieldConnection : GraphQLObject<PrivateMetafieldConnection>, IConnectionWithNodes<PrivateMetafieldEdge, PrivateMetafield>
+    public class PrivateMetafieldConnection : GraphQLObject<PrivateMetafieldConnection>, IConnectionWithNodesAndEdges<PrivateMetafieldEdge, PrivateMetafield>
     {
         ///<summary>
         ///A list of edges.
@@ -34868,7 +34874,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Products.
     ///</summary>
-    public class ProductConnection : GraphQLObject<ProductConnection>, IConnectionWithNodes<ProductEdge, Product>
+    public class ProductConnection : GraphQLObject<ProductConnection>, IConnectionWithNodesAndEdges<ProductEdge, Product>
     {
         ///<summary>
         ///A list of edges.
@@ -35239,7 +35245,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ProductFeeds.
     ///</summary>
-    public class ProductFeedConnection : GraphQLObject<ProductFeedConnection>, IConnectionWithNodes<ProductFeedEdge, ProductFeed>
+    public class ProductFeedConnection : GraphQLObject<ProductFeedConnection>, IConnectionWithNodesAndEdges<ProductFeedEdge, ProductFeed>
     {
         ///<summary>
         ///A list of edges.
@@ -35594,7 +35600,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ProductPublications.
     ///</summary>
-    public class ProductPublicationConnection : GraphQLObject<ProductPublicationConnection>, IConnectionWithNodes<ProductPublicationEdge, ProductPublication>
+    public class ProductPublicationConnection : GraphQLObject<ProductPublicationConnection>, IConnectionWithNodesAndEdges<ProductPublicationEdge, ProductPublication>
     {
         ///<summary>
         ///A list of edges.
@@ -36167,7 +36173,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ProductVariantComponents.
     ///</summary>
-    public class ProductVariantComponentConnection : GraphQLObject<ProductVariantComponentConnection>, IConnectionWithNodes<ProductVariantComponentEdge, ProductVariantComponent>
+    public class ProductVariantComponentConnection : GraphQLObject<ProductVariantComponentConnection>, IConnectionWithNodesAndEdges<ProductVariantComponentEdge, ProductVariantComponent>
     {
         ///<summary>
         ///A list of edges.
@@ -36201,7 +36207,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ProductVariants.
     ///</summary>
-    public class ProductVariantConnection : GraphQLObject<ProductVariantConnection>, IConnectionWithNodes<ProductVariantEdge, ProductVariant>
+    public class ProductVariantConnection : GraphQLObject<ProductVariantConnection>, IConnectionWithNodesAndEdges<ProductVariantEdge, ProductVariant>
     {
         ///<summary>
         ///A list of edges.
@@ -36391,7 +36397,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ProductVariantPricePairs.
     ///</summary>
-    public class ProductVariantPricePairConnection : GraphQLObject<ProductVariantPricePairConnection>, IConnectionWithNodes<ProductVariantPricePairEdge, ProductVariantPricePair>
+    public class ProductVariantPricePairConnection : GraphQLObject<ProductVariantPricePairConnection>, IConnectionWithNodesAndEdges<ProductVariantPricePairEdge, ProductVariantPricePair>
     {
         ///<summary>
         ///A list of edges.
@@ -37129,7 +37135,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Publications.
     ///</summary>
-    public class PublicationConnection : GraphQLObject<PublicationConnection>, IConnectionWithNodes<PublicationEdge, Publication>
+    public class PublicationConnection : GraphQLObject<PublicationConnection>, IConnectionWithNodesAndEdges<PublicationEdge, Publication>
     {
         ///<summary>
         ///A list of edges.
@@ -37577,7 +37583,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple QuantityRules.
     ///</summary>
-    public class QuantityRuleConnection : GraphQLObject<QuantityRuleConnection>, IConnectionWithNodes<QuantityRuleEdge, QuantityRule>
+    public class QuantityRuleConnection : GraphQLObject<QuantityRuleConnection>, IConnectionWithNodesAndEdges<QuantityRuleEdge, QuantityRule>
     {
         ///<summary>
         ///A list of edges.
@@ -38636,7 +38642,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Refunds.
     ///</summary>
-    public class RefundConnection : GraphQLObject<RefundConnection>, IConnectionWithNodes<RefundEdge, Refund>
+    public class RefundConnection : GraphQLObject<RefundConnection>, IConnectionWithNodesAndEdges<RefundEdge, Refund>
     {
         ///<summary>
         ///A list of edges.
@@ -38776,7 +38782,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple RefundLineItems.
     ///</summary>
-    public class RefundLineItemConnection : GraphQLObject<RefundLineItemConnection>, IConnectionWithNodes<RefundLineItemEdge, RefundLineItem>
+    public class RefundLineItemConnection : GraphQLObject<RefundLineItemConnection>, IConnectionWithNodesAndEdges<RefundLineItemEdge, RefundLineItem>
     {
         ///<summary>
         ///A list of edges.
@@ -39074,7 +39080,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ResourcePublications.
     ///</summary>
-    public class ResourcePublicationConnection : GraphQLObject<ResourcePublicationConnection>, IConnectionWithNodes<ResourcePublicationEdge, ResourcePublication>
+    public class ResourcePublicationConnection : GraphQLObject<ResourcePublicationConnection>, IConnectionWithNodesAndEdges<ResourcePublicationEdge, ResourcePublication>
     {
         ///<summary>
         ///A list of edges.
@@ -39135,7 +39141,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ResourcePublicationV2s.
     ///</summary>
-    public class ResourcePublicationV2Connection : GraphQLObject<ResourcePublicationV2Connection>, IConnectionWithNodes<ResourcePublicationV2Edge, ResourcePublicationV2>
+    public class ResourcePublicationV2Connection : GraphQLObject<ResourcePublicationV2Connection>, IConnectionWithNodesAndEdges<ResourcePublicationV2Edge, ResourcePublicationV2>
     {
         ///<summary>
         ///A list of edges.
@@ -39261,7 +39267,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Returns.
     ///</summary>
-    public class ReturnConnection : GraphQLObject<ReturnConnection>, IConnectionWithNodes<ReturnEdge, Return>
+    public class ReturnConnection : GraphQLObject<ReturnConnection>, IConnectionWithNodesAndEdges<ReturnEdge, Return>
     {
         ///<summary>
         ///A list of edges.
@@ -39510,7 +39516,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ReturnLineItems.
     ///</summary>
-    public class ReturnLineItemConnection : GraphQLObject<ReturnLineItemConnection>, IConnectionWithNodes<ReturnLineItemEdge, ReturnLineItem>
+    public class ReturnLineItemConnection : GraphQLObject<ReturnLineItemConnection>, IConnectionWithNodesAndEdges<ReturnLineItemEdge, ReturnLineItem>
     {
         ///<summary>
         ///A list of edges.
@@ -39702,7 +39708,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ReturnableFulfillments.
     ///</summary>
-    public class ReturnableFulfillmentConnection : GraphQLObject<ReturnableFulfillmentConnection>, IConnectionWithNodes<ReturnableFulfillmentEdge, ReturnableFulfillment>
+    public class ReturnableFulfillmentConnection : GraphQLObject<ReturnableFulfillmentConnection>, IConnectionWithNodesAndEdges<ReturnableFulfillmentEdge, ReturnableFulfillment>
     {
         ///<summary>
         ///A list of edges.
@@ -39751,7 +39757,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ReturnableFulfillmentLineItems.
     ///</summary>
-    public class ReturnableFulfillmentLineItemConnection : GraphQLObject<ReturnableFulfillmentLineItemConnection>, IConnectionWithNodes<ReturnableFulfillmentLineItemEdge, ReturnableFulfillmentLineItem>
+    public class ReturnableFulfillmentLineItemConnection : GraphQLObject<ReturnableFulfillmentLineItemConnection>, IConnectionWithNodesAndEdges<ReturnableFulfillmentLineItemEdge, ReturnableFulfillmentLineItem>
     {
         ///<summary>
         ///A list of edges.
@@ -39811,7 +39817,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ReverseDeliveries.
     ///</summary>
-    public class ReverseDeliveryConnection : GraphQLObject<ReverseDeliveryConnection>, IConnectionWithNodes<ReverseDeliveryEdge, ReverseDelivery>
+    public class ReverseDeliveryConnection : GraphQLObject<ReverseDeliveryConnection>, IConnectionWithNodesAndEdges<ReverseDeliveryEdge, ReverseDelivery>
     {
         ///<summary>
         ///A list of edges.
@@ -39935,7 +39941,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ReverseDeliveryLineItems.
     ///</summary>
-    public class ReverseDeliveryLineItemConnection : GraphQLObject<ReverseDeliveryLineItemConnection>, IConnectionWithNodes<ReverseDeliveryLineItemEdge, ReverseDeliveryLineItem>
+    public class ReverseDeliveryLineItemConnection : GraphQLObject<ReverseDeliveryLineItemConnection>, IConnectionWithNodesAndEdges<ReverseDeliveryLineItemEdge, ReverseDeliveryLineItem>
     {
         ///<summary>
         ///A list of edges.
@@ -40051,7 +40057,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ReverseFulfillmentOrders.
     ///</summary>
-    public class ReverseFulfillmentOrderConnection : GraphQLObject<ReverseFulfillmentOrderConnection>, IConnectionWithNodes<ReverseFulfillmentOrderEdge, ReverseFulfillmentOrder>
+    public class ReverseFulfillmentOrderConnection : GraphQLObject<ReverseFulfillmentOrderConnection>, IConnectionWithNodesAndEdges<ReverseFulfillmentOrderEdge, ReverseFulfillmentOrder>
     {
         ///<summary>
         ///A list of edges.
@@ -40169,7 +40175,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ReverseFulfillmentOrderLineItems.
     ///</summary>
-    public class ReverseFulfillmentOrderLineItemConnection : GraphQLObject<ReverseFulfillmentOrderLineItemConnection>, IConnectionWithNodes<ReverseFulfillmentOrderLineItemEdge, ReverseFulfillmentOrderLineItem>
+    public class ReverseFulfillmentOrderLineItemConnection : GraphQLObject<ReverseFulfillmentOrderLineItemConnection>, IConnectionWithNodesAndEdges<ReverseFulfillmentOrderLineItemEdge, ReverseFulfillmentOrderLineItem>
     {
         ///<summary>
         ///A list of edges.
@@ -40400,7 +40406,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Sales.
     ///</summary>
-    public class SaleConnection : GraphQLObject<SaleConnection>, IConnectionWithNodes<SaleEdge, ISale>
+    public class SaleConnection : GraphQLObject<SaleConnection>, IConnectionWithNodesAndEdges<SaleEdge, ISale>
     {
         ///<summary>
         ///A list of edges.
@@ -40530,7 +40536,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple SalesAgreements.
     ///</summary>
-    public class SalesAgreementConnection : GraphQLObject<SalesAgreementConnection>, IConnectionWithNodes<SalesAgreementEdge, ISalesAgreement>
+    public class SalesAgreementConnection : GraphQLObject<SalesAgreementConnection>, IConnectionWithNodesAndEdges<SalesAgreementEdge, ISalesAgreement>
     {
         ///<summary>
         ///A list of edges.
@@ -40599,7 +40605,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple SavedSearches.
     ///</summary>
-    public class SavedSearchConnection : GraphQLObject<SavedSearchConnection>, IConnectionWithNodes<SavedSearchEdge, SavedSearch>
+    public class SavedSearchConnection : GraphQLObject<SavedSearchConnection>, IConnectionWithNodesAndEdges<SavedSearchEdge, SavedSearch>
     {
         ///<summary>
         ///A list of edges.
@@ -40765,7 +40771,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ScriptTags.
     ///</summary>
-    public class ScriptTagConnection : GraphQLObject<ScriptTagConnection>, IConnectionWithNodes<ScriptTagEdge, ScriptTag>
+    public class ScriptTagConnection : GraphQLObject<ScriptTagConnection>, IConnectionWithNodesAndEdges<ScriptTagEdge, ScriptTag>
     {
         ///<summary>
         ///A list of edges.
@@ -40916,7 +40922,7 @@ namespace shopify
     ///<summary>
     ///The connection type for SearchResult.
     ///</summary>
-    public class SearchResultConnection : GraphQLObject<SearchResultConnection>, IConnection<SearchResultEdge, SearchResult>
+    public class SearchResultConnection : GraphQLObject<SearchResultConnection>, IConnectionWithEdges<SearchResultEdge, SearchResult>
     {
         ///<summary>
         ///A list of edges.
@@ -41060,7 +41066,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple Segments.
     ///</summary>
-    public class SegmentConnection : GraphQLObject<SegmentConnection>, IConnectionWithNodes<SegmentEdge, Segment>
+    public class SegmentConnection : GraphQLObject<SegmentConnection>, IConnectionWithNodesAndEdges<SegmentEdge, Segment>
     {
         ///<summary>
         ///A list of edges.
@@ -41256,7 +41262,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple SegmentFilters.
     ///</summary>
-    public class SegmentFilterConnection : GraphQLObject<SegmentFilterConnection>, IConnectionWithNodes<SegmentFilterEdge, ISegmentFilter>
+    public class SegmentFilterConnection : GraphQLObject<SegmentFilterConnection>, IConnectionWithNodesAndEdges<SegmentFilterEdge, ISegmentFilter>
     {
         ///<summary>
         ///A list of edges.
@@ -41374,7 +41380,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple SegmentMigrations.
     ///</summary>
-    public class SegmentMigrationConnection : GraphQLObject<SegmentMigrationConnection>, IConnectionWithNodes<SegmentMigrationEdge, SegmentMigration>
+    public class SegmentMigrationConnection : GraphQLObject<SegmentMigrationConnection>, IConnectionWithNodesAndEdges<SegmentMigrationEdge, SegmentMigration>
     {
         ///<summary>
         ///A list of edges.
@@ -41494,7 +41500,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple SegmentValues.
     ///</summary>
-    public class SegmentValueConnection : GraphQLObject<SegmentValueConnection>, IConnectionWithNodes<SegmentValueEdge, SegmentValue>
+    public class SegmentValueConnection : GraphQLObject<SegmentValueConnection>, IConnectionWithNodesAndEdges<SegmentValueEdge, SegmentValue>
     {
         ///<summary>
         ///A list of edges.
@@ -41754,7 +41760,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple SellingPlans.
     ///</summary>
-    public class SellingPlanConnection : GraphQLObject<SellingPlanConnection>, IConnectionWithNodes<SellingPlanEdge, SellingPlan>
+    public class SellingPlanConnection : GraphQLObject<SellingPlanConnection>, IConnectionWithNodesAndEdges<SellingPlanEdge, SellingPlan>
     {
         ///<summary>
         ///A list of edges.
@@ -42054,7 +42060,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple SellingPlanGroups.
     ///</summary>
-    public class SellingPlanGroupConnection : GraphQLObject<SellingPlanGroupConnection>, IConnectionWithNodes<SellingPlanGroupEdge, SellingPlanGroup>
+    public class SellingPlanGroupConnection : GraphQLObject<SellingPlanGroupConnection>, IConnectionWithNodesAndEdges<SellingPlanGroupEdge, SellingPlanGroup>
     {
         ///<summary>
         ///A list of edges.
@@ -42901,7 +42907,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ShippingLines.
     ///</summary>
-    public class ShippingLineConnection : GraphQLObject<ShippingLineConnection>, IConnectionWithNodes<ShippingLineEdge, ShippingLine>
+    public class ShippingLineConnection : GraphQLObject<ShippingLineConnection>, IConnectionWithNodesAndEdges<ShippingLineEdge, ShippingLine>
     {
         ///<summary>
         ///A list of edges.
@@ -44194,7 +44200,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ShopifyFunctions.
     ///</summary>
-    public class ShopifyFunctionConnection : GraphQLObject<ShopifyFunctionConnection>, IConnectionWithNodes<ShopifyFunctionEdge, ShopifyFunction>
+    public class ShopifyFunctionConnection : GraphQLObject<ShopifyFunctionConnection>, IConnectionWithNodesAndEdges<ShopifyFunctionEdge, ShopifyFunction>
     {
         ///<summary>
         ///A list of edges.
@@ -44361,7 +44367,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ShopifyPaymentsBankAccounts.
     ///</summary>
-    public class ShopifyPaymentsBankAccountConnection : GraphQLObject<ShopifyPaymentsBankAccountConnection>, IConnectionWithNodes<ShopifyPaymentsBankAccountEdge, ShopifyPaymentsBankAccount>
+    public class ShopifyPaymentsBankAccountConnection : GraphQLObject<ShopifyPaymentsBankAccountConnection>, IConnectionWithNodesAndEdges<ShopifyPaymentsBankAccountEdge, ShopifyPaymentsBankAccount>
     {
         ///<summary>
         ///A list of edges.
@@ -44504,7 +44510,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ShopifyPaymentsDisputes.
     ///</summary>
-    public class ShopifyPaymentsDisputeConnection : GraphQLObject<ShopifyPaymentsDisputeConnection>, IConnectionWithNodes<ShopifyPaymentsDisputeEdge, ShopifyPaymentsDispute>
+    public class ShopifyPaymentsDisputeConnection : GraphQLObject<ShopifyPaymentsDisputeConnection>, IConnectionWithNodesAndEdges<ShopifyPaymentsDisputeEdge, ShopifyPaymentsDispute>
     {
         ///<summary>
         ///A list of edges.
@@ -44911,7 +44917,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple ShopifyPaymentsPayouts.
     ///</summary>
-    public class ShopifyPaymentsPayoutConnection : GraphQLObject<ShopifyPaymentsPayoutConnection>, IConnectionWithNodes<ShopifyPaymentsPayoutEdge, ShopifyPaymentsPayout>
+    public class ShopifyPaymentsPayoutConnection : GraphQLObject<ShopifyPaymentsPayoutConnection>, IConnectionWithNodesAndEdges<ShopifyPaymentsPayoutEdge, ShopifyPaymentsPayout>
     {
         ///<summary>
         ///A list of edges.
@@ -45284,7 +45290,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple StaffMembers.
     ///</summary>
-    public class StaffMemberConnection : GraphQLObject<StaffMemberConnection>, IConnectionWithNodes<StaffMemberEdge, StaffMember>
+    public class StaffMemberConnection : GraphQLObject<StaffMemberConnection>, IConnectionWithNodesAndEdges<StaffMemberEdge, StaffMember>
     {
         ///<summary>
         ///A list of edges.
@@ -45785,7 +45791,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple StandardMetafieldDefinitionTemplates.
     ///</summary>
-    public class StandardMetafieldDefinitionTemplateConnection : GraphQLObject<StandardMetafieldDefinitionTemplateConnection>, IConnectionWithNodes<StandardMetafieldDefinitionTemplateEdge, StandardMetafieldDefinitionTemplate>
+    public class StandardMetafieldDefinitionTemplateConnection : GraphQLObject<StandardMetafieldDefinitionTemplateConnection>, IConnectionWithNodesAndEdges<StandardMetafieldDefinitionTemplateEdge, StandardMetafieldDefinitionTemplate>
     {
         ///<summary>
         ///A list of edges.
@@ -45878,7 +45884,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple StorefrontAccessTokens.
     ///</summary>
-    public class StorefrontAccessTokenConnection : GraphQLObject<StorefrontAccessTokenConnection>, IConnectionWithNodes<StorefrontAccessTokenEdge, StorefrontAccessToken>
+    public class StorefrontAccessTokenConnection : GraphQLObject<StorefrontAccessTokenConnection>, IConnectionWithNodesAndEdges<StorefrontAccessTokenEdge, StorefrontAccessToken>
     {
         ///<summary>
         ///A list of edges.
@@ -45946,7 +45952,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through a list of Strings.
     ///</summary>
-    public class StringConnection : GraphQLObject<StringConnection>, IConnection<StringEdge, string>
+    public class StringConnection : GraphQLObject<StringConnection>, IConnectionWithEdges<StringEdge, string>
     {
         ///<summary>
         ///A list of edges.
@@ -46050,7 +46056,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple SubscriptionBillingAttempts.
     ///</summary>
-    public class SubscriptionBillingAttemptConnection : GraphQLObject<SubscriptionBillingAttemptConnection>, IConnectionWithNodes<SubscriptionBillingAttemptEdge, SubscriptionBillingAttempt>
+    public class SubscriptionBillingAttemptConnection : GraphQLObject<SubscriptionBillingAttemptConnection>, IConnectionWithNodesAndEdges<SubscriptionBillingAttemptEdge, SubscriptionBillingAttempt>
     {
         ///<summary>
         ///A list of edges.
@@ -46261,7 +46267,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple SubscriptionBillingCycles.
     ///</summary>
-    public class SubscriptionBillingCycleConnection : GraphQLObject<SubscriptionBillingCycleConnection>, IConnectionWithNodes<SubscriptionBillingCycleEdge, SubscriptionBillingCycle>
+    public class SubscriptionBillingCycleConnection : GraphQLObject<SubscriptionBillingCycleConnection>, IConnectionWithNodesAndEdges<SubscriptionBillingCycleEdge, SubscriptionBillingCycle>
     {
         ///<summary>
         ///A list of edges.
@@ -46793,7 +46799,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple SubscriptionContracts.
     ///</summary>
-    public class SubscriptionContractConnection : GraphQLObject<SubscriptionContractConnection>, IConnectionWithNodes<SubscriptionContractEdge, SubscriptionContract>
+    public class SubscriptionContractConnection : GraphQLObject<SubscriptionContractConnection>, IConnectionWithNodesAndEdges<SubscriptionContractEdge, SubscriptionContract>
     {
         ///<summary>
         ///A list of edges.
@@ -47260,7 +47266,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple SubscriptionDiscounts.
     ///</summary>
-    public class SubscriptionDiscountConnection : GraphQLObject<SubscriptionDiscountConnection>, IConnectionWithNodes<SubscriptionDiscountEdge, ISubscriptionDiscount>
+    public class SubscriptionDiscountConnection : GraphQLObject<SubscriptionDiscountConnection>, IConnectionWithNodesAndEdges<SubscriptionDiscountEdge, ISubscriptionDiscount>
     {
         ///<summary>
         ///A list of edges.
@@ -47983,7 +47989,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple SubscriptionLines.
     ///</summary>
-    public class SubscriptionLineConnection : GraphQLObject<SubscriptionLineConnection>, IConnectionWithNodes<SubscriptionLineEdge, SubscriptionLine>
+    public class SubscriptionLineConnection : GraphQLObject<SubscriptionLineConnection>, IConnectionWithNodesAndEdges<SubscriptionLineEdge, SubscriptionLine>
     {
         ///<summary>
         ///A list of edges.
@@ -48154,7 +48160,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple SubscriptionManualDiscounts.
     ///</summary>
-    public class SubscriptionManualDiscountConnection : GraphQLObject<SubscriptionManualDiscountConnection>, IConnectionWithNodes<SubscriptionManualDiscountEdge, SubscriptionManualDiscount>
+    public class SubscriptionManualDiscountConnection : GraphQLObject<SubscriptionManualDiscountConnection>, IConnectionWithNodesAndEdges<SubscriptionManualDiscountEdge, SubscriptionManualDiscount>
     {
         ///<summary>
         ///A list of edges.
@@ -49032,7 +49038,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple TenderTransactions.
     ///</summary>
-    public class TenderTransactionConnection : GraphQLObject<TenderTransactionConnection>, IConnectionWithNodes<TenderTransactionEdge, TenderTransaction>
+    public class TenderTransactionConnection : GraphQLObject<TenderTransactionConnection>, IConnectionWithNodesAndEdges<TenderTransactionEdge, TenderTransaction>
     {
         ///<summary>
         ///A list of edges.
@@ -49231,7 +49237,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple TranslatableResources.
     ///</summary>
-    public class TranslatableResourceConnection : GraphQLObject<TranslatableResourceConnection>, IConnectionWithNodes<TranslatableResourceEdge, TranslatableResource>
+    public class TranslatableResourceConnection : GraphQLObject<TranslatableResourceConnection>, IConnectionWithNodesAndEdges<TranslatableResourceEdge, TranslatableResource>
     {
         ///<summary>
         ///A list of edges.
@@ -49792,7 +49798,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple UrlRedirects.
     ///</summary>
-    public class UrlRedirectConnection : GraphQLObject<UrlRedirectConnection>, IConnectionWithNodes<UrlRedirectEdge, UrlRedirect>
+    public class UrlRedirectConnection : GraphQLObject<UrlRedirectConnection>, IConnectionWithNodesAndEdges<UrlRedirectEdge, UrlRedirect>
     {
         ///<summary>
         ///A list of edges.
@@ -50434,7 +50440,7 @@ namespace shopify
     ///<summary>
     ///An auto-generated type for paginating through multiple WebhookSubscriptions.
     ///</summary>
-    public class WebhookSubscriptionConnection : GraphQLObject<WebhookSubscriptionConnection>, IConnectionWithNodes<WebhookSubscriptionEdge, WebhookSubscription>
+    public class WebhookSubscriptionConnection : GraphQLObject<WebhookSubscriptionConnection>, IConnectionWithNodesAndEdges<WebhookSubscriptionEdge, WebhookSubscription>
     {
         ///<summary>
         ///A list of edges.

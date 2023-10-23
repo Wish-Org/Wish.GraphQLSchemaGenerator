@@ -140,23 +140,29 @@ namespace Wish.GraphQLSchemaGenerator
                 public static string ToJson(this {{IGraphQLObjectInterfaceName}} o) => Serializer.Serialize(o);
             }
 
-            public interface IConnection<TEdge, TNode> where TEdge : IEdge<TNode>
+            public interface IConnectionWithEdges<TEdge, TNode> where TEdge : IEdge<TNode>
             {
-                IEnumerable<TEdge>? edges { get; }
-            
                 PageInfo? pageInfo { get; }
+
+                IEnumerable<TEdge>? edges { get; }
             }
 
-            public interface IConnectionWithNodes<TEdge, TNode> : IConnection<TEdge, TNode> where TEdge : IEdge<TNode>
+            public interface IConnectionWithNodes<TNode>
             {
+                PageInfo? pageInfo { get; }
+
                 IEnumerable<TNode>? nodes { get; }
+            }
+
+            public interface IConnectionWithNodesAndEdges<TEdge, TNode> : IConnectionWithEdges<TEdge, TNode>, IConnectionWithNodes<TNode> where TEdge : IEdge<TNode>
+            {
             }
 
             public interface IEdge<TNode>
             {
                 string? cursor { get; }
 
-                TNode node { get; }
+                TNode? node { get; }
             }
             """;
 
@@ -302,20 +308,34 @@ namespace Wish.GraphQLSchemaGenerator
                 str.Append($", {string.Join(',', interfaces.Select(i => this.GenerateTypeName(i, scalarNameToTypeName)))}");
             if (type.name.EndsWith("Connection"))
             {
-                var shallowEdgeType = type.fields.Single(f => f.name == "edges").type;
-                while (shallowEdgeType.name == null)
-                    shallowEdgeType = shallowEdgeType.ofType;
-                var edgeType = typeNameToType[shallowEdgeType.name];
-                var edgeTypeName = GenerateTypeName(edgeType, scalarNameToTypeName);
-                var nodeType = edgeType.fields.Single(f => f.name == "node").type;
-                while (nodeType.name == null)
-                    nodeType = nodeType.ofType;
-                var nodeTypeName = GenerateTypeName(nodeType, scalarNameToTypeName);
+                var shallowEdgeType = type.fields.SingleOrDefault(f => f.name == "edges")?.type;
+                if (shallowEdgeType != null)
+                {
+                    while (shallowEdgeType.name == null)
+                        shallowEdgeType = shallowEdgeType.ofType;
+                    var edgeType = typeNameToType[shallowEdgeType.name];
+                    var edgeTypeName = GenerateTypeName(edgeType, scalarNameToTypeName);
+                    var nodeType = edgeType.fields.Single(f => f.name == "node").type;
+                    while (nodeType.name == null)
+                        nodeType = nodeType.ofType;
+                    var nodeTypeName = GenerateTypeName(nodeType, scalarNameToTypeName);
 
-                if (type.fields.Any(f => f.name == "nodes"))
-                    str.Append($", IConnectionWithNodes<{edgeTypeName}, {nodeTypeName}>");
+                    if (type.fields.Any(f => f.name == "nodes"))
+                        str.Append($", IConnectionWithNodesAndEdges<{edgeTypeName}, {nodeTypeName}>");
+                    else
+                        str.Append($", IConnectionWithEdges<{edgeTypeName}, {nodeTypeName}>");
+                }
                 else
-                    str.Append($", IConnection<{edgeTypeName}, {nodeTypeName}>");
+                {
+                    var nodeType = type.fields.SingleOrDefault(f => f.name == "nodes")?.type;
+                    if (nodeType != null)
+                    {
+                        while (nodeType.name == null)
+                            nodeType = nodeType.ofType;
+                        var nodeTypeName = GenerateTypeName(nodeType, scalarNameToTypeName);
+                        str.Append($", IConnectionWithNodes<{nodeTypeName}>");
+                    }
+                }
             }
             if (type.name.EndsWith("Edge"))
             {
