@@ -139,6 +139,25 @@ namespace Wish.GraphQLSchemaGenerator
             {
                 public static string ToJson(this {{IGraphQLObjectInterfaceName}} o) => Serializer.Serialize(o);
             }
+
+            public interface IConnection<TEdge, TNode> where TEdge : IEdge<TNode>
+            {
+                IEnumerable<TEdge>? edges { get; }
+            
+                PageInfo? pageInfo { get; }
+            }
+
+            public interface IConnectionWithNodes<TEdge, TNode> : IConnection<TEdge, TNode> where TEdge : IEdge<TNode>
+            {
+                IEnumerable<TNode>? nodes { get; }
+            }
+
+            public interface IEdge<TNode>
+            {
+                string? cursor { get; }
+
+                TNode node { get; }
+            }
             """;
 
         public async Task<string> GenerateTypesAsync(string @namespace, Dictionary<string, string> scalarNameToTypeName, SendGraphQLQueryAsync sendQuery)
@@ -167,9 +186,11 @@ namespace Wish.GraphQLSchemaGenerator
                                               .SelectMany(tUnion => tUnion.possibleTypes.Select(tObject => (tUnion, tObject)))
                                               .ToLookup(i => i.tObject.name, i => i.tUnion);
 
+            var typeNameToType = allTypes.ToDictionary(t => t.name);
+
             str.AppendLine(STATIC_PREFACE);
 
-            allTypes.Select(t => GenerateType(t, scalarNameToTypeName, objectTypeNameToUnionTypes))
+            allTypes.Select(t => GenerateType(t, typeNameToType, scalarNameToTypeName, objectTypeNameToUnionTypes))
                  .ForEach(strType => str.Append(strType)
                                         .AppendLine());
 
@@ -182,13 +203,13 @@ namespace Wish.GraphQLSchemaGenerator
             return "#nullable enable\r\n" + formattedCode;
         }
 
-        private StringBuilder GenerateType(GraphQLType type, Dictionary<string, string> scalarNameToTypeName, ILookup<string, GraphQLType> objectTypeNameToUnionTypes)
+        private StringBuilder GenerateType(GraphQLType type, Dictionary<string, GraphQLType> typeNameToType, Dictionary<string, string> scalarNameToTypeName, ILookup<string, GraphQLType> objectTypeNameToUnionTypes)
         {
             return type.kind switch
             {
                 GraphQLTypeKind.SCALAR or GraphQLTypeKind.INPUT_OBJECT => new StringBuilder(),
                 GraphQLTypeKind.ENUM => GenerateEnum(type),
-                GraphQLTypeKind.OBJECT => GenerateClass(type, scalarNameToTypeName, objectTypeNameToUnionTypes),
+                GraphQLTypeKind.OBJECT => GenerateClass(type, typeNameToType, scalarNameToTypeName, objectTypeNameToUnionTypes),
                 GraphQLTypeKind.INTERFACE => GenerateInterface(type, scalarNameToTypeName),
                 GraphQLTypeKind.UNION => GenerateUnion(type, scalarNameToTypeName),
                 _ => throw new Exception($"Unexpected type kind {type.kind}")
@@ -269,7 +290,7 @@ namespace Wish.GraphQLSchemaGenerator
         }
 
 
-        private StringBuilder GenerateClass(GraphQLType type, Dictionary<string, string> scalarNameToTypeName, ILookup<string, GraphQLType> objectTypeNameToUnionTypes)
+        private StringBuilder GenerateClass(GraphQLType type, Dictionary<string, GraphQLType> typeNameToType, Dictionary<string, string> scalarNameToTypeName, ILookup<string, GraphQLType> objectTypeNameToUnionTypes)
         {
             string className = GenerateTypeName(type, scalarNameToTypeName);
             var str = new StringBuilder()
@@ -279,6 +300,29 @@ namespace Wish.GraphQLSchemaGenerator
             var interfaces = type.interfaces.Concat(objectTypeNameToUnionTypes[type.name]);
             if (interfaces.Any())
                 str.Append($", {string.Join(',', interfaces.Select(i => this.GenerateTypeName(i, scalarNameToTypeName)))}");
+            if (type.name.EndsWith("Connection"))
+            {
+                var shallowEdgeType = type.fields.Single(f => f.name == "edges").type;
+                while (shallowEdgeType.name == null)
+                    shallowEdgeType = shallowEdgeType.ofType;
+                var edgeType = typeNameToType[shallowEdgeType.name];
+                var edgeTypeName = GenerateTypeName(edgeType, scalarNameToTypeName);
+                var nodeType = edgeType.fields.Single(f => f.name == "node").type;
+                while (nodeType.name == null)
+                    nodeType = nodeType.ofType;
+                var nodeTypeName = GenerateTypeName(nodeType, scalarNameToTypeName);
+
+                if (type.fields.Any(f => f.name == "nodes"))
+                    str.Append($", IConnectionWithNodes<{edgeTypeName}, {nodeTypeName}>");
+                else
+                    str.Append($", IConnection<{edgeTypeName}, {nodeTypeName}>");
+            }
+            if (type.name.EndsWith("Edge"))
+            {
+                var nodeType = type.fields.Single(f => f.name == "node").type;
+                var nodeTypeName = GenerateTypeName(nodeType, scalarNameToTypeName);
+                str.Append($", IEdge<{nodeTypeName}>");
+            }
             str.AppendLine();
             str.AppendLine("{");
 
