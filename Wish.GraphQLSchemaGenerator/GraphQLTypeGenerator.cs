@@ -140,11 +140,19 @@ namespace Wish.GraphQLSchemaGenerator
                 public static string ToJson(this {{IGraphQLObjectInterfaceName}} o) => Serializer.Serialize(o);
             }
 
-            public interface IConnectionWithEdges<TEdge, TNode> where TEdge : IEdge<TNode>
+            public interface IConnectionWithEdges<TEdge, TNode> : IConnectionWithEdges<TNode>
+                where TEdge : IEdge<TNode>
+            {
+                IEnumerable<IEdge<TNode>>? IConnectionWithEdges<TNode>.edges => this.edges?.Cast<IEdge<TNode>>();
+
+                new IEnumerable<TEdge>? edges { get; }
+            }
+
+            public interface IConnectionWithEdges<TNode>
             {
                 PageInfo? pageInfo { get; }
 
-                IEnumerable<TEdge>? edges { get; }
+                IEnumerable<IEdge<TNode>>? edges { get; }
             }
 
             public interface IConnectionWithNodes<TNode>
@@ -184,6 +192,7 @@ namespace Wish.GraphQLSchemaGenerator
             var str = new StringBuilder()
                             .AppendLine("using System;")
                             .AppendLine("using System.Collections.Generic;")
+                            .AppendLine("using System.Linq;")
                             .AppendLine("using System.Text.Json;")
                             .AppendLine("using System.Text.Json.Serialization;")
                             .AppendLine($"namespace {@namespace} {{");
