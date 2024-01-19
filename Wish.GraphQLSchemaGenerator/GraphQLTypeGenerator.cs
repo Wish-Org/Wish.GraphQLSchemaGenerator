@@ -225,19 +225,20 @@ namespace Wish.GraphQLSchemaGenerator
                 GraphQLTypeKind.SCALAR or GraphQLTypeKind.INPUT_OBJECT => new StringBuilder(),
                 GraphQLTypeKind.ENUM => GenerateEnum(type),
                 GraphQLTypeKind.OBJECT => GenerateClass(type, typeNameToType, scalarNameToTypeName, objectTypeNameToUnionTypes),
-                GraphQLTypeKind.INTERFACE => GenerateInterface(type, scalarNameToTypeName),
-                GraphQLTypeKind.UNION => GenerateUnion(type, scalarNameToTypeName),
+                GraphQLTypeKind.INTERFACE => GenerateInterface(type, typeNameToType, scalarNameToTypeName),
+                GraphQLTypeKind.UNION => GenerateUnion(type, typeNameToType, scalarNameToTypeName),
                 _ => throw new Exception($"Unexpected type kind {type.kind}")
             };
         }
 
-        private StringBuilder GenerateUnion(GraphQLType type, Dictionary<string, string> scalarNameToTypeName)
+        private StringBuilder GenerateUnion(GraphQLType type, Dictionary<string, GraphQLType> typeNameToType, Dictionary<string, string> scalarNameToTypeName)
         {
             var str = new StringBuilder()
                             .AppendLine(GenerateDescriptionComment(type.description))
                             .AppendLine("[JsonPolymorphic(TypeDiscriminatorPropertyName = \"__typename\")]");
 
-            foreach (var t in type.possibleTypes)
+            var possibleTypes = type.possibleTypes.Where(t => typeNameToType.ContainsKey(t.name));//found cases where possibleTypes included types that don't exist, so remove them
+            foreach (var t in possibleTypes)
             {
                 str.AppendLine($"[JsonDerivedType(typeof({GenerateTypeName(t, scalarNameToTypeName)}), typeDiscriminator: \"{t.name}\")]");
             }
@@ -246,14 +247,14 @@ namespace Wish.GraphQLSchemaGenerator
 
             str.AppendLine("{");
 
-            foreach (var t in type.possibleTypes)
+            foreach (var t in possibleTypes)
             {
                 var typeName = GenerateTypeName(t, scalarNameToTypeName);
                 str.AppendLine($"public {typeName}? As{typeName}() => this as {typeName};");
             }
 
-            var commonFields = type.possibleTypes.First().fields.AsEnumerable();
-            foreach (var t in type.possibleTypes.Skip(1))
+            var commonFields = possibleTypes.First().fields.AsEnumerable();
+            foreach (var t in possibleTypes.Skip(1))
             {
                 commonFields = commonFields.IntersectBy(t.fields.Select(f => (GenerateTypeName(f.type, scalarNameToTypeName), f.name)),
                                                         f => (GenerateTypeName(f.type, scalarNameToTypeName), f.name));
@@ -267,13 +268,14 @@ namespace Wish.GraphQLSchemaGenerator
             return str;
         }
 
-        private StringBuilder GenerateInterface(GraphQLType type, Dictionary<string, string> scalarNameToTypeName)
+        private StringBuilder GenerateInterface(GraphQLType type, Dictionary<string, GraphQLType> typeNameToType, Dictionary<string, string> scalarNameToTypeName)
         {
             var str = new StringBuilder()
                             .AppendLine(GenerateDescriptionComment(type.description))
                             .AppendLine("[JsonPolymorphic(TypeDiscriminatorPropertyName = \"__typename\")]");
 
-            foreach (var t in type.possibleTypes)
+            var possibleTypes = type.possibleTypes.Where(t => typeNameToType.ContainsKey(t.name));//found cases where possibleTypes included types that don't exist, so remove them
+            foreach (var t in possibleTypes)
             {
                 str.AppendLine($"[JsonDerivedType(typeof({GenerateTypeName(t, scalarNameToTypeName)}), typeDiscriminator: \"{t.name}\")]");
             }
@@ -288,7 +290,7 @@ namespace Wish.GraphQLSchemaGenerator
 
             if (type.interfaces.IsEmpty())
             {
-                foreach (var t in type.possibleTypes.DistinctBy(i => i.name))//found case where same type included twice
+                foreach (var t in possibleTypes.DistinctBy(i => i.name))//found case where same type included twice
                 {
                     var typeName = GenerateTypeName(t, scalarNameToTypeName);
                     str.AppendLine($"public {typeName}? As{typeName}() => this as {typeName};");
