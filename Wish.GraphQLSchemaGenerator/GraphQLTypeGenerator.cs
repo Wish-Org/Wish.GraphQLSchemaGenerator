@@ -14,7 +14,7 @@ namespace Wish.GraphQLSchemaGenerator
     public class GraphQLTypeGenerator
     {
         //we go quite deep because ofType is used for non-nullable and list
-        //example: orderes: [[String!]!]! would require 5 levels deep
+        //example: orders: [[String!]!]! would require 5 levels deep
         public const string INTROSPECTION_QUERY = """
             fragment fragType on __Type {
               name
@@ -237,7 +237,9 @@ namespace Wish.GraphQLSchemaGenerator
                             .AppendLine(GenerateDescriptionComment(type.description))
                             .AppendLine("[JsonPolymorphic(TypeDiscriminatorPropertyName = \"__typename\")]");
 
-            var possibleTypes = type.possibleTypes.Where(t => typeNameToType.ContainsKey(t.name));//found cases where possibleTypes included types that don't exist, so remove them
+            var possibleTypes = type.possibleTypes
+                                    .Where(t => typeNameToType.ContainsKey(t.name))
+                                    .DistinctBy(t => t.name);//found cases where possibleTypes included types that don't exist, so remove them
             foreach (var t in possibleTypes)
             {
                 str.AppendLine($"[JsonDerivedType(typeof({GenerateTypeName(t, scalarNameToTypeName)}), typeDiscriminator: \"{t.name}\")]");
@@ -274,7 +276,9 @@ namespace Wish.GraphQLSchemaGenerator
                             .AppendLine(GenerateDescriptionComment(type.description))
                             .AppendLine("[JsonPolymorphic(TypeDiscriminatorPropertyName = \"__typename\")]");
 
-            var possibleTypes = type.possibleTypes.Where(t => typeNameToType.ContainsKey(t.name));//found cases where possibleTypes included types that don't exist, so remove them
+            var possibleTypes = type.possibleTypes
+                                    .Where(t => typeNameToType.ContainsKey(t.name))
+                                    .DistinctBy(t => t.name);//found cases where possibleTypes included types that don't exist, so remove them
             foreach (var t in possibleTypes)
             {
                 str.AppendLine($"[JsonDerivedType(typeof({GenerateTypeName(t, scalarNameToTypeName)}), typeDiscriminator: \"{t.name}\")]");

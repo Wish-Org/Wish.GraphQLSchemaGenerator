@@ -25,7 +25,9 @@ namespace Wish.GraphQLSchemaGenerator.Tests
                 { "JSON", "string" },
                 { "FormattedString", "string" },
                 { "ARN", "string" },
-                { "StorefrontID", "string" }
+                { "StorefrontID", "string" },
+                { "Color", "string" },
+                { "BigInt", "long" },
             };
 
             var generator = new GraphQLTypeGenerator();
