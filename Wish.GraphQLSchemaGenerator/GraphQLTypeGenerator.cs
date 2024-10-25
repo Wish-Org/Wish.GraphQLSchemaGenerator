@@ -413,7 +413,7 @@ namespace Wish.GraphQLSchemaGenerator
                     str.AppendLine(GenerateDescriptionComment(v.description));
                     if (v.isDeprecated)
                         str.AppendLine($"[Obsolete({SymbolDisplay.FormatLiteral(v.deprecationReason.TrimEnd(), true)})]");
-                    str.AppendLine($"{v.name},");
+                    str.AppendLine($"{EscapeCSharpKeyword(v.name)},");
                 });
 
             str.AppendLine("}");
