@@ -168,9 +168,15 @@ namespace Wish.GraphQLSchemaGenerator
                 new IEnumerable<TNode>? nodes { get; }
             }
 
-            public interface IConnectionWithEdges<TNode> : IConnection
+            public interface IConnectionWithEdges : IConnection
             {
-                IEnumerable<IEdge<TNode>>? edges { get; }
+                IEnumerable<IEdge>? edges { get; }
+            }
+
+            public interface IConnectionWithEdges<TNode> : IConnectionWithEdges
+            {
+                IEnumerable<IEdge>? IConnectionWithEdges.edges => this.edges;
+                new IEnumerable<IEdge<TNode>>? edges { get; }
             }
 
             public interface IConnectionWithEdges<TEdge, TNode> : IConnectionWithEdges<TNode>
