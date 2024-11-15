@@ -49,17 +49,11 @@ namespace shopify
         public static string ToJson(this IGraphQLObject o) => Serializer.Serialize(o);
     }
 
-    public interface IConnectionWithEdges<TEdge, TNode> : IConnectionWithEdges<TNode> where TEdge : IEdge<TNode>
+    public interface IEdge<TNode>
     {
-        IEnumerable<IEdge<TNode>>? IConnectionWithEdges<TNode>.edges => this.edges?.Cast<IEdge<TNode>>();
-        new IEnumerable<TEdge>? edges { get; }
-    }
+        string? cursor { get; }
 
-    public interface IConnectionWithEdges<TNode>
-    {
-        PageInfo? pageInfo { get; }
-
-        IEnumerable<IEdge<TNode>>? edges { get; }
+        TNode? node { get; }
     }
 
     public interface IConnectionWithNodes<TNode>
@@ -69,15 +63,21 @@ namespace shopify
         IEnumerable<TNode>? nodes { get; }
     }
 
-    public interface IConnectionWithNodesAndEdges<TEdge, TNode> : IConnectionWithEdges<TEdge, TNode>, IConnectionWithNodes<TNode> where TEdge : IEdge<TNode>
+    public interface IConnectionWithEdges<TNode>
     {
+        PageInfo? pageInfo { get; }
+
+        IEnumerable<IEdge<TNode>>? edges { get; }
     }
 
-    public interface IEdge<TNode>
+    public interface IConnectionWithEdges<TEdge, TNode> : IConnectionWithEdges<TNode> where TEdge : IEdge<TNode>
     {
-        string? cursor { get; }
+        IEnumerable<IEdge<TNode>>? IConnectionWithEdges<TNode>.edges => this.edges?.Cast<IEdge<TNode>>();
+        new IEnumerable<TEdge>? edges { get; }
+    }
 
-        TNode? node { get; }
+    public interface IConnectionWithNodesAndEdges<TEdge, TNode> : IConnectionWithEdges<TEdge, TNode>, IConnectionWithNodes<TNode> where TEdge : IEdge<TNode>
+    {
     }
 
     ///<summary>
