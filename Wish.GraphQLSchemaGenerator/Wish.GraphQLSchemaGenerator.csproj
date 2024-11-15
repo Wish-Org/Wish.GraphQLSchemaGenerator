@@ -9,7 +9,7 @@
 	  <PackageProjectUrl>https://github.com/Wish-Org/Wish.GraphQLSchemaGenerator</PackageProjectUrl>
 	  <RepositoryUrl>https://github.com/Wish-Org/Wish.GraphQLSchemaGenerator</RepositoryUrl>
 	  <Description>Auto-generate c# types by using GraphQL schema introspection</Description>
-	  <Version>1.5.5</Version>
+	  <Version>1.6.0</Version>
 	  <PackageTags>graphql types classes schema generator strongly typed</PackageTags>
   </PropertyGroup>
 

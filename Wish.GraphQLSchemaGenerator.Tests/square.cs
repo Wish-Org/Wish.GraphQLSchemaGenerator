@@ -52,48 +52,48 @@ namespace square
 
     public interface IEdge
     {
-        string? cursor { get; }
+        string? cursor { get; set; }
 
-        object? node { get; }
+        object? node { get; set; }
     }
 
     public interface IEdge<TNode> : IEdge
     {
-        object? IEdge.node => this.node;
-        new TNode? node { get; }
+        object? IEdge.node { get => this.node; set => this.node = (TNode? )value; }
+        new TNode? node { get; set; }
     }
 
     public interface IConnection
     {
-        PageInfo? pageInfo { get; }
+        PageInfo? pageInfo { get; set; }
     }
 
     public interface IConnectionWithNodes : IConnection
     {
-        IEnumerable? nodes { get; }
+        IEnumerable? nodes { get; set; }
     }
 
     public interface IConnectionWithNodes<TNode> : IConnectionWithNodes
     {
-        IEnumerable? IConnectionWithNodes.nodes => this.nodes;
-        new IEnumerable<TNode>? nodes { get; }
+        IEnumerable? IConnectionWithNodes.nodes { get => this.nodes; set => this.nodes = (IEnumerable<TNode>? )value; }
+        new IEnumerable<TNode>? nodes { get; set; }
     }
 
     public interface IConnectionWithEdges : IConnection
     {
-        IEnumerable<IEdge>? edges { get; }
+        IEnumerable<IEdge>? edges { get; set; }
     }
 
     public interface IConnectionWithEdges<TNode> : IConnectionWithEdges
     {
-        IEnumerable<IEdge>? IConnectionWithEdges.edges => this.edges;
-        new IEnumerable<IEdge<TNode>>? edges { get; }
+        IEnumerable<IEdge>? IConnectionWithEdges.edges { get => this.edges; set => this.edges = (IEnumerable<IEdge<TNode>>? )value; }
+        new IEnumerable<IEdge<TNode>>? edges { get; set; }
     }
 
     public interface IConnectionWithEdges<TEdge, TNode> : IConnectionWithEdges<TNode> where TEdge : IEdge<TNode>
     {
-        IEnumerable<IEdge<TNode>>? IConnectionWithEdges<TNode>.edges => this.edges?.Cast<IEdge<TNode>>();
-        new IEnumerable<TEdge>? edges { get; }
+        IEnumerable<IEdge<TNode>>? IConnectionWithEdges<TNode>.edges { get => this.edges?.Cast<IEdge<TNode>>(); set => this.edges = value?.Cast<TEdge>(); }
+        new IEnumerable<TEdge>? edges { get; set; }
     }
 
     public interface IConnectionWithNodesAndEdges<TEdge, TNode> : IConnectionWithEdges<TEdge, TNode>, IConnectionWithNodes<TNode> where TEdge : IEdge<TNode>
