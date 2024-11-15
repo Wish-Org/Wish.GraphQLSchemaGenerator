@@ -147,17 +147,18 @@ namespace Wish.GraphQLSchemaGenerator
                 TNode? node { get; }
             }
 
-            public interface IConnectionWithNodes<TNode>
+            public interface IConnection
             {
                 PageInfo? pageInfo { get; }
-            
+            }
+
+            public interface IConnectionWithNodes<TNode> : IConnection
+            {
                 IEnumerable<TNode>? nodes { get; }
             }
 
-            public interface IConnectionWithEdges<TNode>
+            public interface IConnectionWithEdges<TNode> : IConnection
             {
-                PageInfo? pageInfo { get; }
-            
                 IEnumerable<IEdge<TNode>>? edges { get; }
             }
 
