@@ -1,5 +1,6 @@
 #nullable enable
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
@@ -61,9 +62,15 @@ namespace square
         PageInfo? pageInfo { get; }
     }
 
-    public interface IConnectionWithNodes<TNode> : IConnection
+    public interface IConnectionWithNodes : IConnection
     {
-        IEnumerable<TNode>? nodes { get; }
+        IEnumerable? nodes { get; }
+    }
+
+    public interface IConnectionWithNodes<TNode> : IConnectionWithNodes
+    {
+        IEnumerable? IConnectionWithNodes.nodes => this.nodes;
+        new IEnumerable<TNode>? nodes { get; }
     }
 
     public interface IConnectionWithEdges<TNode> : IConnection

@@ -152,9 +152,15 @@ namespace Wish.GraphQLSchemaGenerator
                 PageInfo? pageInfo { get; }
             }
 
-            public interface IConnectionWithNodes<TNode> : IConnection
+            public interface IConnectionWithNodes : IConnection
             {
-                IEnumerable<TNode>? nodes { get; }
+                IEnumerable? nodes { get; }
+            }
+
+            public interface IConnectionWithNodes<TNode> : IConnectionWithNodes
+            {
+                IEnumerable? IConnectionWithNodes.nodes => this.nodes;
+                new IEnumerable<TNode>? nodes { get; }
             }
 
             public interface IConnectionWithEdges<TNode> : IConnection
@@ -192,6 +198,7 @@ namespace Wish.GraphQLSchemaGenerator
 
             var str = new StringBuilder()
                             .AppendLine("using System;")
+                            .AppendLine("using System.Collections;")
                             .AppendLine("using System.Collections.Generic;")
                             .AppendLine("using System.Linq;")
                             .AppendLine("using System.Text.Json;")
