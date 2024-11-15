@@ -140,11 +140,16 @@ namespace Wish.GraphQLSchemaGenerator
                 public static string ToJson(this {{IGraphQLObjectInterfaceName}} o) => Serializer.Serialize(o);
             }
 
-            public interface IEdge<TNode>
+            public interface IEdge
             {
                 string? cursor { get; }
-            
-                TNode? node { get; }
+                object? node { get; }
+            }
+
+            public interface IEdge<TNode> : IEdge
+            {
+                object? IEdge.node => this.node;
+                new TNode? node { get; }
             }
 
             public interface IConnection
