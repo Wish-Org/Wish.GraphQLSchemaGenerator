@@ -93,7 +93,7 @@ namespace Wish.GraphQLSchemaGenerator
             {
                 { "String", "string" },
                 { "Int", "int" },
-                { "Float", "float" },
+                { "Float", "double" },
                 { "Boolean", "bool" },
                 { "ID", "string" },
             };
@@ -160,6 +160,7 @@ namespace Wish.GraphQLSchemaGenerator
             public interface IConnection
             {
                 PageInfo? pageInfo { get; set; }
+                Type GetNodeType();
             }
 
             public interface IConnectionWithNodes : IConnection
@@ -175,11 +176,13 @@ namespace Wish.GraphQLSchemaGenerator
                     set => this.nodes = (IEnumerable<TNode>?)value;
                 }
                 new IEnumerable<TNode>? nodes { get; set; }
+                Type IConnection.GetNodeType() => typeof(TNode);
             }
 
             public interface IConnectionWithEdges : IConnection
             {
                 IEnumerable<IEdge>? edges { get; set; }
+                Type GetEdgeType();
             }
 
             public interface IConnectionWithEdges<TNode> : IConnectionWithEdges
@@ -190,6 +193,7 @@ namespace Wish.GraphQLSchemaGenerator
                     set => this.edges = (IEnumerable<IEdge<TNode>>?)value;
                 }
                 new IEnumerable<IEdge<TNode>>? edges { get; set; }
+                Type IConnection.GetNodeType() => typeof(TNode);
             }
 
             public interface IConnectionWithEdges<TEdge, TNode> : IConnectionWithEdges<TNode> where TEdge : IEdge<TNode>
@@ -200,10 +204,12 @@ namespace Wish.GraphQLSchemaGenerator
                     set => this.edges = value?.Cast<TEdge>();
                 }
                 new IEnumerable<TEdge>? edges { get; set; }
+                Type IConnectionWithEdges.GetEdgeType() => typeof(TEdge);
             }
 
             public interface IConnectionWithNodesAndEdges<TEdge, TNode> : IConnectionWithEdges<TEdge, TNode>, IConnectionWithNodes<TNode> where TEdge : IEdge<TNode>
             {
+                Type IConnection.GetNodeType() => typeof(TNode);
             }
             """;
 

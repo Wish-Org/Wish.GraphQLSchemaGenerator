@@ -66,6 +66,8 @@ namespace shopify
     public interface IConnection
     {
         PageInfo? pageInfo { get; set; }
+
+        Type GetNodeType();
     }
 
     public interface IConnectionWithNodes : IConnection
@@ -77,27 +79,36 @@ namespace shopify
     {
         IEnumerable? IConnectionWithNodes.nodes { get => this.nodes; set => this.nodes = (IEnumerable<TNode>? )value; }
         new IEnumerable<TNode>? nodes { get; set; }
+
+        Type IConnection.GetNodeType() => typeof(TNode);
     }
 
     public interface IConnectionWithEdges : IConnection
     {
         IEnumerable<IEdge>? edges { get; set; }
+
+        Type GetEdgeType();
     }
 
     public interface IConnectionWithEdges<TNode> : IConnectionWithEdges
     {
         IEnumerable<IEdge>? IConnectionWithEdges.edges { get => this.edges; set => this.edges = (IEnumerable<IEdge<TNode>>? )value; }
         new IEnumerable<IEdge<TNode>>? edges { get; set; }
+
+        Type IConnection.GetNodeType() => typeof(TNode);
     }
 
     public interface IConnectionWithEdges<TEdge, TNode> : IConnectionWithEdges<TNode> where TEdge : IEdge<TNode>
     {
         IEnumerable<IEdge<TNode>>? IConnectionWithEdges<TNode>.edges { get => this.edges?.Cast<IEdge<TNode>>(); set => this.edges = value?.Cast<TEdge>(); }
         new IEnumerable<TEdge>? edges { get; set; }
+
+        Type IConnectionWithEdges.GetEdgeType() => typeof(TEdge);
     }
 
     public interface IConnectionWithNodesAndEdges<TEdge, TNode> : IConnectionWithEdges<TEdge, TNode>, IConnectionWithNodes<TNode> where TEdge : IEdge<TNode>
     {
+        Type IConnection.GetNodeType() => typeof(TNode);
     }
 
     ///<summary>
@@ -432,7 +443,7 @@ namespace shopify
         ///<summary>
         ///The number of hours since the customer has last abandoned a checkout.
         ///</summary>
-        public float? hoursSinceLastAbandonedCheckout { get; set; }
+        public double? hoursSinceLastAbandonedCheckout { get; set; }
         ///<summary>
         ///A globally-unique ID.
         ///</summary>
@@ -2019,7 +2030,7 @@ namespace shopify
         ///<summary>
         ///The percentage value of a discount.
         ///</summary>
-        public float? percentage { get; set; }
+        public double? percentage { get; set; }
     }
 
     ///<summary>
@@ -4707,7 +4718,7 @@ namespace shopify
         ///<summary>
         ///The value of the fee as a percentage.
         ///</summary>
-        public float? percentage { get; set; }
+        public double? percentage { get; set; }
     }
 
     ///<summary>
@@ -6921,11 +6932,11 @@ namespace shopify
         ///<summary>
         ///The base font size.
         ///</summary>
-        public float? @base { get; set; }
+        public double? @base { get; set; }
         ///<summary>
         ///The scale ratio used to derive all font sizes such as small and large.
         ///</summary>
-        public float? ratio { get; set; }
+        public double? ratio { get; set; }
     }
 
     ///<summary>
@@ -16757,7 +16768,7 @@ namespace shopify
         ///<summary>
         ///The merchant-defined percentage-of-rate fee for this participant.
         ///</summary>
-        public float? percentageOfRateFee { get; set; }
+        public double? percentageOfRateFee { get; set; }
     }
 
     ///<summary>
@@ -17221,7 +17232,7 @@ namespace shopify
         ///<summary>
         ///The percentage value of the deposit.
         ///</summary>
-        public float? percentage { get; set; }
+        public double? percentage { get; set; }
     }
 
     ///<summary>
@@ -17232,7 +17243,7 @@ namespace shopify
         ///<summary>
         ///The percentage value of the deposit.
         ///</summary>
-        public float? percentage { get; set; }
+        public double? percentage { get; set; }
     }
 
     ///<summary>
@@ -19453,7 +19464,7 @@ namespace shopify
         ///<summary>
         ///The percentage value of the discount.
         ///</summary>
-        public float? percentage { get; set; }
+        public double? percentage { get; set; }
     }
 
     ///<summary>
@@ -20641,7 +20652,7 @@ namespace shopify
         ///The order level discount amount. If `valueType` is `"percentage"`,
         ///then `value` is the percentage discount.
         ///</summary>
-        public float? value { get; set; }
+        public double? value { get; set; }
         ///<summary>
         ///Type of the order-level discount.
         ///</summary>
@@ -23285,11 +23296,11 @@ namespace shopify
         ///<summary>
         ///The latitude where this fulfillment event occurred.
         ///</summary>
-        public float? latitude { get; set; }
+        public double? latitude { get; set; }
         ///<summary>
         ///The longitude where this fulfillment event occurred.
         ///</summary>
-        public float? longitude { get; set; }
+        public double? longitude { get; set; }
         ///<summary>
         ///A message associated with this fulfillment event.
         ///</summary>
@@ -29569,11 +29580,11 @@ namespace shopify
         ///<summary>
         ///The approximate latitude coordinates of the location.
         ///</summary>
-        public float? latitude { get; set; }
+        public double? latitude { get; set; }
         ///<summary>
         ///The approximate longitude coordinates of the location.
         ///</summary>
-        public float? longitude { get; set; }
+        public double? longitude { get; set; }
         ///<summary>
         ///The phone number of the location.
         ///</summary>
@@ -30066,11 +30077,11 @@ namespace shopify
         ///<summary>
         ///The latitude coordinate of the customer address.
         ///</summary>
-        public float? latitude { get; set; }
+        public double? latitude { get; set; }
         ///<summary>
         ///The longitude coordinate of the customer address.
         ///</summary>
-        public float? longitude { get; set; }
+        public double? longitude { get; set; }
         ///<summary>
         ///The full name of the customer, based on firstName and lastName.
         ///</summary>
@@ -42881,7 +42892,7 @@ namespace shopify
         ///The value of price adjustment, where positive numbers reduce the prices and negative numbers
         ///increase them.
         ///</summary>
-        public float? value { get; set; }
+        public double? value { get; set; }
     }
 
     ///<summary>
@@ -43828,7 +43839,7 @@ namespace shopify
         ///<summary>
         ///The percent value of the price rule.
         ///</summary>
-        public float? percentage { get; set; }
+        public double? percentage { get; set; }
     }
 
     ///<summary>
@@ -44027,7 +44038,7 @@ namespace shopify
         ///<summary>
         ///The percentage value of the object. This is a number between -100 (free) and 0 (no discount).
         ///</summary>
-        public float? percentage { get; set; }
+        public double? percentage { get; set; }
     }
 
     ///<summary>
@@ -50599,7 +50610,7 @@ namespace shopify
         ///<summary>
         ///The value of the fee as a percentage.
         ///</summary>
-        public float? percentage { get; set; }
+        public double? percentage { get; set; }
     }
 
     ///<summary>
@@ -52683,11 +52694,11 @@ namespace shopify
         ///<summary>
         ///The average of a given attribute.
         ///</summary>
-        public float? average { get; set; }
+        public double? average { get; set; }
         ///<summary>
         ///The sum of a given attribute.
         ///</summary>
-        public float? sum { get; set; }
+        public double? sum { get; set; }
     }
 
     ///<summary>
@@ -53416,7 +53427,7 @@ namespace shopify
         ///<summary>
         ///The percentage value of the price used for checkout charge.
         ///</summary>
-        public float? percentage { get; set; }
+        public double? percentage { get; set; }
     }
 
     ///<summary>
@@ -54286,7 +54297,7 @@ namespace shopify
         ///<summary>
         ///The percentage value.
         ///</summary>
-        public float? percentage { get; set; }
+        public double? percentage { get; set; }
     }
 
     ///<summary>
@@ -55332,11 +55343,11 @@ namespace shopify
         ///<summary>
         ///The latitude coordinate of the address.
         ///</summary>
-        public float? latitude { get; set; }
+        public double? latitude { get; set; }
         ///<summary>
         ///The longitude coordinate of the address.
         ///</summary>
-        public float? longitude { get; set; }
+        public double? longitude { get; set; }
 
         ///<summary>
         ///The full name, based on firstName and lastName.
@@ -62072,11 +62083,11 @@ namespace shopify
         ///<summary>
         ///The proportion of the line item price that the tax represents as a decimal.
         ///</summary>
-        public float? rate { get; set; }
+        public double? rate { get; set; }
         ///<summary>
         ///The proportion of the line item price that the tax represents as a percentage.
         ///</summary>
-        public float? ratePercentage { get; set; }
+        public double? ratePercentage { get; set; }
         ///<summary>
         ///The source of the tax.
         ///</summary>
@@ -63334,7 +63345,7 @@ namespace shopify
         ///<summary>
         ///The quantity value for the unit price measurement.
         ///</summary>
-        public float? quantityValue { get; set; }
+        public double? quantityValue { get; set; }
         ///<summary>
         ///The reference unit for the unit price measurement.
         ///</summary>
@@ -64302,15 +64313,15 @@ namespace shopify
         ///<summary>
         ///The x coordinate of Vector3.
         ///</summary>
-        public float? x { get; set; }
+        public double? x { get; set; }
         ///<summary>
         ///The y coordinate of Vector3.
         ///</summary>
-        public float? y { get; set; }
+        public double? y { get; set; }
         ///<summary>
         ///The z coordinate of Vector3.
         ///</summary>
-        public float? z { get; set; }
+        public double? z { get; set; }
     }
 
     ///<summary>
@@ -65515,7 +65526,7 @@ namespace shopify
         ///<summary>
         ///The weight value using the unit system specified with `unit`.
         ///</summary>
-        public float? value { get; set; }
+        public double? value { get; set; }
     }
 
     ///<summary>
