@@ -16,6 +16,7 @@ namespace Wish.GraphQLSchemaGenerator.Tests
             {
                 { "UnsignedInt64", "ulong" },
                 { "Money", "decimal" },
+                { "Float", "decimal" },
                 { "Decimal", "decimal" },
                 { "DateTime", "DateTime" },
                 { "Date", "DateOnly" },

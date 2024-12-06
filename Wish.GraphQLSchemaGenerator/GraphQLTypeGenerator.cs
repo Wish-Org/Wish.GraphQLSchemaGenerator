@@ -161,11 +161,13 @@ namespace Wish.GraphQLSchemaGenerator
             {
                 PageInfo? pageInfo { get; set; }
                 Type GetNodeType();
+                IEnumerable? GetNodes();
             }
 
             public interface IConnectionWithNodes : IConnection
             {
                 IEnumerable? nodes { get; set; }
+                IEnumerable? IConnection.GetNodes() => this.nodes;
             }
 
             public interface IConnectionWithNodes<TNode> : IConnectionWithNodes
@@ -183,6 +185,7 @@ namespace Wish.GraphQLSchemaGenerator
             {
                 IEnumerable<IEdge>? edges { get; set; }
                 Type GetEdgeType();
+                IEnumerable? IConnection.GetNodes() => this.edges?.Select(e => e.node);
             }
 
             public interface IConnectionWithEdges<TNode> : IConnectionWithEdges
@@ -210,6 +213,7 @@ namespace Wish.GraphQLSchemaGenerator
             public interface IConnectionWithNodesAndEdges<TEdge, TNode> : IConnectionWithEdges<TEdge, TNode>, IConnectionWithNodes<TNode> where TEdge : IEdge<TNode>
             {
                 Type IConnection.GetNodeType() => typeof(TNode);
+                IEnumerable? IConnection.GetNodes() => this.nodes ?? this.edges?.Select(e => e.node);
             }
             """;
 
